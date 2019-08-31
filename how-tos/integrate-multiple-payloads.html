@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Integrate Multiple Payloads &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Create IAS Boot Image" href="create-ias-boot-image.html" />
+    <link rel="prev" title="Add Fastboot Support" href="add-fastboot.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cook Book</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update-firmware.html">Update Firmware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Cook Book</a> &raquo;</li>
+        
+      <li>Integrate Multiple Payloads</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="integrate-multiple-payloads">
+<span id="id1"></span><h1>Integrate Multiple Payloads<a class="headerlink" href="#integrate-multiple-payloads" title="Permalink to this headline">¶</a></h1>
+<p>You can integrate more than one payload files using SBL build tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python BuildLoader.py build &lt;PLATFORM&gt; -p &lt;PAYLOAD_FILE&gt;:&lt;PAYLOAD_ID&gt;:&lt;COMPRESSION_ALGORITHM&gt;;...
+
+Multi-payload build option format:
+
+&lt;PAYLOAD_FILE&gt;:&lt;PAYLOAD_ID&gt;:&lt;COMPRESSION_ALGORITHM&gt;;...
+
+&lt;PAYLOAD_FILE&gt;           : external payload file name. Required to be placed in ``PayloadPkg/PayloadBins`` directory
+&lt;PAYLOAD_ID&gt;             : 4-byte ASCII name for this payload
+&lt;COMPRESSION_ALGORITHM&gt;  : compression algorithm for this payload (&#39;Lz4&#39; or &#39;Lzma&#39;)
+</pre></div>
+</div>
+<p>The following procedure shows you how to integrate <code class="docutils literal notranslate"><span class="pre">UefiPld.fd</span></code> into SBL image. Adding other custom payloads is similar.</p>
+<ol class="arabic simple">
+<li>Copy <code class="docutils literal notranslate"><span class="pre">UefiPld.fd</span></code> into <code class="docutils literal notranslate"><span class="pre">PayloadPkg/PayloadBins</span></code> directory (create the directory if it is missing)</li>
+<li>Specify <code class="docutils literal notranslate"><span class="pre">PayloadId</span></code> in SBL configuration file (<code class="docutils literal notranslate"><span class="pre">*.dlt</span></code>)</li>
+</ol>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">PayloadId</span></code> tells SBL which payload to load instead of default <code class="docutils literal notranslate"><span class="pre">OsLoader</span></code>. For QEMU, open <code class="docutils literal notranslate"><span class="pre">Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt</span></code> and append the following configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GEN_CFG_DATA</span><span class="o">.</span><span class="n">PayloadId</span>                     <span class="o">|</span> <span class="s1">&#39;UEFI&#39;</span>
+</pre></div>
+</div>
+<p>You may also use Configuration Editor to make file changes. See <a class="reference internal" href="../tools/index.html#configuration-tool"><span class="std std-ref">Configuration Editor</span></a> for more details.</p>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p class="first">Build <code class="docutils literal notranslate"><span class="pre">UefiPld.fd</span></code> into SBL image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span> <span class="o">-</span><span class="n">p</span> <span class="s2">&quot;OsLoader.efi:LLDR:Lz4;UefiPld.fd:UEFI:Lzma&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">UefiPld.fd</span></code> image is located in the <code class="docutils literal notranslate"><span class="pre">EPLD</span></code> region according to SBL flash map.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PayloadId</span></code> is 4 bytes and should match the value used in the configuration. In this example, <code class="docutils literal notranslate"><span class="pre">PayloadId</span></code> is <code class="docutils literal notranslate"><span class="pre">UEFI</span></code> on the command line.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">PayloadId</span></code> 0 is reserved for OsLoader payload.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The payload footprint should be considered as whether it can be fit into the limited flash space. Smaller, single-purpose payload allows flexibility and easier to debug.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="create-ias-boot-image.html" class="btn btn-neutral float-right" title="Create IAS Boot Image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="add-fastboot.html" class="btn btn-neutral" title="Add Fastboot Support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Aug 31, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

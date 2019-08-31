@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Slim Bootloader Project Documentation &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="introduction/index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Slim Bootloader Project Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pn-project-documentation">
+<h1>Slim Bootloader Project Documentation<a class="headerlink" href="#pn-project-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to Slim Bootloader Open Source Project (version 1.0) documentation!</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction/index.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction/index.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction/index.html#frequently-asked-questions">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/build-host-setup.html">Build Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/build-source.html">SBL Build Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/misc-build-setup.html">Miscellaneous: Dockers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/misc-build-setup.html#miscellaneous-proxy-settings">Miscellaneous: Proxy Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="supported-hardware/index.html">Supported Hardware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="supported-hardware/qemu.html">QEMU Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported-hardware/up2.html">UP<sup>2</sup> Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported-hardware/apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported-hardware/whl-crb.html">Whiskey Lake CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported-hardware/cfl-crb.html">Coffee Lake Refresh CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supported-hardware/upxtreme.html">UP Xtreme Board</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer-guides/index.html">Developer’s Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/boot-flow.html">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/boot-flow.html#boot-flow">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/ias.html">IAS Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/debugging-with-udk.html">Source Level Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer-guides/contributions.html">Contribution Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security/index.html">Security Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="security/boot-guard.html">Boot Guard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security/verified-boot.html">Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security/measured-boot.html">Measured Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security/firmware-update.html">Firmware Update</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how-tos/index.html">Cook Book</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/update-firmware.html">Update Firmware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-tos/collect-time-logs.html">Capture Boot Time Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools/index.html">Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html#build-command">Build Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html#ias-tool">IAS Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html#stitch-tool">Stitch Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools/index.html#cfgtool">Configuration Editor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex1.html">Exercise 1 - Build SBL for QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex2.html">Exercise 2 - Run SBL on QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex3.html">Exercise 3 - SBL Shell/CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex4.html">Exercise 4 - Boot to Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex5.html">Exercise 5 - Feature Customization - Splash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex6.html">Exercise 6 - Feature Customization - Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex7.html">Exercise 7 - Feature Customization - Boot Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ex8.html">Exercise 8 - UEFI Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction/index.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Aug 31, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

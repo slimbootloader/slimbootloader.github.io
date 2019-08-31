@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Add Fastboot Support &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Integrate Multiple Payloads" href="integrate-multiple-payloads.html" />
+    <link rel="prev" title="Create New Payload" href="add-new-payload.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cook Book</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update-firmware.html">Update Firmware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Add Fastboot Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#load-from-usb">Load from USB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-from-spi">Load from SPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Cook Book</a> &raquo;</li>
+        
+      <li>Add Fastboot Support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="add-fastboot-support">
+<span id="add-fastboot"></span><h1>Add Fastboot Support<a class="headerlink" href="#add-fastboot-support" title="Permalink to this headline">¶</a></h1>
+<p>This page guides you to integrate an external fastboot executable in SBL. The steps described are also applicable to any <strong>MultiBoot</strong> format executables.</p>
+<p>Fastboot protocol allows communication between host and device bootloader via USB or Ethernet. Fastboot image can be loaded as a boot option configured in SBL. Typically fastboot is used to provision OS images to eMMC with fastboot utility or similar GUI-based tools (E.g. <a href="https://01.org/node/2463" target="_blank">Intel® Platform Flash Tool Lite</a>).</p>
+<div class="section" id="load-from-usb">
+<h2>Load from USB<a class="headerlink" href="#load-from-usb" title="Permalink to this headline">¶</a></h2>
+<p>The following steps provide an example to enable fastboot feature from <strong>USB</strong> key for UP<sup>2</sup> board.</p>
+<p><strong>Step 1:</strong> Download fastboot executable from <a href="https://github.com/intel/kernelflinger/tree/master/prebuilt/board/APL_UP2" target="_blank">here</a></p>
+<p><strong>Step 2:</strong> Download and install open source IAS tool from <a href="https://github.com/intel/iasimage" target="_blank">here</a></p>
+<p><strong>Step 3:</strong> Package fastboot.elf into IAS image format</p>
+<blockquote>
+<div><p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iasimage</span> <span class="n">create</span> <span class="o">-</span><span class="n">o</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">private_key</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">i</span> <span class="mh">0x40000</span> <span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span> <span class="n">fastboot</span><span class="o">.</span><span class="n">elf</span>
+
+
+<span class="o">&lt;</span><span class="n">private_key</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">Keys</span><span class="o">/</span><span class="n">TestSigningPrivateKey</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span>  <span class="p">:</span> <span class="n">Not</span> <span class="n">required</span> <span class="k">for</span> <span class="n">fastboot</span> <span class="n">to</span> <span class="n">work</span><span class="o">.</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">empty</span> <span class="n">file</span> <span class="k">for</span> <span class="n">it</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Step 4:</strong> Copy IAS image <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code> into the <strong>first</strong> FAT partition on USB flash drive</p>
+<p><strong>Step 5:</strong> Build, stitch and flash SBL to UP<sup>2</sup></p>
+<blockquote>
+<div>Follow <a class="reference internal" href="../supported-hardware/up2.html#up2-board"><span class="std std-ref">UP2 Board</span></a> to build a flashable image and prepare UP<sup>2</sup> for booting.</div></blockquote>
+<p><strong>Step 6:</strong> Boot and switch SBL into fastboot mode from shell interface</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Upon reset, press any key to enter SBL shell prompt</li>
+<li>Type <code class="docutils literal notranslate"><span class="pre">boot</span></code> to swap boot option index between last and first</li>
+<li>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> to boot into fastboot mode</li>
+</ol>
+<p>Expected serial output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Starting</span> <span class="n">MB</span> <span class="n">Kernel</span> <span class="o">...</span>
+
+<span class="o">...</span>
+<span class="n">Group</span>    <span class="o">=</span><span class="mi">000000</span><span class="n">FF</span>
+<span class="n">Command</span>  <span class="o">=</span><span class="mi">0000000</span><span class="n">C</span>
+<span class="n">IsRespone</span><span class="o">=</span><span class="mi">00000001</span>
+<span class="n">Result</span>   <span class="o">=</span><span class="mi">00000000</span>
+<span class="n">RequestedActions</span>   <span class="o">=</span><span class="mi">00000000</span>
+<span class="n">USB</span> <span class="k">for</span> <span class="n">fastboot</span> <span class="n">transport</span> <span class="n">layer</span> <span class="n">selected</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Step 7:</strong> Test fastboot connections between host and UP<sup>2</sup></p>
+<blockquote>
+<div><p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastboot</span> <span class="n">devices</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="load-from-spi">
+<h2>Load from SPI<a class="headerlink" href="#load-from-spi" title="Permalink to this headline">¶</a></h2>
+<p>You can also add fastboot into SBL image and program it into SPI flash.</p>
+<p><strong>Step 1:</strong> Once you created <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code>, copy it into SBL directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span> <span class="n">Platform</span><span class="o">/</span><span class="n">ApollolakeBoardPkg</span><span class="o">/</span><span class="n">SpiIasBin</span><span class="o">/</span><span class="n">iasimage1</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p><strong>Step 2:</strong> Build, stitch and flash SBL to UP<sup>2</sup></p>
+<p><strong>Step 3:</strong> Boot and switch SBL into fastboot mode from shell interface</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Upon reset, press any key to enter SBL shell prompt</li>
+<li>Type <code class="docutils literal notranslate"><span class="pre">boot</span></code> to swap boot option index between last and first</li>
+<li>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> to boot into fastboot mode</li>
+</ol>
+<p>Expected serial output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Starting</span> <span class="n">MB</span> <span class="n">Kernel</span> <span class="o">...</span>
+
+<span class="o">...</span>
+<span class="n">Group</span>    <span class="o">=</span><span class="mi">000000</span><span class="n">FF</span>
+<span class="n">Command</span>  <span class="o">=</span><span class="mi">0000000</span><span class="n">C</span>
+<span class="n">IsRespone</span><span class="o">=</span><span class="mi">00000001</span>
+<span class="n">Result</span>   <span class="o">=</span><span class="mi">00000000</span>
+<span class="n">RequestedActions</span>   <span class="o">=</span><span class="mi">00000000</span>
+<span class="n">USB</span> <span class="k">for</span> <span class="n">fastboot</span> <span class="n">transport</span> <span class="n">layer</span> <span class="n">selected</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Step 4:</strong> Install and test fastboot connections between host and UP<sup>2</sup></p>
+<blockquote>
+<div><p>Connect USB cable between host and UP<sup>2</sup> OTG port.</p>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">fastboot</span>
+
+<span class="n">fastboot</span> <span class="n">devices</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Provisioning complete Linux OS image requires GPT table, kernel image and root file system. The procedure depends Linux distro release package format. This guide only provides the initial mechanism to enable fastboot protocol.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="integrate-multiple-payloads.html" class="btn btn-neutral float-right" title="Integrate Multiple Payloads" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="add-new-payload.html" class="btn btn-neutral" title="Create New Payload" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Aug 31, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

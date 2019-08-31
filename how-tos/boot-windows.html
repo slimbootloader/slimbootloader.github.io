@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Boot Windows with UEFI Payload &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot Ubuntu" href="boot-ubuntu.html" />
+    <link rel="prev" title="Create IAS Boot Image" href="create-ias-boot-image.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cook Book</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update-firmware.html">Update Firmware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Cook Book</a> &raquo;</li>
+        
+      <li>Boot Windows with UEFI Payload</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="boot-windows-with-uefi-payload">
+<span id="boot-windows"></span><h1>Boot Windows with UEFI Payload<a class="headerlink" href="#boot-windows-with-uefi-payload" title="Permalink to this headline">¶</a></h1>
+<p>SBL can boot Windows 10 by using <a class="reference external" href="https://github.com/tianocore/edk2">UEFI Payload</a>. EDK II includes UefiPayloadPkg to build an UEFI payload that SBL can launch.</p>
+<p>This page provides a step-by-step on guide how to build SBL with UEFI Payload.</p>
+<p><strong>References</strong></p>
+<p><a class="reference external" href="https://github.com/tianocore/edk2/blob/master/UefiPayloadPkg/BuildAndIntegrationInstructions.txt">UEFI Payload Build Instructions</a></p>
+<p><strong>Note</strong></p>
+<p>Visual Studio 2015 is used for building both the UEFI payload as well as SBL.
+PYTHON_HOME environment variable needs to be set</p>
+<p><strong>Note</strong></p>
+<p>EDK II build relies on a set of tools provided in the BaseTools folder. This is the primary set of tools for processing EDK II content.</p>
+<p>When EDK II is cloned fresh, a one time build of BaseTools is required and its done using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">edksetup</span><span class="o">.</span><span class="n">bat</span> <span class="n">rebuild</span>
+</pre></div>
+</div>
+<p><strong>Note</strong></p>
+<p>Please note that the open source UefiPayload source is designed to be a generic payload. It consumes SBL produced HOB data structures to get information about the platform like memory map, ACPI tables, etc. This basically allows the UefiPayload to be used with SBL without needing any platform porting.</p>
+<p>To allow for the UefiPayload to be a generic payload, the payload default build includes an emulated UEFI Variable driver. This emulated variable driver maintains the UEFI variable storage in memory and is <strong>NOT</strong> persistent across any type of reboots.</p>
+<p><strong>Note</strong></p>
+<p>This guide uses Apollo Lake platform platform as a reference for build instructions and commands.</p>
+<p><strong>STEP 1:</strong> Build UEFIPayload</p>
+<p>We have verified this build with the following commit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">edk2</span> <span class="n">repo</span><span class="p">:</span> <span class="n">commit</span> <span class="mi">42</span><span class="n">d8be0eaac5e7e109f487d4e241847e815b077a</span>
+</pre></div>
+</div>
+<p>Steps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone --recurse-submodules https://github.com/tianocore/edk2.git edk2
+cd edk2
+git checkout 42d8be0eaac5e7e109f487d4e241847e815b077a
+git submodule update –recursive
+edksetup.bat
+build -a IA32 -a X64 -p UefiPayloadPkg\UefiPayloadPkgIa32X64.dsc -b DEBUG -t VS2015x86 -D BOOTLOADER=SBL
+</pre></div>
+</div>
+<p>Example outputs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Done</span> <span class="o">-</span>
+<span class="n">Build</span> <span class="n">end</span> <span class="n">time</span><span class="p">:</span> <span class="mi">11</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span> <span class="n">Apr</span><span class="o">.</span><span class="mi">23</span> <span class="mi">2019</span>
+<span class="n">Build</span> <span class="n">total</span> <span class="n">time</span><span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">48</span>
+</pre></div>
+</div>
+<p>The <strong>UEFIPAYLOAD.fd</strong> will be built in <em>edk2\Build\UefiPayloadPkgX64\DEBUG_VS2015x86\FV</em></p>
+<p><strong>STEP 2:</strong> Build SBL with UEFIPayload</p>
+<p>Download source code at the same <strong>level</strong> as edk2 source code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">.</span><span class="n">git</span> <span class="n">sbl</span>
+</pre></div>
+</div>
+<p>Copy UEFIPayload image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">sbl</span>\<span class="n">PayloadPkg</span>\<span class="n">PayloadBins</span>
+<span class="n">copy</span> <span class="n">edk2</span>\<span class="n">Build</span>\<span class="n">UefiPayloadPkgX64</span>\<span class="n">DEBUG_VS2015x86</span>\<span class="n">FV</span>\<span class="n">UEFIPAYLOAD</span><span class="o">.</span><span class="n">fd</span> <span class="n">sbl</span>\<span class="n">PayloadPkg</span>\<span class="n">PayloadBins</span>\<span class="n">UEFIPAYLOAD</span><span class="o">.</span><span class="n">fd</span>
+</pre></div>
+</div>
+<p>Insert the following line to file <code class="docutils literal notranslate"><span class="pre">sbl\Platform\ApollolakeBoardPkg\CfgData\CfgData_Int_LeafHill.dlt</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GEN_CFG_DATA</span><span class="o">.</span><span class="n">PayloadId</span>                   <span class="o">|</span> <span class="s1">&#39;UEFI&#39;</span>
+</pre></div>
+</div>
+<p>Build:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">sbl</span>
+<span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">apl</span> <span class="o">-</span><span class="n">p</span> <span class="s2">&quot;OsLoader.efi:LLDR:Lz4;UEFIPAYLOAD.fd:UEFI:Lzma&quot;</span>
+</pre></div>
+</div>
+<p>Stitch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span>\<span class="n">ApollolakeBoardPkg</span>\<span class="n">Script</span>\<span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">LEAFHILL_8MB_IFWI</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span>\<span class="n">apl</span>\<span class="n">Stitch_Components</span><span class="o">.</span><span class="n">zip</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_lfh_ifwi_uefi64</span><span class="o">.</span><span class="n">bin</span>
+
+<span class="o">&lt;</span><span class="n">LEAFHILL_8MB_IFWI</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Leaf</span> <span class="n">Hill</span> <span class="mi">8</span><span class="n">MB</span> <span class="n">IFWI</span> <span class="n">image</span>
+</pre></div>
+</div>
+<p>Example outputs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ADD ROOT/IFWI/BP1/SBPDT/BpdtObb/PROV ...
+Done!
+ADD ROOT/IFWI/BP1/SBPDT/BpdtObb/EPLD ...
+Done!
+ADD ROOT/IFWI/BP1/SBPDT/BpdtObb/UVAR ...
+Done!
+Patching Slim Bootloader Flash Map table ...
+Flash map was patched successfully!
+Creating IFWI image ...
+Done!
+</pre></div>
+</div>
+<p>The final generate IFWI can be found as <code class="docutils literal notranslate"><span class="pre">sbl_lfh_ifwi_uefi64.bin</span></code> (8MB in size) in the working directory</p>
+<p><strong>STEP 3:</strong> Flash</p>
+<p>Use DediProg, you can flash <code class="docutils literal notranslate"><span class="pre">sbl_lfh_ifwi_uefi64.bin</span></code> to SPI flash on Leaf Hill CRB.</p>
+<p><strong>STEP 4:</strong> Install Windows 10 from USB flash drive</p>
+<p>Follow <a class="reference external" href="https://www.microsoft.com/en-us/software-download/windows10">https://www.microsoft.com/en-us/software-download/windows10</a> to create Windows 10 USB installer.</p>
+<p>Boot from USB flash drive and follow instructions on the screen to complete Windows installation.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="boot-ubuntu.html" class="btn btn-neutral float-right" title="Boot Ubuntu" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="create-ias-boot-image.html" class="btn btn-neutral" title="Create IAS Boot Image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Aug 31, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

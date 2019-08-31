@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Exercise 1 - Build SBL for QEMU &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exercise 2 - Run SBL on QEMU" href="ex2.html" />
+    <link rel="prev" title="Tutorials" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exercise 1 - Build SBL for QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex2.html">Exercise 2 - Run SBL on QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex3.html">Exercise 3 - SBL Shell/CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex4.html">Exercise 4 - Boot to Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex5.html">Exercise 5 - Feature Customization - Splash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex6.html">Exercise 6 - Feature Customization - Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex7.html">Exercise 7 - Feature Customization - Boot Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex8.html">Exercise 8 - UEFI Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Tutorials</a> &raquo;</li>
+        
+      <li>Exercise 1 - Build SBL for QEMU</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="exercise-1-build-spn-for-qemu">
+<span id="exercise-1"></span><h1>Exercise 1 - Build SBL for QEMU<a class="headerlink" href="#exercise-1-build-spn-for-qemu" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>In this exercise, we’ll learn how to build SBL for QEMU emulator.</strong></p>
+</div>
+<p>You can build SBL with the following steps:</p>
+<ol class="arabic">
+<li><p class="first">Launch Command Prompt</p>
+</li>
+<li><p class="first">Go to SBL source code folder by using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">C</span><span class="p">:</span>\<span class="n">slimbootloader</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Clean source code folder before we build code by using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">clean</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Build source code by using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Completion: you will see <code class="docutils literal notranslate"><span class="pre">Done</span> <span class="pre">[qemu]</span></code> on the screen after compile completed</p>
+</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ex1.jpg"><img alt="Compile completed" class="align-center" src="../_images/ex1.jpg" style="width: 500px; height: 350px;" /></a>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>If build target is changed,  it is recommended to do a clean first before build.  If source code is modified, incremental build is conducted automatically:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">clean</span>
+</pre></div>
+</div>
+<p>By default, it builds DEBUG binary with FSP release binary.  It can be changed:</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">fd</span><span class="p">:</span> <span class="n">uses</span> <span class="n">FSP</span> <span class="n">DEBUG</span> <span class="n">binary</span><span class="o">.</span>
+
+<span class="o">-</span><span class="n">r</span><span class="p">:</span> <span class="n">RELEASE</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ex2.html" class="btn btn-neutral float-right" title="Exercise 2 - Run SBL on QEMU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Aug 31, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

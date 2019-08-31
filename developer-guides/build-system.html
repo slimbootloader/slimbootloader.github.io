@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build System &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Stitch IFWI Image" href="stitching-ifwi.html" />
+    <link rel="prev" title="Source Tree Structure" href="source-tree.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pre-build-customization">Pre Build Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-spn">Build SBL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#post-build-customization">Post Build Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release-vs-debug-build">Release vs Debug Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developing-on-windows">Developing on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#boot-flow">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ias.html">IAS Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer’s Guide</a> &raquo;</li>
+        
+      <li>Build System</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-system">
+<span id="id1"></span><h1>Build System<a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h1>
+<p>SBL chooses EDK II build system to compile and build SBL image. EDK II build infrastructure provides a flexible framework supporting different platforms and extensive configuration capabilities.</p>
+<p>It supports many tools chains including <strong>GCC</strong> on Linux and <strong>Visual Studio</strong> on Windows.</p>
+<p>This choice also comes with two benefits:</p>
+<ul class="simple">
+<li>EDK II build tool is familiar to many UEFI/BIOS developers</li>
+<li>Open source EDK II libraries can be ported with smaller effort</li>
+</ul>
+<div class="section" id="pre-build-customization">
+<span id="pre-build"></span><h2>Pre Build Customization<a class="headerlink" href="#pre-build-customization" title="Permalink to this headline">¶</a></h2>
+<p>SBL build system provides build time customization. Before the build, one can modify the configuration file <code class="docutils literal notranslate"><span class="pre">Platform/&lt;Platform_Foo&gt;/BoardConfig.py</span></code> based on requirement, image footprint, or hardware features etc.</p>
+<p>Prebuild process determines the build time configuration by generating multiple files, among those are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">File</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Platform.dsc</td>
+<td>Finalized platform configuration based on <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code></td>
+</tr>
+<tr class="row-odd"><td>ConfigDataStruct.h</td>
+<td>C header file for configuration data structure based on <code class="docutils literal notranslate"><span class="pre">*.dsc</span></code> file</td>
+</tr>
+<tr class="row-even"><td>ConfigDataBlob.h</td>
+<td>C file for <em>Internal</em> configuration data with default values</td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="../how-tos/customize-build.html#customize-build"><span class="std std-ref">Customize Build</span></a> for more details.</p>
+</div>
+<div class="section" id="build-spn">
+<span id="build-sbl"></span><h2>Build SBL<a class="headerlink" href="#build-spn" title="Permalink to this headline">¶</a></h2>
+<p>SBL master build script <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code> provides many options to compile images. To get help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>Build SBL for a supported platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">platform_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Clean up files generated during build process:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">clean</span>
+</pre></div>
+</div>
+<p>Final SBL image(s) should be generated under <code class="docutils literal notranslate"><span class="pre">Outputs/&lt;platform_name&gt;</span></code> directory</p>
+<p>See <a class="reference internal" href="../tools/index.html#build-tool"><span class="std std-ref">Build Command</span></a> for more details.</p>
+</div>
+<div class="section" id="post-build-customization">
+<span id="post-build"></span><h2>Post Build Customization<a class="headerlink" href="#post-build-customization" title="Permalink to this headline">¶</a></h2>
+<p>SBL supports platform customizations by embedding configuration data in a dedicated region in the image. The configuration data region can be <em>patched</em> without recompiling the code. This feature is most useful in supporting multiple similar boards in a single SBL image.</p>
+</div>
+<div class="section" id="release-vs-debug-build">
+<span id="release-build"></span><h2>Release vs Debug Build<a class="headerlink" href="#release-vs-debug-build" title="Permalink to this headline">¶</a></h2>
+<p>SBL build system provides building debug or release images. Debug build contains verbose log messages for debugging, while release build image is deployed in a production environment. It contains minimum log messages to the console, and in some cases, may be built with more secure configurations, compared to debug build image.</p>
+<p>Build system builds debug SBL image by default. To build a release image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When verified boot is enabled, SBL release build requires IAS image format to boot OS.</p>
+</div>
+</div>
+<div class="section" id="developing-on-windows">
+<span id="develop-on-windows"></span><h2>Developing on Windows<a class="headerlink" href="#developing-on-windows" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Typically, Windows C compiler generates smaller code size compared to GCC build. This needs to be considered when allocating image size in SBL build.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="stitching-ifwi.html" class="btn btn-neutral float-right" title="Stitch IFWI Image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="source-tree.html" class="btn btn-neutral" title="Source Tree Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Aug 31, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

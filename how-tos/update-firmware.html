@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Update Firmware &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reduce debug messages" href="reduce-debug-message.html" />
+    <link rel="prev" title="Enable Pre-OS Payload Support" href="enable-pre-os-payload.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cook Book</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Update Firmware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#trigger-update-from-shell">Trigger Update From Shell</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Cook Book</a> &raquo;</li>
+        
+      <li>Update Firmware</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="update-firmware">
+<span id="id1"></span><h1>Update Firmware<a class="headerlink" href="#update-firmware" title="Permalink to this headline">¶</a></h1>
+<p>Creating firmware update capsule image requires the following steps:</p>
+<p># Build SBL for UP<sup>2</sup>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">apl</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>Run stitch tool to create a SBL capsule payload from IFWI image</li>
+</ol>
+<blockquote>
+<div><p>For example, the following command creates <code class="docutils literal notranslate"><span class="pre">sbl.bios.bin</span></code> from SBL image and factory BIOS <code class="docutils literal notranslate"><span class="pre">UPA1AM33.bin</span></code> for UP<sup>2</sup> board:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">ApollolakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">b</span> <span class="n">sbl</span><span class="o">.</span><span class="n">bios</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">i</span> <span class="n">UPA1AM33</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">apl</span><span class="o">/</span><span class="n">Stitch_Components</span><span class="o">.</span><span class="n">zip</span> <span class="o">-</span><span class="n">o</span> <span class="n">up2_sbl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">p</span> <span class="mh">0xAA00000E</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">-b</span></code> option is important for creating the capsule image.</p>
+<p class="last">See <a class="reference internal" href="../tools/index.html#stitch-tool"><span class="std std-ref">Stitch Tool</span></a> for more details on stitching.</p>
+</div>
+<ol class="arabic simple">
+<li>Run capsule tool to generate capsule image</li>
+</ol>
+<blockquote>
+<div><p>Capsule tool (<code class="docutils literal notranslate"><span class="pre">GenCapsuleFirmware.py</span></code>) creates a capsule image that can be processed by SBL in firmware update flow.</p>
+<p>Capsule tool is capable of incorporating multiple firmware images into single capsule binary. Each firmware is identified and included in the capsule image using a GUID.
+Known GUIDs are included in the capsule generation tool, please refer to the note below for more details.</p>
+<blockquote>
+<div><p>usage: GenCapsuleFirmware.py [-h] -p BIOS &lt;BIOS_IMAGE&gt; -p &lt;GUID&gt; &lt;FW IMAGE BINARY 1&gt;…..-p &lt;GUID&gt; &lt;FW IMAGE BINARY n&gt; -k PRIVKEY -o NEWIMAGE [-q]</p>
+<dl class="docutils">
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help message and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td>&lt;GUID&gt; &lt;Payload Image&gt;,
+Payload image that goes into firmware update capsule</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-k <var>PRIVKEY</var></span>, <span class="option">--priv_key <var>PRIVKEY</var></span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Private RSA 2048 key in PEM format to sign image</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-o <var>NEWIMAGE</var></span>, <span class="option">--output <var>NEWIMAGE</var></span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Output file for signed image</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-q</span>, <span class="option">--quiet</span></kbd></td>
+<td>without output messages or temp files</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div></blockquote>
+<p>For example, the following command generates a capsule image (<code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code>) containing an IFWI image (<code class="docutils literal notranslate"><span class="pre">sbl.bios.bin</span></code>), CSME image (<code class="docutils literal notranslate"><span class="pre">csme.bin</span></code>), CSME Firmware Update Driver (<code class="docutils literal notranslate"><span class="pre">csme_fw_update_driver.bin</span></code>) and firmware image (<code class="docutils literal notranslate"><span class="pre">fwimage.bin</span></code>) signed by key <code class="docutils literal notranslate"><span class="pre">TestSigningPrivateKey.pem</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -p fwimage.bin -k ./BootloaderCorePkg/Tools/Keys/TestSigningPrivateKey.pem -o FwuImage.bin
+Successfully signed Bootloader image!
+$
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>For user convenience GUID’s for following firmwares are included in the capsule generation tool and these firmwares can be included in the capsule image by using known string in place of GUID in the command line.</p>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>String for Known Guid</strong></td>
+<td><strong>Firmware</strong></td>
+</tr>
+<tr class="row-even"><td><strong>BIOS</strong></td>
+<td>Slim Bootloader</td>
+</tr>
+<tr class="row-odd"><td><strong>CSME</strong></td>
+<td>CSME update binary</td>
+</tr>
+<tr class="row-even"><td><strong>CSMD</strong></td>
+<td>CSME update driver</td>
+</tr>
+<tr class="row-odd"><td><strong>CFGD</strong></td>
+<td>Configuration data binary</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In a real OTA scenario, OS shall <em>deposit</em> an authenticated capsule image in the boot device from network. During firmware update, the capsule is loaded and updated in SPI flash.</p>
+</div>
+<div class="section" id="trigger-update-from-shell">
+<span id="id2"></span><h2>Trigger Update From Shell<a class="headerlink" href="#trigger-update-from-shell" title="Permalink to this headline">¶</a></h2>
+<p>During development, one can use shell command to manually test firmware update without relying on full OTA support in OS.</p>
+<ol class="arabic">
+<li><p class="first">Copy <code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code> into root directory on FAT partition of a USB key</p>
+</li>
+<li><p class="first">Boot and press any key to enter SBL shell</p>
+</li>
+<li><p class="first">Type command <code class="docutils literal notranslate"><span class="pre">fwupdate</span></code> from shell</p>
+<p>Observe SBL resets the platform and performs update flow. It resets <em>multiple</em> times to complete the update process.</p>
+<p>A sample boot messages from console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Shell&gt; fwupdate
+HECI SecMode 0
+...
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP0
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+BootPolicy : 0x00000010
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+Jump to payload
+...
+Starting Firmware Update
+...
+=================Read Capsule Image==============
+...
+CapsuleImage: 0x787AF000, CapsuleSize: 0xEFE248
+HASH Verification Success! Component Type (5)
+RSA Verification Success!
+The new BOOTLOADER image passed verification
+...
+HECI/CSE ready for update
+Updating 0x77F000, Size:0x10000
+................  Finished     0%
+Updating 0x78F000, Size:0x10000
+................  Finished     1%
+...
+Updating 0xEDF000, Size:0x10000
+................  Finished    99%
+Updating 0xEEF000, Size:0xE000
+..............  Finished    99%
+.Reset required to proceed with the firmware update.
+
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP1
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+BootPolicy : 0x00000010
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+=================Read Capsule Image==============
+...
+CapsuleImage: 0x787AE000, CapsuleSize: 0xEFE248
+HASH Verification Success! Component Type (5)
+RSA Verification Success!
+The new BOOTLOADER image passed verification
+...
+HECI/CSE prepare for update failed
+Updating 0x0, Size:0x10000
+x...............  Finished     0%
+Updating 0x10000, Size:0x10000
+................  Finished     1%
+Updating 0x20000, Size:0x10000
+................  Finished    99%
+Updating 0x770000, Size:0xF000
+...............  Finished    99%
+.Reset required to proceed with the firmware update.
+
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP0
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+Firmware update Done! clear CSE flag to normal boot mode.
+...
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP0
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+==================== OS Loader ====================
+
+Starting Kernel ...
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reduce-debug-message.html" class="btn btn-neutral float-right" title="Reduce debug messages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="enable-pre-os-payload.html" class="btn btn-neutral" title="Enable Pre-OS Payload Support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Aug 31, 2019.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
