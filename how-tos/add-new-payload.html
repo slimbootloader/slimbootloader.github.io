@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Create New Payload &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Add Fastboot Support" href="add-fastboot.html" />
+    <link rel="prev" title="Add New Library" href="add-new-library.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cook Book</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Cook Book</a> &raquo;</li>
+        
+      <li>Create New Payload</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="create-new-payload">
+<span id="id1"></span><h1>Create New Payload<a class="headerlink" href="#create-new-payload" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before you decide to support a new payload in SBL, it is recommended to check whether the existing payloads can be updated to support the new requirement.</p>
+</div>
+<p>For <strong>tightly-coupled</strong> payload, two steps are required to integrate a new payload:</p>
+<ol class="arabic">
+<li><p class="first">Create a new payload starts with adding a new module in <code class="docutils literal notranslate"><span class="pre">PayloadPkg/&lt;payload_bar&gt;</span></code> with entry point function <code class="docutils literal notranslate"><span class="pre">PayloadMain()</span></code>.</p>
+<p>See <a class="reference internal" href="../developer-guides/source-tree.html#package-dependency"><span class="std std-ref">Package Dependency</span></a> when you are implementing payload code.</p>
+</li>
+<li><p class="first">Build and integrate the new payload</p>
+<blockquote>
+<div><p>The image size and memory location of the new payload can be configured in <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code>. The following values are used in Apollo Lake platform payload configurations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PAYLOAD_SIZE</span>         <span class="o">=</span> <span class="mh">0x0001F000</span>
+<span class="n">EPAYLOAD_SIZE</span>        <span class="o">=</span> <span class="mh">0x00120000</span>
+<span class="n">LOADER_RSVD_MEM_SIZE</span> <span class="o">=</span> <span class="mh">0x00B8C000</span>
+<span class="n">PLD_RSVD_MEM_SIZE</span>    <span class="o">=</span> <span class="mh">0x00500000</span>
+<span class="n">PAYLOAD_LOAD_HIGH</span>    <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>For <strong>loosely-coupled</strong> payload, you are full control of payload design and implementation.</p>
+<p>For example, UEFI Payload is loosely-coupled payload.</p>
+</div>
+<div class="section" id="helloworld-payload">
+<h1>HelloWorld Payload<a class="headerlink" href="#helloworld-payload" title="Permalink to this headline">¶</a></h1>
+<p>SBL provides a HelloWorld payload example to illustrate how to write a very simple payload.</p>
+<p>To build the HelloWorld payload, run the following command from SBL source tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build_dsc</span> <span class="n">PayloadPkg</span>\<span class="n">PayloadPkg</span><span class="o">.</span><span class="n">dsc</span>
+</pre></div>
+</div>
+<p>The generated payload binary will be located at:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Build</span>\<span class="n">PayloadPkg</span>\<span class="n">DEBUG_VS2019</span>\<span class="n">IA32</span>\<span class="n">HelloWorld</span><span class="o">.</span><span class="n">efi</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The path might change a little bit if using different toolchain or build options.</p>
+</div>
+<p>To use HelloWorld payload as the default payload instead of the OsLoader on QEMU platform, build SBL with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">copy</span> <span class="n">Build</span>\<span class="n">PayloadPkg</span>\<span class="n">DEBUG_VS2019</span>\<span class="n">IA32</span>\<span class="n">HelloWorld</span><span class="o">.</span><span class="n">efi</span> <span class="n">PayloadPkg</span>\<span class="n">PayloadBins</span> <span class="o">/</span><span class="n">y</span>
+<span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span> <span class="o">-</span><span class="n">p</span> <span class="n">HelloWorld</span><span class="o">.</span><span class="n">efi</span><span class="p">:</span><span class="n">HLWD</span><span class="p">:</span><span class="n">Lz4</span>
+</pre></div>
+</div>
+<p>This generated SlimBootloader.bin will boot into HelloWorld payload on QEMU platform.</p>
+<p>To add HelloWorld payload as additional paylaod, build SBL with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">copy</span> <span class="n">Build</span>\<span class="n">PayloadPkg</span>\<span class="n">DEBUG_VS2019</span>\<span class="n">IA32</span>\<span class="n">HelloWorld</span><span class="o">.</span><span class="n">efi</span> <span class="n">PayloadPkg</span>\<span class="n">PayloadBins</span> <span class="o">/</span><span class="n">y</span>
+<span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span> <span class="o">-</span><span class="n">p</span> <span class="n">OsLoader</span><span class="o">.</span><span class="n">efi</span><span class="p">:</span><span class="n">LLDR</span><span class="p">:</span><span class="n">Lz4</span><span class="p">;</span><span class="n">HelloWorld</span><span class="o">.</span><span class="n">efi</span><span class="p">:</span><span class="n">HLWD</span><span class="p">:</span><span class="n">Lz4</span>
+</pre></div>
+</div>
+<p>The generated SlimBootloader.bin will boot into OsLoader or HelloWorld payload on QEMU platform depends
+on the GEN_CFG_DATA.PayloadId value at build time and runtime.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">GEN_CFG_DATA.PayloadId can be customized in board CFGDATA DLT file. The PayloadId can be
+updated by SBL at runtime code by SetPayloadId() function.</p>
+</div>
+<p>Please refer to <a class="reference internal" href="integrate-multiple-payloads.html#integrate-multiple-payloads"><span class="std std-ref">Integrate Multiple Payloads</span></a> for multiple payloads support.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="add-fastboot.html" class="btn btn-neutral float-right" title="Add Fastboot Support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="add-new-library.html" class="btn btn-neutral" title="Add New Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

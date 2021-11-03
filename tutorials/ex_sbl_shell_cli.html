@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Exercise - SBL Shell/CLI &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exercise - Boot to Linux" href="ex_boot_to_linux.html" />
+    <link rel="prev" title="Exercise - Debug SBL on QEMU with GDB" href="ex_debug_sbl_on_qemu_with_gdb.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ex_build_sbl_for_qemu.html">Exercise - Build SBL for QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_run_sbl_on_qemu.html">Exercise - Run SBL on QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_debug_sbl_on_qemu_with_gdb.html">Exercise - Debug SBL on QEMU with GDB</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exercise - SBL Shell/CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_boot_to_linux.html">Exercise - Boot to Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_feature_custom_splash.html">Exercise - Feature Customization - Splash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_feature_custom_verified_boot.html">Exercise - Feature Customization - Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_feature_custom_boot_order.html">Exercise - Feature Customization - Boot Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_uefi_payload.html">Exercise - UEFI Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Tutorials</a> &raquo;</li>
+        
+      <li>Exercise - SBL Shell/CLI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="exercise-sbl-shell-cli">
+<span id="exercisesblshellcli"></span><h1>Exercise - SBL Shell/CLI<a class="headerlink" href="#exercise-sbl-shell-cli" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><strong>In this exercise, we’ll learn how to execute SBL Shell Commands.</strong></p>
+<ul class="last simple">
+<li>Used <code class="docutils literal notranslate"><span class="pre">help&lt;ENTER&gt;</span></code> to list the available commands</li>
+</ul>
+</div>
+<p>You can execute SBL with the following steps:</p>
+<ol class="arabic simple">
+<li>Working on Command Prompt</li>
+<li>Execute cmd on Shell by type-in:</li>
+</ol>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>exit</strong></td>
+<td>- Exit the shell</td>
+</tr>
+<tr class="row-even"><td><strong>help</strong></td>
+<td>- List supported commands</td>
+</tr>
+<tr class="row-odd"><td><strong>hob</strong></td>
+<td>- List HOBs</td>
+</tr>
+<tr class="row-even"><td><strong>mem</strong></td>
+<td>- Read or write system memory</td>
+</tr>
+<tr class="row-odd"><td><strong>mmap</strong></td>
+<td>- Display memory map</td>
+</tr>
+<tr class="row-even"><td><strong>perf</strong></td>
+<td>- Display performance data</td>
+</tr>
+<tr class="row-odd"><td><strong>boot</strong></td>
+<td>- Print or modify the OS boot option list</td>
+</tr>
+<tr class="row-even"><td><strong>cpuid</strong></td>
+<td>- Read CPU specific information</td>
+</tr>
+<tr class="row-odd"><td><strong>io</strong></td>
+<td>- Read or write I/O ports</td>
+</tr>
+<tr class="row-even"><td><strong>msr</strong></td>
+<td>- Read or write model specific registers</td>
+</tr>
+<tr class="row-odd"><td><strong>mtrr</strong></td>
+<td>- Display current MTRR configuration</td>
+</tr>
+<tr class="row-even"><td><strong>pci</strong></td>
+<td>- Display PCI devices (example)</td>
+</tr>
+<tr class="row-odd"><td><strong>reset</strong></td>
+<td>- Reset the system</td>
+</tr>
+<tr class="row-even"><td><strong>ucode</strong></td>
+<td>- Display microcode version</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pci</span>           <span class="o">-</span> <span class="n">Display</span> <span class="n">PCI</span> <span class="n">devices</span>
+</pre></div>
+</div>
+<img alt="Compile completed" class="align-center" src="../_images/ex3.jpg" />
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Exit Shell by close QEMU</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ex_boot_to_linux.html" class="btn btn-neutral float-right" title="Exercise - Boot to Linux" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ex_debug_sbl_on_qemu_with_gdb.html" class="btn btn-neutral" title="Exercise - Debug SBL on QEMU with GDB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

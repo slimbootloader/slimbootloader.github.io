@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Simics® QSP Virtual Platform &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="UP2 Board" href="up2.html" />
+    <link rel="prev" title="QEMU Virtual Platform" href="qemu.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Supported Hardware</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qemu.html">QEMU Virtual Platform</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Simics® QSP Virtual Platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-simics">What is Simics®?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-simics-simulator">Setting up Simics® Simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-spn-for-simics-qsp">Building SBL for Simics QSP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-to-shell-on-qsp-simics">Boot to Shell on QSP Simics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html">UP<sup>2</sup> Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html">Whiskey Lake CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html">Coffee Lake Refresh CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html">Comet Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html">Tiger Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html">Elkhart Lake CRB Board</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Supported Hardware</a> &raquo;</li>
+        
+      <li>Simics® QSP Virtual Platform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simics-qsp-virtual-platform">
+<span id="getting-started-qsp"></span><h1>Simics® QSP Virtual Platform<a class="headerlink" href="#simics-qsp-virtual-platform" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-simics">
+<h2>What is Simics®?<a class="headerlink" href="#what-is-simics" title="Permalink to this headline">¶</a></h2>
+<p>The Simics simulator is the functional virtual platform technology used in
+<a class="reference external" href="https://software.intel.com/content/www/us/en/develop/tools/integrated-simulation-infrastructure.html">Intel® Integrated Simulation Infrastructure with Modeling (Intel® ISIM)</a>.
+The Simics simulator has been designed to let virtual platforms run target binaries in a fast, deterministic, and controllable way.
+This provides an ideal environment for early software development and debugging, analysis, tracing, and instrumentation of software running on the platform.</p>
+<p>Here is an interesting article for further reading about Simics:
+<a class="reference external" href="https://software.intel.com/content/www/us/en/develop/blogs/simics-6-looking-at-how-software-uses-hardware.html">Simics® 6 A Deeper Look at How Software Uses Hardware</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this guide, we will focus on how to boot up on Simics Quick-Start Platform (QSP). <br />
+The QSP is a simple model of a standard PC, and is part of the Simics base product.</p>
+</div>
+</div>
+<div class="section" id="setting-up-simics-simulator">
+<h2>Setting up Simics® Simulator<a class="headerlink" href="#setting-up-simics-simulator" title="Permalink to this headline">¶</a></h2>
+<p>Please head over to this link to understand and setup Simics® Simulator:</p>
+<p><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/articles/simics-simulator.html">Simics® Simulator Public Release</a></p>
+<p>Please refer to the guide bwlow to get your Simics Simulator setting up!</p>
+<p><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/articles/simics-simulator-installation-and-get-started.html">Simics® Simulator Installation and Get Started</a></p>
+<p>Here is a snapshot of Simics Simulator after setting up:</p>
+<img alt="../_images/simics6simulator.jpg" src="../_images/simics6simulator.jpg" />
+</div>
+<div class="section" id="building-spn-for-simics-qsp">
+<h2>Building SBL for Simics QSP<a class="headerlink" href="#building-spn-for-simics-qsp" title="Permalink to this headline">¶</a></h2>
+<p>Time to get ready with SBL!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Before trying on SBL, you are <strong>strongly recommended</strong> to at least go through the Tutorial section in Simics Simulator to get yourself familiarized with it.</p>
+<p class="last">Please refer to Get Started section <a class="reference external" href="https://software.intel.com/content/www/us/en/develop/articles/simics-simulator-installation-and-get-started.html">here</a></p>
+</div>
+<p>To build SBL for Simics QSP (it is the same image as QEMU, SBL will auto detect the platform at runtime):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">QSP SBL shares the same image as QEMU SBL, SBL will auto detect the platform at runtime via Host Bridge Device ID.</p>
+</div>
+<p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs/qemu/SlimBootloader.bin</span></code> directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">QSP SBL does not require stitching the SBL into an IFWI.</p>
+</div>
+</div>
+<div class="section" id="boot-to-shell-on-qsp-simics">
+<h2>Boot to Shell on QSP Simics<a class="headerlink" href="#boot-to-shell-on-qsp-simics" title="Permalink to this headline">¶</a></h2>
+<p>Start Simics Simulator. You should be able to see the Simics Control Panel pop up:</p>
+<img alt="../_images/simicscontrol.jpg" src="../_images/simicscontrol.jpg" />
+<p>Now proceed to load <strong>SlimBootloader.bin</strong> using Simics CLI method (in Simics terminal):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">simics</span><span class="o">&gt;</span> <span class="n">run</span><span class="o">-</span><span class="n">command</span><span class="o">-</span><span class="n">file</span> <span class="n">targets</span><span class="o">/</span><span class="n">qsp</span><span class="o">-</span><span class="n">x86</span><span class="o">/</span><span class="n">firststeps</span><span class="o">.</span><span class="n">simics</span> <span class="n">bios_image</span> <span class="o">=</span> <span class="s2">&quot;/home/(SlimBootloader.bin path)&quot;</span>
+</pre></div>
+</div>
+<p>A graphics console and a serial console will pop up:</p>
+<img alt="../_images/simicsloadsbl.jpg" src="../_images/simicsloadsbl.jpg" />
+<p>Then ‘turn on’ the platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">simics</span><span class="o">&gt;</span> <span class="n">run</span>
+</pre></div>
+</div>
+<p><strong>Booted to SBL Shell!</strong>:</p>
+<img alt="../_images/sblbootonsimicsqsp.jpg" src="../_images/sblbootonsimicsqsp.jpg" />
+<p>A snapshot of Console outputs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>============= Intel Slim Bootloader STAGE1A =============
+SBID: SB_QEMU
+ISVN: 001
+IVER: 000.005.001.001.00581
+SVER: 8BB52DAACA47D50A
+FDBG: BLD(D IA32) FSP(R)
+FSPV: ID($QEMFSP$) REV(00001000)
+Loader global data @ 0x00001D44
+Run  STAGE1A @ 0x00070000
+Load STAGE1B @ 0x00040000
+HASH verification for usage (0x00000001) with Hash Alg (0x2): Success
+
+============= Intel Slim Bootloader STAGE1B =============
+Host Bridge Device ID:0x3400
+Board ID:0x2 - Loading Simics QSP!
+Loading Component KEYH:_HS_
+Registering container KEYH
+HASH verification for usage (0x00000100) with Hash Alg (0x2): Success
+SignType (0x2) SignSize (0x180)  SignHashAlg (0x2)
+RSA verification for usage (0x00000100): Success
+HASH verification for usage (0x00000000) with Hash Alg (0x2): Success
+Append public key hash into store: Success
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="up2.html" class="btn btn-neutral float-right" title="UP2 Board" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="qemu.html" class="btn btn-neutral" title="QEMU Virtual Platform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

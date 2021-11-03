@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Flash Map &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Memory Map" href="memory-map.html" />
+    <link rel="prev" title="Build Process" href="boot-flow.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#boot-flow">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Flash Map</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flash-components">Flash Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flash-layout">Flash Layout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer’s Guide</a> &raquo;</li>
+        
+      <li>Flash Map</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="flash-map">
+<h1>Flash Map<a class="headerlink" href="#flash-map" title="Permalink to this headline">¶</a></h1>
+<p>Flash map is a manifest to describe the binary layout in SBL image. With flash map, SBL is able to locate each subcomponent. It also makes it possible for post build script to examine or patch individual component, e.g. configuration data or payload, without having to recompile SBL source.</p>
+<p>The flash map data structure is an array based manifest with some header information:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="n">UINT32</span>    <span class="n">Signature</span><span class="p">;</span>
+  <span class="n">UINT32</span>    <span class="n">Flags</span><span class="p">;</span>
+  <span class="n">UINT32</span>    <span class="n">Offset</span><span class="p">;</span>
+  <span class="n">UINT32</span>    <span class="n">Size</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">FLASH_MAP_ENTRY_DESC</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="n">UINT32</span>                <span class="n">Signature</span><span class="p">;</span>
+  <span class="n">UINT16</span>                <span class="n">Version</span><span class="p">;</span>
+  <span class="n">UINT16</span>                <span class="n">Length</span><span class="p">;</span>
+  <span class="n">UINT8</span>                 <span class="n">Attributes</span><span class="p">;</span>
+  <span class="n">UINT8</span>                 <span class="n">Reserved</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="n">UINT32</span>                <span class="n">RomSize</span><span class="p">;</span>
+  <span class="n">FLASH_MAP_ENTRY_DESC</span>  <span class="n">EntryDesc</span><span class="p">[];</span>
+<span class="p">}</span> <span class="n">FLASH_MAP</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>SBL embeds the flash map structure at an offset in the SBL image so that the flash map is accessible at the following memory address during boot:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define FLASH_MAP_ADDRESS       0xFFFFFFF8</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">On Intel Apollo Lake platform, flash map content is determined at the end of the build process as the size of some subcomponents are not known in advance.</p>
+</div>
+<div class="section" id="flash-components">
+<h2>Flash Components<a class="headerlink" href="#flash-components" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Signature</th>
+<th class="head">Component Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SG1A</td>
+<td>Stage 1A</td>
+</tr>
+<tr class="row-odd"><td>SG1B</td>
+<td>Stage 1B</td>
+</tr>
+<tr class="row-even"><td>SG02</td>
+<td>Stage 2</td>
+</tr>
+<tr class="row-odd"><td>ACM0</td>
+<td>ACM module</td>
+</tr>
+<tr class="row-even"><td>UCOD</td>
+<td>Microcode Patch</td>
+</tr>
+<tr class="row-odd"><td>MRCD</td>
+<td>MRC training data</td>
+</tr>
+<tr class="row-even"><td>VARS</td>
+<td>Variable data</td>
+</tr>
+<tr class="row-odd"><td>KEYH</td>
+<td>Key hash store</td>
+</tr>
+<tr class="row-even"><td>PYLD</td>
+<td>Normal Payload (typically OS loader)</td>
+</tr>
+<tr class="row-odd"><td>EPLD</td>
+<td>Extended Payload container (UEFI payload, Linux payload, etc)</td>
+</tr>
+<tr class="row-even"><td>IAS1</td>
+<td>First IAS image (typically for provisioning or recovery use)</td>
+</tr>
+<tr class="row-odd"><td>IAS2</td>
+<td>Second IAS image</td>
+</tr>
+<tr class="row-even"><td>FWUP</td>
+<td>Firmware Update Payload</td>
+</tr>
+<tr class="row-odd"><td>CNFG</td>
+<td>External configuration data</td>
+</tr>
+<tr class="row-even"><td>_BPM</td>
+<td>Boot Policy Manifest</td>
+</tr>
+<tr class="row-odd"><td>OEMK</td>
+<td>OEM Key Manifest</td>
+</tr>
+<tr class="row-even"><td>RSVD</td>
+<td>Reserved</td>
+</tr>
+<tr class="row-odd"><td>EMTY</td>
+<td>Empty</td>
+</tr>
+<tr class="row-even"><td>UNKN</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="flash-layout">
+<h2>Flash Layout<a class="headerlink" href="#flash-layout" title="Permalink to this headline">¶</a></h2>
+<p>SBL contains all critical boot components with redundant copy on boot flash so that if one of them is corrupted due to hardware defect or during firmware update process, SBL is able to recover from the 2nd copy to boot, thus avoiding bricking the board in total failure.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">On Apollo Lake platform, flash map is determined in the stitching process instead of build process.</p>
+</div>
+<p>An flash layout from QEMU build is shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Flash</span> <span class="n">Map</span> <span class="n">Information</span><span class="p">:</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>                              <span class="n">FLASH</span>  <span class="n">MAP</span>                                <span class="o">|</span>
+      <span class="o">|</span>                         <span class="p">(</span><span class="n">RomSize</span> <span class="o">=</span> <span class="mh">0x00200000</span><span class="p">)</span>                         <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>   <span class="n">NAME</span>   <span class="o">|</span>     <span class="n">OFFSET</span>  <span class="p">(</span><span class="n">BASE</span><span class="p">)</span>     <span class="o">|</span>    <span class="n">SIZE</span>    <span class="o">|</span>         <span class="n">FLAGS</span>         <span class="o">|</span>
+      <span class="o">+----------+------------------------+------------+-----------------------+</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>                               <span class="n">TOP</span> <span class="n">SWAP</span> <span class="n">A</span>                               <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>   <span class="n">SG1A</span>   <span class="o">|</span>  <span class="mh">0x1f8000</span><span class="p">(</span><span class="mh">0xFFFF8000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x008000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span> <span class="n">TS_A</span>   <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">EMTY</span>   <span class="o">|</span>  <span class="mh">0x1f0000</span><span class="p">(</span><span class="mh">0xFFFF0000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x008000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span> <span class="n">TS_A</span>   <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>                               <span class="n">TOP</span> <span class="n">SWAP</span> <span class="n">B</span>                               <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>   <span class="n">SG1A</span>   <span class="o">|</span>  <span class="mh">0x1e8000</span><span class="p">(</span><span class="mh">0xFFFE8000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x008000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span> <span class="n">TS_B</span>   <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">EMTY</span>   <span class="o">|</span>  <span class="mh">0x1e0000</span><span class="p">(</span><span class="mh">0xFFFE0000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x008000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span> <span class="n">TS_B</span>   <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>                              <span class="n">REDUNDANT</span> <span class="n">A</span>                               <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>   <span class="n">CNFG</span>   <span class="o">|</span>  <span class="mh">0x1df000</span><span class="p">(</span><span class="mh">0xFFFDF000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x001000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span> <span class="n">R_A</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">FWUP</span>   <span class="o">|</span>  <span class="mh">0x1bf000</span><span class="p">(</span><span class="mh">0xFFFBF000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x020000</span>  <span class="o">|</span>  <span class="n">Compressed</span>  <span class="p">,</span> <span class="n">R_A</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">SG1B</span>   <span class="o">|</span>  <span class="mh">0x1a0000</span><span class="p">(</span><span class="mh">0xFFFA0000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x01f000</span>  <span class="o">|</span>  <span class="n">Compressed</span>  <span class="p">,</span> <span class="n">R_A</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">SG02</span>   <span class="o">|</span>  <span class="mh">0x180000</span><span class="p">(</span><span class="mh">0xFFF80000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x020000</span>  <span class="o">|</span>  <span class="n">Compressed</span>  <span class="p">,</span> <span class="n">R_A</span>    <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>                              <span class="n">REDUNDANT</span> <span class="n">B</span>                               <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>   <span class="n">CNFG</span>   <span class="o">|</span>  <span class="mh">0x17f000</span><span class="p">(</span><span class="mh">0xFFF7F000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x001000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span> <span class="n">R_B</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">FWUP</span>   <span class="o">|</span>  <span class="mh">0x15f000</span><span class="p">(</span><span class="mh">0xFFF5F000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x020000</span>  <span class="o">|</span>  <span class="n">Compressed</span>  <span class="p">,</span> <span class="n">R_B</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">SG1B</span>   <span class="o">|</span>  <span class="mh">0x140000</span><span class="p">(</span><span class="mh">0xFFF40000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x01f000</span>  <span class="o">|</span>  <span class="n">Compressed</span>  <span class="p">,</span> <span class="n">R_B</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">SG02</span>   <span class="o">|</span>  <span class="mh">0x120000</span><span class="p">(</span><span class="mh">0xFFF20000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x020000</span>  <span class="o">|</span>  <span class="n">Compressed</span>  <span class="p">,</span> <span class="n">R_B</span>    <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>                             <span class="n">NON</span> <span class="n">REDUNDANT</span>                              <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>   <span class="n">PYLD</span>   <span class="o">|</span>  <span class="mh">0x020000</span><span class="p">(</span><span class="mh">0xFFE20000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x100000</span>  <span class="o">|</span>  <span class="n">Compressed</span>  <span class="p">,</span>  <span class="n">NR</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">VARS</span>   <span class="o">|</span>  <span class="mh">0x01e000</span><span class="p">(</span><span class="mh">0xFFE1E000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x002000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span>  <span class="n">NR</span>    <span class="o">|</span>
+      <span class="o">|</span>   <span class="n">EMTY</span>   <span class="o">|</span>  <span class="mh">0x001000</span><span class="p">(</span><span class="mh">0xFFE01000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x01d000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span>  <span class="n">NR</span>    <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>                              <span class="n">NON</span> <span class="n">VOLATILE</span>                              <span class="o">|</span>
+      <span class="o">+------------------------------------------------------------------------+</span>
+      <span class="o">|</span>   <span class="n">RSVD</span>   <span class="o">|</span>  <span class="mh">0x000000</span><span class="p">(</span><span class="mh">0xFFE00000</span><span class="p">)</span>  <span class="o">|</span>  <span class="mh">0x001000</span>  <span class="o">|</span>  <span class="n">Uncompressed</span><span class="p">,</span>  <span class="n">NV</span>    <span class="o">|</span>
+      <span class="o">+----------+------------------------+------------+-----------------------+</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="memory-map.html" class="btn btn-neutral float-right" title="Memory Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="boot-flow.html" class="btn btn-neutral" title="Build Process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Supported Hardware &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="QEMU Virtual Platform" href="qemu.html" />
+    <link rel="prev" title="Miscellaneous: Dockers" href="../getting-started/misc-build-setup.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Supported Hardware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qemu.html">QEMU Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">Simics® QSP Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html">UP<sup>2</sup> Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html">Whiskey Lake CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html">Coffee Lake Refresh CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html">Comet Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html">Tiger Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html">Elkhart Lake CRB Board</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Supported Hardware</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="supported-hardware">
+<span id="id1"></span><h1>Supported Hardware<a class="headerlink" href="#supported-hardware" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html">QEMU Virtual Platform</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qemu.html#building-sbl">Building SBL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qemu.html#boot-to-shell-on-qemu-emulator">Boot to Shell on QEMU Emulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qemu.html#boot-to-yocto-on-qemu-emulator">Boot to Yocto on QEMU Emulator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qsp.html">Simics® QSP Virtual Platform</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html#what-is-simics">What is Simics®?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html#setting-up-simics-simulator">Setting up Simics® Simulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html#building-spn-for-simics-qsp">Building SBL for Simics QSP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html#boot-to-shell-on-qsp-simics">Boot to Shell on QSP Simics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="up2.html">UP<sup>2</sup> Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#board-setup">Board Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#before-you-start">Before You Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#slimbootloader-binary-for-capsule">Slimbootloader binary for capsule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#booting-yocto-linux-from-usb">Booting Yocto Linux from USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html#booting-pre-installed-ubuntu-from-emmc">Booting Pre-installed Ubuntu from eMMC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#supported-boards">Supported Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#slimbootloader-binary-for-capsule-image">Slimbootloader binary for capsule image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#debug-uart">Debug UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#booting-yocto-linux">Booting Yocto Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html#board-id-assignments">Board ID Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="whl-crb.html">Whiskey Lake CRB Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#supported-boards">Supported Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#slimbootloader-binary-for-capsule">Slimbootloader binary for capsule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#debug-uart">Debug UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#booting-yocto-linux-from-usb">Booting Yocto Linux from USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#booting-ubuntu">Booting Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html#board-id-assignments">Board ID Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cfl-crb.html">Coffee Lake Refresh CRB Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#supported-boards">Supported Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#slimbootloader-binary-for-capsule">Slimbootloader binary for capsule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#debug-uart">Debug UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#booting-yocto-linux-from-usb">Booting Yocto Linux from USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#booting-ubuntu">Booting Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html#board-id-assignments">Board ID Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#supported-boards">Supported Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#slimbootloader-binary-for-capsule">Slimbootloader binary for capsule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#debug-uart">Debug UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#booting-yocto-linux-from-usb">Booting Yocto Linux from USB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#booting-ubuntu">Booting Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html#board-id-assignments">Board ID Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#board-setup">Board Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#before-you-start">Before You Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#slimbootloader-binary-for-capsule">Slimbootloader binary for capsule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html#flashing">Flashing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cml-rvp.html">Comet Lake RVP Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#supported-boards">Supported Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#slimbootloader-binary-for-capsule-image">Slimbootloader binary for capsule image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#capsule-image-for-cml">Capsule image for Comet Lake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#debug-uart">Debug UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#booting-yocto-linux">Booting Yocto Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html#board-id-assignments">Board ID Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tgl-rvp.html">Tiger Lake RVP Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#supported-boards">Supported Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#slimbootloader-binary-for-capsule-image">Slimbootloader binary for capsule image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#capsule-image-for-tgl">Capsule image for Tiger Lake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#debug-uart">Debug UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#booting-yocto-linux">Booting Yocto Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html#board-id-assignments">Board ID Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ehl-crb.html">Elkhart Lake CRB Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#supported-boards">Supported Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#stitching">Stitching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#flashing">Flashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#slimbootloader-binary-for-capsule-image">Slimbootloader binary for capsule image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#capsule-image-for-ehl">Capsule image for Elkhart Lake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#debug-uart">Debug UART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#booting-yocto-linux">Booting Yocto Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#board-id-assignments">Board ID Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html#latest-milestone-release">Latest Milestone Release</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="qemu.html" class="btn btn-neutral float-right" title="QEMU Virtual Platform" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../getting-started/misc-build-setup.html" class="btn btn-neutral" title="Miscellaneous: Dockers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

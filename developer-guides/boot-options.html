@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Boot Options &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot from Flash" href="flash-boot.html" />
+    <link rel="prev" title="Boot Image" href="bootimage.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#boot-flow">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer’s Guide</a> &raquo;</li>
+        
+      <li>Boot Options</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="boot-options">
+<span id="id1"></span><h1>Boot Options<a class="headerlink" href="#boot-options" title="Permalink to this headline">¶</a></h1>
+<p>SBL supports boot options configuration for different boot targets. This feature is designed to provide flexibility and configurability, including:</p>
+<ul class="simple">
+<li>Partition layout options (RAW, MBR, or GPT)</li>
+<li>File system support (FAT and Ext2/3/4)</li>
+<li>Multiple boot devices (eMMC, UFS, NVMe, SATA, USB, SPI flash etc)</li>
+<li>Redundant and fallback options</li>
+</ul>
+<p>Boot option flow is shown in the following flow chart:</p>
+<div class="graphviz"><img src="../_images/graphviz-0ee2c25b69bbc5b85cc40254700f37f17d2e8f94.png" alt="digraph bootoption {
+   bgcolor=&quot;transparent&quot;;
+     compound=true;
+     node [fontsize=10, shape=rectangle];
+     edge [fontsize=10];
+
+     subgraph cluster_stages {
+       label=&quot;Boot Option Processing Flow&quot;; fontsize=11;
+       style=&quot;filled,rounded&quot;; color=&quot;#F0F0F0&quot;;
+
+       &quot;PayloadMain()&quot; -&gt; &quot;Enter Shell if Requested&quot;
+       &quot;Enter Shell if Requested&quot; -&gt; &quot;Boot OS Image From \nCurrent Option Entry&quot;
+       &quot;Boot OS Image From \nCurrent Option Entry&quot; -&gt; &quot;Start Booting&quot; [ label = &quot;Okay&quot; ]
+       &quot;Boot OS Image From \nCurrent Option Entry&quot; -&gt; &quot;PayloadMain()&quot; [ label = &quot;Failed&quot; ]
+
+     }
+}" class="graphviz" /></div>
+<p>A boot option entry contains the following data structure to boot OS (<code class="docutils literal notranslate"><span class="pre">OsBootOptionGuid.h</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+
+  <span class="o">///</span>
+  <span class="o">///</span> <span class="n">Image</span> <span class="nb">type</span> <span class="k">for</span> <span class="n">Image</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span> <span class="n">Refer</span> <span class="n">BOOT_IMAGE_TYPE</span>
+  <span class="o">///</span>
+  <span class="n">UINT8</span>                <span class="n">ImageType</span><span class="p">;</span>
+
+  <span class="o">///</span>
+  <span class="o">///</span> <span class="n">Zero</span> <span class="n">means</span> <span class="n">normal</span> <span class="n">boot</span><span class="o">.</span>
+  <span class="o">///</span>
+  <span class="n">UINT8</span>                <span class="n">BootFlags</span><span class="p">;</span>
+  <span class="n">UINT8</span>                <span class="n">Reserved</span><span class="p">;</span>
+
+  <span class="o">///</span>
+  <span class="o">///</span> <span class="n">Boot</span> <span class="n">medium</span> <span class="nb">type</span><span class="p">,</span> <span class="n">Refer</span> <span class="n">OS_BOOT_MEDIUM_TYPE</span>
+  <span class="o">///</span>
+  <span class="n">UINT8</span>                <span class="n">DevType</span><span class="p">;</span>
+
+  <span class="o">///</span>
+  <span class="o">///</span> <span class="n">If</span> <span class="n">there</span> <span class="n">are</span> <span class="n">multiple</span> <span class="n">controllers</span><span class="p">,</span> <span class="n">it</span> <span class="n">indicate</span> <span class="n">which</span>
+  <span class="o">///</span> <span class="n">controller</span> <span class="n">instance</span> <span class="n">the</span> <span class="n">boot</span> <span class="n">medium</span> <span class="n">belong</span> <span class="n">to</span><span class="o">.</span>
+  <span class="o">///</span>
+  <span class="n">UINT8</span>                <span class="n">DevInstance</span><span class="p">;</span>
+
+  <span class="o">///</span>
+  <span class="o">///</span> <span class="n">Zero</span><span class="o">-</span><span class="n">based</span> <span class="n">hardware</span> <span class="n">partition</span> <span class="n">number</span>
+  <span class="o">///</span>
+  <span class="n">UINT8</span>                <span class="n">HwPart</span><span class="p">;</span>
+
+  <span class="o">///</span>
+  <span class="o">///</span> <span class="n">Zero</span><span class="o">-</span><span class="n">based</span> <span class="n">software</span> <span class="n">partition</span> <span class="n">number</span> <span class="k">for</span> <span class="n">boot</span> <span class="n">image</span>
+  <span class="o">///</span> <span class="n">Used</span> <span class="k">for</span> <span class="n">file</span> <span class="n">system</span> <span class="n">only</span><span class="o">.</span>
+  <span class="o">///</span>
+  <span class="n">UINT8</span>                <span class="n">SwPart</span><span class="p">;</span>
+
+  <span class="o">///</span>
+  <span class="o">///</span> <span class="n">For</span> <span class="n">File</span> <span class="n">system</span> <span class="n">support</span> <span class="n">only</span><span class="p">,</span> <span class="n">Refer</span> <span class="n">OS_FILE_SYSTEM_TYPE</span>
+  <span class="o">///</span>
+  <span class="n">UINT8</span>                <span class="n">FsType</span><span class="p">;</span>
+
+  <span class="o">//</span> <span class="n">Image</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="k">for</span> <span class="n">normal</span> <span class="n">boot</span> <span class="n">OS</span>
+  <span class="o">//</span> <span class="n">Image</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="k">for</span> <span class="n">trusty</span> <span class="n">OS</span>
+  <span class="o">//</span> <span class="n">Image</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">is</span> <span class="k">for</span> <span class="n">misc</span> <span class="n">image</span>
+  <span class="o">//</span> <span class="n">Image</span><span class="p">[</span><span class="mi">3</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span> <span class="ow">is</span> <span class="k">for</span> <span class="n">extra</span> <span class="n">Images</span>
+  <span class="n">BOOT_IMAGE</span>           <span class="n">Image</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">OS_BOOT_OPTION</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Depending on booting scenarios, a list of boot options can be customized at prebuild time or post build time (See <a class="reference internal" href="../how-tos/change-boot-option.html#change-boot-options"><span class="std std-ref">Change Boot Options</span></a>).</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="flash-boot.html" class="btn btn-neutral float-right" title="Boot from Flash" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bootimage.html" class="btn btn-neutral" title="Boot Image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

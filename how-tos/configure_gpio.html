@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GPIO &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tools" href="../tools/index.html" />
+    <link rel="prev" title="Capture Boot Time Data" href="collect-time-logs.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cook Book</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GPIO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gpio-config-data">GPIO config data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gengpiodata-tool">GenGpioData Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Cook Book</a> &raquo;</li>
+        
+      <li>GPIO</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gpio">
+<span id="change-gpio-options"></span><h1>GPIO<a class="headerlink" href="#gpio" title="Permalink to this headline">¶</a></h1>
+<p>General Purpose IO (GPIO) is a digital signal pin and can be configured
+to be either an input or an output signal. GPIO pins offer flexibility
+to platform designers and can be used for a variety of purposes. For
+example, a laptop lid may be connected to a gpio pin to signal when the
+lid is closed and can be used to turn on/off the display. Another example
+of a GPIO is to drive a status LED on the chassis.
+A very good primer on GPIO can be found here -
+<a class="reference external" href="https://www.kernel.org/doc/html/latest/driver-api/gpio/intro.html#what-is-a-gpio">https://www.kernel.org/doc/html/latest/driver-api/gpio/intro.html#what-is-a-gpio</a>.</p>
+<p>Modern chipsets pack multiple functions and are often constrained by the package
+size and limited number of pins. These Configurable IO pins need to be configured
+at boot time to connect them to selected functionality based on platform designs.</p>
+<p>SBL provides a user friendly interface to ease configuration of GPIO/CFIO through
+its configuration infrastructure and this section provides an overview of the
+configuration steps.</p>
+<div class="section" id="gpio-config-data">
+<h2>GPIO config data<a class="headerlink" href="#gpio-config-data" title="Permalink to this headline">¶</a></h2>
+<p><strong>Step1</strong>. In the console launch the “ConfigEditor” from
+“slimbootloader” folder.</p>
+<p>ConfigEditor is run using ConfigEditor.py script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">ConfigEditor</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<img alt="../_images/Gpio_config_1.jpg" src="../_images/Gpio_config_1.jpg" />
+<p><strong>Step2.</strong> Open the “Config YAML” file, then select the description file
+according to your platform( eg.
+/Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.yaml”)</p>
+<img alt="../_images/Gpio_config_2.jpg" src="../_images/Gpio_config_2.jpg" />
+<img alt="../_images/Gpio_config_3.jpg" src="../_images/Gpio_config_3.jpg" />
+<p><strong>Step 3.</strong>&nbsp; Load the “Config Delta” file from the same folder of the
+description file by selecting “Load Config Changes from Delta File”
+menu.</p>
+<img alt="../_images/Gpio_config_4.jpg" src="../_images/Gpio_config_4.jpg" />
+<img alt="../_images/Gpio_config_5.jpg" src="../_images/Gpio_config_5.jpg" />
+<p><strong>Step 4</strong>. At the menu panel in left, select the “GPIO Settings”, and
+Select GPIO number which needs to be updated.</p>
+<img alt="../_images/Gpio_config_6.jpg" src="../_images/Gpio_config_6.jpg" />
+<ul>
+<li><p class="first">Refer to <a class="reference external" href="https://slimbootloader.github.io/tools/index.html#cfgtool">https://slimbootloader.github.io/tools/index.html#cfgtool</a>
+for description regarding these pins .</p>
+</li>
+<li><div class="first line-block">
+<div class="line">GPIO pins are grouped into different Community (e.g. Community 0,
+Community 1,</div>
+<div class="line">etc.). Each Community consists of one or more GPIO groups. Refer to
+Corresponding EDS document for more details.</div>
+</div>
+</li>
+</ul>
+<p><strong>Step 5.</strong> Save the changes with “<strong>save config changes to Delta
+File</strong>” to the required board specific dlt file</p>
+<img alt="../_images/Gpio_config_7.jpg" src="../_images/Gpio_config_7.jpg" />
+<img alt="../_images/Gpio_config_8.jpg" src="../_images/Gpio_config_8.jpg" />
+<p>Changes shall be reflected into the dlt file. Open the corresponding dlt
+file in notepad and check if the value is updated accordingly.</p>
+<p><strong>Step 6.</strong> Now build the SBL and flash it. SBL will apply the new settings on subsequent boots.</p>
+<p>For SBL build process, Please refer <a class="reference external" href="https://slimbootloader.github.io/getting-started/build-source.html">https://slimbootloader.github.io/getting-started/build-source.html</a></p>
+</div>
+<div class="section" id="gengpiodata-tool">
+<h2>GenGpioData Tool<a class="headerlink" href="#gengpiodata-tool" title="Permalink to this headline">¶</a></h2>
+<p>GenGpioData.py is a utility that converts the GPIO pin data from one format to other.
+When starting a new project, often times the GPIO information for that platform is
+available in a format that needs to be converted to yaml/dlt to be used in SBL.
+For example, the GPIO information for a platform may have to be retrieved from the
+chipset data sheet or from the CRB BIOS..</p>
+<p><a class="reference external" href="https://slimbootloader.github.io/tools/index.html#cfgtool">https://slimbootloader.github.io/tools/index.html#cfgtool</a></p>
+</div>
+</div>
+<div class="section" id="run-gengpiodata-tool">
+<h1>Run GenGpioData Tool<a class="headerlink" href="#run-gengpiodata-tool" title="Permalink to this headline">¶</a></h1>
+<p>GenGpioData Tool is run using GenGpioData.py script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">python</span> <span class="n">GenGpioData</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">option</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">option</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">option</span> <span class="mi">3</span><span class="o">&gt;</span>
+
+   <span class="n">option</span> <span class="mi">1</span>     <span class="p">:</span> <span class="n">GPIO</span> <span class="nb">input</span> <span class="n">data</span> <span class="n">file</span>
+   <span class="n">option</span> <span class="mi">2</span>     <span class="p">:</span> <span class="n">Output</span> <span class="n">SBL</span> <span class="nb">format</span>
+   <span class="n">option</span> <span class="mi">3</span>     <span class="p">:</span> <span class="n">output</span> <span class="n">path</span>
+<span class="n">Example</span><span class="p">:</span> <span class="n">Python</span> <span class="n">GenGpioData</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="k">if</span> <span class="n">GpioTableXxx</span><span class="o">.</span><span class="n">h</span> <span class="o">-</span><span class="n">of</span> <span class="n">yaml</span> <span class="o">-</span><span class="n">o</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Input is .h and output is .yaml:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenGpioData</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="k">if</span> <span class="n">GpioTableXxx</span><span class="o">.</span><span class="n">h</span> <span class="o">-</span><span class="n">of</span> <span class="n">yaml</span> <span class="o">-</span><span class="n">o</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Input is .h and output is .dlt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenGpioData</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="k">if</span> <span class="n">GpioTableXxx</span><span class="o">.</span><span class="n">h</span> <span class="o">-</span><span class="n">of</span> <span class="n">dlt</span> <span class="o">-</span><span class="n">o</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Input is .csv and output is .yaml:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenGpioData</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="k">if</span> <span class="n">GpioTablexx</span><span class="o">.</span><span class="n">csv</span> <span class="o">-</span><span class="n">of</span> <span class="n">yaml</span> <span class="o">-</span><span class="n">o</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Input is .csv and output is .dlt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenGpioData</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="k">if</span> <span class="n">GpioTablexx</span><span class="o">.</span><span class="n">csv</span> <span class="o">-</span><span class="n">of</span> <span class="n">dlt</span> <span class="o">-</span><span class="n">o</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Refer to <a class="reference external" href="https://slimbootloader.github.io/tools/index.html#cfgtool">https://slimbootloader.github.io/tools/index.html#cfgtool</a> for
+description regarding GPIO tool supported formats .</p>
+<p>GpioTablexxx.h file shall be imported from BIOS source. Depending upon
+requirement this table can be updated.</p>
+<p>Example :Input format is .h and output generated is .yaml file</p>
+<p>Using Config editor the generated Yaml file can be loaded and modified</p>
+<p>Generated Yaml file looks like</p>
+<img alt="../_images/Gpio_config_9.jpg" src="../_images/Gpio_config_9.jpg" />
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tools/index.html" class="btn btn-neutral float-right" title="Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="collect-time-logs.html" class="btn btn-neutral" title="Capture Boot Time Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

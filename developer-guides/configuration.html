@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Payloads" href="payload.html" />
+    <link rel="prev" title="Memory Map" href="memory-map.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#boot-flow">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yaml-files">YAML Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dlt-files">DLT Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-flow">Configuration Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-editor-tool">Configuration Editor Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#platform-id">Platform ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#platform-configuration-files">Platform Configuration Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#platform-id-configuration">Platform ID Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#platform-id-detection-using-gpios">Platform ID Detection using GPIOs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-configuration-categories">Common Configuration Categories</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#step-by-step-configuration-flow">Step-by-step Configuration Flow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#files">Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools">Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#process">Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-console-outputs">Example Console Outputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer’s Guide</a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration">
+<span id="configuration-feature"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>Ease of platform and board customization is one of the most important design goal of creating SBL. It has many benefits from both system perspective and business use cases. For example,</p>
+<ul class="simple">
+<li>By using a centralized configuration infrastructure code, it is easier to manage all configuration related data in all boot stages in the same way</li>
+<li>Because configuration data is <em>packed</em> into a central region in SBL image, it is easier to customize these changes, or add security protection, or optimize its footprint.</li>
+<li>By defining a standardized human readable configuration format, it is easier to create tools to provide user interface to manage many platform configurations.</li>
+</ul>
+<p>SBL has two sets of configuration data in the image</p>
+<dl class="docutils">
+<dt><strong>Internal configuration data</strong></dt>
+<dd>Software default values. It is unchangeable once SBL is built. In case of external configuration data is not available or corrupted, internal data is loaded instead.</dd>
+<dt><strong>External configuration data</strong></dt>
+<dd>Platform specific data which is configurable by tools. It can be protected with user provided key.</dd>
+</dl>
+<p>SBL configuration infrastructure includes the following and is designed to support multiple boards with one firmware image.</p>
+<ul class="simple">
+<li>Configuration declarations in YAML files</li>
+<li>Configuration deltas in DLT files</li>
+<li>Configuration tools</li>
+</ul>
+<div class="section" id="yaml-files">
+<span id="configuration-files-and-configuration-flow"></span><h2>YAML Files<a class="headerlink" href="#yaml-files" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>All platform configuration settings including memory, silicon, GPIO, OS boot policy, security settings etc are declared in a custom format and uses YAML Syntax
+(<a class="reference internal" href="../specs/config.html#configuration-spec"><span class="std std-ref">SBL Configuration</span></a>).</li>
+<li>YAML configuration files, in general are located in project specific board folder, while some common configuration files are located at PlatformCommonBoardPkgCfgData.</li>
+<li>For example, you can find the configuration files for Apollo Lake platform under PlatformApollolakeBoardPkgCfgData folder.</li>
+</ul>
+<p>Please note that you may find many YAML files. However, only CfgDataDef.yaml is the primary file used for the platform configuration, and other sub YAML files will be
+included by the primary YAML file to provide component specific configuration.</p>
+<p>The main platform configuration file is specified in CfgDataDef.yaml. An example configuration file in YAML syntax is provided below.</p>
+<img alt="../_images/ConfigDefYaml.PNG" src="../_images/ConfigDefYaml.PNG" />
+</div>
+<div class="section" id="dlt-files">
+<h2>DLT Files<a class="headerlink" href="#dlt-files" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>DLT (delta) files are used to provide overrides to settings in YAML files to address board-level differences, including GPIO, boot policy, PCIE configuration, security settings etc.</li>
+<li>DLT files contain unique Platform ID, and build tools will apply the settings to firmware images based on the platform ID.</li>
+<li>DLT file that overrides configuration parameters for all boards (board id 0) is also supported. A typical use case is in case of Platform ID as explained below.</li>
+</ul>
+<p>DLT file can be generated in different ways:</p>
+<ul class="simple">
+<li>Change any existing settings, and save it to DLT file with Configuration Editor Tool.</li>
+<li>Load values from an existing binary file, and then save the changes as DLT file.</li>
+</ul>
+<p>A project may include multiple DLT files to handle multiple boards and are included in the project’s BoardConfig.py file as below.
+self._CFGDATA_EXT_FILE    = [‘CfgData_Ext_Def.dlt’, ‘CfgData_Ext_Gpmrb.dlt’]</p>
+<img alt="../_images/ConfigDlt.PNG" src="../_images/ConfigDlt.PNG" />
+</div>
+<div class="section" id="configuration-flow">
+<h2>Configuration Flow<a class="headerlink" href="#configuration-flow" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/ConfigFlow.PNG" src="../_images/ConfigFlow.PNG" />
+<p>During SBL build, the configuration data in the YAML files are parsed by the configuration tools to generate the header files as well as the configuration binary.
+In addition to generating and stitching of configuration binaries through SBL build process, editing of configuration parameters post build is also supported.</p>
+<p>Post-build configuration update can be done with the project’s configuration YAML/DLT files and the updated configuration binary can be restitched without having to rebuild SBL
+project. Please see <a class="reference internal" href="#config-steps"><span class="std std-ref">Step-by-step Configuration Flow</span></a> for details.</p>
+<p>All the configuration tools required by the configuration process can be found under BootloaderCorePkg/Tools folder.</p>
+</div>
+<div class="section" id="configuration-editor-tool">
+<h2>Configuration Editor Tool<a class="headerlink" href="#configuration-editor-tool" title="Permalink to this headline">¶</a></h2>
+<p>SBL supports a Configuration Editor Tool (ConfigEditor.py) to configure firmware settings with graphics UI. This tool is included in SBL source package at BootloaderCorePkg/Tools.</p>
+<img alt="../_images/CfgEditOpen.png" src="../_images/CfgEditOpen.png" />
+<img alt="../_images/CfgEditDefYaml.png" src="../_images/CfgEditDefYaml.png" />
+</div>
+<div class="section" id="platform-id">
+<span id="id1"></span><h2>Platform ID<a class="headerlink" href="#platform-id" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Platform ID and board ID are used interchangeably in this section</p>
+</div>
+<p>SBL uses platform ID to select the associated configuration data. The platform ID can be specified at build time or dynamically detected from GPIO pins at runtime. At the beginning of Stage 1B (<code class="docutils literal notranslate"><span class="pre">GetBoardIdFromGpioPins()</span></code>), SBL attempts to load GPIO platform ID by tag <code class="docutils literal notranslate"><span class="pre">CDATA_PID_GPIO_TAG</span></code>. If the tag is found, the actual platform ID value is read from the GPIO pins. Otherwise, SBL uses static platform ID.</p>
+<p>SBL supports up to 32 platform IDs. Note that Platform ID <strong>0</strong> served to carry the default CFGDATA values defined in the CfgDataDef.yaml file. So it cannot be used for a real board. So technically, SBL can support upto 31 boards.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In addition to board specific delta files, a DLT file that overrides configuration parameters for all boards (board id 0) is also supported. If platform ID needs to be configurable without source, DLT file for board ID 0 is required. This is useful when common board settings are to be changed without changing the platform configuration YAML file.</p>
+</div>
+</div>
+<div class="section" id="platform-configuration-files">
+<h2>Platform Configuration Files<a class="headerlink" href="#platform-configuration-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="platform-id-configuration">
+<span id="static-platform-id"></span><h3>Platform ID Configuration<a class="headerlink" href="#platform-id-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Provide platform ID (1-15) value in board configuration file (<code class="docutils literal notranslate"><span class="pre">*.dlt</span></code>):</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PLATFORMID_CFG_DATA</span><span class="o">.</span><span class="n">PlatformId</span>                  <span class="o">|</span> <span class="mh">0x7</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="platform-id-detection-using-gpios">
+<span id="dynamic-platform-id"></span><h3>Platform ID Detection using GPIOs<a class="headerlink" href="#platform-id-detection-using-gpios" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Configure designated <strong>4</strong> GPIO pins in board configuration file using Configuration Editor.</li>
+<li>Provide platform ID value (0-15) in board configuration file (<code class="docutils literal notranslate"><span class="pre">*.dlt</span></code>):</li>
+</ol>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PLATFORMID_CFG_DATA</span><span class="o">.</span><span class="n">PlatformId</span>                  <span class="o">|</span> <span class="mh">0x9</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Internally, SBL adds 16 to Platform ID detected using GPIOs in order not to conflict with static IDs.</p>
+</div>
+</div>
+<div class="section" id="common-configuration-categories">
+<h3>Common Configuration Categories<a class="headerlink" href="#common-configuration-categories" title="Permalink to this headline">¶</a></h3>
+<p>SBL comes with commonly used configurable options for a given platform. One can add new configurations (<code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;/CfgData/*.yaml</span></code>) and Stage 1B board specific code (<code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;/Library/Stage1BBoardInitLib/</span></code>)</p>
+<p>Configuration data are grouped by categories:</p>
+<ul class="simple">
+<li>GPIO</li>
+<li>Memory and eMMC tuning</li>
+<li>Graphics related</li>
+<li>Device related (USB, eMMC etc)</li>
+<li>Security</li>
+<li>Boot options</li>
+<li>Feature related (e.g., log level)</li>
+<li>…</li>
+</ul>
+<p>Configuration data is loaded and verified in Stage1B. Once loaded, SBL groups related configuration item by <em>tags</em> and the data can be retrieved by calling function <code class="docutils literal notranslate"><span class="pre">FindConfigDataByTag()</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">CDATA_USB_TAG</span></code>.</p>
+</div>
+</div>
+<div class="section" id="step-by-step-configuration-flow">
+<span id="config-steps"></span><h2>Step-by-step Configuration Flow<a class="headerlink" href="#step-by-step-configuration-flow" title="Permalink to this headline">¶</a></h2>
+<p>Users will need to have the following prerequisites to begin the flow.</p>
+<div class="section" id="files">
+<h3>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Top-level YAML file, CfgDataDef.yaml, and Internal/External .DLT files.</li>
+<li>Default configuration data, CfgDataInt.bin and/or CfgData_Default.dlt</li>
+<li>RSA key file.</li>
+</ul>
+</div>
+<div class="section" id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>CfgDataStitch.py, CfgDataTool.py, ConfigEditor.py, GenCfgData.py</li>
+</ul>
+</div>
+<div class="section" id="process">
+<h3>Process<a class="headerlink" href="#process" title="Permalink to this headline">¶</a></h3>
+<p><strong>Load:</strong></p>
+<p>Open <em>ConfigEditor</em> GUI tool, ConfigEditor.py.</p>
+<p>Load top-level CfgDataDef.yaml file. Now the platform settings with
+default values are shown in the <em>ConfigEditor</em>.</p>
+<p>Load board-specific DLT file (e.g., CfgData_Ext_Up2.dlt, and so on).
+Once this is loaded, <em>ConfigEditor</em> will display the overwritten values
+as specified in the DLT file.</p>
+<p><strong>Change values:</strong></p>
+<p>If user choose to change additional settings, it can be done at this
+time either in the DLT file directly or using <em>ConfigEditor</em>. For a
+different platform, make sure to set/modify the platform ID value
+accordingly. Then save the changes back into the DLT file (or) it can
+also be saved as a binary file using <em>ConfigEditor</em>. New DLT file or new
+binary that is created will then have the newly changed settings.</p>
+<p><strong>Stitch into final image:</strong></p>
+<p>Open a command window and cd into the location of the CfgDataStitch.py
+folder.</p>
+<p>Run this Python* script in the command window: <strong>CfgDataStitch.py -h</strong>
+for parameters for this script.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">CfgDataStitch</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">sbl_ifwi_old</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="n">ConfigTestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="n">s</span> <span class="n">SblOpen</span>\<span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span> <span class="o">-</span><span class="n">c</span> <span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_ifwi_patched</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;&lt;</span><span class="n">platform</span> <span class="n">ID</span><span class="o">&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Once the above script is run successfully, the new configuration data is
+patched and the new IFWI image has been created.</p>
+<p><strong>Boot:</strong></p>
+<p>Users can now flash the new image that contains the changed
+configuration values onto the board, then boot to SBL shell and check
+boot options that are changed with the new values.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An example pre build configuration flow to configure GPIOs can be found here <a class="reference external" href="https://slimbootloader.github.io/how-tos/configure_gpio.html#gpio-config-data">https://slimbootloader.github.io/how-tos/configure_gpio.html#gpio-config-data</a></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An example post build configuration flow to configure Boot Options can be found here <a class="reference external" href="https://slimbootloader.github.io/how-tos/change-boot-option.html#change-at-post-build-time">https://slimbootloader.github.io/how-tos/change-boot-option.html#change-at-post-build-time</a></p>
+</div>
+</div>
+<div class="section" id="example-console-outputs">
+<h3>Example Console Outputs<a class="headerlink" href="#example-console-outputs" title="Permalink to this headline">¶</a></h3>
+<p>External configuration data for board (platform 1) is loaded:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>============= Intel Slim Bootloader STAGE1B =============
+...
+BoardID: 0001
+Load External Cfg data...BIOS
+Load EXT CFG Data @ 0xFEF05FF8:0x0080 ... Success
+HASH Verification Success! Component Type (4)
+RSA Verification Success!
+...
+Load Security Cfg Data
+...
+Load Memory Cfg Data
+...
+Load Graphics Cfg Data
+...
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="payload.html" class="btn btn-neutral float-right" title="Payloads" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="memory-map.html" class="btn btn-neutral" title="Memory Map" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

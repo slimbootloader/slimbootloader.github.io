@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Change Boot Options &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Enable Verified Boot" href="enable-verified-boot.html" />
+    <link rel="prev" title="Customize Build" href="customize-build.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cook Book</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Change Boot Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#change-at-pre-build-time">Change at Pre Build Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-at-post-build-time">Change at Post Build time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-cfgdata-stitch-utility">Run CfgData Stitch Utility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-at-runtime">Change at Runtime</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Cook Book</a> &raquo;</li>
+        
+      <li>Change Boot Options</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="change-boot-options">
+<span id="id1"></span><h1>Change Boot Options<a class="headerlink" href="#change-boot-options" title="Permalink to this headline">¶</a></h1>
+<p>SBL has a default list of boot options. A example list is provided
+below. It attempts to boot from the first entry. If it fails to load
+anything bootable, it tries the subsequent options. If none of the boot
+options are working, it fallbacks to shell. When SBL is built for
+release mode, fallback to Shell is disabled for security considerations.</p>
+<p>Example Boot Options List:</p>
+<ol class="arabic simple">
+<li>eMMC boot partition 0</li>
+<li>eMMC boot partition 1</li>
+<li>SATA boot partition 0</li>
+<li>USB boot partition 0</li>
+</ol>
+<p>Boot options can be pre-configured during build or they can be
+configured post-build and during image stitch.</p>
+<div class="section" id="change-at-pre-build-time">
+<h2>Change at Pre Build Time<a class="headerlink" href="#change-at-pre-build-time" title="Permalink to this headline">¶</a></h2>
+<p>Please follow the below steps to make the changes before buiding SBL.</p>
+<p><strong>Step1</strong>. In the console launch the “ConfigEditor” from
+“slimbootloader” folder.</p>
+<p><strong>Command</strong> : python BootloaderCorePkg/Tools/ConfigEditor.py</p>
+<img alt="../_images/Boot_options_1.jpg" src="../_images/Boot_options_1.jpg" />
+<p><strong>Step2.</strong> Open the “Config YAML” file, then select the description file
+according to your platform( eg.
+/Platform/CoffeelakeBoardPkg/CfgData/CfgDataDef.yaml”)</p>
+<img alt="../_images/Boot_options_2.jpg" src="../_images/Boot_options_2.jpg" />
+<img alt="../_images/Boot_options_3.jpg" src="../_images/Boot_options_3.jpg" />
+<p><strong>Step 3.</strong>&nbsp; Load the “Config Delta” file from the same folder of the
+description file by selecting “Load Config Changes from Delta File”
+menu.</p>
+<img alt="../_images/Boot_options_4.jpg" src="../_images/Boot_options_4.jpg" />
+<img alt="../_images/Boot_options_5.jpg" src="../_images/Boot_options_5.jpg" />
+<p><strong>Step 4</strong>. At the menu panel in left, select the “OS Boot options”, and
+go the Boot option number which needs to be updated.</p>
+<img alt="../_images/Boot_options_6.jpg" src="../_images/Boot_options_6.jpg" />
+<p>Example: Update boot device 0 to usb</p>
+<img alt="../_images/Boot_options_7.jpg" src="../_images/Boot_options_7.jpg" />
+<p><strong>Step 5.</strong> Save the changes with “<strong>save config changes to Delta
+File</strong>” to the required board specific dlt file</p>
+<img alt="../_images/Boot_options_8.jpg" src="../_images/Boot_options_8.jpg" />
+<img alt="../_images/Boot_options_9.jpg" src="../_images/Boot_options_9.jpg" />
+<p>After saving, changes shall be reflected in the dlt file. Open the
+corresponding dlt file in notepad and check if the value is updated
+accordingly.</p>
+<p><strong>Step 6.</strong> Now rebuild the SBL and flash it to the target. SBL will
+apply the new settings on subsequent boots.</p>
+</div>
+<div class="section" id="change-at-post-build-time">
+<h2>Change at Post Build time<a class="headerlink" href="#change-at-post-build-time" title="Permalink to this headline">¶</a></h2>
+<p>Use Configuration Editor to modify a boot option entry then stitch the
+update configuration data component in SBL.</p>
+<p>Follow steps 1 to 6. Changes get saved into the dlt file. Copy the
+generated .dlt file into the same directory where CfgDataStitch.py is
+located</p>
+</div>
+<div class="section" id="run-cfgdata-stitch-utility">
+<h2>Run CfgData Stitch Utility<a class="headerlink" href="#run-cfgdata-stitch-utility" title="Permalink to this headline">¶</a></h2>
+<p>Config data stitch utility is available in the generated FV folder.</p>
+<p>CfgDataStitch.py script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">python</span> <span class="n">CfgDataStitch</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">option</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">option</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">option</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">option</span> <span class="mi">4</span><span class="o">&gt;</span>
+
+   <span class="n">option</span> <span class="mi">1</span>     <span class="p">:</span> <span class="n">Input</span> <span class="n">file</span>
+   <span class="n">option</span> <span class="mi">2</span>     <span class="p">:</span> <span class="n">Output</span> <span class="n">file</span>
+   <span class="n">option</span> <span class="mi">3</span>     <span class="p">:</span> <span class="n">Cfgdata</span> <span class="n">directory</span>
+   <span class="n">option</span> <span class="mi">4</span>     <span class="p">:</span> <span class="n">Tool</span> <span class="n">directory</span>
+
+<span class="n">Example</span><span class="p">:</span> <span class="n">Python</span> <span class="n">CfgDataStitch</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">sbl_ifwi</span><span class="o">.</span><span class="n">bin</span>  <span class="o">-</span><span class="n">o</span> <span class="n">Newifwi</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">c</span> <span class="o">.</span> <span class="o">-</span><span class="n">t</span> <span class="o">../</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="outputs">
+<h2>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h2>
+<p>If the stitch is successful, new IFWI file with patched cfgdata shall be generated in the output directory.</p>
+<img alt="../_images/Boot_options_10.jpg" src="../_images/Boot_options_10.jpg" />
+</div>
+<div class="section" id="change-at-runtime">
+<h2>Change at Runtime<a class="headerlink" href="#change-at-runtime" title="Permalink to this headline">¶</a></h2>
+<p>If the boot option is already supported in SBL boot option list, you can change its values from SBL shell interface.</p>
+<p>For example, to switch boot options of index 0 and 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Press</span> <span class="nb">any</span> <span class="n">key</span> <span class="n">within</span> <span class="mi">2</span> <span class="n">second</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">command</span> <span class="n">shell</span>
+
+<span class="n">Shell</span><span class="o">&gt;</span>
+
+<span class="n">Shell</span><span class="o">&gt;</span> <span class="n">boot</span>
+<span class="n">Boot</span> <span class="n">options</span> <span class="p">(</span><span class="ow">in</span> <span class="n">HEX</span><span class="p">):</span>
+
+<span class="n">Idx</span><span class="o">|</span><span class="n">ImgType</span><span class="o">|</span><span class="n">DevType</span><span class="o">|</span><span class="n">DevNum</span><span class="o">|</span><span class="n">Flags</span><span class="o">|</span><span class="n">HwPart</span><span class="o">|</span><span class="n">FsType</span><span class="o">|</span><span class="n">SwPart</span><span class="o">|</span><span class="n">File</span><span class="o">/</span><span class="n">Lbaoffset</span>
+  <span class="mi">0</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>   <span class="n">MMC</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>  <span class="n">FAT</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span> <span class="o">*</span><span class="n">Current</span>
+  <span class="mi">1</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>   <span class="n">MMC</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">AUTO</span> <span class="o">|</span>    <span class="mi">1</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span>
+  <span class="mi">2</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>  <span class="n">SATA</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>  <span class="n">FAT</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span>
+  <span class="mi">3</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>   <span class="n">USB</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>  <span class="n">FAT</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span>
+
+<span class="n">SubCommand</span><span class="p">:</span>
+  <span class="n">s</span>   <span class="o">--</span> <span class="n">swap</span> <span class="n">boot</span> <span class="n">order</span> <span class="n">by</span> <span class="n">index</span>
+  <span class="n">a</span>   <span class="o">--</span> <span class="n">modify</span> <span class="nb">all</span> <span class="n">boot</span> <span class="n">options</span> <span class="n">one</span> <span class="n">by</span> <span class="n">one</span>
+  <span class="n">q</span>   <span class="o">--</span> <span class="n">quit</span> <span class="n">boot</span> <span class="n">option</span> <span class="n">change</span>
+  <span class="n">idx</span> <span class="o">--</span> <span class="n">modify</span> <span class="n">the</span> <span class="n">boot</span> <span class="n">option</span> <span class="n">specified</span> <span class="n">by</span> <span class="n">idx</span> <span class="p">(</span><span class="mi">0</span> <span class="n">to</span> <span class="mh">0x3</span><span class="p">)</span>
+<span class="n">s</span>
+<span class="n">Enter</span> <span class="n">first</span> <span class="n">index</span> <span class="n">to</span> <span class="n">swap</span> <span class="p">(</span><span class="mh">0x0</span> <span class="n">to</span> <span class="mh">0x3</span><span class="p">)</span>
+<span class="mi">0</span>
+<span class="n">Enter</span> <span class="n">second</span> <span class="n">index</span> <span class="n">to</span> <span class="n">swap</span> <span class="p">(</span><span class="mh">0x0</span> <span class="n">to</span> <span class="mh">0x3</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="n">Updated</span> <span class="n">the</span> <span class="n">Boot</span> <span class="n">Option</span> <span class="n">List</span>
+<span class="n">Boot</span> <span class="n">options</span> <span class="p">(</span><span class="ow">in</span> <span class="n">HEX</span><span class="p">):</span>
+
+<span class="n">Idx</span><span class="o">|</span><span class="n">ImgType</span><span class="o">|</span><span class="n">DevType</span><span class="o">|</span><span class="n">DevNum</span><span class="o">|</span><span class="n">Flags</span><span class="o">|</span><span class="n">HwPart</span><span class="o">|</span><span class="n">FsType</span><span class="o">|</span><span class="n">SwPart</span><span class="o">|</span><span class="n">File</span><span class="o">/</span><span class="n">Lbaoffset</span>
+  <span class="mi">0</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>   <span class="n">USB</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>  <span class="n">FAT</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span> <span class="o">*</span><span class="n">Current</span>
+  <span class="mi">1</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>   <span class="n">MMC</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">AUTO</span> <span class="o">|</span>    <span class="mi">1</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span>
+  <span class="mi">2</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>  <span class="n">SATA</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>  <span class="n">FAT</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span>
+  <span class="mi">3</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>   <span class="n">MMC</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>  <span class="n">FAT</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span>
+
+
+<span class="n">Shell</span><span class="o">&gt;</span> <span class="n">exit</span>
+</pre></div>
+</div>
+<p>SBL shall boot from USB by attempting loading IAS
+image&nbsp;iasimage.bin&nbsp;from partition 0. If IAS image not found, it
+fallbacks to loading&nbsp;vmlinuz. If nothing is bootable, it returns to
+shell.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="enable-verified-boot.html" class="btn btn-neutral float-right" title="Enable Verified Boot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="customize-build.html" class="btn btn-neutral" title="Customize Build" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SBL Build and Sign &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Measured Boot" href="measured-boot.html" />
+    <link rel="prev" title="Verified Boot" href="verified-boot.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Security Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="boot-guard.html">Boot Guard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verified-boot.html">Verified Boot</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SBL Build and Sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-management">Key Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-id-and-configurations">KEY ID and configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keys-generation">Keys Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-environment-configuration-for-key-id-usage">Build Environment Configuration for Key ID usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="measured-boot.html">Measured Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware-update.html">Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container-security.html">Container Security</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Security Features</a> &raquo;</li>
+        
+      <li>SBL Build and Sign</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sbl-build-and-sign">
+<h1>SBL Build and Sign<a class="headerlink" href="#sbl-build-and-sign" title="Permalink to this headline">¶</a></h1>
+<p>SBL build process uses a signing interface. This signing method can access required keys from any accessible location based on an id.
+A sample implementation of signing service is provided by <em>SingleSign.py</em> and is invoked during SBL build process.
+Customers may use different signing infrastructure including use of secure signing servers, etc. and the SingleSign.py can be updated/replaced with customer’s signing infrastructure.</p>
+</div>
+<div class="section" id="key-management">
+<h1>Key Management<a class="headerlink" href="#key-management" title="Permalink to this headline">¶</a></h1>
+<p>Cryptographic keys used for signing SBL binaries should be securely managed. A leak of private key would allow a hacker to install/push compromised SBL or rootkits on platforms. Here is a link to <a class="reference external" href="https://csrc.nist.gov/CSRC/media/Publications/white-paper/2018/01/26/security-considerations-for-code-signing/final/documents/security-considerations-for-code-signing.pdf">link</a> to NIST  whitepaper which provides BKM’s for Code signing and secure key management.</p>
+<p>Below is a list of Security keys and their function in securing SBL.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="22%" />
+<col width="29%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key Name</th>
+<th class="head">Owner</th>
+<th class="head">Usage</th>
+<th class="head">Comment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>OEM Key</td>
+<td>Platform Owner</td>
+<td>To sign BootGuard Key
+Manifest.</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BPM Key</td>
+<td>Firmware Owner</td>
+<td>To sign BootGuard Boot
+Policy Manifest.</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ConfigData Key</td>
+<td>Firmware Owner</td>
+<td>To sign Config Data
+blob.</td>
+<td>Use CfgDataTool.py</td>
+</tr>
+<tr class="row-odd"><td>Master Key</td>
+<td>Firmware Owner</td>
+<td>To sign SBL
+Key Manifest.</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Container Def
+Key</td>
+<td>Firmware Owner</td>
+<td>To sign container
+header.</td>
+<td>Use GenContainer.py
+to package various
+components</td>
+</tr>
+<tr class="row-odd"><td>Container
+Component Key</td>
+<td>Container Owner</td>
+<td>To sign container
+components, such as,
+UEFI Payload,PSE fw etc</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>OS Key</td>
+<td>OS Owner</td>
+<td>Hash of it’s public key
+is stored in SBL Key
+Manifest.</td>
+<td>Use GenContainer.py
+to package a OS binary.</td>
+</tr>
+<tr class="row-odd"><td>Firmware Update
+Capsule Key</td>
+<td>Firmware Owner</td>
+<td>To sign capsule
+images.</td>
+<td>Use
+GenCapsuleFirmware.py</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="key-id-and-configurations">
+<h2>KEY ID and configurations<a class="headerlink" href="#key-id-and-configurations" title="Permalink to this headline">¶</a></h2>
+<p>A unique key id would be associated for each private key corresponding to a component to be signed.</p>
+<p>Table below depicts key id’s defined for components and their associated test keys for various key types used for signing components.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="21%" />
+<col width="15%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="2">KEY ID</th>
+<th class="head" colspan="2">KEY</th>
+<th class="head">Usage</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td colspan="2">KEY_ID_MASTER_RSA2048</td>
+<td colspan="2">MasterTestKey_Priv_RSA2048.pem</td>
+<td>Signing external key hash store</td>
+</tr>
+<tr class="row-odd"><td colspan="2">KEY_ID_MASTER_RSA3072</td>
+<td colspan="2">MasterTestKey_Priv_RSA3072.pem</td>
+<td>Signing external key hash store</td>
+</tr>
+<tr class="row-even"><td colspan="2">KEY_ID_CFGDATA_RSA2048</td>
+<td colspan="2">ConfigTestKey_Priv_RSA2048.pem</td>
+<td>Signing CfgData</td>
+</tr>
+<tr class="row-odd"><td colspan="2">KEY_ID_CFGDATA_RSA3072</td>
+<td colspan="2">ConfigTestKey_Priv_RSA3072.pem</td>
+<td>Signing CfgData</td>
+</tr>
+<tr class="row-even"><td colspan="2">KEY_ID_FIRMWAREUPDATE_RSA2048</td>
+<td colspan="2">FirmwareUpdateTestKey_Priv_RSA2048.pem</td>
+<td>Signing firmware capsule update</td>
+</tr>
+<tr class="row-odd"><td colspan="2">KEY_ID_FIRMWAREUPDATE_RSA3072</td>
+<td colspan="2">FirmwareUpdateTestKey_Priv_RSA3072.pem</td>
+<td>Signing firmware capsule update</td>
+</tr>
+<tr class="row-even"><td colspan="2">KEY_ID_CONTAINER_RSA2048</td>
+<td colspan="2">ContainerTestKey_Priv_RSA2048.pem</td>
+<td>Signing Container header</td>
+</tr>
+<tr class="row-odd"><td colspan="2">KEY_ID_CONTAINER_RSA3072</td>
+<td colspan="2">ContainerTestKey_Priv_RSA3072.pem</td>
+<td>Signing Container header</td>
+</tr>
+<tr class="row-even"><td colspan="2">KEY_ID_CONTAINER_COMP_RSA2048</td>
+<td colspan="2">ContainerCompTestKey_Priv_RSA2048.pem</td>
+<td>Signing Container component</td>
+</tr>
+<tr class="row-odd"><td colspan="2">KEY_ID_CONTAINER_COMP_RSA3072</td>
+<td colspan="2">ContainerCompTestKey_Priv_RSA3072.pem</td>
+<td>Signing Container componentm</td>
+</tr>
+<tr class="row-even"><td colspan="2">KEY_ID_OS1_PUBLIC_RSA2048</td>
+<td colspan="2">OS1_TestKey_Pub_RSA3072.pem</td>
+<td>Public key used to sign Linux OS image</td>
+</tr>
+<tr class="row-odd"><td colspan="2">KEY_ID_OS1_PUBLIC_RSA3072</td>
+<td colspan="2">OS1_TestKey_Pub_RSA3072.pem</td>
+<td>Public key used to sign Linux OS image</td>
+</tr>
+</tbody>
+</table>
+<p>One could use either key id or complete path to signing keys while configuring in build scripts.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Signing tools support either KEY_ID corresponding to a component or complete path to private key.</p>
+</div>
+</div>
+<div class="section" id="keys-generation">
+<h2>Keys Generation<a class="headerlink" href="#keys-generation" title="Permalink to this headline">¶</a></h2>
+<p>Keys required for SBL can be generated using GenerateKeys.py available
+at BootloaderCorePkg/Tools/. The key generation process is a <strong>one
+time process</strong> for specific project. Use same set of keys for signing
+and verification operations for a specific project when generating
+firmware capsule update image, cfgdata stitch, Container image and
+others. Verification operations would fail incase different keys are used
+which causes security violations.</p>
+<p>Usage of GenerateKeys.py tool see <a class="reference internal" href="../getting-started/build-host-setup.html#sbl-keys"><span class="std std-ref">SBL Keys Generation</span></a></p>
+</div>
+<div class="section" id="build-environment-configuration-for-key-id-usage">
+<h2>Build Environment Configuration for Key ID usage<a class="headerlink" href="#build-environment-configuration-for-key-id-usage" title="Permalink to this headline">¶</a></h2>
+<p>Key directory to be used can be specified using an environment variable.</p>
+<p>Set env variable “SBL_KEY_DIR” to keys directory generated using
+GenerateKeys.py or similar methods. This env variable need to be to set before running SBL
+build command. Also, set environment variable before executing tools in standalone mode as
+Capsule firmware update, container operations, cfgdata stitching and
+others when KEY ID are used.</p>
+<p>For environment setting see <a class="reference internal" href="../developer-guides/build-system.html#build-sbl"><span class="std std-ref">Build SBL</span></a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Use respective component keys from SblKey directory while performing standalone operations as Capsule firmware update, container operations, cfgdata stitching.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="measured-boot.html" class="btn btn-neutral float-right" title="Measured Boot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="verified-boot.html" class="btn btn-neutral" title="Verified Boot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

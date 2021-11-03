@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build Process &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Flash Map" href="flashmap.html" />
+    <link rel="prev" title="Firmware Support Package" href="fsp.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boot-flow">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer’s Guide</a> &raquo;</li>
+        
+      <li>Build Process</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-process">
+<span id="id1"></span><h1>Build Process<a class="headerlink" href="#build-process" title="Permalink to this headline">¶</a></h1>
+<p>SBL build process is implemented in top level build script <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code>. The following diagram illustrates main steps:</p>
+<div class="graphviz"><img src="../_images/graphviz-3a771255d29b922b647cc7cebbad59561d0b2689.png" alt="digraph buildsteps {
+   bgcolor=&quot;transparent&quot;;
+     compound=true;
+     node [fontsize=10, shape=rectangle];
+     edge [fontsize=10];
+
+     subgraph cluster_steps {
+       label=&quot;Build Process&quot;; fontsize=11;
+       style=&quot;filled,rounded&quot;; color=&quot;#F0F0F0&quot;;
+
+       &quot;Generate Build Configuration&quot; -&gt; &quot;Generate Configuration Data&quot; -&gt; &quot;Invoke EDK II Build Tools \nto Generate Executables&quot; -&gt; &quot;Assemble Generated Files Into \nOne or More Output Images&quot;;
+
+     }
+}" class="graphviz" /></div>
+<p>The generated files are located in <code class="docutils literal notranslate"><span class="pre">Build/</span></code> directory.</p>
+<p>The SBL image, configuration data, and (generated) helper scripts, are located in <code class="docutils literal notranslate"><span class="pre">Outputs/</span></code> directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To assist debugging, the build process also generates <code class="docutils literal notranslate"><span class="pre">SlimBootloader.txt</span></code> file which contains flash layout details for each component in SBL image.</p>
+</div>
+</div>
+<div class="section" id="boot-flow">
+<span id="id2"></span><h1>Boot Flow<a class="headerlink" href="#boot-flow" title="Permalink to this headline">¶</a></h1>
+<p>SBL uses a linear staged boot flow to initialize platform and launch OS. It consists of four stages:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Stage</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Stage 1A</td>
+<td>Pre-memory initialization</td>
+</tr>
+<tr class="row-odd"><td>Stage 1B</td>
+<td>Initialize main memory</td>
+</tr>
+<tr class="row-even"><td>Stage 2</td>
+<td>Post memory initialization: initialize CPU, I/O controllers, devices etc.</td>
+</tr>
+<tr class="row-odd"><td>Payload</td>
+<td>Load, verify and launch OS images; or perform firmware update</td>
+</tr>
+</tbody>
+</table>
+<div class="graphviz"><img src="../_images/graphviz-bd4ee4f3377bf9172dd326cd7c94e8b45af1b004.png" alt="digraph bootflow {
+   bgcolor=&quot;transparent&quot;;
+   rankdir=LR;
+     compound=true;
+     node [fontsize=10, shape=record, style=rounded];
+     edge [fontsize=10];
+
+     subgraph cluster_stages {
+       label=&quot;Boot Stages&quot;; fontsize=11;
+       style=&quot;filled,rounded&quot;; color=&quot;#F0F0F0&quot;;
+
+       &quot;Stage 1A&quot; -&gt; &quot;Stage 1B&quot; -&gt; &quot;Stage 2&quot; -&gt; &quot;Payload&quot;;
+
+     }
+}" class="graphviz" /></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When verified boot is enabled, each current stage verifies the next stage before transferring control to the next. If verification fails, SBL halts the system boot.</p>
+</div>
+</div>
+<div class="section" id="end-to-end-call-graph">
+<span id="call-graph"></span><h1>End-to-End Call Graph<a class="headerlink" href="#end-to-end-call-graph" title="Permalink to this headline">¶</a></h1>
+<p>The function call graph in SBL code from reset vector to OS launch.</p>
+<a class="reference internal image-reference" href="../_images/call_graph.png"><img alt="|SPN| Calling Graph" class="align-center" src="../_images/call_graph.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="platform-initialization">
+<h1>Platform Initialization<a class="headerlink" href="#platform-initialization" title="Permalink to this headline">¶</a></h1>
+<p>In SBL, board initialization code is located in <code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;</span></code> directory. Each stage provides a ‘hook point’ for board specific code. To port a new board, one should implement changes in <code class="docutils literal notranslate"><span class="pre">BoardInit()</span></code> function for each stage under <code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;/Library</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VOID</span>
+<span class="n">BoardInit</span> <span class="p">(</span>
+  <span class="n">IN</span>  <span class="n">BOARD_INIT_PHASE</span>  <span class="n">InitPhase</span>
+  <span class="p">);</span>
+</pre></div>
+</div>
+<p>During board initialization, SBL further divides the flow into multiple phases to provide a fine granularity control. These phases are defined in <code class="docutils literal notranslate"><span class="pre">PlatformService.h</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">enum</span> <span class="p">{</span>
+  <span class="n">PreTempRamInit</span>     <span class="o">=</span> <span class="mh">0x10</span><span class="p">,</span>
+  <span class="n">PostTempRamInit</span>    <span class="o">=</span> <span class="mh">0x20</span><span class="p">,</span>
+  <span class="n">PreConfigInit</span>      <span class="o">=</span> <span class="mh">0x30</span><span class="p">,</span>
+  <span class="n">PostConfigInit</span>     <span class="o">=</span> <span class="mh">0x40</span><span class="p">,</span>
+  <span class="n">PreMemoryInit</span>      <span class="o">=</span> <span class="mh">0x50</span><span class="p">,</span>
+  <span class="n">PostMemoryInit</span>     <span class="o">=</span> <span class="mh">0x60</span><span class="p">,</span>
+  <span class="n">PreTempRamExit</span>     <span class="o">=</span> <span class="mh">0x70</span><span class="p">,</span>
+  <span class="n">PostTempRamExit</span>    <span class="o">=</span> <span class="mh">0x80</span><span class="p">,</span>
+  <span class="n">PreSiliconInit</span>     <span class="o">=</span> <span class="mh">0x90</span><span class="p">,</span>
+  <span class="n">PostSiliconInit</span>    <span class="o">=</span> <span class="mh">0xA0</span><span class="p">,</span>
+  <span class="n">PrePciEnumeration</span>  <span class="o">=</span> <span class="mh">0xB0</span><span class="p">,</span>
+  <span class="n">PostPciEnumeration</span> <span class="o">=</span> <span class="mh">0xC0</span><span class="p">,</span>
+  <span class="n">PrePayloadLoading</span>  <span class="o">=</span> <span class="mh">0xD0</span><span class="p">,</span>
+  <span class="n">PostPayloadLoading</span> <span class="o">=</span> <span class="mh">0xE0</span><span class="p">,</span>
+  <span class="n">EndOfStages</span>        <span class="o">=</span> <span class="mh">0xF0</span><span class="p">,</span>
+  <span class="n">ReadyToBoot</span>        <span class="o">=</span> <span class="mh">0xF8</span><span class="p">,</span>
+  <span class="n">EndOfFirmware</span>      <span class="o">=</span> <span class="mh">0xFF</span>
+<span class="p">}</span> <span class="n">BOARD_INIT_PHASE</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="flashmap.html" class="btn btn-neutral float-right" title="Flash Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="fsp.html" class="btn btn-neutral" title="Firmware Support Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration Tools &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gpio Tool" href="GpioTool.html" />
+    <link rel="prev" title="Container Tool" href="GenContainer.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BuildTool.html">Build Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StitchTool.html">Stitch Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenContainer.html">Container Tool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cfgdatatool">CfgDataTool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gencfgdata">GenCfgData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cfgdatastitch">CfgDataStitch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configeditor">ConfigEditor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="GpioTool.html">Gpio Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Tools</a> &raquo;</li>
+        
+      <li>Configuration Tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration-tools">
+<span id="configuration-tool"></span><h1>Configuration Tools<a class="headerlink" href="#configuration-tools" title="Permalink to this headline">¶</a></h1>
+<p>The configuration tools that are used during the configuration flow are
+<em>CfgDataTool</em>, <em>GenCfgData, and</em> <em>CfgDataStitch</em>. All are python-based
+scripts. These can be found at <em>BootloaderCorePkgTools</em> within the
+Slim Bootloader (SBL) source tree.</p>
+<p>To edit configuration data, there is also a GUI tool called
+<em>ConfigEditor</em>.</p>
+<div class="section" id="cfgdatatool">
+<span id="id1"></span><h2>CfgDataTool<a class="headerlink" href="#cfgdatatool" title="Permalink to this headline">¶</a></h2>
+<p><em>CfgDataTool</em> is pre-dominantly a parsing tool that is used to parse the
+input files such as YAML/DLT files and pre-process the configuration data
+prior to the binary generation. This tool parses the data based on the
+Platform ID that is set in each of the YAML/DLT files, calculates the
+mask/value pairs for each Configuration TAG, and populates the relevant
+data into the final binaries for each platform.</p>
+<p>All of this is done as part of the ‘merge’ command that is described in
+detail later in this section. Even if only one board configuration is
+used, it still needs to go through the merge command process for the
+tool to pre-process the data correctly and generate the final
+configuration data blob.</p>
+<p><em>CfgDataTool</em> is also used to sign the merged configuration binary using
+a Private key provided by the user.</p>
+<p><em>CfgDataTool</em> mainly supports following commands: Merge, Sign, View,
+Extract, Replace.</p>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">CfgDataTool</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p><em>CfgDataTool.py</em> supports the following operations.</p>
+<p><strong>view</strong>: display config data</p>
+<p><strong>merge</strong>: merge config data</p>
+<p><strong>sign</strong>: sign custom/standalone config data</p>
+<p><strong>extract</strong>: extract a single config data tag to a file</p>
+<p><strong>replace</strong>: replace config data blob within an IFWI</p>
+<p><strong>export</strong>: export all external board config data</p>
+</div>
+</div>
+<div class="section" id="gencfgdata">
+<span id="id2"></span><h2>GenCfgData<a class="headerlink" href="#gencfgdata" title="Permalink to this headline">¶</a></h2>
+<p><em>GenCfgData</em> generates header files for Configuration region, and
+associated binary files using the inputs as base <strong>YAML</strong> file and
+additional <strong>DLT</strong> files provided. From user’s perspective, this doesn’t
+have to be used externally.</p>
+</div>
+<div class="section" id="cfgdatastitch">
+<span id="id3"></span><h2>CfgDataStitch<a class="headerlink" href="#cfgdatastitch" title="Permalink to this headline">¶</a></h2>
+<p><em>CfgDataStitch</em> is used to patch CFGDATA blob into the existing final
+image.</p>
+<p><strong>CfgDataStitch.py -h</strong> provides the help information on the tool
+parameters.</p>
+</div>
+<div class="section" id="configeditor">
+<span id="cfgedit"></span><h2>ConfigEditor<a class="headerlink" href="#configeditor" title="Permalink to this headline">¶</a></h2>
+<p>This is a GUI interface that can be used by users who would like to
+change configuration settings directly from the interface without having
+to modify the SBL source.</p>
+<p>This tool depends on Python GUI tool kit <strong>Tkinter</strong>. It runs on both Windows and Linux.</p>
+<p>The user needs to load the YAML file along with DLT file for a specific
+board into the <em>ConfigEditor</em>, change the desired configuration values.
+Finally, generate a new configuration delta file or a config binary blob
+for the newly changed values to take effect. These will be the inputs to
+the merge tool or the stitch tool so that new config changes can be
+merged and stitched into the final configuration blob.</p>
+<p>Running Configuration Editor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">ConfigEditor</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<img alt="../_images/CfgEditOpen.png" src="../_images/CfgEditOpen.png" />
+<img alt="../_images/CfgEditDefYaml.png" src="../_images/CfgEditDefYaml.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="GpioTool.html" class="btn btn-neutral float-right" title="Gpio Tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="GenContainer.html" class="btn btn-neutral" title="Container Tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

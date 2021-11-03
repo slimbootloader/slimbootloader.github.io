@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Container Tool &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration Tools" href="ConfigTools.html" />
+    <link rel="prev" title="Stitch Tool" href="StitchTool.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BuildTool.html">Build Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StitchTool.html">Stitch Tool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Container Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigTools.html">Configuration Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GpioTool.html">Gpio Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Tools</a> &raquo;</li>
+        
+      <li>Container Tool</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="container-tool">
+<span id="gen-container-tool"></span><h1>Container Tool<a class="headerlink" href="#container-tool" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">GenContainer.py</span></code> is a tool used to generate the container images in a binary file format.</p>
+<p>A container is an encapsulation of multiple components as depicted in the following image:</p>
+<img alt="Container structure" src="../_images/Cont.PNG" />
+<p>Following operations are supported:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">{</span><span class="n">view</span><span class="p">,</span><span class="n">create</span><span class="p">,</span><span class="n">extract</span><span class="p">,</span><span class="n">replace</span><span class="p">,</span><span class="n">sign</span><span class="p">}</span> <span class="o">...</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="p">{</span><span class="n">view</span><span class="p">,</span><span class="n">create</span><span class="p">,</span><span class="n">extract</span><span class="p">,</span><span class="n">replace</span><span class="p">,</span><span class="n">sign</span><span class="p">}</span>
+                        <span class="n">command</span>
+    <span class="n">view</span>                <span class="n">display</span> <span class="n">a</span> <span class="n">container</span> <span class="n">image</span>
+    <span class="n">create</span>              <span class="n">create</span> <span class="n">a</span> <span class="n">container</span> <span class="n">image</span>
+    <span class="n">extract</span>             <span class="n">extract</span> <span class="n">a</span> <span class="n">component</span> <span class="n">image</span>
+    <span class="n">replace</span>             <span class="n">replace</span> <span class="n">a</span> <span class="n">component</span> <span class="n">image</span>
+    <span class="n">sign</span>                <span class="n">compress</span> <span class="ow">and</span> <span class="n">sign</span> <span class="n">a</span> <span class="n">component</span> <span class="n">image</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">view:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">view</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">i</span> <span class="n">IMAGE</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">i</span> <span class="n">IMAGE</span>    <span class="n">Container</span> <span class="nb">input</span> <span class="n">image</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">view</span> <span class="o">-</span><span class="n">i</span> <span class="n">ContainerImage</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">create:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">create</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">(</span><span class="o">-</span><span class="n">l</span> <span class="n">LAYOUT</span> <span class="o">|</span> <span class="o">-</span><span class="n">cl</span> <span class="n">COMP_LIST</span> <span class="p">[</span><span class="n">COMP_LIST</span> <span class="o">...</span><span class="p">])</span>
+                              <span class="p">[</span><span class="o">-</span><span class="n">t</span> <span class="n">IMG_TYPE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT_PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">k</span> <span class="n">KEY_PATH</span><span class="p">]</span>
+                              <span class="p">[</span><span class="o">-</span><span class="n">cd</span> <span class="n">COMP_DIR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span><span class="p">]</span>
+                              <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="p">{</span><span class="n">SHA2_256</span><span class="p">,</span> <span class="n">SHA2_384</span><span class="p">,</span> <span class="n">RSA2048_PKCS1_SHA2_256</span><span class="p">,</span> <span class="n">RSA3072_PKCS1_SHA2_384</span><span class="p">,</span> <span class="n">RSA2048_PSS_SHA2_256</span><span class="p">,</span> <span class="n">RSA3072_PSS_SHA2_384</span><span class="p">,</span>  <span class="n">NONE</span><span class="p">}]</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">l</span> <span class="n">LAYOUT</span>             <span class="n">Container</span> <span class="n">layout</span> <span class="n">intput</span> <span class="n">file</span> <span class="k">if</span> <span class="n">no</span> <span class="o">-</span><span class="n">cl</span>
+  <span class="o">-</span><span class="n">cl</span> <span class="n">COMP_LIST</span> <span class="p">[</span><span class="n">COMP_LIST</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">List</span> <span class="n">of</span> <span class="n">each</span> <span class="n">component</span> <span class="n">files</span><span class="p">,</span> <span class="n">following</span> <span class="n">XXXX</span><span class="p">:</span><span class="n">FileName</span> <span class="nb">format</span>
+  <span class="o">-</span><span class="n">t</span> <span class="n">IMG_TYPE</span>           <span class="n">Container</span> <span class="n">Image</span> <span class="n">Type</span> <span class="p">:</span> <span class="p">[</span><span class="n">NORMAL</span><span class="p">,</span> <span class="n">CLASSIC</span><span class="p">,</span> <span class="n">MULTIBOOT</span><span class="p">]</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">OUT_PATH</span>           <span class="n">Container</span> <span class="n">output</span> <span class="n">directory</span><span class="o">/</span><span class="n">file</span>
+  <span class="o">-</span><span class="n">a</span> <span class="p">{</span><span class="n">SHA2_256</span><span class="p">,</span>
+      <span class="n">SHA2_384</span><span class="p">,</span>
+      <span class="n">RSA2048_PKCS1_SHA2_256</span><span class="p">,</span>
+      <span class="n">RSA3072_PKCS1_SHA2_384</span><span class="p">,</span>
+      <span class="n">RSA2048_PSS_SHA2_256</span><span class="p">,</span>
+      <span class="n">RSA3072_PSS_SHA2_384</span><span class="p">,</span>
+      <span class="n">NONE</span><span class="p">}</span>
+                        <span class="n">Authentication</span> <span class="n">algorithm</span>
+  <span class="o">-</span><span class="n">k</span> <span class="n">KEY_PATH</span>           <span class="n">KEY_ID</span> <span class="ow">or</span> <span class="n">Private</span> <span class="n">key</span> <span class="n">file</span>
+  <span class="o">-</span><span class="n">cd</span> <span class="n">COMP_DIR</span>          <span class="n">Componet</span> <span class="n">image</span> <span class="nb">input</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span>          <span class="n">Compression</span> <span class="n">tool</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">s</span>  <span class="n">SVN</span>               <span class="n">Security</span> <span class="n">version</span> <span class="n">number</span> <span class="k">for</span> <span class="n">Component</span> <span class="k">for</span>  <span class="n">no</span> <span class="o">-</span><span class="n">cl</span> <span class="n">option</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python GenContainer.py create -cl CMDL:cmdline.txt:$svn KRNL:vmlinuz:$svn INRD:initrd:$svn -o Out
+
+$svn is optional
+
+or
+
+python GenContainer.py create -l layout.txt -o Out
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>layout.txt can look like following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Container Layout File</span>
+<span class="c1">#</span>
+<span class="c1">#    Name ,  ImageFile      ,CompAlg  ,  AuthType,       KeyFile                 , Alignment,  Size,     Svn</span>
+<span class="c1"># ============================================================================================================</span>
+  <span class="p">(</span> <span class="s1">&#39;BOOT&#39;</span><span class="p">,</span> <span class="s1">&#39;Out&#39;</span>           <span class="p">,</span> <span class="s1">&#39;&#39;</span>      <span class="p">,</span> <span class="s1">&#39;RSA2048_PSS_SHA2_256&#39;</span><span class="p">,</span> <span class="s1">&#39;CONTAINER_KEY_ID&#39;</span>        <span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">),</span>  <span class="o">&lt;---</span> <span class="n">Container</span> <span class="n">Hdr</span>
+  <span class="p">(</span> <span class="s1">&#39;CMDL&#39;</span><span class="p">,</span> <span class="s1">&#39;cmdline.txt&#39;</span>   <span class="p">,</span> <span class="s1">&#39;Lz4&#39;</span>   <span class="p">,</span> <span class="s1">&#39;RSA2048_PSS_SHA2_256&#39;</span><span class="p">,</span> <span class="s1">&#39;CONTAINER_COMP_KEY_ID&#39;</span>   <span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">),</span>  <span class="o">&lt;---</span> <span class="n">Component</span> <span class="n">Entry</span> <span class="mi">1</span>
+  <span class="p">(</span> <span class="s1">&#39;KRNL&#39;</span><span class="p">,</span> <span class="s1">&#39;vmlinuz&#39;</span>       <span class="p">,</span> <span class="s1">&#39;Lz4&#39;</span>   <span class="p">,</span> <span class="s1">&#39;RSA2048_PSS_SHA2_256&#39;</span><span class="p">,</span> <span class="s1">&#39;CONTAINER_COMP_KEY_ID&#39;</span>   <span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">),</span>  <span class="o">&lt;---</span> <span class="n">Component</span> <span class="n">Entry</span> <span class="mi">2</span>
+  <span class="p">(</span> <span class="s1">&#39;INRD&#39;</span><span class="p">,</span> <span class="s1">&#39;initrd&#39;</span>        <span class="p">,</span> <span class="s1">&#39;Lz4&#39;</span>   <span class="p">,</span> <span class="s1">&#39;RSA2048_PSS_SHA2_256&#39;</span><span class="p">,</span> <span class="s1">&#39;CONTAINER_COMP_KEY_ID&#39;</span>   <span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">),</span>  <span class="o">&lt;---</span> <span class="n">Component</span> <span class="n">Entry</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p class="last">If you provide the full path or a file/dir name to output or key, in both layout.txt and command line,
+command line options will always overwrite the values in layout.txt.</p>
+</div>
+<ul>
+<li><p class="first">extract:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">extract</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">i</span> <span class="n">IMAGE</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span> <span class="n">COMP_NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">od</span> <span class="n">OUT_DIR</span><span class="p">]</span>
+                              <span class="p">[</span><span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span><span class="p">]</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>    <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">i</span> <span class="n">IMAGE</span>      <span class="n">Container</span> <span class="nb">input</span> <span class="n">image</span> <span class="n">path</span>
+  <span class="o">-</span><span class="n">n</span> <span class="n">COMP_NAME</span>  <span class="n">Component</span> <span class="n">name</span> <span class="n">to</span> <span class="n">extract</span>
+  <span class="o">-</span><span class="n">od</span> <span class="n">OUT_DIR</span>   <span class="n">Output</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span>  <span class="n">Compression</span> <span class="n">tool</span> <span class="n">directory</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">extract</span> <span class="o">-</span><span class="n">i</span> <span class="n">ContainerImage</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">od</span> <span class="n">ExtDir</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">replace:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">replace</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">i</span> <span class="n">IMAGE</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">NEW_NAME</span><span class="p">]</span> <span class="o">-</span><span class="n">n</span> <span class="n">COMP_NAME</span> <span class="o">-</span><span class="n">f</span>
+                              <span class="n">COMP_FILE</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="p">{</span><span class="n">lz4</span><span class="p">,</span><span class="n">lzma</span><span class="p">,</span><span class="n">dummy</span><span class="p">}]</span> <span class="p">[</span><span class="o">-</span><span class="n">k</span> <span class="n">KEY_FILE</span><span class="p">]</span>
+                              <span class="p">[</span><span class="o">-</span><span class="n">od</span> <span class="n">OUT_DIR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span><span class="p">]</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>           <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">i</span> <span class="n">IMAGE</span>             <span class="n">Container</span> <span class="nb">input</span> <span class="n">image</span> <span class="n">path</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">NEW_NAME</span>          <span class="n">Container</span> <span class="n">new</span> <span class="n">output</span> <span class="n">image</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">n</span> <span class="n">COMP_NAME</span>         <span class="n">Component</span> <span class="n">name</span> <span class="n">to</span> <span class="n">replace</span>
+  <span class="o">-</span><span class="n">f</span> <span class="n">COMP_FILE</span>         <span class="n">Component</span> <span class="nb">input</span> <span class="n">file</span> <span class="n">path</span>
+  <span class="o">-</span><span class="n">c</span> <span class="p">{</span><span class="n">lz4</span><span class="p">,</span><span class="n">lzma</span><span class="p">,</span><span class="n">dummy</span><span class="p">}</span>  <span class="n">compression</span> <span class="n">algorithm</span>
+  <span class="o">-</span><span class="n">k</span> <span class="n">KEY_FILE</span>          <span class="n">KEY_ID</span><span class="o">/</span><span class="n">Private</span> <span class="n">key</span> <span class="n">file</span> <span class="n">path</span> <span class="n">to</span> <span class="n">sign</span> <span class="n">component</span>
+  <span class="o">-</span><span class="n">od</span> <span class="n">OUT_DIR</span>          <span class="n">Output</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span>         <span class="n">Compression</span> <span class="n">tool</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">s</span>  <span class="n">SVN</span>              <span class="n">Security</span> <span class="n">version</span> <span class="n">number</span> <span class="k">for</span> <span class="n">Component</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">replace</span> <span class="o">-</span><span class="n">i</span> <span class="n">ContainerImage</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">od</span> <span class="n">Out</span> <span class="o">-</span><span class="n">n</span> <span class="n">CMDL</span> <span class="o">-</span><span class="n">f</span> <span class="n">new_cmdline</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">sign:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">sign</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">f</span> <span class="n">COMP_FILE</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">SIGN_FILE</span><span class="p">]</span>
+                            <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="p">{</span><span class="n">lz4</span><span class="p">,</span><span class="n">lzma</span><span class="p">,</span><span class="n">dummy</span><span class="p">}]</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="p">{</span><span class="n">SHA2_256</span><span class="p">,</span> <span class="n">SHA2_384</span><span class="p">,</span> <span class="n">RSA2048_PKCS1_SHA2_256</span><span class="p">,</span> <span class="n">RSA3072_PKCS1_SHA2_384</span><span class="p">,</span> <span class="n">RSA2048_PSS_SHA2_256</span><span class="p">,</span> <span class="n">RSA3072_PSS_SHA2_384</span><span class="p">,</span> <span class="n">NONE</span><span class="p">}]</span>
+                            <span class="p">[</span><span class="o">-</span><span class="n">k</span> <span class="n">KEY_FILE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">od</span> <span class="n">OUT_DIR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span><span class="p">]</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>                <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">f</span> <span class="n">COMP_FILE</span>              <span class="n">Component</span> <span class="nb">input</span> <span class="n">file</span> <span class="n">path</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">SIGN_FILE</span>              <span class="n">Signed</span> <span class="n">output</span> <span class="n">image</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">c</span> <span class="p">{</span><span class="n">lz4</span><span class="p">,</span><span class="n">lzma</span><span class="p">,</span><span class="n">dummy</span><span class="p">}</span>       <span class="n">compression</span> <span class="n">algorithm</span>
+  <span class="o">-</span><span class="n">a</span> <span class="p">{</span><span class="n">SHA2_256</span><span class="p">,</span>
+      <span class="n">SHA2_384</span><span class="p">,</span>
+      <span class="n">RSA2048_PKCS1_SHA2_256</span><span class="p">,</span>
+      <span class="n">RSA3072_PKCS1_SHA2_384</span><span class="p">,</span>
+      <span class="n">RSA2048_PSS_SHA2_256</span><span class="p">,</span>
+      <span class="n">RSA3072_PSS_SHA2_384</span><span class="p">,</span>
+      <span class="n">NONE</span><span class="p">}</span>
+                            <span class="n">Authentication</span> <span class="n">algorithm</span>
+  <span class="o">-</span><span class="n">k</span> <span class="n">KEY_FILE</span>               <span class="n">KEY_ID</span> <span class="ow">or</span> <span class="n">Private</span> <span class="n">key</span> <span class="n">file</span> <span class="n">path</span> <span class="n">to</span> <span class="n">sign</span> <span class="n">component</span>
+  <span class="o">-</span><span class="n">od</span> <span class="n">OUT_DIR</span>               <span class="n">Output</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">td</span> <span class="n">TOOL_DIR</span>              <span class="n">Compression</span> <span class="n">tool</span> <span class="n">directory</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">sign</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">ComponentImage</span><span class="o">/</span><span class="n">ContainerImage</span><span class="o">.</span><span class="n">bin</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">c</span> <span class="n">lz4</span> <span class="o">-</span><span class="n">td</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">Lz4Compress</span><span class="o">.</span><span class="n">exe</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ConfigTools.html" class="btn btn-neutral float-right" title="Configuration Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="StitchTool.html" class="btn btn-neutral" title="Stitch Tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

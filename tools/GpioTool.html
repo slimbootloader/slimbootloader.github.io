@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Gpio Tool &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorials" href="../tutorials/index.html" />
+    <link rel="prev" title="Configuration Tools" href="ConfigTools.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BuildTool.html">Build Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StitchTool.html">Stitch Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenContainer.html">Container Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigTools.html">Configuration Tools</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Gpio Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Tools</a> &raquo;</li>
+        
+      <li>Gpio Tool</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gpio-tool">
+<span id="gpio-convert-tool"></span><h1>Gpio Tool<a class="headerlink" href="#gpio-tool" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">GenGpioData.py</span></code> is a utility that converts the GPIO pin data from one format to other. The formats currently supported are [h, csv, txt, dsc, yaml, dlt]. <code class="docutils literal notranslate"><span class="pre">h,</span> <span class="pre">csv,</span> <span class="pre">txt</span></code> formats are external to SBL and <code class="docutils literal notranslate"><span class="pre">dsc,</span> <span class="pre">yaml,</span> <span class="pre">dlt</span></code> formats are known to SBL. So, this tool provides a way to convert one of the <code class="docutils literal notranslate"><span class="pre">h,</span> <span class="pre">csv,</span> <span class="pre">txt</span></code> to <code class="docutils literal notranslate"><span class="pre">dsc,</span> <span class="pre">yaml,</span> <span class="pre">dlt</span></code> and vice-versa.</p>
+<p>Each of the above mentioned formats is as follows:</p>
+<ul>
+<li><p class="first">h:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="nb">format</span> <span class="n">expects</span> <span class="n">an</span> <span class="n">instance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">GPIO_INIT_CONFIG</span> <span class="n">structure</span><span class="p">:</span>
+
+<span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+    <span class="n">UINT32</span> <span class="n">PadMode</span>          <span class="p">:</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">HostSoftPadOwn</span>   <span class="p">:</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">Direction</span>        <span class="p">:</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">OutputState</span>      <span class="p">:</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">InterruptConfig</span>  <span class="p">:</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">PowerConfig</span>      <span class="p">:</span> <span class="mi">8</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">ElectricalConfig</span> <span class="p">:</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">LockConfig</span>       <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">OtherSettings</span>    <span class="p">:</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">UINT32</span> <span class="n">RsvdBits</span>         <span class="p">:</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">GPIO_CONFIG</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+    <span class="n">CHAR8</span>          <span class="o">*</span><span class="n">GpioPad</span><span class="p">;</span>
+    <span class="n">GPIO_CONFIG</span>     <span class="n">GpioConfig</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">GPIO_INIT_CONFIG</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">GPIO_INIT_CONFIG</span> <span class="n">mGpioTable</span><span class="p">[]</span> <span class="o">=</span>
+<span class="p">{</span>
+    <span class="o">//</span> <span class="n">GpioPad</span>        <span class="n">Pmode</span>            <span class="n">GPI_IS</span>        <span class="n">GpioDir</span>    <span class="n">GPIOTxState</span>      <span class="n">RxEvCfg</span><span class="o">/</span><span class="n">GPIRoutConfig</span>        <span class="n">PadRstCfg</span>            <span class="n">Term</span>           <span class="n">LockConfig</span>
+    <span class="p">{</span>  <span class="n">GPP_A7</span><span class="p">,</span>  <span class="p">{</span> <span class="n">GpioPadModeGpio</span><span class="p">,</span> <span class="n">GpioHostOwnGpio</span><span class="p">,</span> <span class="n">GpioDirIn</span><span class="p">,</span> <span class="n">GpioOutDefault</span><span class="p">,</span> <span class="n">GpioIntLevel</span> <span class="o">|</span> <span class="n">GpioIntApic</span><span class="p">,</span> <span class="n">GpioHostDeepReset</span><span class="p">,</span> <span class="n">GpioTermWpu20K</span><span class="p">,</span> <span class="n">GpioPadConfigUnlock</span> <span class="p">}},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">GpioPad</span></code> should follow the below rule:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GPP_</span><span class="o">&lt;</span><span class="n">group_name</span><span class="o">&gt;&lt;</span><span class="n">pad_num</span><span class="o">&gt;</span>
+
+<span class="n">group_name</span> <span class="o">=</span> <span class="n">A</span> <span class="n">single</span> <span class="n">letter</span> <span class="n">describing</span> <span class="n">the</span> <span class="n">group</span> <span class="k">for</span> <span class="n">this</span> <span class="n">pad</span>
+
+<span class="n">pad_num</span>    <span class="o">=</span> <span class="n">Pad</span> <span class="n">Number</span> <span class="n">inside</span> <span class="n">the</span> <span class="n">group</span>
+</pre></div>
+</div>
+<p>Each of the GPIO pad config fields can take the values as given below (these are common across all formats):</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioHardwareDefault</span>     <span class="o">=</span> <span class="mh">0x0</span><span class="p">,</span>
+    <span class="n">GpioPadModeGpio</span>         <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span>
+    <span class="n">GpioPadModeNative1</span>      <span class="o">=</span> <span class="mh">0x3</span><span class="p">,</span>
+    <span class="n">GpioPadModeNative2</span>      <span class="o">=</span> <span class="mh">0x5</span><span class="p">,</span>
+    <span class="n">GpioPadModeNative3</span>      <span class="o">=</span> <span class="mh">0x7</span><span class="p">,</span>
+    <span class="n">GpioPadModeNative4</span>      <span class="o">=</span> <span class="mh">0x9</span><span class="p">,</span>
+    <span class="n">GpioPadModeNative5</span>      <span class="o">=</span> <span class="mh">0xB</span><span class="p">,</span>
+<span class="p">}</span> <span class="n">GPIO_PAD_MODE</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioHostOwnDefault</span>      <span class="o">=</span> <span class="mh">0x0</span><span class="p">,</span>
+    <span class="n">GpioHostOwnAcpi</span>         <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span>
+    <span class="n">GpioHostOwnGpio</span>         <span class="o">=</span> <span class="mh">0x3</span><span class="p">,</span>
+<span class="p">}</span> <span class="n">GPIO_HOSTSW_OWN</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioDirDefault</span>          <span class="o">=</span> <span class="mh">0x0</span><span class="p">,</span>
+    <span class="n">GpioDirInOut</span>            <span class="o">=</span> <span class="p">(</span><span class="mh">0x1</span> <span class="o">|</span> <span class="p">(</span><span class="mh">0x1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)),</span>
+    <span class="n">GpioDirInInvOut</span>         <span class="o">=</span> <span class="p">(</span><span class="mh">0x1</span> <span class="o">|</span> <span class="p">(</span><span class="mh">0x3</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)),</span>
+    <span class="n">GpioDirIn</span>               <span class="o">=</span> <span class="p">(</span><span class="mh">0x3</span> <span class="o">|</span> <span class="p">(</span><span class="mh">0x1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)),</span>
+    <span class="n">GpioDirInInv</span>            <span class="o">=</span> <span class="p">(</span><span class="mh">0x3</span> <span class="o">|</span> <span class="p">(</span><span class="mh">0x3</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)),</span>
+    <span class="n">GpioDirOut</span>              <span class="o">=</span> <span class="mh">0x5</span><span class="p">,</span>
+    <span class="n">GpioDirNone</span>             <span class="o">=</span> <span class="mh">0x7</span><span class="p">,</span>
+<span class="p">}</span> <span class="n">GPIO_DIRECTION</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioOutDefault</span>          <span class="o">=</span> <span class="mh">0x0</span><span class="p">,</span>
+    <span class="n">GpioOutLow</span>              <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span>
+    <span class="n">GpioOutHigh</span>             <span class="o">=</span> <span class="mh">0x3</span><span class="p">,</span>
+<span class="p">}</span> <span class="n">GPIO_OUTPUT_STATE</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioIntDefault</span>          <span class="o">=</span> <span class="mh">0x0</span><span class="p">,</span>
+    <span class="n">GpioIntDis</span>              <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span>
+    <span class="n">GpioIntNmi</span>              <span class="o">=</span> <span class="mh">0x3</span><span class="p">,</span>
+    <span class="n">GpioIntSmi</span>              <span class="o">=</span> <span class="mh">0x5</span><span class="p">,</span>
+    <span class="n">GpioIntSci</span>              <span class="o">=</span> <span class="mh">0x9</span><span class="p">,</span>
+    <span class="n">GpioIntApic</span>             <span class="o">=</span> <span class="mh">0x11</span><span class="p">,</span>
+    <span class="n">GpioIntLevel</span>            <span class="o">=</span> <span class="p">(</span><span class="mh">0x1</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">GpioIntEdge</span>             <span class="o">=</span> <span class="p">(</span><span class="mh">0x3</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">GpioIntLvlEdgDis</span>        <span class="o">=</span> <span class="p">(</span><span class="mh">0x5</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">GpioIntBothEdge</span>         <span class="o">=</span> <span class="p">(</span><span class="mh">0x7</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">}</span> <span class="n">GPIO_INT_CONFIG</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioResetDefault</span>        <span class="o">=</span> <span class="mh">0x00</span><span class="p">,</span>
+    <span class="n">GpioResumeReset</span>         <span class="o">=</span> <span class="mh">0x01</span><span class="p">,</span>
+    <span class="n">GpioHostDeepReset</span>       <span class="o">=</span> <span class="mh">0x03</span><span class="p">,</span>
+    <span class="n">GpioPlatformReset</span>       <span class="o">=</span> <span class="mh">0x05</span><span class="p">,</span>
+    <span class="n">GpioDswReset</span>            <span class="o">=</span> <span class="mh">0x07</span><span class="p">,</span>
+<span class="p">}</span> <span class="n">GPIO_RESET_CONFIG</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioTermDefault</span>         <span class="o">=</span> <span class="mh">0x0</span><span class="p">,</span>
+    <span class="n">GpioTermNone</span>            <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span>
+    <span class="n">GpioTermWpd5K</span>           <span class="o">=</span> <span class="mh">0x5</span><span class="p">,</span>
+    <span class="n">GpioTermWpd20K</span>          <span class="o">=</span> <span class="mh">0x9</span><span class="p">,</span>
+    <span class="n">GpioTermWpu1K</span>           <span class="o">=</span> <span class="mh">0x13</span><span class="p">,</span>
+    <span class="n">GpioTermWpu2K</span>           <span class="o">=</span> <span class="mh">0x17</span><span class="p">,</span>
+    <span class="n">GpioTermWpu5K</span>           <span class="o">=</span> <span class="mh">0x15</span><span class="p">,</span>
+    <span class="n">GpioTermWpu20K</span>          <span class="o">=</span> <span class="mh">0x19</span><span class="p">,</span>
+    <span class="n">GpioTermWpu1K2K</span>         <span class="o">=</span> <span class="mh">0x1B</span><span class="p">,</span>
+    <span class="n">GpioTermNative</span>          <span class="o">=</span> <span class="mh">0x1F</span><span class="p">,</span>
+<span class="p">}</span> <span class="n">GPIO_ELECTRICAL_CONFIG</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">enum</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">GpioLockDefault</span>         <span class="o">=</span> <span class="mh">0x0</span><span class="p">,</span>
+    <span class="n">GpioPadConfigUnlock</span>     <span class="o">=</span> <span class="mh">0x3</span><span class="p">,</span>
+    <span class="n">GpioPadConfigLock</span>       <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span>
+    <span class="n">GpioOutputStateUnlock</span>   <span class="o">=</span> <span class="mh">0xC</span><span class="p">,</span>
+    <span class="n">GpioPadUnlock</span>           <span class="o">=</span> <span class="mh">0xF</span><span class="p">,</span>
+    <span class="n">GpioPadLock</span>             <span class="o">=</span> <span class="mh">0x5</span><span class="p">,</span>
+<span class="p">}</span> <span class="n">GPIO_LOCK_CONFIG</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<ul>
+<li><p class="first">csv:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="nb">format</span> <span class="n">expects</span> <span class="n">Gpio</span> <span class="n">pad</span> <span class="n">config</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">following</span> <span class="n">order</span><span class="p">:</span>
+
+    <span class="n">GpioPad</span><span class="p">,</span> <span class="n">PadMode</span><span class="p">,</span> <span class="n">HostSoftPadOwn</span><span class="p">,</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">OutputState</span><span class="p">,</span> <span class="n">InterruptConfig</span><span class="p">,</span> <span class="n">PowerConfig</span><span class="p">,</span> <span class="n">ElectricalConfig</span><span class="p">,</span> <span class="n">LockConfig</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GPP_A7</span><span class="p">,</span><span class="n">GpioPadModeGpio</span><span class="p">,</span><span class="n">GpioHostOwnGpio</span><span class="p">,</span><span class="n">GpioDirIn</span><span class="p">,</span><span class="n">GpioOutDefault</span><span class="p">,</span><span class="n">GpioIntLevel</span><span class="o">|</span><span class="n">GpioIntApic</span><span class="p">,</span><span class="n">GpioHostDeepReset</span><span class="p">,</span><span class="n">GpioTermWpu20K</span><span class="p">,</span><span class="n">GpioPadConfigUnlock</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="nb">format</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">when</span> <span class="n">the</span> <span class="n">Pad</span> <span class="n">Config</span> <span class="n">DWords</span> <span class="n">are</span> <span class="n">read</span><span class="o">/</span><span class="n">programmed</span> <span class="n">from</span><span class="o">/</span><span class="n">to</span> <span class="n">the</span> <span class="n">GPIO</span> <span class="n">Community</span> <span class="n">registers</span> <span class="n">on</span> <span class="n">the</span> <span class="n">platform</span><span class="o">.</span>
+
+    <span class="n">GpioPad</span><span class="p">:</span><span class="o">&lt;</span><span class="n">host_sw_own</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">pad_cfg_lock</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">pad_cfg_lock_tx</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">pad_cfg_dw0</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">pad_cfg_dw1</span><span class="o">&gt;</span>
+
+<span class="n">host_sw_own</span>     <span class="o">=</span> <span class="n">Value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">HostSoftPadOwnership</span> <span class="n">register</span> <span class="n">that</span> <span class="n">contains</span> <span class="n">this</span> <span class="n">pin</span>
+
+<span class="n">pad_cfg_lock</span>    <span class="o">=</span> <span class="n">Value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">PadConfigurationLock</span> <span class="n">register</span> <span class="n">that</span> <span class="n">contains</span> <span class="n">this</span> <span class="n">pin</span>
+
+<span class="n">pad_cfg_lock_tx</span> <span class="o">=</span> <span class="n">Value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">PadConfigurationLockTxState</span> <span class="n">register</span> <span class="n">that</span> <span class="n">contains</span> <span class="n">this</span> <span class="n">pin</span>
+
+<span class="n">pad_cfg_dw0</span>     <span class="o">=</span> <span class="n">Value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">PadConfigurationDw0</span> <span class="n">register</span> <span class="k">for</span> <span class="n">this</span> <span class="n">pin</span>
+
+<span class="n">pad_cfg_dw1</span>     <span class="o">=</span> <span class="n">Value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">PadConfigurationDw1</span> <span class="n">register</span> <span class="k">for</span> <span class="n">this</span> <span class="n">pin</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GPP_A07</span><span class="p">:</span><span class="mh">0x0001A880</span><span class="p">:</span><span class="mh">0x01FCF77F</span><span class="p">:</span><span class="mh">0x01FE5FFF</span><span class="p">:</span><span class="mh">0x40100102</span><span class="p">:</span><span class="mh">0x0000301F</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">dsc, yaml, dlt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">take</span> <span class="n">a</span> <span class="n">look</span> <span class="n">at</span> <span class="n">your</span> <span class="n">project</span><span class="s1">&#39;s dsc, yaml and dlt files for this format.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li><p class="first">example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dsc  :   # !BSF SUBT:{GPIO_TMPL:GPP_A07: 0x031885E1: 0x00070619}
+
+yaml :   - !expand { CFGHDR_TMPL : [ PSD_CFG_DATA, 0x800, 0, 0 ] }
+
+dlt  :   GPIO_CFG_DATA.GpioPinConfig0_GPP_A07 | 0x031885E1
+
+         GPIO_CFG_DATA.GpioPinConfig1_GPP_A07 | 0x00070619
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tutorials/index.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ConfigTools.html" class="btn btn-neutral" title="Configuration Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

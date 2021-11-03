@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Boot from Flash &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Versioning" href="versioning.html" />
+    <link rel="prev" title="Boot Options" href="boot-options.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#boot-flow">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot from Flash</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-container-image">Creating Container image.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#place-the-image-in-platform-folder">Place the image in platform folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bios-boot">BIOS BOOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-options-for-boot-bios">Boot options for Boot BIOS.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-container-to-pdr-region-using-stitching">Adding Container to PDR region using Stitching.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-options-for-boot-from-pdr">Boot options for Boot from PDR.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer’s Guide</a> &raquo;</li>
+        
+      <li>Boot from Flash</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="boot-from-flash">
+<h1>Boot from Flash<a class="headerlink" href="#boot-from-flash" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-container-image">
+<h2>Creating Container image.<a class="headerlink" href="#creating-container-image" title="Permalink to this headline">¶</a></h2>
+<p>Container image is stored in raw format on flash partition without using EXT2 or FAT file system.
+See <a class="reference internal" href="../how-tos/create-container-boot-image.html#create-container-boot-image"><span class="std std-ref">Create Container Boot Image</span></a> for more details.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Container image max size is 0x700000. Exclude Initrd file during Container image creation to reduce size.</p>
+</div>
+</div>
+<div class="section" id="place-the-image-in-platform-folder">
+<h2>Place the image in platform folder<a class="headerlink" href="#place-the-image-in-platform-folder" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Create folder SpiIasBin/ in platform folder of specific project.</p>
+<blockquote>
+<div><p>Example: Platform/&lt;ProjectBoardPkg&gt;/SpiIasBins</p>
+</div></blockquote>
+</li>
+<li><p class="first">Copy Container binary image into SpiIasBin folder.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Container image should be named as iasimage1.bin for Ist Container region and iasimage2.bin for second Container region.</p>
+</div>
+</div>
+<div class="section" id="bios-boot">
+<h2>BIOS BOOT<a class="headerlink" href="#bios-boot" title="Permalink to this headline">¶</a></h2>
+<p><strong>Step 1:</strong> Add iasimage to non-redundant region of BIOS region.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;SPI_IAS1.bin&#39;</span> <span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_PAD</span> <span class="o">|</span> <span class="n">ias1_flag</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_POS_TAIL</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Step 2:</strong> Define size of Container image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span> <span class="o">=</span> <span class="mh">0x700000</span>
+</pre></div>
+</div>
+<p><strong>Step 3:</strong> Increase non-redundant area size by Container image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">NON_REDUNDANT_SIZE</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span>
+</pre></div>
+</div>
+<p><strong>Step 4:</strong> Increase slim bootloader size to max:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">SLIMBOOTLOADER_SIZE</span> <span class="o">=</span> <span class="mh">0xE00000</span>
+</pre></div>
+</div>
+<p><strong>Step 5:</strong> Define iasimage flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ias1_flag</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_IGNOR</span>
+</pre></div>
+</div>
+<p><strong>Step 6:</strong> Remove any redundant region to create space for Container image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#(&#39;REDUNDANT_B.bin&#39; , &#39;&#39; , self.REDUNDANT_SIZE,STITCH_OPS.MODE_FILE_PAD, STITCH_OPS.MODE_POS_HEAD)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="boot-options-for-boot-bios">
+<h2>Boot options for Boot BIOS.<a class="headerlink" href="#boot-options-for-boot-bios" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="boot-options.html#boot-options"><span class="std std-ref">Boot Options</span></a> for more details.</p>
+<p><strong>Step 1:</strong> Get LBA address from flash map during build. For example refer
+below image, 0x3f8000 is the LBA offset of Container image.</p>
+<a class="reference internal image-reference" href="../_images/Flashmap.png"><img alt="Boot flash." class="align-center" src="../_images/Flashmap.png" style="width: 5.92361in; height: 1.72222in;" /></a>
+<p><strong>Step 2:</strong> Config boot options in config editor as below to boot from BIOS.</p>
+<a class="reference internal image-reference" href="../_images/BIOS_boot.png"><img alt="Boot flash." class="align-center" src="../_images/BIOS_boot.png" style="width: 6.5in; height: 3.19547in;" /></a>
+</div>
+<div class="section" id="adding-container-to-pdr-region-using-stitching">
+<h2>Adding Container to PDR region using Stitching.<a class="headerlink" href="#adding-container-to-pdr-region-using-stitching" title="Permalink to this headline">¶</a></h2>
+<p>Container image can be added to PDR region in two ways using stitching or using FIT tool.</p>
+<p>Using Stitching method.</p>
+<p><strong>Step 1:</strong> To place the image in PDR region, add the below changes to StitchIfwiConfig.py in function get_xml_change_list().:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;./FlashLayout/PdrRegion/Length&#39;</span><span class="p">,</span> <span class="s1">&#39;0x700000&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;./FlashLayout/PdrRegion/InputFile&#39;</span><span class="p">,</span> <span class="s1">&#39;$SourceDir\iasimage1.bin&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;./FlashLayout/PdrRegion/Enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;Enabled&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+<p><strong>Step 2:</strong> Copy iasimage1.bin to ‘Input/iasimage1.bin’</p>
+<p><strong>Step 3:</strong> Stitch the final image.</p>
+<p>Adding Container image to PDR using FIT tool.</p>
+<p><strong>Step 1:</strong> Open the IFWI using FIT tool.</p>
+<p><strong>Step 2:</strong> Load Container image into PDR region.</p>
+<a class="reference internal image-reference" href="../_images/fit1.png"><img alt="Boot flash." class="align-center" src="../_images/fit1.png" style="width: 6.5in; height: 3.17669in;" /></a>
+<p><strong>Step 3:</strong> Build the image.</p>
+</div>
+<div class="section" id="boot-options-for-boot-from-pdr">
+<h2>Boot options for Boot from PDR.<a class="headerlink" href="#boot-options-for-boot-from-pdr" title="Permalink to this headline">¶</a></h2>
+<p><strong>Step 1:</strong> Change boot options as below.</p>
+<a class="reference internal image-reference" href="../_images/PDR_BOOT.png"><img alt="Boot flash." class="align-center" src="../_images/PDR_BOOT.png" style="width: 6.5in; height: 3.04586in;" /></a>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="versioning.html" class="btn btn-neutral float-right" title="Versioning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="boot-options.html" class="btn btn-neutral" title="Boot Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

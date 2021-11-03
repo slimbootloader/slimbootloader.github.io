@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Security Features &mdash; Slim Bootloader 1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot Guard" href="boot-guard.html" />
+    <link rel="prev" title="Ingredients upgrade" href="../developer-guides/ingredients-update.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Slim Bootloader
+          
+
+          
+            
+            <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Security Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boot-guard.html">Boot Guard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verified-boot.html">Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key-management.html">SBL Build and Sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key-management.html#key-management">Key Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measured-boot.html">Measured Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware-update.html">Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container-security.html">Container Security</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">Cook Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Security Features</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="security-features">
+<h1>Security Features<a class="headerlink" href="#security-features" title="Permalink to this headline">¶</a></h1>
+<blockquote class="epigraph">
+<div><cite>Simplicity is prerequisite for reliability.</cite> – <strong>Edsger Dijkstra</strong></div></blockquote>
+<p>A critical requirement for firmware is security and the chain of trust should be maintained through the boot process.</p>
+<p>Security is a built-in feature in SBL to ensure the boot integrity.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="boot-guard.html">Boot Guard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verified-boot.html">Verified Boot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="verified-boot.html#sbl-hash-store">SBL Hash Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verified-boot.html#verified-boot-flow">Verified Boot FLow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="key-management.html">SBL Build and Sign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key-management.html#key-management">Key Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="key-management.html#key-id-and-configurations">KEY ID and configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key-management.html#keys-generation">Keys Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key-management.html#build-environment-configuration-for-key-id-usage">Build Environment Configuration for Key ID usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="measured-boot.html">Measured Boot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="firmware-update.html">Firmware Update</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="firmware-update.html#generating-capsule">Generating capsule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware-update.html#capsule-definition">Capsule Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware-update.html#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware-update.html#capsule-location">Capsule Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware-update.html#firmware-update-status">Firmware Update Status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="container-security.html">Container Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="container-security.html#auth-types-supported">Auth Types Supported</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container-security.html#container-formats">Container Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container-security.html#container-firmware">Container Firmware</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="boot-guard.html" class="btn btn-neutral float-right" title="Boot Guard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../developer-guides/ingredients-update.html" class="btn btn-neutral" title="Ingredients upgrade" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Intel Corporation
+      Last updated on Nov 03, 2021.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
