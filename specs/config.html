@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SBL Configuration &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="References and Links" href="../references/references.html" />
+    <link rel="prev" title="Specifications" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Specifications</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SBL Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version">Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#purpose">Purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-infrastructure">Configuration Infrastructure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yaml-files">YAML Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dlt-file">DLT File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-tools">Configuration Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-header-files">C Header Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#binary-files">Binary Files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-blob-structure">Configuration Blob Structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sbl-configuration-tags">SBL Configuration Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-blob-layout">Configuration BLOB Layout</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-flow">Configuration Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-platform-config-data-generation">Multiple Platform Config Data Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-platform-config-data-merge">Multiple Platform Config Data Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-description-yaml-explained">Configuration Description (YAML) Explained</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-layout">File Layout</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#meta-data-markers">Meta-Data Markers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yaml-tags">YAML Tags</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#variable">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template">Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configs">Configs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-option-nodes">Configuration Option Nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#delta-dlt-file-explained">Delta (DLT) File Explained</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dlt-file-rules">DLT file rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-process">Configuration Process</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Specifications</a></li>
+      <li class="breadcrumb-item active">SBL Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sbl-configuration">
+<span id="configuration-spec"></span><h1>SBL Configuration<a class="headerlink" href="#sbl-configuration" title="Permalink to this heading"></a></h1>
+<section id="version">
+<h2>Version<a class="headerlink" href="#version" title="Permalink to this heading"></a></h2>
+<p>0.5</p>
+</section>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading"></a></h2>
+<p>The purpose of this document is to describe the design of the
+configuration infrastructure of Slim Bootloader as well as to document
+the relevant definitions, data structures, interfaces, and describe how
+the configuration data fits into the Slim Bootloader.</p>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>The design rationale behind the Slim Bootloader configuration comes from
+the requirement that Slim Bootloader must be simple and flexible to
+adapt to new/custom hardware. The configurability will allow customers
+to modify the settings required for a specific board so that the Slim
+Bootloader can work on this new board without additional code changes.</p>
+<p>SBL consists of configuration data that includes configuration
+parameters used during various phases of platform initialization.
+Configuration parameters are typically categorized as Platform, Memory,
+Silicon, Generic, Security, GPIO, OS Boot Options, and so on.
+Configuration parameters are grouped and identified by Configuration
+tags and different flavors of the configuration parameters are
+identified using platform identifiers.</p>
+<p>SBL configuration parameters are packaged in a configuration data blob
+that can be stitched to be part of the BIOS region, or customers may
+choose to keep it in the PDR region separately. The configuration data
+blob can be customized using a GUI tool called <em>Configuration Editor</em>.</p>
+<p>There may be more than one source of configuration data and it is
+typical to have at least two sources of configuration data – <em>Internal</em>
+for built-in defaults and <em>external</em> to support customized data for
+different platform flavors. The default configuration data is generated
+during compile time and built as part of the SBL binary. It usually
+carries configuration data for reference boards.</p>
+<p>SBL loads the configuration data blob during the ‘Stage1B’ phase. It
+loads the external config data first, followed by appending the built-in
+default configuration. If both built-in default and external
+configuration data are present, priority of loading the data for each
+configuration tag (PLATFORM_CFG_DATA, SILICON_CFG_DATA, and so on) is
+first given to the external config data. If a particular tag is not
+present in the external configuration data, then the built-in default
+configuration data is consumed by the SBL.</p>
+</section>
+<section id="configuration-infrastructure">
+<h2>Configuration Infrastructure<a class="headerlink" href="#configuration-infrastructure" title="Permalink to this heading"></a></h2>
+<p>The foundation for the configuration infrastructure lies in the
+<strong>platform-specific YAML</strong> files, which is the core of all the
+configuration parameters in the SBL. This is the single Input source
+file that can generate all the required output configuration files
+automatically.</p>
+<p>In addition to the YAML file, SBL provides a set of tools to implement
+the configuration infrastructure.</p>
+<p>A high-level view of the configuration process is shown below.</p>
+<img alt="../_images/ConfigFlow.PNG" src="../_images/ConfigFlow.PNG" />
+<section id="yaml-files">
+<h3>YAML Files<a class="headerlink" href="#yaml-files" title="Permalink to this heading"></a></h3>
+<p>The <strong>declarations</strong> required to build the Slim Bootloader configuration
+data blob and the header files are provided in a custom format and uses
+YAML Syntax . YAML configuration files, in general are located in
+project specific board folder, while some common configuration files are
+located at PlatformCommonBoardPkgCfgData.</p>
+<p>Note that the configuration parameters in this YAML file provide the
+configuration baseline and will match the most common board/SoC settings
+that are used for a specific project.</p>
+</section>
+<section id="dlt-file">
+<h3>DLT File<a class="headerlink" href="#dlt-file" title="Permalink to this heading"></a></h3>
+<p>DLT (delta) files are used to provide <strong>overrides</strong> to settings in YAML
+files to address board-level differences. Note that Delta files are NOT
+auto-generated files.</p>
+<p>Each board can have one DLT file. A project may include multiple DLT
+files to handle multiple boards and can be found in the same location
+where the base configuration YAML file resides within the
+Platform-specific folder of the SBL source.</p>
+</section>
+<section id="configuration-tools">
+<h3>Configuration Tools<a class="headerlink" href="#configuration-tools" title="Permalink to this heading"></a></h3>
+<p>Configuration YAML files will be <strong>processed</strong> by configuration tools
+like GenCfgData, CfgDataTool, CfgDataStitch in order to generate the
+configuration header files and binary blobs.</p>
+</section>
+<section id="c-header-files">
+<h3>C Header Files<a class="headerlink" href="#c-header-files" title="Permalink to this heading"></a></h3>
+<p>Header files are <strong>generated</strong> from the YAML files during the build
+process and will be used by the SBL source to typecast related
+configuration binary blobs into detailed configuration fields so that it
+can be fed back into board initialization policies such as FSP UPDs,
+GPIO table, platform ID, memory parameters, and others.</p>
+<p>To be specific, <em>ConfigDataStruct.h</em> and <em>ConfigDataBlob.h</em> are the
+configuration header files that will be auto-generated by the build
+tool.</p>
+<p>Also, the Tag IDs are automatically generated from YAML file into
+ConfigDataStruct.h.</p>
+</section>
+<section id="binary-files">
+<h3>Binary Files<a class="headerlink" href="#binary-files" title="Permalink to this heading"></a></h3>
+<section id="base-configuration-binary">
+<h4>Base Configuration Binary<a class="headerlink" href="#base-configuration-binary" title="Permalink to this heading"></a></h4>
+<p>This is the base configuration data, <strong>CfgDataDef.bin</strong> generated using
+just the base configuration YAML file, CfgDataDef.yaml located under the
+project-specific folder.</p>
+<p>Configuration parameter deltas from the DLT files are not included in
+this binary.</p>
+</section>
+<section id="default-configuration">
+<h4>Default Configuration<a class="headerlink" href="#default-configuration" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>This is the default internal configuration data binary blob,
+CfgDataInt.bin, which is a ‘merged’ binary of the base configuration
+parameters with the configuration deltas from the internal DLT
+file(s). Default configuration data does not need to be signed.
+Instead, it is verified as part of the Slim Bootloader Stage1B
+verification flow.</p></li>
+<li><p>Input for this binary generation is the CfgDataDef.yaml plus
+additional delta (DLT) files specified at _CFGDATA_INT_FILE in
+BoardConfig.py for different platform IDs of the same SOC. All these
+files (CfgDataDef.yaml + internal .DLT(s)) will be ‘merged’ by the
+<em>CfgDataTool</em> which will be part of the final image.</p></li>
+<li><p>Example command to generate the merged default binary using <em>CfgDataTool</em></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">CfgDataTool</span><span class="o">.</span><span class="n">py</span> <span class="n">merge</span> <span class="o">-</span><span class="n">o</span> <span class="n">CfgDataInt</span><span class="o">.</span><span class="n">bin</span> <span class="n">CfgDataBrd1_internalRVP7</span><span class="o">.</span><span class="n">bin</span> <span class="n">CfgDataBrd2_intRVP11</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+</section>
+<section id="standalone-custom-external-configuration">
+<h4>Standalone/Custom External Configuration<a class="headerlink" href="#standalone-custom-external-configuration" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>This is the custom configuration data, <strong>CfgData_Ext_xx.bin</strong>
+stitched into the integrated firmware image.</p></li>
+<li><p>Input for this custom/standalone binary generation is CfgDataDef.yaml
+plus additional delta (DLT) files specified at _CFGDATA_EXT_FILE in
+BoardConfig.py. All these files (CfgDataDef.yaml +
+&lt;custominternal.DLT(s)) will be ‘merged’ as part of the final
+standalone/custom config binary blob.</p></li>
+<li><p>This external configuration data blob needs to be signed. The
+signature is checked before loading. If the signature check fails,
+the standalone configuration data blob will be ignored by SBL and
+only the default configuration will be used as the final
+configuration data.</p></li>
+<li><p>External configuration takes higher priority over the default static
+configuration data.</p></li>
+<li><p>Each board flavor will have one external standalone binary that can
+be generated from the external/custom DLT files.</p></li>
+<li><p>Example command to generate the merged custom/standalone external
+configuration binary using <em>CfgDataTool</em></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">CfgDataTool</span><span class="o">.</span><span class="n">py</span> <span class="n">merge</span> <span class="o">-</span><span class="n">o</span> <span class="n">CfgData_Ext_xx</span><span class="o">.</span><span class="n">bin</span> <span class="n">CfgDataInt</span><span class="o">.</span><span class="n">bin</span> <span class="n">extcfg_brd1</span><span class="o">.</span><span class="n">bin</span> <span class="n">extcfg_brd2</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CfgDataInt.bin is required as one of the input files for size optimization purposes.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="configuration-blob-structure">
+<h2>Configuration Blob Structure<a class="headerlink" href="#configuration-blob-structure" title="Permalink to this heading"></a></h2>
+<p>Configuration binary blob contains configuration parameters for multiple
+different boards. The configuration binary blob starts with a
+configuration blob header followed by the actual configuration data
+payload. The configuration data payload contains various configuration
+parameters organized as configuration blocks. Each configuration block
+contains a block header followed by detailed parameter structure.</p>
+<p>Each configuration block is identified by a unique identification tag as
+described in the YAML file. The configuration parameters associated with
+a specific ‘platform ID’ can be filtered out using the
+CDATA_HEADER.Value bit mask embedded in the configuration tag header.
+Bit ‘N’ of CDATA_HEADER.Value indicates if this configuration parameter
+is applicable for platform ID ‘N’. This is especially useful when a
+single binary is required to support many different boards that can be
+uniquely identified by platform ID. Since it is a 32-bit bit mask, it
+currently supports 0 to 31 as platform ID values.</p>
+<p>Platform ID can be specified in the board-specific DLT file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PLATFORMID_CFG_DATA</span><span class="o">.</span><span class="n">PlatformId</span> <span class="o">|</span> <span class="mh">0x16</span>
+</pre></div>
+</div>
+<section id="sbl-configuration-tags">
+<span id="sbl-config-tags"></span><h3>SBL Configuration Tags<a class="headerlink" href="#sbl-configuration-tags" title="Permalink to this heading"></a></h3>
+<p>An example grouping of configuration options is provided below.</p>
+<ul class="simple">
+<li><p><strong>PLATFORMID_CFG_DATA</strong></p></li>
+<li><p><strong>MEMORY_CFG_DATA</strong></p></li>
+<li><p><strong>SILICON_CFG_DATA</strong></p></li>
+<li><p><strong>GPIO_CFG_DATA</strong></p></li>
+<li><p><strong>GEN_CFG_DATA</strong></p></li>
+<li><p><strong>SECURITY_CFG_DATA</strong></p></li>
+<li><p><strong>GRAPHICS_CFG_DATA</strong></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once these tags are specified in the YAML file, they are automatically generated as #defines in <em>ConfigDataStruct</em> header file present in
+platform-specific folder inside SBL source.</p>
+</div>
+</section>
+<section id="configuration-blob-layout">
+<h3>Configuration BLOB Layout<a class="headerlink" href="#configuration-blob-layout" title="Permalink to this heading"></a></h3>
+<img alt="../_images/ConfigBlob.PNG" src="../_images/ConfigBlob.PNG" />
+<section id="config-blob-header">
+<span id="sbl-config-blob-header"></span><h4>Config BLOB Header<a class="headerlink" href="#config-blob-header" title="Permalink to this heading"></a></h4>
+<p>Configuration data blob starts with a header <strong>CDATA_BLOB_HEADER</strong>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+
+  <span class="n">UINT32</span> <span class="n">Signature</span><span class="p">;</span>
+
+  <span class="n">UINT8</span> <span class="n">HeaderLength</span><span class="p">;</span>
+
+  <span class="n">UINT8</span> <span class="n">Attribute</span><span class="p">;</span>
+
+  <span class="n">UINT16</span> <span class="n">InternalDataOffset</span><span class="p">;</span> <span class="o">//</span> <span class="n">Internal</span> <span class="n">config</span> <span class="n">data</span> <span class="n">offset</span> <span class="ow">in</span> <span class="n">DWORD</span> <span class="n">within</span> <span class="n">the</span> <span class="n">data</span> <span class="n">blob</span><span class="o">.</span> <span class="n">This</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">only</span> <span class="n">valid</span> <span class="ow">in</span> <span class="n">runtime</span><span class="o">.</span>
+
+  <span class="n">UINT32</span> <span class="n">UsedLength</span><span class="p">;</span>         <span class="o">//</span> <span class="n">The</span> <span class="n">total</span> <span class="n">valid</span> <span class="n">configuration</span> <span class="n">data</span> <span class="n">length</span> <span class="n">including</span> <span class="n">this</span> <span class="n">header</span><span class="o">.</span>
+
+  <span class="n">UINT32</span> <span class="n">TotalLength</span><span class="p">;</span>        <span class="o">//</span> <span class="n">The</span> <span class="n">total</span> <span class="n">space</span> <span class="k">for</span> <span class="n">configuration</span> <span class="n">data</span> <span class="n">including</span> <span class="n">this</span> <span class="n">header</span><span class="o">.</span>
+
+<span class="p">}</span> <span class="n">CDATA_BLOB_HEADER</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="config-data">
+<span id="sbl-config-blob-tag-data"></span><h4>Config Data<a class="headerlink" href="#config-data" title="Permalink to this heading"></a></h4>
+<p>The configuration blob header is followed by a series of configuration
+data structures each with a <strong>CDATA_HEADER</strong>. The CDATA_HEADER has the
+tag field which can be used to identify the structure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+
+  <span class="n">UINT32</span> <span class="n">ConditionNum</span> <span class="p">:</span> <span class="mi">2</span><span class="p">;</span> <span class="o">//</span> <span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#of condition words present</span>
+
+  <span class="n">UINT32</span> <span class="n">Length</span> <span class="p">:</span> <span class="mi">10</span><span class="p">;</span>      <span class="o">//</span> <span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="n">total</span> <span class="n">size</span> <span class="n">of</span> <span class="n">item</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="p">;</span><span class="n">CDATA</span> <span class="n">payload</span> <span class="n">data</span> <span class="n">length</span> <span class="p">(</span><span class="ow">in</span> <span class="n">dwords</span><span class="p">)</span>
+
+  <span class="n">UINT32</span> <span class="n">Flags</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>        <span class="o">//</span> <span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="n">reserved</span><span class="o">.</span> <span class="n">Currently</span> <span class="n">used</span> <span class="n">by</span> <span class="n">CfgDataTool</span>
+
+  <span class="n">UINT32</span> <span class="n">Version</span> <span class="p">:</span> <span class="mi">4</span><span class="p">;</span>      <span class="o">//</span> <span class="p">[</span><span class="mi">19</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="n">item</span> <span class="p">(</span><span class="n">payload</span><span class="p">)</span> <span class="nb">format</span> <span class="n">version</span>
+
+  <span class="n">UINT32</span> <span class="n">Tag</span> <span class="p">:</span> <span class="mi">12</span><span class="p">;</span>         <span class="o">//</span> <span class="p">[</span><span class="mi">31</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="n">identifies</span> <span class="n">item</span> <span class="p">(</span><span class="ow">in</span> <span class="n">payload</span><span class="p">)</span>
+
+  <span class="n">UINT32</span> <span class="n">Value</span><span class="p">;</span>            <span class="o">//</span> <span class="n">Bit</span> <span class="n">masks</span> <span class="n">on</span> <span class="n">supported</span> <span class="n">platforms</span>
+
+<span class="p">}</span> <span class="n">CDATA_HEADER</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="configuration-flow">
+<h2>Configuration Flow<a class="headerlink" href="#configuration-flow" title="Permalink to this heading"></a></h2>
+<p>Often, it may be necessary that a single bootloader binary to support
+many different boards using the same silicon. Each of the board flavors
+may have different configuration and ideally can be handled by using
+different settings for the configuration parameters.</p>
+<p>The configuration settings for different boards are supported through
+different platform identifiers. Slim Bootloader supports up to 32
+platform identifiers with 16 allocated for static identifiers and 16 for
+dynamic identifiers. Since platform identifier 0 is reserved value and
+cannot be used for identifying a board, Slim Bootloader can support
+configuration parameters for 31 boards (1-31), identified by the
+<em>PlatformId</em> field.</p>
+<p>While it may be possible to replicate all configuration parameters for
+each of the platform identifiers, this is not optimal in terms of flash
+and memory requirements. Slim Bootloader uses a bitmask of platform
+identifiers for configuration parameters to consolidate common
+configuration parameters.</p>
+<p>To support this requirement, it is necessary to come up with a flow that
+can support multiple platform configurations and merge all the
+configuration within a single custom configuration binary blob.</p>
+<p>Diagrams in the following subsections illustrate the overall flow of how
+multiple platform configuration data can be supported.</p>
+</section>
+<section id="multiple-platform-config-data-generation">
+<h2>Multiple Platform Config Data Generation<a class="headerlink" href="#multiple-platform-config-data-generation" title="Permalink to this heading"></a></h2>
+<img alt="../_images/ConfigDlt.PNG" src="../_images/ConfigDlt.PNG" />
+</section>
+<section id="multiple-platform-config-data-merge">
+<h2>Multiple Platform Config Data Merge<a class="headerlink" href="#multiple-platform-config-data-merge" title="Permalink to this heading"></a></h2>
+<img alt="../_images/ConfigMerge.PNG" src="../_images/ConfigMerge.PNG" />
+</section>
+<section id="configuration-description-yaml-explained">
+<h2>Configuration Description (YAML) Explained<a class="headerlink" href="#configuration-description-yaml-explained" title="Permalink to this heading"></a></h2>
+<p>The declarations required to build the Slim Bootloader configuration
+data blobs and the header files are provided in a configuration
+description file. This file uses the YAML syntax.</p>
+<p>YAML (<a class="reference external" href="https://yaml.org/">https://yaml.org/</a>) is a data serialization language designed to be
+human-friendly and work well with modern programming languages. A quick
+syntax reference can be found here - <a class="reference external" href="https://yaml.org/refcard.html">https://yaml.org/refcard.html</a></p>
+<p>Configuration YAML files will be processed by configuration tools like
+GenCfgData, CfgDataTool, CfgDataStitch in order to generate the
+configuration header files and binary blobs.</p>
+<p>The main platform configuration file is specified in CfgDataDef.yaml.
+Please note that you may find many YAML files. However, only
+CfgDataDef.yaml is the primary file used for the platform configuration,
+and other sub YAML files will be included by the primary YAML file to
+provide component specific configuration.</p>
+<p>An example configuration file in YAML syntax is provided below.</p>
+<img alt="../_images/ConfigDefYaml.PNG" src="../_images/ConfigDefYaml.PNG" />
+</section>
+<section id="file-layout">
+<h2>File Layout<a class="headerlink" href="#file-layout" title="Permalink to this heading"></a></h2>
+<p>The configuration YAML file has a basic organization as below</p>
+<ul class="simple">
+<li><p><strong>Variable</strong> declarations</p></li>
+<li><p><strong>Template</strong> declarations</p></li>
+<li><p><strong>Configuration</strong> declarations</p></li>
+</ul>
+<section id="meta-data-markers">
+<h3>Meta-Data Markers<a class="headerlink" href="#meta-data-markers" title="Permalink to this heading"></a></h3>
+<p>The configuration YAML files uses the <strong>$</strong> sign as meta-data
+indicator. This is used by the SBL configuration parsing tools.</p>
+<p>The current specification version supports the following meta-data markers.</p>
+<section id="action">
+<h4>$ACTION<a class="headerlink" href="#action" title="Permalink to this heading"></a></h4>
+<p><strong>$ACTION</strong> is a meta-data marker and is followed by a YAML mapping node
+that contains some meta-data. The following attributes are supported currently.</p>
+</section>
+<section id="page">
+<h4>PAGE<a class="headerlink" href="#page" title="Permalink to this heading"></a></h4>
+<p>PAGE is used to declare a list of pages used in the GUI.</p>
+<p>PAGE is also used to define the display scope for a configuration
+parameter and can be applied for individual configuration parameters.</p>
+<p>In this way multiple configuration parameters can be grouped to be
+visually displayed together in the same page in GUI.</p>
+<p>Since the page: value(s) is a meta-data used by the tool (not a
+configuration option itself), it has be preceded by the <strong>$ACTION</strong>
+node.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">page</span><span class="p">:</span>  <span class="n">PageId1</span><span class="p">:</span><span class="n">ParentPageId1</span><span class="p">:</span><span class="n">PageTxetDescription1</span><span class="p">,</span> <span class="n">PageId2</span><span class="p">:</span><span class="n">ParentPageId2</span><span class="p">:</span><span class="n">PageTxetDescription2</span>
+</pre></div>
+</div>
+<p>If a root page needs to be defined, the ParentPageId could be empty as below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">page</span><span class="p">:</span>  <span class="n">RootPageId</span><span class="p">::</span><span class="n">RootPageTxetDescription</span>
+</pre></div>
+</div>
+<img alt="../_images/YAMLPage.PNG" src="../_images/YAMLPage.PNG" />
+</section>
+<section id="struct">
+<h4>$STRUCT<a class="headerlink" href="#struct" title="Permalink to this heading"></a></h4>
+<p>STRUCT directive is used to indicate a nested structure within a
+configuration structure.</p>
+<p>For example, consider the nested structure below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+
+  <span class="n">UINT32</span>                      <span class="n">Acpi</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="n">UINT32</span>                      <span class="n">MeasuredBoot</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="n">UINT32</span>                      <span class="n">Vt</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="n">UINT32</span>                      <span class="n">eMMCTuning</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="n">UINT32</span>                      <span class="n">DciDebug</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="n">UINT32</span>                      <span class="n">Rsvd1</span> <span class="p">:</span> <span class="mi">27</span><span class="p">;</span>
+
+<span class="p">}</span> <span class="n">FEATURES_DATA</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+
+  <span class="n">FEATURES_DATA</span>               <span class="n">Features</span><span class="p">;</span>
+
+<span class="p">}</span> <span class="n">FEATURES_CFG_DATA</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The following example shows this declaration using a $STRUCT as shown below</p>
+<img alt="../_images/YAMLStruct.PNG" src="../_images/YAMLStruct.PNG" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- $ACTION      :
+    page       : FEATURES:PLT:&quot;Features&quot;
+- FEATURES_CFG_DATA :
+  - !expand { CFGHDR_TMPL : [ FEATURES_CFG_DATA, 0x310, 0, 0 ] }
+  - !expand { FEATURES_TMPL : [  0x0000001F ] }
+</pre></div>
+</div>
+</section>
+</section>
+<section id="yaml-tags">
+<h3>YAML Tags<a class="headerlink" href="#yaml-tags" title="Permalink to this heading"></a></h3>
+<p>YAML represents type information of native data structures with a simple
+identifier, called a tag. Explicit typing is denoted with a tag using
+the exclamation point (“!”) symbol. The following application-specific
+local tags are used.</p>
+<section id="include">
+<h4>!INCLUDE<a class="headerlink" href="#include" title="Permalink to this heading"></a></h4>
+<p>Configuration declarations may be logically organized in multiple files.
+Additional YAML files are included in the CfgDataDef.yaml using
+“!include” tag.</p>
+<p><em>!include</em> statement may appear within any section. A relative file path
+is required to specific the file path to be included.  This path should
+be relative to the current yaml file containing the <em>!include</em> statement.
+The file content to be included must match the content type of the current
+section definition, contain complete sections, or combination of both.</p>
+<p>Statements in <em>!include</em> files must not break the integrity of the Yaml
+file, the included file is read by parsing tools in the exact position
+of the file, and is functionally equivalent to copying contents of the
+included file and pasting them into Yaml. The indentation of the included
+file will be adjusted automatically so that the top-level indentation in
+the included file has the same level as the <em>!include</em> statement line.
+line.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- !include RelativeFilePath
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- !include Platform/CommonBrdPkg/CfgData/CfgData.yaml
+
+- !include Platform/Rvp7Pkg/CfgData/CfgData_GPIO.yaml
+</pre></div>
+</div>
+</section>
+<section id="expand">
+<span id="sbl-expand"></span><h4>!EXPAND<a class="headerlink" href="#expand" title="Permalink to this heading"></a></h4>
+<p>“!expand” tag is used for declaring a configuration option defined by a template (<a class="reference internal" href="#sbl-template"><span class="std std-ref">Template</span></a>).
+<em>!expand</em> tag can only appear in <em>template</em> or <em>configs</em> section.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- !expand { CfgTmplName: [Param1, Param2, ….] }
+</pre></div>
+</div>
+<p>Using the CFGHDR_TMPL template example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CFGHDR_TMPL: &gt;
+  - CfgHeader    :
+      length       : 0x04
+      value        : {0x01:2b, ((_LENGTH_$(1)_)/4):10b, $(3):4b, $(4):4b, $(2):12b}
+  - CondValue    :
+      length       : 0x04
+      value        : 0x00000000
+
+
+- !expand { CFGHDR_TMPL : [ PLATFORMID_CFG_DATA, 0x0F0, 0, 0 ] }
+</pre></div>
+</div>
+<p>Here, the template CFGHDR_TMPL will be expanded with its full template body.
+$(1), $(2), $(3) in template body will be replaced with the appropriate parameters where</p>
+<p>$(1) is replaced with PLATFORMID_CFG_DATA,
+$(2) is replaced with 0x0F0,
+$(3) is replaced with 0 and
+$(4) is replaced with 0.</p>
+</section>
+</section>
+</section>
+<section id="variable">
+<h2>Variable<a class="headerlink" href="#variable" title="Permalink to this heading"></a></h2>
+<p>Variables may be considered as something equivalent to a C language
+macro. Variables are primarily used as symbolic names given to Python
+expressions. Whenever the variable name is used, it is replaced by the
+contents of the macro. Variables should only be defined in <em>variable</em>
+section.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>variable:
+COND_GPIO_SKIP                 : ($GPIO_CFG_DATA.$(1)_Half0.GpioSkip == 0)
+</pre></div>
+</div>
+</section>
+<section id="template">
+<span id="sbl-template"></span><h2>Template<a class="headerlink" href="#template" title="Permalink to this heading"></a></h2>
+<p>Templates are used to declare the format of configuration options and
+are useful when many configuration options of the similar type are needed.
+GPIO configuration option is a good example where templates are useful.
+A platform may have a lot of GPIO pins and instead of declaring
+configuration options for GPIO_1, GPIO_2, GPIO_3, etc., a template for
+GPIO can be declared and each GPIO can reuse the same configuration
+template with different values as needed.</p>
+<p>Templates should be declared in <em>template</em> section only, and should always be
+represented as a mapping node using folded block style indicated by a right
+angle bracket (&gt;).</p>
+<p>Templates support reference to parameters to customize the expansion.
+$(n) can be used to refer to the Nth parameter passed into this template
+macro by <em>!expland</em> tag.  During expansion, $(n) will be substituted with the
+actual Nth parameter.</p>
+<p>For example, a template for PCIe root port configuration is shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PCIERP_TMPL: &gt;
+  - PcieRpFeatures$(1) :
+    - $STRUCT      :
+        name         : PCIE RP $(1) Config Data
+        struct       : PCIE_RP_FEAT[]
+        length       : 0x01
+        value        : $(2)
+    - En           :
+        name         : PCIE RP Enable
+        type         : Combo
+        option       : $EN_DIS
+        help         : &gt;
+                       ENABLE- Enable this PCIE RP. DISABLE- Disable this PCIE RP
+        order        : 0000.0000
+        length       : 1bB
+    - ClkReqSup    :
+        name         : PCIE RP Clk Req Support
+        type         : Combo
+        option       : $EN_DIS
+        help         : &gt;
+                       Enable/Disable CLKREQ# Support
+        condition    : $(COND_PCIE_RP_EN)
+        length       : 1bB
+    - ClkReqNum    :
+        name         : PCIE RP Clk Req Number
+        type         : EditNum, HEX, (0x00, 0xFF)
+        help         : &gt;
+                       Configure Root Port CLKREQ Number if CLKREQ is supported
+        condition    : $(COND_PCIE_RP_CLK_REQ_SUP)
+        length       : 3bB
+    - Aspm         :
+        name         : PCIE RP Aspm
+        type         : EditNum, HEX, (0x00, 0xFF)
+        help         : &gt;
+                       PCI Express Active State Power Management settings
+        condition    : $(COND_PCIE_RP_EN)
+        length       : 3bB
+</pre></div>
+</div>
+<p>Now, multiple PCIe root part configurations are declared using !expand (<a class="reference internal" href="#sbl-expand"><span class="std std-ref">!EXPAND</span></a>) as below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- PCIE_RP_CFG_DATA :
+  - !expand { CFGHDR_TMPL : [ PCIE_RP_CFG_DATA, 0x302, 0, 0 ] }
+  - !expand { PCIERP_TMPL : [ 0 ,  0x8B ] }
+  - !expand { PCIERP_TMPL : [ 1 ,  0x8F ] }
+  - !expand { PCIERP_TMPL : [ 2 ,  0x87 ] }
+  - !expand { PCIERP_TMPL : [ 3 ,  0x86 ] }
+  - !expand { PCIERP_TMPL : [ 4 ,  0x83 ] }
+  - !expand { PCIERP_TMPL : [ 5 ,  0x8E ] }
+</pre></div>
+</div>
+</section>
+<section id="configs">
+<h2>Configs<a class="headerlink" href="#configs" title="Permalink to this heading"></a></h2>
+<p>This section contains the configuration option declarations.</p>
+<p>A YAML <strong>node</strong> represents a single native data structure. A <strong>mapping
+node</strong> is an unordered set of <em>key: value</em> node pairs. Mappings use a
+colon and space (”: “) to mark each key: value pair.</p>
+<p>A <strong>block sequence</strong> is simply a series of nodes, each denoted by a
+leading “-” indicator. The “-” indicator must be separated from the node
+by white space. YAML’s <strong>block collections</strong> use indentation for scope
+and begin each entry on its own line.</p>
+<p>SBL configuration options are a series of YAML block sequence and form a
+YAML block collection.</p>
+<p>Every ConfigDataDef.yaml configs section starts with the declaration for the
+<strong>CDATA_BLOB_HEADER</strong> as shown in <a class="reference internal" href="#sbl-config-blob-header"><span class="std std-ref">Config BLOB Header</span></a> followed by a
+series of configuration data identied by unique tags:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>configs:
+  - $ACTION      :
+      page         : PageId1::&quot;Page Display Text&quot;, PageId2::&quot;Page Display Text&quot;, PageId3::&quot;Page Display Text&quot;, ...
+  - Signature    :
+      length       : 0x04
+      value        : {&#39;CFGD&#39;}
+  - HeaderLength :
+      length       : 0x01
+      value        : 0x10
+  - Reserved     :
+      length       : 0x03
+      value        : {0,0,0}
+  - UsedLength   :
+      length       : 0x04
+      value        : _LENGTH_
+  - TotalLength  :
+      length       : 0x04
+      value        : 0x2000
+</pre></div>
+</div>
+<p>As discussed in <a class="reference internal" href="#sbl-config-tags"><span class="std std-ref">SBL Configuration Tags</span></a>, SBL configuration options are organized as groups.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span>  <span class="n">Each</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">represented</span> <span class="k">as</span> <span class="n">a</span> <span class="n">YAML</span> <span class="n">block</span> <span class="n">sequence</span> <span class="ow">and</span> <span class="n">starts</span> <span class="k">with</span> <span class="n">a</span> <span class="n">leading</span> <span class="s2">&quot;-&quot;</span> <span class="n">indicator</span> <span class="n">followed</span> <span class="n">by</span> <span class="n">a</span> <span class="n">white</span> <span class="n">space</span><span class="o">.</span>
+
+<span class="o">-</span>  <span class="n">Each</span> <span class="n">group</span> <span class="n">has</span> <span class="n">a</span> <span class="n">configuration</span> <span class="n">header</span><span class="o">.</span> <span class="n">The</span> <span class="n">Configuration</span> <span class="n">header</span> <span class="ow">is</span> <span class="n">declared</span> <span class="n">using</span> <span class="s2">&quot;!expand&quot;</span> <span class="n">tag</span> <span class="n">to</span> <span class="n">expand</span> <span class="n">a</span> <span class="n">template</span> <span class="n">declaration</span><span class="o">.</span> <span class="n">The</span> <span class="n">configuration</span> <span class="n">header</span> <span class="n">itself</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">YAML</span> <span class="n">block</span> <span class="n">sequence</span>
+
+<span class="o">-</span>  <span class="n">Each</span> <span class="n">configuration</span> <span class="n">option</span> <span class="n">within</span> <span class="n">the</span> <span class="n">group</span> <span class="ow">is</span> <span class="n">also</span> <span class="n">a</span> <span class="n">block</span> <span class="n">sequence</span> <span class="n">made</span> <span class="n">of</span> <span class="n">mapping</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">each</span> <span class="k">with</span> <span class="n">key</span><span class="p">:</span><span class="n">value</span> <span class="n">pair</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>The following example will illustrate how a MrcFastBoot config option is declared</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- MrcFastBoot :
+
+  name   : MrcFastBoot
+
+  type   : Combo
+
+  option : $EN_DIS
+
+  help   : &gt;
+
+           Enable/Disable MRC fast boot support
+
+  length : 0x01
+
+  value  : 0x1
+</pre></div>
+</div>
+<p>The below shows the MrcFastBoot config option being under MEMORY_CFG_DATA.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- MEMORY_CFG_DATA :
+
+  - !expand { CFGHDR_TMPL : [ MEMORY_CFG_DATA, 0x200, 0, 0 ] }
+
+  - MrcFastBoot :
+
+    name   : MrcFastBoot
+
+    type   : Combo
+
+    option : $EN_DIS
+
+    help   : &gt;
+
+             Enable/Disable MRC fast boot support
+
+    length : 0x01
+
+    value  : 0x1
+</pre></div>
+</div>
+<p>Example showing the MrcFastBoot config option being under MEMORY_CFG_DATA which is displayed in a “MEM” page.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- $ACTION      :
+
+    page       : MEM
+
+- MEMORY_CFG_DATA :
+
+  - !expand { CFGHDR_TMPL : [ MEMORY_CFG_DATA, 0x200, 0, 0 ] }
+
+  - MrcFastBoot :
+
+    name   : MrcFastBoot
+
+    type   : Combo
+
+    option : $EN_DIS
+
+    help   : &gt;
+
+             Enable/Disable MRC fast boot support
+
+    length : 0x01
+
+    value  : 0x1
+</pre></div>
+</div>
+<section id="configuration-option-nodes">
+<h3>Configuration Option Nodes<a class="headerlink" href="#configuration-option-nodes" title="Permalink to this heading"></a></h3>
+<p>The below sections explain each of the “keys” used in a configuration
+option.</p>
+<section id="name">
+<h4>NAME<a class="headerlink" href="#name" title="Permalink to this heading"></a></h4>
+<p>NAME gives a plain-text label for a configuration parameter. This is the
+text label that is displayed in the Config Editor tool.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="n">CfgItemName</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="p">:</span> <span class="n">MrcFastBoot</span>
+</pre></div>
+</div>
+</section>
+<section id="type">
+<h4>TYPE<a class="headerlink" href="#type" title="Permalink to this heading"></a></h4>
+<p>TYPE defines the format of a configuration parameter that will be
+represented in the Config Editor tool. There are 5 different types
+available for configuration parameters: <strong>EditNum</strong>, <strong>EditText</strong>, <strong>Combo</strong>, <strong>Table</strong>, <strong>Reserved</strong></p>
+<section id="editnum">
+<h5>EditNum<a class="headerlink" href="#editnum" title="Permalink to this heading"></a></h5>
+<p>EditNum is used when user needs to input any value within the range
+defined. If the configuration option is an array, the VALUE field is
+used to specify the number of elements in the array.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">EditNum</span><span class="p">,</span> <span class="n">NumType</span><span class="p">,</span> <span class="p">(</span><span class="n">MinValue</span><span class="p">,</span> <span class="n">MaxValue</span><span class="p">)</span>
+
+<span class="n">NumType</span> <span class="n">could</span> <span class="n">be</span> <span class="o">**</span><span class="n">HEX</span><span class="o">**</span> <span class="p">(</span><span class="n">Hexa</span><span class="o">-</span><span class="n">Decimal</span> <span class="nb">format</span><span class="p">)</span> <span class="ow">or</span> <span class="o">**</span><span class="n">DEC</span><span class="o">**</span> <span class="p">(</span><span class="n">Decimal</span> <span class="nb">format</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">MinValue</span> <span class="ow">and</span> <span class="n">MaxValue</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">minimum</span> <span class="ow">and</span> <span class="n">maximum</span> <span class="n">value</span> <span class="n">allowed</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="edittext">
+<h5>EditText<a class="headerlink" href="#edittext" title="Permalink to this heading"></a></h5>
+<p>EditText is used when user needs to input any text string.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">EditText</span>
+</pre></div>
+</div>
+</section>
+<section id="combo">
+<h5>Combo<a class="headerlink" href="#combo" title="Permalink to this heading"></a></h5>
+<p>Combo is used to select from a drop-down list along. This list will be
+provided by OPTION field.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">Combo</span>
+
+<span class="n">option</span> <span class="p">:</span> <span class="n">val1</span><span class="p">:</span><span class="n">text1</span><span class="p">,</span> <span class="n">val2</span><span class="p">:</span><span class="n">text2</span><span class="p">,</span> <span class="n">val3</span><span class="p">:</span><span class="n">text3</span><span class="p">,</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">Combo</span>
+
+<span class="n">option</span> <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">9600</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">19200</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">38400</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">57600</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">115200</span>
+</pre></div>
+</div>
+</section>
+<section id="table">
+<h5>Table<a class="headerlink" href="#table" title="Permalink to this heading"></a></h5>
+<p>Table is used to define a tabular format. It needs to be used along with
+OPTION field to provide additional information for the table including
+column header string, cell width and cell format. Further, the VALUE field
+specifies the total number of elements in the table.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">Table</span>
+
+<span class="n">option</span> <span class="p">:</span> <span class="n">ColumnHdr1</span><span class="p">:</span><span class="n">width</span><span class="p">:</span><span class="nb">format</span><span class="p">,</span> <span class="n">ColumnHdr2</span><span class="p">:</span><span class="n">width</span><span class="p">:</span><span class="nb">format</span><span class="p">,</span> <span class="n">ColumnHdr3</span><span class="p">:</span><span class="n">width</span><span class="p">:</span><span class="nb">format</span><span class="p">,</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>ColumnHdr’n’ sepcifier indicates the string to be displayed as the column header.
+width indicates the cell width in number of bytes
+format is the number format and should be HEX</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">Table</span>
+
+<span class="n">option</span> <span class="p">:</span> <span class="o">&gt;</span>
+
+<span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="n">D</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="n">E</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span><span class="p">,</span> <span class="n">F</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">HEX</span>
+</pre></div>
+</div>
+<p>Byte width in each cell of the table can be displayed as 1 byte, 2 bytes or 4 bytes.</p>
+</section>
+<section id="reserved">
+<h5>Reserved<a class="headerlink" href="#reserved" title="Permalink to this heading"></a></h5>
+<p>Reserved type can be used to prevent configuration parameters from being
+displayed in the Config Editor. This type will not be generated as part
+of the DLT file output.  But the configuration parameters will still be
+generated in the auto-generated C header structure.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">Reserved</span>
+</pre></div>
+</div>
+</section>
+<section id="constant">
+<h5>Constant<a class="headerlink" href="#constant" title="Permalink to this heading"></a></h5>
+<p>Constant type can be used to describe an item that should not be configured
+by the Config Editor, it always holds a constant value. Similar to Reserved
+type the Config Editor will not display it. But different from Reserved type,
+this type will be generated as part of the DLT file output.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="p">:</span> <span class="n">Constant</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="altpage">
+<h4>Altpage<a class="headerlink" href="#altpage" title="Permalink to this heading"></a></h4>
+<p>Alternate page allows a specific configuration item to appear at multiple pages as desired. Lets describe this using an example.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- MEMORY_CFG_DATA :
+
+  - HyperThreading :
+
+    name   : HyperThreading
+
+    altpage: TCC_SETTINGS
+
+    type   : Combo
+
+    option : $EN_DIS
+
+    help   : &gt;
+
+             Enable or Disable Hyper Threading; 0- Disable; &lt;b&gt;1- Enable&lt;/b&gt;
+
+    length : 0x01
+
+    value  : 0x1
+</pre></div>
+</div>
+<p>HyperThreading is a configuration option which is defined under MEMORY_CFG_DATA. The same can appear in a different page say “TCCSETTINGS”
+with the help of keyword ‘altpage’ as shown above. The same value will be reflected at both places and when changed in one page, the changed value is reflected in the alternate page as well.</p>
+<p>This option can be useful when user wants to create a feature specific page or want to group specific config options related to a feature into separate page without affecting the original configuration present in the parent page.</p>
+</section>
+<section id="option">
+<h4>OPTION<a class="headerlink" href="#option" title="Permalink to this heading"></a></h4>
+<p>This allows to provide type-specific additional information. For type
+Combo, it defines the drop-down list. For type Table, it defines the
+column display information.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>OPTION: &gt; Value1:TextStr1, Value2:TextStr2, ….
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Config tools allow the value/contents for OPTION to be split into multiple lines. The lines except for the very first line need to start with ‘<strong>+’ (plus sign)</strong>
+to tell the parsing tool to append this string to previous one.</p>
+</div>
+</section>
+<section id="help">
+<h4>HELP<a class="headerlink" href="#help" title="Permalink to this heading"></a></h4>
+<p>This defines what will appear in the ‘help’ text when hovering over the
+field in the UI tool.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">:</span> <span class="o">&gt;</span> <span class="n">Any</span> <span class="n">detail</span> <span class="n">about</span> <span class="n">particular</span> <span class="n">CfgItem</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">:</span> <span class="o">&gt;</span> <span class="n">Enable</span><span class="o">/</span><span class="n">disable</span> <span class="n">LAN</span> <span class="n">controller</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Config tools allow the value/contents for HELP to be split into multiple lines. The lines except for the very first line need to start with ‘<strong>+’ (plus sign)</strong>
+to tell the parsing tool to append this string to previous one.</p>
+</div>
+</section>
+<section id="condition">
+<h4>CONDITION<a class="headerlink" href="#condition" title="Permalink to this heading"></a></h4>
+<p>CONDITION is used to associate conditional statement for a configuration
+parameter when required. It is useful to dynamically hide/display a
+configuration parameter that has a dependency on another configuration
+parameter value. When the condition is TRUE, the configuration parameter
+is visible. Otherwise, it is hidden.</p>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">condition</span><span class="p">:</span> <span class="n">Expression</span>
+</pre></div>
+</div>
+<p>Expression is an expression following Python* syntax. It can have
+reference to another configuration parameter using $<em>CfgItemName</em> or
+<em>$CfgItemName.BitField</em> format. It can use variables as described in 3.3</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>condition : $GPIO_CFG_DATA.GpioPinConfig1_$(1).GPIOSkip_$(1) == 0
+
+condition : $SECURITY_CFG_DATA.EnableSgx != 0 and $SECURITY_CFG_DATA.EpochUpdate == 2
+</pre></div>
+</div>
+</section>
+<section id="order">
+<h4>ORDER<a class="headerlink" href="#order" title="Permalink to this heading"></a></h4>
+<p>ORDER can be used to adjust the display order for the configuration
+parameters in a page. By default, if this command is not specified, the
+order value is assigned to be the CfgitemOffset as the logic described
+below. But if a different order is required, it can be overridden by
+declaring <strong>ORDER</strong> command explicitly using format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">order</span> <span class="p">:</span> <span class="p">{</span><span class="n">HexMajor</span><span class="o">.</span><span class="n">HexMinor</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The final order key is calculated as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Order</span> <span class="o">=</span>  <span class="p">(</span><span class="n">HexMajor</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span>  <span class="o">+</span>  <span class="p">(((</span><span class="n">HexMajor</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">BitFieldOffset</span>
+</pre></div>
+</div>
+<p>If ORDER {HexMajor.HexMinor} is not specified for an item, it is calculated as: Order =  (CfgItemOffset &lt;&lt; 16)</p>
+<p>The item order value is used as the <em>sort key</em> during YAML items display.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">order</span> <span class="p">:{</span><span class="mf">0000.0000</span><span class="p">}</span>
+
+<span class="n">order</span> <span class="p">:{</span><span class="mh">0x0040</span><span class="mf">.01</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="length">
+<h4>LENGTH<a class="headerlink" href="#length" title="Permalink to this heading"></a></h4>
+<p>Length is used to specify the size of the configuration option in bytes. Length can also be specified in
+bits by appending ‘b’ at the end.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">length</span>       <span class="p">:</span> <span class="mi">1</span><span class="n">b</span>
+
+<span class="n">length</span>       <span class="p">:</span> <span class="mh">0x04</span>
+</pre></div>
+</div>
+</section>
+<section id="value">
+<h4>VALUE<a class="headerlink" href="#value" title="Permalink to this heading"></a></h4>
+<p>Value is used to specify the default value of the configuration option. It could be a number, string, or data array.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>For number, it can be DEC or HEX.   HEX needs to have prefix ‘0x’.</p></li>
+<li><p>For array,   <strong>{</strong> <strong>}</strong> braces are required around the element list. List elements should be numbers and are separated by comma.
+Each element should have the same unit size (1, 2, 4, 8 bytes). By default, it is BYTE for each element.  The unit size can be changed
+through an extended dummy element at the beginning of the array, noted as  “0:0[B|W|D|Q]”.</p></li>
+<li><p>For string,  single or double quotes are required.</p></li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">value</span>        <span class="p">:</span> <span class="mh">0xFF</span>
+
+<span class="n">value</span>        <span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">}</span>
+               <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="n">B</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">}</span>
+               <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="n">W</span><span class="p">,</span> <span class="mh">0x0201</span><span class="p">,</span> <span class="mh">0x0403</span><span class="p">,</span> <span class="mh">0x0605</span><span class="p">,</span> <span class="mh">0x0807</span><span class="p">}</span>
+               <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="n">D</span><span class="p">,</span> <span class="mh">0x04030201</span><span class="p">,</span> <span class="mh">0x08070605</span><span class="p">}</span>
+               <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="n">Q</span><span class="p">,</span> <span class="mh">0x0807060504030201</span><span class="p">}</span>
+
+<span class="n">value</span>        <span class="p">:</span> <span class="s1">&#39;FwuImage.bin&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="delta-dlt-file-explained">
+<h2>Delta (DLT) File Explained<a class="headerlink" href="#delta-dlt-file-explained" title="Permalink to this heading"></a></h2>
+<p>Configuration Delta (DLT) file is an extension of the base configuration
+YAML file that contains configuration parameters that need to be
+overridden from base configuration.</p>
+<p>Each board flavor can have one DLT file specified. YAML and DLT files
+reside at the Platform folder in Slim bootloader source. Delta files are
+<strong>NOT</strong> auto-generated files.</p>
+<p>In addition to board-specific delta files, a delta file that overrides
+configuration parameters for all boards (board ID 0) is also supported.
+Users can add/create new DLT file for each board flavor of the same SOC
+with the help of board-specific PlatformId (1 – 31) that should be
+specified in each file. Parsing tool will then calculate bit mask/value
+for each tag that is included in base configuration YAML against each
+board’s PlatformID specified in .DLT and populates relevant data based
+on PlatformID in the form of binaries (.bin) for each of the boards.</p>
+<p>If config parameters did not change for a tag, data is taken from base
+configuration itself. If it has changed for a particular tag mentioned
+in .DLT, new data from DLT will be overwritten and gets generated in the
+configuration binary for that specific board.</p>
+</section>
+<section id="dlt-file-rules">
+<h2>DLT file rules<a class="headerlink" href="#dlt-file-rules" title="Permalink to this heading"></a></h2>
+<ul>
+<li><p>Users cannot add/create a new configuration parameter in DLT file,
+nor can they create a new tag. Users can only modify/overwrite the
+values for configuration parameters that are already existing in the
+base configuration YAML file.</p></li>
+<li><p>Delta file can be used to generate both default and custom/standalone
+config data. Delta file is like changing configuration items using
+<em>ConfigEditor</em> (explained later).</p></li>
+<li><p>Delta file cannot be opened in UI interface all by itself. But it’s
+possible to open in <em>ConfigEditor</em> by first loading the base
+configuration YAML, and then load DLT file on top of it. We can then
+see overrides in <em>ConfigEditor</em> that is mentioned in DLT.</p></li>
+<li><p>Delta files should be included as part of the Board Configuration
+script, BoardConfig.py in order to take effect.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">_CFGDATA_INT_FILE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CfgData_Int_Brd0_Def.dlt&#39;</span><span class="p">]</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">_CFGDATA_EXT_FILE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CfgData_Ext_Brd1_Rvp.dlt&#39;</span><span class="p">,</span><span class="s1">&#39;CfgData_Ext_Brd2_Crb.dlt&#39;</span><span class="p">,</span><span class="s1">&#39;CfgData_Ext_Brd3_Bmp.dlt&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>‘_CFGDATA_INT_FILE’ is used for all the default board flavors. Delta
+files included here is generated as part of the default configuration
+data consumed within the Slim bootloader source.</p></li>
+<li><p>‘_CFGDATA_EXT_FILE’ is used for external/customer boards. Delta files
+included here is generated as a standalone binary and stitched into
+the BIOS region of the SPI Flash.</p></li>
+<li><p>Below are the current formats that can be used in DLT:</p>
+<ul class="simple">
+<li><p>Hash “#” symbol indicates comments in the DLT file.</p></li>
+<li><p>Users can overwrite the values of existing Tag items in DLT as follows</p></li>
+</ul>
+<p>Format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tagname</span><span class="o">.</span><span class="n">itemname</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">|</span> <span class="o">&lt;</span><span class="n">data</span> <span class="n">value</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PLATFORMID_CFG_DATA</span><span class="o">.</span><span class="n">PlatformId</span> <span class="o">|</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GPIO_CFG_DATA</span><span class="o">.</span><span class="n">GpioPinConfig1_GPP_A0</span><span class="o">.</span><span class="n">GPIOSkip_GPP_A0</span> <span class="o">|</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+<li><p>Granularity of the data is based upon the size of the configuration
+parameters specified in the base configuration YAML file. In the
+above example, PlatformID in base configuration YAML is defined as 2
+bytes. So, the value should be mentioned according to its size.
+Similarly, GPIOSkip field in base configuration YAML is defined as 1
+byte. So, the value to be mentioned in DLT can either be 0 or 1. If
+we want to overwrite the full DWORD instead of individual bits, for
+example, GPIO PIN Config DWord0 or DWord1, it can be specified as
+follows, example: GPIO_CFG_DATA.GpioPinConfig0_GPP_A0 | 0x12345678</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Customers who have access to source code can change DLT files without
+having to use <em>ConfigEditor</em> GUI interface and any other
+configuration tools if they are able to build and stitch the Slim
+Bootloader source. All the commands used to generate, merge, sign the
+binaries are all part of the <em>CfgDataTool</em>, which is already part of
+the build process. They will be auto generated, merged, and signed as
+we run the build/stitch commands with no manual steps needed to
+create the final Configuration binary blob.</p>
+</div>
+</section>
+<section id="configuration-process">
+<h2>Configuration Process<a class="headerlink" href="#configuration-process" title="Permalink to this heading"></a></h2>
+<p>Configuration data flow begins with the base configuration YAML file
+along with delta (DLT) files that contain the overrides of configuration
+settings that are different from base configuration data. <em>CfgDataTool</em>
+parses YAML and DLT file(s) and <em>GenCfgData</em> auto-generates each DLT’s
+binary file.</p>
+<p>The new board-specific config binary(ies) generated from the DLT files
+will then be ‘merged’ by <em>CfgDataTool</em> along with default config binary
+files (CfgDataInt.bin*) that were previously generated for each board
+flavor.</p>
+<p>Merged configuration binary will then be ‘signed’ by <em>CfgDataTool</em> with
+a Private Key.</p>
+<p>Signed configuration binary will be the ‘final’ custom/standalone
+configuration binary (Example: CFG_EXT_SIGNED.bin) that is placed in PDR
+or BIOS region and stitched into the final image that is to be flashed
+in SPI.</p>
+<p><strong>All these steps are executed as part of the Slim Bootloader build
+process.</strong> In addition to generation and stitching of configuration
+binaries through SBL build, editing of configuration parameters post
+build is also supported. Please see <a class="reference internal" href="../developer-guides/configuration.html#config-steps"><span class="std std-ref">Step-by-step Configuration Flow</span></a> for details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Specifications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../references/references.html" class="btn btn-neutral float-right" title="References and Links" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

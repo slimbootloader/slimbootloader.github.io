@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PXE Boot Through U-Boot Payload &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configure Memory Down" href="configure-memory-down.html" />
+    <link rel="prev" title="Boot Linux with U-Boot Payload" href="boot-with-u-boot-payload.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-netboot.html">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PXE Boot Through U-Boot Payload</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#u-boot-confiugration-to-enable-pxe-boot-support">U-Boot Confiugration to enable PXE Boot Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#u-boot-device-tree-changes">U-Boot Device Tree Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-slim-bootloader-with-u-boot-as-payload">Build Slim Bootloader with U-Boot as Payload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#u-boot-shell-pxe-boot-commands">U-Boot Shell PXE Boot Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">PXE Boot Through U-Boot Payload</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pxe-boot-through-u-boot-payload">
+<span id="boot-pxe-uboot"></span><h1>PXE Boot Through U-Boot Payload<a class="headerlink" href="#pxe-boot-through-u-boot-payload" title="Permalink to this heading"></a></h1>
+<p>Some users may prefer to boot their operating system over a network. This guide below shows how to achieve that using U-Boot as a payload for SBL.</p>
+<p>We leverage existing PXE functionality in U-Boot to enable PXE boot.</p>
+<p>Steps:</p>
+<ul class="simple">
+<li><p>Set up a TFTP server for serving PXE boot files</p></li>
+<li><p>U-Boot can be built as a payload for Slim Bootloader. Please refer to <a class="reference external" href="https://slimbootloader.github.io/how-tos/boot-with-u-boot-payload.html">this</a> page for generic build Instructions.</p></li>
+</ul>
+<section id="u-boot-confiugration-to-enable-pxe-boot-support">
+<h2>U-Boot Confiugration to enable PXE Boot Support<a class="headerlink" href="#u-boot-confiugration-to-enable-pxe-boot-support" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Below are steps for enabling PXE Boot support in U-Boot</p>
+<blockquote>
+<div><ul>
+<li><p>After running <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">slimbootloader_defconfig</span></code> according to the guide linked above, run</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ make menuconfig
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Enable <code class="docutils literal notranslate"><span class="pre">pxe</span></code> under the <code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">Line</span> <span class="pre">Interface</span></code> section as shown.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../_images/1_cmdline_pxe.png"><img alt="../_images/1_cmdline_pxe.png" src="../_images/1_cmdline_pxe.png" style="width: 1500px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Enable <code class="docutils literal notranslate"><span class="pre">dhcp</span></code> option under the <code class="docutils literal notranslate"><span class="pre">Network</span> <span class="pre">Commands</span></code> section inside <code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">Line</span> <span class="pre">Interface</span></code>.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../_images/2_dhcp.png"><img alt="../_images/2_dhcp.png" src="../_images/2_dhcp.png" style="width: 750px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Enable <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">the</span> <span class="pre">'serverip'</span> <span class="pre">env</span> <span class="pre">var</span> <span class="pre">for</span> <span class="pre">tftp</span></code> under the <code class="docutils literal notranslate"><span class="pre">Networking</span> <span class="pre">Support</span></code> section as shown.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../_images/3_serverip.png"><img alt="../_images/3_serverip.png" src="../_images/3_serverip.png" style="width: 1500px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Additionally, you might need to enable the driver for your system’s network controller.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Save the config through the menu. You can run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">savedefconfig</span></code> to save this configuration. It will be saved in a file named <code class="docutils literal notranslate"><span class="pre">defconfig</span></code> in the root of your U-Boot source.</p></li>
+</ol>
+</section>
+<section id="u-boot-device-tree-changes">
+<h2>U-Boot Device Tree Changes<a class="headerlink" href="#u-boot-device-tree-changes" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Now, we need to add a few things to the U-Boot device tree for Slim Bootloader target to make sure that U-Boot is able to find the network device. Below are the steps for QEMU target -</p></li>
+<li><p>Add the following code block to the <code class="docutils literal notranslate"><span class="pre">pci</span></code> section of <code class="docutils literal notranslate"><span class="pre">u-boot/arch/x86/dts/slimbootloader.dts</span></code> so it looks like this -</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pci {
+    compatible = &quot;pci-x86&quot;;
+    #address-cells = &lt;3&gt;;
+    #size-cells = &lt;2&gt;;
+    u-boot,dm-pre-reloc;
+    ranges = &lt;0x02000000 0x0 0x80000000 0x80000000 0 0x60000000&gt;;
+};
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ranges</span></code> property describes the MMIO window for PCI devices. You can get the starting address for this window from your platform’s <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code> file. It is listed as <code class="docutils literal notranslate"><span class="pre">self.PCI_MEM32_BASE</span></code>. In case of QEMU, the window starts at <code class="docutils literal notranslate"><span class="pre">0x80000000</span></code>.</p></li>
+<li><p>We can assume that the window extends up to the PCI Express Base Address (<code class="docutils literal notranslate"><span class="pre">self.PCI_EXPRESS_BASE</span></code>), which is <code class="docutils literal notranslate"><span class="pre">0xE0000000</span></code> for QEMU.</p></li>
+<li><p>The last value in the ranges property describes the size of the MMIO window. Thus, we set it to <code class="docutils literal notranslate"><span class="pre">0x60000000</span></code>.</p></li>
+<li><p>For more details on the PCI ranges property, you can refer to the device tree documentation <a class="reference external" href="https://elinux.org/Device_Tree_Usage#PCI_Address_Translation">here</a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="build-slim-bootloader-with-u-boot-as-payload">
+<h2>Build Slim Bootloader with U-Boot as Payload<a class="headerlink" href="#build-slim-bootloader-with-u-boot-as-payload" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Build U-Boot</p></li>
+<li><p>Copy the generated <code class="docutils literal notranslate"><span class="pre">u-boot-dtb.bin</span></code> binary to <code class="docutils literal notranslate"><span class="pre">slimbootloader/PayloadPkg/PayloadBins/u-boot-dtb.bin</span></code>.</p></li>
+<li><p>Set SBL’s <code class="docutils literal notranslate"><span class="pre">PayloadId</span></code> to <code class="docutils literal notranslate"><span class="pre">U-BT</span></code>.</p></li>
+<li><p>Build Slim Bootloader with U-Boot as Payload.</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python BuildLoader.py build &lt;platform&gt; -p &quot;OsLoader.efi:LLDR:Lzma;u-boot-dtb.bin:U-BT:Lzma&quot;
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="u-boot-shell-pxe-boot-commands">
+<h2>U-Boot Shell PXE Boot Commands<a class="headerlink" href="#u-boot-shell-pxe-boot-commands" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Once booted to U-Boot shell, enter the following commands to boot over the network.</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>=&gt; dhcp
+=&gt; setenv serverip &lt;tftp server address&gt;
+=&gt; setenv pxefile_addr_r 0x1000000
+=&gt; setenv ramdisk_addr_r 0x2000000
+=&gt; setenv initrd_addr_r 0x3000000
+=&gt; setenv kernel_addr_r 0x4000000
+=&gt; pxe get
+=&gt; pxe boot
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>You should now see U-Boot load the operating system.</p>
+<blockquote>
+<div><img alt="../_images/4_pxeboot_log.png" src="../_images/4_pxeboot_log.png" />
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="boot-with-u-boot-payload.html" class="btn btn-neutral float-left" title="Boot Linux with U-Boot Payload" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configure-memory-down.html" class="btn btn-neutral float-right" title="Configure Memory Down" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

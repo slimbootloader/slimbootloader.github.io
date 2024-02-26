@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create IAS Boot Image &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot Windows with UEFI Payload" href="boot-windows.html" />
+    <link rel="prev" title="Create Container Boot Image" href="create-container-boot-image.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-netboot.html">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-pxe-uboot.html">PXE Boot Through U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">Create IAS Boot Image</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="create-ias-boot-image">
+<span id="id1"></span><h1>Create IAS Boot Image<a class="headerlink" href="#create-ias-boot-image" title="Permalink to this heading"></a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>IAS image format is deprecated; container format is preferred. See <a class="reference internal" href="create-container-boot-image.html#create-container-boot-image"><span class="std std-ref">Create Container Boot Image</span></a> for more details.</p>
+</div>
+<p>This page provides instructions to create a bootable Linux kernel image in IAS format and setup boot partition in SBL to boot from it.</p>
+<p>The following step-by-step instructions is an example to boot Yocto kernel using IAS image format on UP<sup>2</sup>.</p>
+<p><strong>Step 1:</strong> Download and install open source IAS tool from <a href="https://github.com/intel/iasimage" target="_blank">here</a></p>
+<p><strong>Step 2:</strong> Get kernel and associated files from target Yocto disk image.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Locate and save a copy of vmlinuz (e.g. <code class="docutils literal notranslate"><span class="pre">vmlinuz</span></code>), initramfs (<code class="docutils literal notranslate"><span class="pre">initrd</span></code>)</p></li>
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">cmdline.txt</span></code> with kernel command line string. There are different ways to extract kernel command line from a booted system. Examples includes <code class="docutils literal notranslate"><span class="pre">grub.cfg</span></code>, <code class="docutils literal notranslate"><span class="pre">/proc/cmdline</span></code> or via <code class="docutils literal notranslate"><span class="pre">dmesg</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">'Command</span> <span class="pre">line'</span></code>. If the command line is empty, create an empty file.</p></li>
+</ol>
+</div></blockquote>
+<p><strong>Step 3:</strong> Generate <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code> file</p>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iasimage</span> <span class="o">-</span><span class="n">i</span> <span class="mh">0x30300</span> <span class="o">-</span><span class="n">o</span> <span class="n">iasimage</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">RSA_private_key</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">vmlinuz</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">initrd</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="n">RSA_private_key</span><span class="o">&gt;</span><span class="p">:</span> <span class="nb">hash</span> <span class="n">of</span> <span class="n">the</span> <span class="n">public</span> <span class="n">key</span> <span class="n">should</span> <span class="n">be</span> <span class="n">included</span> <span class="ow">in</span> <span class="o">|</span><span class="n">SPN</span><span class="o">|</span> <span class="n">Key</span> <span class="n">Manifest</span> <span class="ow">and</span> <span class="n">HASH_USAGE</span> <span class="n">should</span> <span class="n">be</span> <span class="nb">set</span> <span class="n">to</span> <span class="s1">&#39;PUBKEY_OS&#39;</span> <span class="n">during</span> <span class="o">|</span><span class="n">SPN</span><span class="o">|</span> <span class="n">build</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Sample output messages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Creating</span> <span class="n">ias</span><span class="o">-</span><span class="n">image</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">files</span>
+<span class="n">Detected</span> <span class="n">image</span> <span class="nb">type</span> <span class="ow">is</span> <span class="p">(</span><span class="mh">0x30000</span><span class="p">)</span> <span class="o">-</span> <span class="n">Multi</span><span class="o">-</span><span class="n">file</span> <span class="n">boot</span> <span class="n">image</span>
+  <span class="n">cmd</span><span class="o">.</span><span class="n">null</span><span class="o">.</span><span class="n">txt</span> <span class="p">(</span><span class="mi">0</span> <span class="n">Bytes</span><span class="p">)</span>
+  <span class="n">vmlinuz</span> <span class="p">(</span><span class="mf">6.6</span> <span class="n">MiB</span><span class="p">)</span>
+  <span class="n">initrd</span> <span class="p">(</span><span class="mf">7.3</span> <span class="n">MiB</span><span class="p">)</span>
+<span class="n">File</span> <span class="mi">1</span> <span class="n">size</span> <span class="mi">0</span> <span class="nb">bytes</span>
+<span class="n">File</span> <span class="mi">2</span> <span class="n">size</span> <span class="mi">6902016</span> <span class="nb">bytes</span>
+<span class="n">File</span> <span class="mi">3</span> <span class="n">size</span> <span class="mi">7644383</span> <span class="nb">bytes</span>
+<span class="n">Calculating</span> <span class="n">Checksum</span><span class="o">...</span> <span class="n">Ok</span>
+<span class="n">Signing</span><span class="o">...</span> <span class="n">Ok</span>
+<span class="n">Writing</span><span class="o">...</span> <span class="n">Ok</span>
+</pre></div>
+</div>
+<p><strong>Step 4:</strong> Copy <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code> onto the first boot partition on UP<sup>2</sup>.</p>
+<p>Depending whether you are booting from eMMC or USB, <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code> should be copied to the <strong>root</strong> directory on the boot device.</p>
+<p><strong>Step 5:</strong> Configure boot option entry to load <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code> from the boot partition</p>
+<p>Make sure the boot option is configured to the location of <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code> on the boot device. E.g., if <code class="docutils literal notranslate"><span class="pre">iasimage.bin</span></code> is located on the first boot FAT32 partition on USB, the boot option entry should look like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- !expand { BOOT_OPTION_TMPL : [ 3 ,   0    ,  0 ,    5   ,   0   ,    0  ,     0 ,     0 , &#39;iasimage.bin&#39; ] }
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="change-boot-option.html#change-boot-options"><span class="std std-ref">Change Boot Options</span></a> for more details.</p>
+<p><strong>Step 6:</strong> Build, stitch, flash and boot</p>
+<p>Follow <a class="reference internal" href="../supported-hardware/index.html#supported-hardware"><span class="std std-ref">Supported Hardware</span></a> to build a flashable image for the target platform.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the target boot option is not the first entry, enter SBL shell first to switch it to the first one.</p>
+</div>
+<p>Example boot messages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>...
+&lt;Switch boot option to boot USB ...&gt;
+...
+
+Shell&gt; exit
+Boot options (in HEX):
+
+Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+  0|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  1|      0|   MMC |    0 |   0 |    0 | AUTO |    1 | iasimage.bin
+  2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  3|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  4|      4|   MEM |    0 |   0 |    0 |  RAW |    0 | 0x0
+
+BootMediumPciBase(0x1500)
+Getting boot image from... USB
+Init USB XHCI - Success
+Enumerate Bus - Success
+Found 3 USB devices on bus
+Found mass storage on device 2
+Try to find boot partition
+Partition type: MBR  (1 logical partitions)
+Find partition success
+BootSlot = 0x0
+Init File system
+Detected FAT on HwDev 0 Part 0
+Get file &#39;iasimage.bin&#39; (size:0xE42504) success.
+HASH Verification Success! Component Type (6)
+RSA Verification Success!
+IAS image is properly signed/verified
+IAS size = 0xE42504, file number: 3
+IAS Image Type = 0x3
+Assume BzImage...
+Setup bzImage boot parameters ...
+Found bzimage Signature
+Src=0x7886F6A8 Dest=0x100000 KernelSize=7288512
+SetupBootImage: Status = Success
+
+Dump normal boot image info:
+
+
+============ KERNEL SETUP ============
+SetupSectorss: 0x22
+RootFlags: 0x1
+SysSize: 0x6F36C
+
+...
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="create-container-boot-image.html" class="btn btn-neutral float-left" title="Create Container Boot Image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="boot-windows.html" class="btn btn-neutral float-right" title="Boot Windows with UEFI Payload" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

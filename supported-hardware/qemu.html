@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QEMU Virtual Platform &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simics® QSP Virtual Platform" href="qsp.html" />
+    <link rel="prev" title="Meteor Lake Platforms" href="mtl-rvp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Supported Hardware</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="adl-rvp.html">Alder Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html">Coffee Lake Refresh CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html">Comet Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html">Elkhart Lake CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icdx-crb.html">Ice Lake -D CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mtl-rvp.html">Meteor Lake Platforms</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">QEMU Virtual Platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-sbl">Building SBL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-to-shell-on-qemu-emulator">Boot to Shell on QEMU Emulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-to-yocto-on-qemu-emulator">Boot to Yocto on QEMU Emulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-to-a-container-image-on-qemu">Boot to a Container Image on QEMU</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">Simics® QSP Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raptor-lake.html">Raptor Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html">Tiger Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html">UP<sup>2</sup> Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2-6000.html">UP<sup>2</sup> 6000 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up7000adln50.html">UP Squared Pro 7000 Edge Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei12.html">UP Xtreme i12 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html">Whiskey Lake CRB Board</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Supported Hardware</a></li>
+      <li class="breadcrumb-item active">QEMU Virtual Platform</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qemu-virtual-platform">
+<span id="getting-started-qemu"></span><h1>QEMU Virtual Platform<a class="headerlink" href="#qemu-virtual-platform" title="Permalink to this heading"></a></h1>
+<section id="building-sbl">
+<h2>Building SBL<a class="headerlink" href="#building-sbl" title="Permalink to this heading"></a></h2>
+<p>To build SBL for QEMU Intel Q35 virtual platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span>
+</pre></div>
+</div>
+<p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs/qemu/SlimBootloader.bin</span></code> directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>QEMU virtual platform does not require stitching the SBL into an IFWI.</p>
+</div>
+</section>
+<section id="boot-to-shell-on-qemu-emulator">
+<h2>Boot to Shell on QEMU Emulator<a class="headerlink" href="#boot-to-shell-on-qemu-emulator" title="Permalink to this heading"></a></h2>
+<p>Now test the newly built SBL image in QEMU emulator from command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qemu</span><span class="o">-</span><span class="n">system</span><span class="o">-</span><span class="n">x86_64</span> <span class="o">-</span><span class="n">machine</span> <span class="n">q35</span> <span class="o">-</span><span class="n">nographic</span> <span class="o">-</span><span class="n">serial</span> <span class="n">mon</span><span class="p">:</span><span class="n">stdio</span> <span class="o">-</span><span class="n">pflash</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>Console outputs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1A</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1B</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE2</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">====================</span> <span class="n">OS</span> <span class="n">Loader</span> <span class="o">====================</span>
+<span class="n">Press</span> <span class="nb">any</span> <span class="n">key</span> <span class="n">within</span> <span class="mi">1</span> <span class="n">second</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">command</span> <span class="n">shell</span>
+<span class="n">Shell</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>To exit QEMU in Linux, type ctrl+a, then x. In Windows, type ctrl+c.</p>
+</div>
+</section>
+<section id="boot-to-yocto-on-qemu-emulator">
+<h2>Boot to Yocto on QEMU Emulator<a class="headerlink" href="#boot-to-yocto-on-qemu-emulator" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Download <a class="reference external" href="http://downloads.yoctoproject.org/releases/yocto/yocto-2.5/machines/genericx86-64/core-image-minimal-genericx86-64.hddimg">QEMU Yocto Image</a> to SBL top level source directory</p></li>
+<li><p>Mount <code class="docutils literal notranslate"><span class="pre">core-image-minimal-genericx86-64.hddimg</span></code> locally and rename <code class="docutils literal notranslate"><span class="pre">bzImage</span></code> to <code class="docutils literal notranslate"><span class="pre">vmlinuz</span></code></p></li>
+</ol>
+<p>Linux Users:: Use the commands below</p>
+<blockquote>
+<div><p>sudo mkdir /mnt/yocto
+sudo mount -o loop core-image-minimal-genericx86-64.hddimg /mnt/yocto
+sudo mv /mnt/yocto/bzImage /mnt/yocto/vmlinuz
+sudo umount /mnt/yocto</p>
+</div></blockquote>
+<p>Windows Users:: Use the method below</p>
+<blockquote>
+<div><p>Windows users may need tools that allow mounting the hddimg as a virtual drive in Windows.
+Once mounted, the bzImage file can be renamed to vmlinuz as required by SBL.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Boot new Yocto image (with graphic console).</p></li>
+</ol>
+<blockquote>
+<div><p>Command for booting Yocto using SBL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qemu</span><span class="o">-</span><span class="n">system</span><span class="o">-</span><span class="n">x86_64</span> <span class="o">-</span><span class="n">machine</span> <span class="n">q35</span> <span class="o">-</span><span class="n">m</span> <span class="mi">256</span> <span class="o">-</span><span class="n">drive</span> <span class="nb">id</span><span class="o">=</span><span class="n">mydrive</span><span class="p">,</span><span class="k">if</span><span class="o">=</span><span class="n">none</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="n">core</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">minimal</span><span class="o">-</span><span class="n">genericx86</span><span class="o">-</span><span class="mf">64.</span><span class="n">hddimg</span><span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="n">raw</span> <span class="o">-</span><span class="n">device</span> <span class="n">ide</span><span class="o">-</span><span class="n">hd</span><span class="p">,</span><span class="n">drive</span><span class="o">=</span><span class="n">mydrive</span> <span class="o">-</span><span class="n">serial</span> <span class="n">mon</span><span class="p">:</span><span class="n">stdio</span> <span class="o">-</span><span class="n">boot</span> <span class="n">order</span><span class="o">=</span><span class="n">d</span> <span class="o">-</span><span class="n">pflash</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>SBL should load Yocto and allow you to login from graphics console with username ‘root’.</p>
+</div></blockquote>
+</section>
+<section id="boot-to-a-container-image-on-qemu">
+<h2>Boot to a Container Image on QEMU<a class="headerlink" href="#boot-to-a-container-image-on-qemu" title="Permalink to this heading"></a></h2>
+<p>A container image encapsulates the boot image and a cryptographic signature which is used to verify the integrity of the boot image for secure boot purposes.</p>
+<p>Below are the steps to create and boot a container image on QEMU:</p>
+<ol class="arabic">
+<li><p>Create a container image of your boot image using the following guide: <a class="reference internal" href="../how-tos/create-container-boot-image.html#create-container-boot-image"><span class="std std-ref">Create Container Boot Image</span></a></p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure you use the correct type of container. For details on which type to use, refer to the <a class="reference internal" href="../tools/GenContainer.html#container-formats"><span class="std std-ref">Container Tool documentation</span></a>.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p>Once you have the container image <code class="docutils literal notranslate"><span class="pre">container.bin</span></code> created, it needs to be copied to the disk image to be used with QEMU. For example, the disk image can be the Yocto disk image as mentioned in the above section.</p></li>
+<li><p>Copy the created <code class="docutils literal notranslate"><span class="pre">container.bin</span></code> to the mounted disk image.</p></li>
+<li><p>Now, we need to set which boot file to use using the Config Editor tool.</p></li>
+<li><p>Open the config editor and set your boot options as shown in the image below. Note that the <code class="docutils literal notranslate"><span class="pre">container.bin</span></code> is the path to the container on the disk. In this example, the file is placed in the root directory of the disk.
+Refer to the <a class="reference internal" href="../how-tos/change-boot-option.html#change-boot-options"><span class="std std-ref">Change Boot Options</span></a> guide for detailed instructions.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../_images/boot_to_container_qemu_cfgedit.png"><img alt="../_images/boot_to_container_qemu_cfgedit.png" src="../_images/boot_to_container_qemu_cfgedit.png" style="width: 800px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Build SBL for QEMU</p></li>
+<li><p>Start QEMU. The <code class="docutils literal notranslate"><span class="pre">-hda</span></code> option will connect the virtual disk image as a SATA drive to QEMU.</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>qemu-system-x86_64 -m 1G -machine q35 -serial mon:stdio -nographic -pflash Outputs/qemu/SlimBootloader.bin -hda &lt;path/to/disk_image&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mtl-rvp.html" class="btn btn-neutral float-left" title="Meteor Lake Platforms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qsp.html" class="btn btn-neutral float-right" title="Simics® QSP Virtual Platform" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

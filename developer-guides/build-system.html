@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build System &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Stitch IFWI Image" href="stitching-ifwi.html" />
+    <link rel="prev" title="Source Tree Structure" href="source-tree.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-process">Build Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-build-customization">Pre Build Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-spn">Build SBL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#build-details-per-stage">Build Details per Stage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#post-build-image-construction">Post Build Image Construction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#patching-of-stages">Patching of stages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#post-build-customization">Post Build Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-an-sbl-container">Adding an SBL Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release-vs-debug-build">Release vs Debug Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developing-on-windows">Developing on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
+      <li class="breadcrumb-item active">Build System</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="build-system">
+<span id="id1"></span><h1>Build System<a class="headerlink" href="#build-system" title="Permalink to this heading"></a></h1>
+<p>SBL chooses EDK II build system to compile and build SBL image. EDK II build infrastructure provides a flexible framework supporting different platforms and extensive configuration capabilities.</p>
+<p>It supports many tools chains including <strong>GCC</strong> on Linux and <strong>Visual Studio</strong> on Windows.</p>
+<p>This choice also comes with two benefits:</p>
+<ul class="simple">
+<li><p>EDK II build tool is familiar to many UEFI/BIOS developers</p></li>
+<li><p>Open source EDK II libraries can be ported with smaller effort</p></li>
+</ul>
+<section id="build-process">
+<h2>Build Process<a class="headerlink" href="#build-process" title="Permalink to this heading"></a></h2>
+<p>SBL build process is implemented in top level build script <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code>. The following diagram illustrates main steps:</p>
+<div class="graphviz"><img src="../_images/graphviz-dc3d0fe7b2a0437095d908e65c21566b2041540d.png" alt="digraph buildsteps {
+   bgcolor=&quot;transparent&quot;;
+     compound=true;
+     node [fontsize=10, shape=rectangle];
+     edge [fontsize=10];
+
+     subgraph cluster_steps {
+       label=&quot;Build Process&quot;; fontsize=11;
+       style=&quot;filled,rounded&quot;; color=&quot;#F0F0F0&quot;;
+
+       &quot;Generate Build Configuration&quot; -&gt; &quot;Generate Configuration Data&quot; -&gt; &quot;Invoke EDK II Build Tools \nto Generate Executables&quot; -&gt; &quot;Assemble Generated Files Into \nOne or More Output Images&quot;;
+
+     }
+}" class="graphviz" /></div>
+<p>The generated files are located in <code class="docutils literal notranslate"><span class="pre">Build/</span></code> directory.</p>
+<p>The SBL image, configuration data, and (generated) helper scripts, are located in <code class="docutils literal notranslate"><span class="pre">Outputs/</span></code> directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To assist debugging, the build process also generates <code class="docutils literal notranslate"><span class="pre">SlimBootloader.txt</span></code> file which contains flash layout details for each component in SBL image.</p>
+</div>
+</section>
+<section id="pre-build-customization">
+<span id="pre-build"></span><h2>Pre Build Customization<a class="headerlink" href="#pre-build-customization" title="Permalink to this heading"></a></h2>
+<p>SBL build system provides build time customization. Before the build, one can modify the configuration file <code class="docutils literal notranslate"><span class="pre">Platform/&lt;Platform_Foo&gt;/BoardConfig.py</span></code> based on requirement, image footprint, or hardware features etc.</p>
+<p>Prebuild process determines the build time configuration by generating multiple files, among those are:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Platform.dsc</p></td>
+<td><p>Finalized platform configuration based on <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>ConfigDataStruct.h</p></td>
+<td><p>C header file for configuration data structure based on <code class="docutils literal notranslate"><span class="pre">*.yaml</span></code> file</p></td>
+</tr>
+<tr class="row-even"><td><p>ConfigDataBlob.h</p></td>
+<td><p>C file for <em>Internal</em> configuration data with default values</p></td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="../how-tos/customize-build.html#customize-build"><span class="std std-ref">Customize Build</span></a> for more details.</p>
+</section>
+<section id="build-spn">
+<span id="build-sbl"></span><h2>Build SBL<a class="headerlink" href="#build-spn" title="Permalink to this heading"></a></h2>
+<p>SBL master build script <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code> provides many options to compile images. To get help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>Set env variable for SBL Key directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$set SBL_KEY_DIR=$(SBL_ROOT)\..\SblKeys\
+</pre></div>
+</div>
+<p>Build SBL for a supported platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">platform_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Clean up files generated during build process:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">clean</span>
+</pre></div>
+</div>
+<p>Final SBL image(s) should be generated under <code class="docutils literal notranslate"><span class="pre">Outputs/&lt;platform_name&gt;</span></code> directory</p>
+<p>See <a class="reference internal" href="../tools/BuildTool.html#build-tool"><span class="std std-ref">Build Tool</span></a> for more details.</p>
+<section id="build-details-per-stage">
+<h3>Build Details per Stage<a class="headerlink" href="#build-details-per-stage" title="Permalink to this heading"></a></h3>
+<p>Slim Bootloader is built in stages and more information on each stage is given below.</p>
+<ul>
+<li><p><strong>Stage 1A</strong>:</p>
+<ul>
+<li><p><strong>Packaged As</strong>: FD containing Stage1A FV, and FSP-T binary as a FILE</p></li>
+<li><p><strong>Stage 1A FV</strong>:</p>
+<ul>
+<li><p>Contains <code class="docutils literal notranslate"><span class="pre">ResetVector</span></code>, <code class="docutils literal notranslate"><span class="pre">VerInfo</span></code>, <code class="docutils literal notranslate"><span class="pre">FlashMap</span></code>, <code class="docutils literal notranslate"><span class="pre">FitTable</span></code>, <code class="docutils literal notranslate"><span class="pre">HashStore</span></code>, <code class="docutils literal notranslate"><span class="pre">PEIPcdDataBase</span></code>, and Stage1A PEIM</p></li>
+<li><p>Stage 1A contains a module called VTF (Volume Top File) which is placed at the top within the Stage 1A FV.
+The VTF contains the reset vector code and hence the VTF needs to be placed at an appropriate
+address so that the reset vector code in the the Vtf0 file (Identified by the GUID <code class="docutils literal notranslate"><span class="pre">1BA0062E-C779-4582-8566-336AE8F78F09</span></code>)
+aligns with the reset vector of Intel x86 architecture.</p>
+<p>The entry point for the Stage1A module within the Stage1A FV (<code class="docutils literal notranslate"><span class="pre">_ModuleEntryPoint</span></code>) is placed as
+the first DWORD of the built FV. The reset vector code from the Vtf0 jumps to this address and continues
+from the <code class="docutils literal notranslate"><span class="pre">_ModuleEntryPoint</span></code> defined in <code class="docutils literal notranslate"><span class="pre">SecEntry.nasm</span></code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><strong>Stage 1B</strong>:</p>
+<ul class="simple">
+<li><p><strong>Packaged As</strong>: FD containing Stage1B FV, and FSP-M binary as a FILE</p></li>
+<li><p><strong>Stage 1B FV</strong>: Contains <code class="docutils literal notranslate"><span class="pre">CfgDataInt.bin</span></code>, and Stage1B PEIM</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><strong>Stage 2</strong>:</p>
+<ul class="simple">
+<li><p><strong>Packaged As</strong>: FD containing Stage2 FV, and FSP-S binary as a FILE</p></li>
+<li><p><strong>Stage 2 FV</strong>: Contains ACPI Table, Vbt, Logo, and Stage2 PEIM</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><strong>OsLoader</strong>:</p>
+<ul class="simple">
+<li><p><strong>Packaged As</strong>: FD containing OsLoader FV</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><strong>FwUpdate</strong>:</p>
+<ul class="simple">
+<li><p><strong>Packaged As</strong>: FD containing Firmware Update FV</p></li>
+<li><p>Note that FwUpdate is included only if <code class="docutils literal notranslate"><span class="pre">ENABLE_FWU</span></code> is enabled in <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code></p></li>
+</ul>
+</li>
+<li><p>In addition to the Slim Bootloader Stages and the payloads, the final SBL image may include some other components like Microcode binaries,
+ACM binary, SBL container binaries, etc.</p></li>
+</ul>
+</section>
+</section>
+<section id="post-build-image-construction">
+<span id="post-build"></span><h2>Post Build Image Construction<a class="headerlink" href="#post-build-image-construction" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Each stage and component of Slim Bootloader is individually built and then put together into one image at the end
+of the build process.</p></li>
+<li><p>The final image layout for Slim Bootloader can be defined in <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code> - <code class="docutils literal notranslate"><span class="pre">GetImageLayout()</span></code></p>
+<ul>
+<li><p>If firmware resiliency is enabled, the layout will typically contain redundant copies of the boot-critical code.
+Check <a class="reference internal" href="../security/firmware-resiliency-and-recovery.html#firmware-resiliency-and-recovery"><span class="std std-ref">Firmware Resiliency and Recovery</span></a> for more details.</p></li>
+</ul>
+</li>
+<li><p>As discussed above, the final SBL image includes SBL stages and other components, examples of which are listed below:</p>
+<ul>
+<li><p>These additional components included in the SBL image are placed in the non-redundant region of the image</p></li>
+<li><p>The list of components in the final image in the final image is present in the <code class="docutils literal notranslate"><span class="pre">GetImageLayout()</span></code> function</p></li>
+<li><p>Examples:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ACM.bin</span></code> - Authenticated Code Module</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MRCDATA.bin</span></code> - Memory Reference Code Data, used to store Memory Reference Code training data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VARIABLE.bin</span></code> - This region is used for <code class="docutils literal notranslate"><span class="pre">GetVariable()</span></code> and <code class="docutils literal notranslate"><span class="pre">SetVariable()</span></code> APIs provided by <code class="docutils literal notranslate"><span class="pre">LiteVariableLib</span></code> in <code class="docutils literal notranslate"><span class="pre">BootloaderCommonPkg</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UCODE.bin</span></code> - CPU Microcode</p></li>
+<li><p>The components listed above are generated by the <code class="docutils literal notranslate"><span class="pre">post_build()</span></code> function in <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code></p></li>
+</ul>
+</li>
+<li><p>Payloads other than OsLoader and FW Update are built independently and the payload binary is packaged as <code class="docutils literal notranslate"><span class="pre">EPAYLOAD.bin</span></code>
+to be included in the final SBL image</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">EPAYLOAD.bin</span></code> - Payload for SBL - used for extra payloads (UEFI Payload, Linux, u-boot, etc.). Refer to <a class="reference internal" href="../how-tos/integrate-multiple-payloads.html#integrate-multiple-payloads"><span class="std std-ref">Integrate Multiple Payloads</span></a>
+for more details.</p></li>
+</ul>
+</li>
+<li><p>SBL images can also include container images and SBL containers can be built with the container tool (<a class="reference internal" href="../tools/GenContainer.html#gen-container-tool"><span class="std std-ref">Container Tool</span></a>) and included in the
+SBL image as explained below (<a class="reference internal" href="#adding-sbl-container"><span class="std std-ref">Adding an SBL Container</span></a>)</p></li>
+</ul>
+</li>
+</ul>
+<section id="patching-of-stages">
+<h3>Patching of stages<a class="headerlink" href="#patching-of-stages" title="Permalink to this heading"></a></h3>
+<p>Patching of stages is done to allow for code simplicity and for faster booting. The addresses of certain elements like BFV, FIT, FlashMap, etc.
+are pre-loaded into the SBL binary at pre-defined locations.</p>
+<ul>
+<li><p><strong>Stage 1A:</strong></p>
+<ul>
+<li><p>The Boot Firmware Volume (BFV) address needs to be placed as the the last DWORD of memory. Thus, the BFV needs to be
+placed as the last DWORD of Stage 1A. And this BFV will be mapped to the memory address <code class="docutils literal notranslate"><span class="pre">0xFFFFFFFC</span></code> (top of memory - 4).</p>
+<p>Thus, in the image layout, BFV will be patched onto (top of Stage 1A - <code class="docutils literal notranslate"><span class="pre">0x04</span></code>) address.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When passing a negative offset to <code class="docutils literal notranslate"><span class="pre">patch_fv()</span></code>, it is considered relative to 4GB (<code class="docutils literal notranslate"><span class="pre">0xFFFFFFFF</span></code>)</p>
+<p>Thus, the final offset will be equal to : <code class="docutils literal notranslate"><span class="pre">FileSize</span> <span class="pre">-</span> <span class="pre">(0xFFFFFFFF</span> <span class="pre">-</span> <span class="pre">offset</span> <span class="pre">+</span> <span class="pre">1)</span></code></p>
+<p>This can be seen in patching of BFV, FlashMap, and FIT.</p>
+</div>
+</li>
+<li><p>Stage 1A Entry point is patched onto the Stage 1A <code class="docutils literal notranslate"><span class="pre">__ModuleEntryPoint</span></code> symbol address</p></li>
+<li><p>Stage 1A Module base is patched onto entry point + 4</p></li>
+<li><p>Address of VerInfo file (GUID: <code class="docutils literal notranslate"><span class="pre">3473A022-C3C2-4964-B309-22B3DFB0B6CA</span></code>) is patched onto <code class="docutils literal notranslate"><span class="pre">PcdVerInfoBase</span></code> PCD</p></li>
+<li><p>Address of PcdFileDataBase (GUID: <code class="docutils literal notranslate"><span class="pre">EFAC3859-B680-4232-A159-F886F2AE0B83</span></code>) is patched onto <code class="docutils literal notranslate"><span class="pre">PcdFileDataBase</span></code> PCD</p></li>
+<li><p>Address of FlashMap (GUID: <code class="docutils literal notranslate"><span class="pre">3CEA8EF3-95FC-476F-ABA5-7EC5DFA1D77B</span></code>) is patched onto <code class="docutils literal notranslate"><span class="pre">0xFFFFFFF8</span></code> (top of Stage 1A - 0x08)</p></li>
+<li><p>Address of Firmware Interface Table (FIT) is patched onto memory address <code class="docutils literal notranslate"><span class="pre">0xFFFFFFC0</span></code> (top of Stage 1A - 0x40)</p>
+<ul class="simple">
+<li><p>FIT Signature Low, FIT Signature High, and FIT table max length are patched onto offsets 0, 4, and 8 respectively.</p></li>
+<li><p>FIT entries  are generated by <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span> <span class="pre">-</span> <span class="pre">update_fit_table()</span></code> at build time.</p></li>
+</ul>
+</li>
+<li><p>Address of HashStore is patched onto  <code class="docutils literal notranslate"><span class="pre">PcdHashStoreBase</span></code> PCD</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><strong>Stage 1B:</strong></p>
+<ul class="simple">
+<li><p>Stage 1B entry point address is patched into the Stage 1B <code class="docutils literal notranslate"><span class="pre">__ModuleEntryPoint</span></code> symbol address</p></li>
+<li><p>Stage 1B module based is patched onto entry point + 4</p></li>
+<li><p>Address of Internal CfgDataBase (GUID: <code class="docutils literal notranslate"><span class="pre">016E6CD0-4834-4C7E-BCFE-41DFB88A6A6D</span></code>) is patched onto <code class="docutils literal notranslate"><span class="pre">PcdCfgDataIntBase</span></code> PCD</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><strong>Stage 2:</strong></p>
+<ul class="simple">
+<li><p>Stage 2 entry point address is patched into the Stage 2 <code class="docutils literal notranslate"><span class="pre">__ModuleEntryPoint</span></code> symbol address</p></li>
+<li><p>Stage 2 module based is patched onto entry point + 4</p></li>
+<li><p>Address of VBT (GUID: <code class="docutils literal notranslate"><span class="pre">E08CA6D5-8D02-43AE-ABB1-952CC787C933</span></code>) is patched onto <code class="docutils literal notranslate"><span class="pre">PcdGraphicsVbtAddress</span></code> PCD</p></li>
+<li><p>Address of ACPI Table (GUID: <code class="docutils literal notranslate"><span class="pre">7E374E25-8E01-4FEE-87F2-390C23C606CD</span></code>) address is patched onto <code class="docutils literal notranslate"><span class="pre">PcdAcpiTablesAddress</span></code> PCD</p></li>
+<li><p>Address of Splash Logo (GUID: <code class="docutils literal notranslate"><span class="pre">5E2D3BE9-AD72-4D1D-AAD5-6B08AF921590</span></code>) address is patched onto <code class="docutils literal notranslate"><span class="pre">PcdSplashLogoAddress</span></code> PCD</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="post-build-customization">
+<h2>Post Build Customization<a class="headerlink" href="#post-build-customization" title="Permalink to this heading"></a></h2>
+<p>SBL supports platform customizations by embedding configuration data in a dedicated region in the image. The configuration data region can be <em>patched</em> without recompiling the code. This feature is most useful in supporting multiple similar boards in a single SBL image.</p>
+</section>
+<section id="adding-an-sbl-container">
+<span id="adding-sbl-container"></span><h2>Adding an SBL Container<a class="headerlink" href="#adding-an-sbl-container" title="Permalink to this heading"></a></h2>
+<ul>
+<li><p>It may be required to include additional binary components to the final SBL image.</p></li>
+<li><p>The required components can be added to the image as SBL containers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetContainerList()</span></code> initially creates a blank list, and then adds each container entry into this list</p></li>
+<li><p>The list of containers included in the final SBL image can be seen in the platform’s <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span> <span class="pre">-</span> <span class="pre">GetContainerList()</span></code> function</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetContainerList()</span></code> returns a list of containers. Each container entry is also a list consisting of several different fields shown
+in the example below</p></li>
+<li><p>Make sure that the existing entries in the function are being put into <code class="docutils literal notranslate"><span class="pre">container_list</span></code> as one list</p></li>
+<li><p>To create a new container, you will need to create a list where the first entry lists the container, and the remaining list the
+components inside it</p>
+<ul>
+<li><p>Example:</p>
+<p>Adding files named <code class="docutils literal notranslate"><span class="pre">test1</span></code>, <code class="docutils literal notranslate"><span class="pre">test2</span></code>, <code class="docutils literal notranslate"><span class="pre">test3</span></code> to a container named “SBLC” will be done as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">GetContainerList</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="n">container_list</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="o">...</span>
+  <span class="o">...</span>
+  <span class="n">container_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>
+    <span class="c1"># Name      |      File             |    CompressAlg  |               AuthType             | Key File                                       | Region Align   | Region Size |  Svn Info</span>
+    <span class="p">(</span><span class="s1">&#39;SBLC&#39;</span><span class="p">,</span>      <span class="s1">&#39;SBLC.bin&#39;</span><span class="p">,</span>                 <span class="s1">&#39;&#39;</span><span class="p">,</span>             <span class="n">container_list_auth_type</span><span class="p">,</span>        <span class="s1">&#39;KEY_ID_CONTAINER&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>            <span class="mi">0</span><span class="p">,</span>                <span class="mi">0</span>     <span class="p">,</span>      <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;TST1&#39;</span><span class="p">,</span>      <span class="s1">&#39;/path/to/test1&#39;</span><span class="p">,</span>           <span class="s1">&#39;&#39;</span><span class="p">,</span>             <span class="n">container_list_auth_type</span><span class="p">,</span>        <span class="s1">&#39;KEY_ID_CONTAINER_COMP&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>       <span class="mi">0</span><span class="p">,</span>                <span class="mi">0</span>     <span class="p">,</span>      <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;TST2&#39;</span><span class="p">,</span>      <span class="s1">&#39;/path/to/test2&#39;</span><span class="p">,</span>           <span class="s1">&#39;&#39;</span><span class="p">,</span>             <span class="n">container_list_auth_type</span><span class="p">,</span>        <span class="s1">&#39;KEY_ID_CONTAINER_COMP&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>       <span class="mi">0</span><span class="p">,</span>                <span class="mi">0</span>     <span class="p">,</span>      <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;TST3&#39;</span><span class="p">,</span>      <span class="s1">&#39;/path/to/test3&#39;</span><span class="p">,</span>           <span class="s1">&#39;&#39;</span><span class="p">,</span>             <span class="n">container_list_auth_type</span><span class="p">,</span>        <span class="s1">&#39;KEY_ID_CONTAINER_COMP&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>       <span class="mi">0</span><span class="p">,</span>                <span class="mi">0</span>     <span class="p">,</span>      <span class="mi">0</span><span class="p">)</span><span class="mi">3</span>
+  <span class="p">])</span>
+  <span class="o">...</span>
+  <span class="o">...</span>
+</pre></div>
+</div>
+<p>This will create a container named <code class="docutils literal notranslate"><span class="pre">SBLC.bin</span></code></p>
+</li>
+</ul>
+</li>
+<li><p>This <code class="docutils literal notranslate"><span class="pre">.bin</span></code> file needs to be added to the SBL image layout so that it can be included in the final image</p>
+<ul>
+<li><p>In the platform’s <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code>, we need to add the size of the required component.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">GetImageLayout()</span></code>, add the component to the non-redundant section</p></li>
+<li><p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Board</span><span class="p">:</span>
+  <span class="o">...</span>
+  <span class="o">...</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">SBLC_SIZE</span> <span class="o">=</span> <span class="mh">0x1000</span>
+
+  <span class="o">...</span>
+  <span class="k">def</span> <span class="nf">GetImageLayout</span><span class="p">():</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+    <span class="n">img_list</span><span class="o">.</span><span class="n">extend</span> <span class="p">([</span>
+      <span class="p">(</span><span class="s1">&#39;NON_REDUNDANT.bin&#39;</span><span class="p">,</span> <span class="p">[</span>
+            <span class="c1">#  File     |   Compression   |       Size      |    Stitch Mode     |     Stitch Position</span>
+            <span class="p">(</span><span class="s1">&#39;SBLC.bin&#39;</span>   <span class="p">,</span>     <span class="s1">&#39;&#39;</span>        <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SBLC_SIZE</span><span class="p">,</span>   <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_PAD</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_POS_TAIL</span><span class="p">),</span>
+            <span class="o">...</span>
+            <span class="o">...</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">])</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="release-vs-debug-build">
+<span id="release-build"></span><h2>Release vs Debug Build<a class="headerlink" href="#release-vs-debug-build" title="Permalink to this heading"></a></h2>
+<p>SBL build system provides building debug or release images. Debug build contains verbose log messages for debugging, while release build image is deployed in a production environment. It contains minimum log messages to the console, and in some cases, may be built with more secure configurations, compared to debug build image.</p>
+<p>Build system builds debug SBL image by default. To build a release image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When verified boot is enabled, SBL release build requires container image format to boot OS.</p>
+</div>
+</section>
+<section id="developing-on-windows">
+<span id="develop-on-windows"></span><h2>Developing on Windows<a class="headerlink" href="#developing-on-windows" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Typically, Windows C compiler generates smaller code size compared to GCC build. This needs to be considered when allocating image size in SBL build.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="source-tree.html" class="btn btn-neutral float-left" title="Source Tree Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="stitching-ifwi.html" class="btn btn-neutral float-right" title="Stitch IFWI Image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

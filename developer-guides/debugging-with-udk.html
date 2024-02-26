@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Source Level Debugging with Intel(R) UDK Debugger &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Logging" href="logging.html" />
+    <link rel="prev" title="Source Level Debugging with Intel(R) SVT CCA" href="debugging-with-cca.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Source Level Debugging with Intel(R) UDK Debugger</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisite">Prerequisite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-steps">General Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
+      <li class="breadcrumb-item active">Source Level Debugging with Intel(R) UDK Debugger</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="source-level-debugging-with-intel-r-udk-debugger">
+<span id="swdebugger"></span><h1>Source Level Debugging with Intel(R) UDK Debugger<a class="headerlink" href="#source-level-debugging-with-intel-r-udk-debugger" title="Permalink to this heading"></a></h1>
+<p>This explains how to perform basic debugging operation with Intel UDK Debugger on SBL over serial port.</p>
+<section id="prerequisite">
+<h2>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this heading"></a></h2>
+<ul>
+<li><p>Install <a href="https://firmware.intel.com/develop/intel-uefi-tools-and-utilities/intel-uefi-development-kit-debugger-tool#overlay-context=develop" target="_blank">Intel UDK Debugger</a>, using the Intel© UDK Debugger Tool on a Windows platform requires a host machine configured with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Microsoft Win7 x64 or Win8 x64 or Win10 x64</p></li>
+<li><p>Microsoft Windows Debug Tool(WinDbg) 6.11.0001.404 X86.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<ul class="simple">
+<li><p>The Intel© UDK Debugger can be downloaded <a href="https://firmware.intel.com/develop/intel-uefi-tools-and-utilities/intel-uefi-development-kit-debugger-tool#overlay-context=develop" target="_blank">here</a> for Windows and Linux, install Intel UDK Debugger with default configuration values.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Install <a href="https://github.com/pyrasis/windowsprojectbook/blob/master/Applications/Debugging%20Tools%20for%20Windows/dbg_x86_6.11.1.404.msi" target="_blank">Windows Debug Tool(WinDbg)</a> with default configuration values.</p></li>
+</ul>
+</section>
+<section id="general-steps">
+<h2>General Steps<a class="headerlink" href="#general-steps" title="Permalink to this heading"></a></h2>
+<p><strong>Step 1 - Enable Debug Agent</strong></p>
+<p>Enable DebugAgent on SBL and flash the SBL image(or IFWI) on TARGET. By default, DebugAgent is not enabled. It can be simply enabled with a single line change.</p>
+<ol class="arabic">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code> of specific platform, set <strong>ENABLE_SOURCE_DEBUG</strong> to <strong>1</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">ENABLE_SOURCE_DEBUG</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+<li><p>Apollo Lake platform requires to set <strong>SKIP_STAGE1A_SOURCE_DEBUG</strong> to <strong>1</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">SKIP_STAGE1A_SOURCE_DEBUG</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Apollo Lake platform , the Stage1A has size limitation for debugging which require set SKIP_STAGE1A_SOURCE_DEBUG to 1</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Build SBL source code</p></li>
+<li><p>Stitch IFWI and flash SBL Image on system board</p></li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Step 2 - Configure Intel UDK Debugger Environment on Host</strong></p>
+<ol class="arabic simple">
+<li><p>Configuration file default location</p></li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p>Windows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)</span>\<span class="n">Intel</span>\<span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">UEFI</span> <span class="n">Development</span> <span class="n">Kit</span> <span class="n">Debugger</span> <span class="n">Tool</span>\<span class="n">SoftDebugger</span><span class="o">.</span><span class="n">ini</span>
+</pre></div>
+</div>
+</li>
+<li><p>Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">udkdebugger</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p>[Debug Port] option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Debug</span> <span class="n">Port</span><span class="p">]</span>
+<span class="n">Channel</span> <span class="o">=</span> <span class="n">Serial</span>    <span class="o">&lt;==</span> <span class="n">Must</span> <span class="n">be</span> <span class="n">Serial</span>
+<span class="n">Port</span> <span class="o">=</span> <span class="n">COM5</span>         <span class="o">&lt;==</span> <span class="n">Change</span> <span class="n">properly</span>
+<span class="n">FlowControl</span> <span class="o">=</span> <span class="mi">0</span>     <span class="o">&lt;==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">now</span><span class="o">**</span>
+<span class="n">BaudRate</span> <span class="o">=</span> <span class="mi">115200</span>   <span class="o">&lt;==</span> <span class="n">Change</span> <span class="n">properly</span>
+<span class="n">Server</span> <span class="o">=</span>            <span class="o">&lt;==</span> <span class="n">Can</span> <span class="n">be</span> <span class="n">empty</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>For TCP port configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Debug</span> <span class="n">Port</span><span class="p">]</span>
+<span class="n">Channel</span> <span class="o">=</span> <span class="n">TCP</span>
+<span class="n">Server</span> <span class="o">=</span> <span class="mf">127.0.0.1</span>
+<span class="n">Port</span> <span class="o">=</span> <span class="mi">1234</span>
+</pre></div>
+</div>
+<p>For PIPE port configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Debug</span> <span class="n">Port</span><span class="p">]</span>
+<span class="n">Channel</span> <span class="o">=</span> <span class="n">Pipe</span>
+<span class="n">Port</span> <span class="o">=</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">serial</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>How to create a pipe in Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkfifo</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">serial</span><span class="o">.</span><span class="ow">in</span>
+
+<span class="n">mkfifo</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">serial</span><span class="o">.</span><span class="n">out</span>
+</pre></div>
+</div>
+</div>
+<ol class="arabic" start="3">
+<li><p>[Target System] option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Target</span> <span class="n">System</span><span class="p">]</span>
+<span class="n">FlashRange</span>        <span class="o">=</span> <span class="mh">0xFEF00000</span><span class="p">:</span><span class="mh">0x1100000</span>     <span class="o">&lt;==</span> <span class="n">This</span> <span class="n">must</span> <span class="n">be</span> <span class="n">added</span> <span class="k">for</span> <span class="n">Apollo</span> <span class="n">Lake</span> <span class="n">platform</span> <span class="k">for</span> <span class="n">code</span> <span class="n">execution</span> <span class="n">debugging</span> <span class="ow">in</span> <span class="n">CAR</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><p>For <strong>QEMU</strong> target specific, set NoAccessLimit option is required:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Target</span> <span class="n">System</span><span class="p">]</span>
+<span class="n">FlashRange</span> <span class="o">=</span> <span class="mh">0xFFE00000</span><span class="p">:</span><span class="mh">0x200000</span>
+<span class="n">NoAccessLimit</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="4">
+<li><p>[Maintenance] option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Maintenance</span><span class="p">]</span>
+<span class="n">Trace</span><span class="o">=</span><span class="mh">0x10</span>          <span class="o">&lt;==</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">optional</span><span class="o">.</span> <span class="mh">0x0</span><span class="p">:</span> <span class="n">Disable</span> <span class="n">trace</span> <span class="n">output</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">:</span> <span class="n">Enable</span> <span class="n">full</span> <span class="n">trace</span> <span class="n">output</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Step 3 - Launch Intel UDK Debugger on Host</strong></p>
+<ul class="simple">
+<li><p>Windows
+- Launch “<strong>Start WinDbg with Intel UDK Debugger Tool</strong>” from Windows Start Menu</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/start_windbg.jpg"><img alt="Compile completed" class="align-center" src="../_images/start_windbg.jpg" style="width: 640px; height: 480px;" /></a>
+<ul>
+<li><p>Linux
+- Launch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">udkdebugger</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">udk</span><span class="o">-</span><span class="n">gdb</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To debug QEMU with TCP port configuration, execute <strong>Step 4</strong> before <strong>Step 3</strong>.</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Step 4 - Power on TARGET platform</strong></p>
+<ul>
+<li><p>Windows
+- Power on TARGET platform, the connection of HOST and TARGET will be established immediately.</p></li>
+<li><p>Linux</p>
+<ol class="arabic simple">
+<li><p>Power on TARGET platform</p></li>
+<li><p>Launch GDB in a separate terminal</p></li>
+<li><p>Make a connection with GDB target command</p></li>
+</ol>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="n">remote</span> <span class="p">:</span><span class="mi">1234</span>
+</pre></div>
+</div>
+<p>or from Intel UDK Debugger console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="n">remote</span> <span class="n">FULL_SERVER_URL</span><span class="p">:</span><span class="mi">1234</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Start Intel UDK Debugger scripts for GDB</p></li>
+</ol>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">udkdebugger</span><span class="o">/</span><span class="n">script</span><span class="o">/</span><span class="n">udk_gdb_script</span>
+</pre></div>
+</div>
+</li>
+<li><p>To turn on <strong>QEMU</strong> target with TCP port configuration, follow run qemu-system first then launch Intel UDK Debugger as Step 3</p>
+<ul>
+<li><p>Windows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qemu</span><span class="o">-</span><span class="n">system</span><span class="o">-</span><span class="n">x86_64</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">m</span> <span class="mi">256</span><span class="n">M</span> <span class="o">-</span><span class="n">machine</span> <span class="n">q35</span> <span class="o">-</span><span class="n">nographic</span> <span class="o">-</span><span class="n">pflash</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">serial</span> <span class="n">tcp</span><span class="p">:</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">1234</span><span class="p">,</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+<li><p>Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qemu</span><span class="o">-</span><span class="n">system</span><span class="o">-</span><span class="n">x86_64</span> <span class="o">-</span><span class="n">m</span> <span class="mi">256</span><span class="n">M</span> <span class="o">-</span><span class="n">machine</span> <span class="n">q35</span> <span class="o">-</span><span class="n">nographic</span> <span class="o">-</span><span class="n">pflash</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">serial</span> <span class="n">tcp</span><span class="p">:</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">1234</span><span class="p">,</span><span class="n">server</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Step 5 - Start debugging</strong></p>
+<p>Start debugging with WinDbg or GDB</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="debugging-with-cca.html" class="btn btn-neutral float-left" title="Source Level Debugging with Intel(R) SVT CCA" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="logging.html" class="btn btn-neutral float-right" title="Logging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

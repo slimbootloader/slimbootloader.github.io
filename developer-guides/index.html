@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer’s Guide &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Source Tree Structure" href="source-tree.html" />
+    <link rel="prev" title="Whiskey Lake CRB Board" href="../supported-hardware/whl-crb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer’s Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Developer’s Guide</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="developer-s-guide">
+<span id="developer-guide"></span><h1>Developer’s Guide<a class="headerlink" href="#developer-s-guide" title="Permalink to this heading"></a></h1>
+<blockquote class="epigraph">
+<div><p><cite>Everything seems simpler from a distance.</cite> – <strong>Gail Tsukiyama</strong></p>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source-tree.html">Source Tree Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html#package-dependency">Package Dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build-system.html">Build System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#build-process">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#pre-build-customization">Pre Build Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#build-spn">Build SBL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#post-build-image-construction">Post Build Image Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#post-build-customization">Post Build Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#adding-an-sbl-container">Adding an SBL Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#release-vs-debug-build">Release vs Debug Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html#developing-on-windows">Developing on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-flow.html">Boot Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#stage-1a">Stage 1A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#stage-1b">Stage 1B</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#stage-2">Stage 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="boot-flow.html#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flashmap.html">Flash Map</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html#flash-components">Flash Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html#flash-layout">Flash Layout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="memory-map.html">Memory Map</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html#temporary-memory-layout">Temporary Memory Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html#memory-management">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html#permanent-memory-map">Permanent Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html#memory-allocation-within-slim-bootloader">Memory Allocation within Slim Bootloader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#yaml-files">YAML Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#dlt-files">DLT Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuration-flow">Configuration Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuration-editor-tool">Configuration Editor Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#platform-id">Platform ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#platform-configuration-files">Platform Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#step-by-step-configuration-flow">Step-by-step Configuration Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#gpio-configuration">GPIO Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="payload.html">Payloads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="payload.html#id1">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html#payload-types">Payload Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html#multiple-payload-support">Multiple Payload Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="osloader.html">OsLoader</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html#osloader-boot-flow">OsLoader Boot Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash-boot.html">Boot from Flash</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html#creating-container-image">Creating Container image.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html#place-the-image-in-platform-folder">Place the image in platform folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html#bios-boot">BIOS BOOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html#boot-options-for-boot-bios">Boot options for Boot BIOS.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html#adding-container-to-pdr-region-using-stitching">Adding Container to PDR region using Stitching.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html#boot-options-for-boot-from-pdr">Boot options for Boot from PDR.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-performance.html">Boot Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html#measuring-boot-performance">Measuring Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html#fpdt-entry">FPDT Entry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html#intel-r-trace-hub">Intel(R) Trace Hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html#intel-r-direct-connect-interface-dci-technology">Intel(R) Direct Connect Interface (DCI) technology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html#intel-r-svt-cca">Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html#intel-r-system-debugger">Intel(R) System Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html#debug-environmment-setup">Debug Environmment Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html#prerequisite">Prerequisite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html#general-steps">General Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributions.html">Contribution Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html#licensing">Licensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html#coding-style">Coding Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html#contribution-workflow">Contribution Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html#fsp-upgrade">FSP upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html#vbt-upgrade">VBT upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html#microcode-upgrade">Microcode upgrade</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../supported-hardware/whl-crb.html" class="btn btn-neutral float-left" title="Whiskey Lake CRB Board" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="source-tree.html" class="btn btn-neutral float-right" title="Source Tree Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

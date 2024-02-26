@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boot Performance &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Shell Interface" href="shell.html" />
+    <link rel="prev" title="Versioning" href="versioning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#measuring-boot-performance">Measuring Boot Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fpdt-entry">FPDT Entry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
+      <li class="breadcrumb-item active">Boot Performance</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="boot-performance">
+<h1>Boot Performance<a class="headerlink" href="#boot-performance" title="Permalink to this heading"></a></h1>
+<p>SBL aims to boot very quickly. This is mandatory, for some use cases, e.g., turning on rear-view camera system when a car is started.</p>
+<p>Boot performance is designed in every stage of SBL. There are some trade-offs to be considered when one optimizes the boot time.</p>
+<ul class="simple">
+<li><p>Type of boot media (e.g., fast boot media such as eMMC)</p></li>
+<li><p>Security features (signing or hashing algorithms, use of hardware acceleration)</p></li>
+<li><p>Hardware configuration (processor frequency, memory size, device configuration etc)</p></li>
+<li><p>Image size with compression algorithm (e.g. Lz4)</p></li>
+<li><p>Generic features (e.g. splash screen, number of boot options)</p></li>
+</ul>
+<section id="measuring-boot-performance">
+<h2>Measuring Boot Performance<a class="headerlink" href="#measuring-boot-performance" title="Permalink to this heading"></a></h2>
+<p>SBL measures boot performance throughout the execution of the bootloader. Measurements are obtained by capturing timestamp values
+during the execution of the bootloader. Each timestamp is associated with an ID that denotes some event in the boot flow. This data
+is passed through a hand-off block (HOB) denoted by the GUID <code class="docutils literal notranslate"><span class="pre">gLoaderPerformanceInfoGuid</span></code> to the payload.</p>
+<blockquote>
+<div><div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">gLoaderPerformanceInfoGuid</span><span class="w">                    </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mh">0x868204be</span><span class="p">,</span><span class="w"> </span><span class="mh">0x23d0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4ff9</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mh">0xac</span><span class="p">,</span><span class="w"> </span><span class="mh">0x34</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x95</span><span class="p">,</span><span class="w"> </span><span class="mh">0xac</span><span class="p">,</span><span class="w"> </span><span class="mh">0x04</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb1</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb9</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This data can be viewed in the the OsLoader shell using the <code class="docutils literal notranslate"><span class="pre">perf</span></code> command. An example output is shown below –</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Shell&gt; perf
+Loader Performance Info
+=======================
+
+Id   | Time (ms)  | Delta (ms) | Description
+------+------------+------------+---------------------------
+1000 |       2 ms |       2 ms | Reset vector
+1010 |       9 ms |       7 ms | Stage1A entry point
+1040 |      11 ms |       2 ms | Board PostTempRamInit hook
+1060 |      16 ms |       5 ms | Stage1A continuation
+1080 |      31 ms |      15 ms | Load Stage1B
+10A0 |      82 ms |      51 ms | Verify Stage1B
+10B0 |      84 ms |       2 ms | Decompress Stage1B
+2000 |      84 ms |       0 ms | Stage1B entry point
+2020 |     197 ms |     113 ms | Board PreMemoryInit hook
+2030 |     229 ms |      32 ms | FSP MemoryInit
+2040 |     266 ms |      37 ms | Board PostMemoryInit hook
+2050 |     276 ms |      10 ms | Board PreTempRamExit hook
+2060 |     281 ms |       5 ms | FSP TempRamExit
+2070 |     281 ms |       0 ms | Board PostTempRamExit hook
+2080 |     283 ms |       2 ms | Load Stage2
+2090 |     285 ms |       2 ms | Copy Stage2 to memory
+20A0 |     361 ms |      76 ms | Verify Stage2
+20B0 |     364 ms |       3 ms | Decompress Stage2
+20C0 |     364 ms |       0 ms | Extend Stage2 hash
+20D0 |     365 ms |       1 ms | Rebase Stage2
+3000 |     370 ms |       5 ms | Stage2 entry point
+3010 |     466 ms |      96 ms | Board PreSiliconInit hook
+3020 |     467 ms |       1 ms | Save NVS data
+3030 |     490 ms |      23 ms | FSP SiliconInit
+3040 |     492 ms |       2 ms | Board PostSiliconInit hook
+3050 |     515 ms |      23 ms | Display splash
+3060 |     520 ms |       5 ms | MP wake up
+3080 |     524 ms |       4 ms | MP init run
+3090 |     526 ms |       2 ms | Board PrePciEnumeration hook
+30A0 |     536 ms |      10 ms | PCI enumeration
+30B0 |     543 ms |       7 ms | Board PostPciEnumeration hook
+30C0 |     545 ms |       2 ms | FSP PostPciEnumeration notify
+30D0 |     561 ms |      16 ms | ACPI init
+30E0 |     564 ms |       3 ms | Board PrePayloadLoading hook
+3100 |     567 ms |       3 ms | Load payload
+3110 |     568 ms |       1 ms | Locate payload
+3120 |     577 ms |       9 ms | Copy payload to memory
+3130 |     675 ms |      98 ms | Verify payload
+3140 |     744 ms |      69 ms | Decompress payload
+3150 |     744 ms |       0 ms | Extend payload hash
+31A0 |     746 ms |       2 ms | Board PostPayloadLoading hook
+31B0 |     749 ms |       3 ms | Decode payload format
+31F0 |     749 ms |       0 ms | End of stage2
+------+------------+------------+---------------------------
+</pre></div>
+</div>
+<p>This performance data is also printed out to the debug port when OsLoader launches the operating system.</p>
+</section>
+<section id="fpdt-entry">
+<h2>FPDT Entry<a class="headerlink" href="#fpdt-entry" title="Permalink to this heading"></a></h2>
+<p>OsLoader obtains the performance data from the performance HOB and adds its own execution times to the data.
+OsLoader will also create and publish the SBL Performance ACPI Table (SBLT). This table is pointed
+to by the Firmware Performance Data Table (FPDT). Refer to ACPI Specification for more details on FPDT.</p>
+<p>This image shows the FPDT structure after adding SBLT to the FPDT.</p>
+<a class="reference internal image-reference" href="../_images/perf_data_fpdt.png"><img alt="../_images/perf_data_fpdt.png" src="../_images/perf_data_fpdt.png" style="width: 800px;" /></a>
+<p>The SBL Boot Performance data is saved using the following struct:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="n">EFI_ACPI_5_0_FPDT_PERFORMANCE_RECORD_HEADER</span><span class="w">     </span><span class="n">Header</span><span class="p">;</span>
+<span class="n">UINT32</span><span class="w">                                          </span><span class="n">Reserved</span><span class="p">;</span>
+<span class="c1">///</span>
+<span class="c1">/// Time taken for Stage 1 execution in nanoseconds</span>
+<span class="c1">///</span>
+<span class="n">UINT64</span><span class="w">                                          </span><span class="n">Stage1Time</span><span class="p">;</span>
+<span class="c1">///</span>
+<span class="c1">/// Time taken for Stage 2 execution in nanoseconds</span>
+<span class="c1">///</span>
+<span class="n">UINT64</span><span class="w">                                          </span><span class="n">Stage2Time</span><span class="p">;</span>
+<span class="c1">///</span>
+<span class="c1">/// Time taken for OsLoader execution in nanoseconds</span>
+<span class="c1">///</span>
+<span class="n">UINT64</span><span class="w">                                          </span><span class="n">OsLoaderTime</span><span class="p">;</span>
+
+<span class="p">}</span><span class="w"> </span><span class="n">SBL_PERFORMANCE_RECORD</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The SBL Boot Performance Data can then be accessed via ACPI. It is denoted by the Signature <code class="docutils literal notranslate"><span class="pre">SBLT</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SBLT @ 0x00000000452B88CC
+0000: 53 42 4C 54 28 00 00 00 00 30 20 01 00 00 00 00  SBLT(....0 .....
+0010: 83 04 00 00 00 00 00 00 B9 0A 00 00 00 00 00 00  ................
+0020: 82 9E 00 00 00 00 00 00                          ........
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="versioning.html" class="btn btn-neutral float-left" title="Versioning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="shell.html" class="btn btn-neutral float-right" title="Shell Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

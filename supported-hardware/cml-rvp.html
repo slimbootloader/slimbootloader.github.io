@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comet Lake RVP Board &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Elkhart Lake CRB Board" href="ehl-crb.html" />
+    <link rel="prev" title="Coffee Lake Refresh CRB Board" href="cfl-crb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Supported Hardware</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="adl-rvp.html">Alder Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html">Coffee Lake Refresh CRB Board</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Comet Lake RVP Board</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-boards">Supported Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stitching">Stitching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flashing">Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slimbootloader-binary-for-capsule-image">Slimbootloader binary for capsule image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capsule-image-for-cml">Capsule image for Comet Lake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-uart">Debug UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#booting-yocto-linux">Booting Yocto Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board-id-assignments">Board ID Assignments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html">Elkhart Lake CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="icdx-crb.html">Ice Lake -D CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mtl-rvp.html">Meteor Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qemu.html">QEMU Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">Simics® QSP Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raptor-lake.html">Raptor Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html">Tiger Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html">UP<sup>2</sup> Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2-6000.html">UP<sup>2</sup> 6000 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up7000adln50.html">UP Squared Pro 7000 Edge Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei12.html">UP Xtreme i12 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html">Whiskey Lake CRB Board</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Supported Hardware</a></li>
+      <li class="breadcrumb-item active">Comet Lake RVP Board</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="comet-lake-rvp-board">
+<span id="comet-lake-rvp"></span><h1>Comet Lake RVP Board<a class="headerlink" href="#comet-lake-rvp-board" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>10th Generation Intel® Core Processor is formally known as Comet Lake S.</p>
+</div>
+<section id="supported-boards">
+<h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Permalink to this heading"></a></h2>
+<p>SBL supports <strong>CML S RVP with PCH H, CML S RVP with PCH H420E and CML S RVP with PCH V</strong> platforms.</p>
+</section>
+<section id="building">
+<h2>Building<a class="headerlink" href="#building" title="Permalink to this heading"></a></h2>
+<p>To build SBL for Comet Lake platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">PCH</span> <span class="n">H</span> <span class="ow">and</span> <span class="n">PCH</span> <span class="n">H420E</span><span class="p">:</span>
+<span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">cml</span>
+
+<span class="k">for</span> <span class="n">PCH</span> <span class="n">V</span><span class="p">:</span>
+<span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">cmlv</span>
+</pre></div>
+</div>
+<p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p>
+</section>
+<section id="stitching">
+<h2>Stitching<a class="headerlink" href="#stitching" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Gather Comet Lake IFWI firmware image</p></li>
+</ol>
+<blockquote>
+<div><p>Users can either download the full IFWI image if the IFWI image release is available, or read the exising IFWI image on the board using SPI programmer.
+This image contains additional firmware ingredients that are required to boot on Comet Lake.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">StitchLoader.py</span></code> currently only supports stitching with boot guard feature <strong>disabled</strong>.
+To stitch with Boot Guard enabled, please use <code class="docutils literal notranslate"><span class="pre">StitchIfwi.py</span></code>.</p>
+</div>
+<ol class="arabic" start="2">
+<li><p>Stitch SBL images into downloaded BIOS image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">PCH</span> <span class="n">H</span> <span class="ow">and</span> <span class="n">PCH</span> <span class="n">H420E</span><span class="p">:</span>
+<span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">CometlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">cml</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span>
+
+<span class="k">for</span> <span class="n">PCH</span> <span class="n">V</span><span class="p">:</span>
+<span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">CometlakevBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">cmlv</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span>
+
+<span class="n">where</span> <span class="o">-</span><span class="n">i</span> <span class="o">=</span> <span class="n">Input</span> <span class="n">file</span><span class="p">,</span> <span class="o">-</span><span class="n">o</span> <span class="o">=</span> <span class="n">Output</span> <span class="n">file</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>For example, stitching SBL IFWI image <code class="docutils literal notranslate"><span class="pre">sbl_cml_ifwi.bin</span></code> from CML S RVP with PCH H firmware images downloaded:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">CometlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">cml</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_cml_ifwi</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>For more details on stitch tool, see <a class="reference internal" href="../tools/StitchTool.html#stitch-tool"><span class="std std-ref">Stitch Tool</span></a> on how to stitch the IFWI image with SBL.</p>
+</section>
+<section id="flashing">
+<h2>Flashing<a class="headerlink" href="#flashing" title="Permalink to this heading"></a></h2>
+<p>Flash the generated <code class="docutils literal notranslate"><span class="pre">sbl_cml_ifwi.bin</span></code> or <code class="docutils literal notranslate"><span class="pre">sbl_cmlv_ifwi.bin</span></code> to the target board using DediProg SF100 or SF600 programmer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please check the alignment/polarity when connecting Dediprog to the board. Please power off the board before connecting the Dediprog.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please set the dediprog  to flash the ifwi binary from offset 0</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The connector labelled <strong>J7G1</strong> on the target board is for DediProg.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please disconnect Deidprog before powering up the board again.</p>
+</div>
+</section>
+<section id="slimbootloader-binary-for-capsule-image">
+<h2>Slimbootloader binary for capsule image<a class="headerlink" href="#slimbootloader-binary-for-capsule-image" title="Permalink to this heading"></a></h2>
+<p>Please refer to the build command above or <a class="reference internal" href="../tools/BuildTool.html#build-tool"><span class="std std-ref">Build Tool</span></a>.</p>
+<p>slimbootloader binary generated in <code class="docutils literal notranslate"><span class="pre">outputs\cml\slimbootloader.bin</span></code> or <code class="docutils literal notranslate"><span class="pre">outputs\cmlv\slimbootloader.bin</span></code> can be used for generating capsule image</p>
+</section>
+<section id="capsule-image-for-cml">
+<h2>Capsule image for Comet Lake<a class="headerlink" href="#capsule-image-for-cml" title="Permalink to this heading"></a></h2>
+<p>To generate capsule image for Comet Lake platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">PCH</span> <span class="n">H</span> <span class="ow">and</span> <span class="n">PCH</span> <span class="n">H420E</span><span class="p">:</span>
+<span class="n">python</span> <span class="o">./</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">BIOS</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">cml</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="o">&lt;</span><span class="n">Keys</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
+
+<span class="k">for</span> <span class="n">PCH</span> <span class="n">V</span><span class="p">:</span>
+<span class="n">python</span> <span class="o">./</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">BIOS</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">cmlv</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="o">&lt;</span><span class="n">Keys</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>For more details on generating capsule image, please refer <a class="reference internal" href="../security/firmware-update.html#generate-capsule"><span class="std std-ref">Generating capsule</span></a>.</p>
+</section>
+<section id="triggering-firmware-update">
+<h2>Triggering Firmware Update<a class="headerlink" href="#triggering-firmware-update" title="Permalink to this heading"></a></h2>
+<p>Please refer to <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a> on how to trigger firmware update flow.
+Below is an example:</p>
+<p>To trigger firmware update in SBL shell:</p>
+<ol class="arabic">
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code> into root directory on FAT partition of a USB key</p></li>
+<li><p>Boot and press any key to enter SBL shell</p></li>
+<li><p>Type command <code class="docutils literal notranslate"><span class="pre">fwupdate</span></code> from shell</p>
+<p>Observe SBL resets the platform and performs update flow. It resets <em>multiple</em> times to complete the update process.</p>
+<p>A sample boot messages from console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shell</span><span class="o">&gt;</span> <span class="n">fwupdate</span>
+<span class="n">HECI</span> <span class="n">SecMode</span> <span class="mi">0</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1A</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1B</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="n">BOOT</span><span class="p">:</span> <span class="n">BP1</span>
+<span class="n">MODE</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">BoardID</span><span class="p">:</span> <span class="mh">0x11</span>
+<span class="n">PlatformName</span><span class="p">:</span> <span class="n">CML_S</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE2</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="n">Jump</span> <span class="n">to</span> <span class="n">payload</span>
+<span class="o">...</span>
+<span class="n">Starting</span> <span class="n">Firmware</span> <span class="n">Update</span>
+<span class="o">...</span>
+<span class="o">=================</span><span class="n">Read</span> <span class="n">Capsule</span> <span class="n">Image</span><span class="o">==============</span>
+<span class="o">...</span>
+<span class="n">CapsuleImage</span><span class="p">:</span> <span class="mh">0x8EABA010</span><span class="p">,</span> <span class="n">CapsuleSize</span><span class="p">:</span> <span class="mh">0x83028C</span>
+<span class="n">HASH</span> <span class="n">verification</span> <span class="k">for</span> <span class="n">usage</span> <span class="p">(</span><span class="mh">0x00000400</span><span class="p">)</span> <span class="k">with</span> <span class="n">Hash</span> <span class="n">Alg</span> <span class="p">(</span><span class="mh">0x1</span><span class="p">):</span> <span class="n">Success</span>
+<span class="n">SignType</span> <span class="p">(</span><span class="mh">0x1</span><span class="p">)</span> <span class="n">SignSize</span> <span class="p">(</span><span class="mh">0x100</span><span class="p">)</span>  <span class="n">SignHashAlg</span> <span class="p">(</span><span class="mh">0x1</span><span class="p">)</span>
+<span class="n">RSA</span> <span class="n">verification</span> <span class="k">for</span> <span class="n">usage</span> <span class="p">(</span><span class="mh">0x00000400</span><span class="p">):</span> <span class="n">Success</span>
+<span class="n">Set</span> <span class="nb">next</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x7F</span>
+<span class="n">Get</span> <span class="n">current</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x7F</span>
+<span class="o">...</span>
+<span class="n">Updating</span> <span class="mh">0x007F0000</span><span class="p">,</span> <span class="n">Size</span><span class="p">:</span><span class="mh">0x10000</span>
+<span class="o">................</span>
+<span class="n">Finished</span>     <span class="mi">1</span><span class="o">%</span>
+<span class="o">...</span>
+<span class="n">Finished</span>    <span class="mi">98</span><span class="o">%</span>
+<span class="n">Updating</span> <span class="mh">0x002A1000</span><span class="p">,</span> <span class="n">Size</span><span class="p">:</span><span class="mh">0x0F000</span>
+<span class="o">...............</span>
+<span class="n">Finished</span>   <span class="mi">100</span><span class="o">%</span>
+<span class="n">Set</span> <span class="nb">next</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x7D</span>
+<span class="n">Reset</span> <span class="n">required</span> <span class="n">to</span> <span class="n">proceed</span> <span class="k">with</span> <span class="n">the</span> <span class="n">firmware</span> <span class="n">update</span><span class="o">.</span>
+
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1A</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1B</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="n">BOOT</span><span class="p">:</span> <span class="n">BP0</span>
+<span class="n">MODE</span><span class="p">:</span> <span class="mi">18</span>
+<span class="n">BoardID</span><span class="p">:</span> <span class="mh">0x11</span>
+<span class="n">PlatformName</span><span class="p">:</span> <span class="n">CML_S</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE2</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=================</span><span class="n">Read</span> <span class="n">Capsule</span> <span class="n">Image</span><span class="o">==============</span>
+<span class="o">...</span>
+<span class="n">CapsuleImage</span><span class="p">:</span> <span class="mh">0x8EABA010</span><span class="p">,</span> <span class="n">CapsuleSize</span><span class="p">:</span> <span class="mh">0x83028C</span>
+<span class="n">HASH</span> <span class="n">verification</span> <span class="k">for</span> <span class="n">usage</span> <span class="p">(</span><span class="mh">0x00000400</span><span class="p">)</span> <span class="k">with</span> <span class="n">Hash</span> <span class="n">Alg</span> <span class="p">(</span><span class="mh">0x1</span><span class="p">):</span> <span class="n">Success</span>
+<span class="n">SignType</span> <span class="p">(</span><span class="mh">0x1</span><span class="p">)</span> <span class="n">SignSize</span> <span class="p">(</span><span class="mh">0x100</span><span class="p">)</span>  <span class="n">SignHashAlg</span> <span class="p">(</span><span class="mh">0x1</span><span class="p">)</span>
+<span class="n">RSA</span> <span class="n">verification</span> <span class="k">for</span> <span class="n">usage</span> <span class="p">(</span><span class="mh">0x00000400</span><span class="p">):</span> <span class="n">Success</span>
+<span class="n">Get</span> <span class="n">current</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x7D</span>
+<span class="o">...</span>
+<span class="n">Updating</span> <span class="mh">0x007F0000</span><span class="p">,</span> <span class="n">Size</span><span class="p">:</span><span class="mh">0x10000</span>
+<span class="o">................</span>
+<span class="n">Finished</span>     <span class="mi">1</span><span class="o">%</span>
+<span class="o">...</span>
+<span class="n">Finished</span>    <span class="mi">98</span><span class="o">%</span>
+<span class="n">Updating</span> <span class="mh">0x002A1000</span><span class="p">,</span> <span class="n">Size</span><span class="p">:</span><span class="mh">0x0F000</span>
+<span class="o">...............</span>
+<span class="n">Finished</span>   <span class="mi">100</span><span class="o">%</span>
+<span class="n">Set</span> <span class="nb">next</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x7C</span>
+<span class="n">Firmware</span> <span class="n">Update</span> <span class="n">status</span> <span class="n">updated</span> <span class="n">to</span> <span class="n">reserved</span> <span class="n">region</span>
+<span class="n">Set</span> <span class="nb">next</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x77</span>
+<span class="n">Reset</span> <span class="n">required</span> <span class="n">to</span> <span class="n">proceed</span> <span class="k">with</span> <span class="n">the</span> <span class="n">firmware</span> <span class="n">update</span><span class="o">.</span>
+<span class="o">...</span>
+<span class="o">====================</span> <span class="n">OS</span> <span class="n">Loader</span> <span class="o">====================</span>
+
+<span class="n">Starting</span> <span class="n">Kernel</span> <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="debug-uart">
+<h2>Debug UART<a class="headerlink" href="#debug-uart" title="Permalink to this heading"></a></h2>
+<p>For Comet Lake, serial port connector is labelled <strong>J9B7</strong> on board</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.</p>
+</div>
+</section>
+<section id="booting-yocto-linux">
+<h2>Booting Yocto Linux<a class="headerlink" href="#booting-yocto-linux" title="Permalink to this heading"></a></h2>
+<p>You may need to change boot options to boot from USB. See <a class="reference internal" href="../how-tos/change-boot-option.html#change-boot-options"><span class="std std-ref">Change Boot Options</span></a>.</p>
+<ol class="arabic simple">
+<li><p>Download Yocto Linux</p></li>
+<li><p>Create bootable USB key. For example: In Windows, Rufus can be used. In Linux, etcher app can be used.</p></li>
+<li><p>Boot the bootable OS image from USB key on the board.</p></li>
+</ol>
+</section>
+<section id="board-id-assignments">
+<h2>Board ID Assignments<a class="headerlink" href="#board-id-assignments" title="Permalink to this heading"></a></h2>
+<p>CML S RVP with different PCH is assigned with a unique platform ID</p>
+<blockquote>
+<div><table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Board</p></td>
+<td><p>Platform ID</p></td>
+</tr>
+<tr class="row-even"><td><p>CML S RVP with PCH H</p></td>
+<td><p>0x11</p></td>
+</tr>
+<tr class="row-odd"><td><p>CML S RVP with PCH H420E</p></td>
+<td><p>0x11</p></td>
+</tr>
+<tr class="row-even"><td><p>CML S RVP with PCH V</p></td>
+<td><p>0x15</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>See <a class="reference internal" href="../developer-guides/configuration.html#dynamic-platform-id"><span class="std std-ref">Platform ID Detection using GPIOs</span></a> for more details.</p>
+<p>To customize board configurations in <code class="docutils literal notranslate"><span class="pre">*.dlt</span></code> file, make sure to specify <code class="docutils literal notranslate"><span class="pre">PlatformId</span></code> to the corresponding values for the board.</p>
+<p>See <a class="reference internal" href="../tools/ConfigTools.html#configuration-tool"><span class="std std-ref">Configuration Tools</span></a> for more details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cfl-crb.html" class="btn btn-neutral float-left" title="Coffee Lake Refresh CRB Board" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ehl-crb.html" class="btn btn-neutral float-right" title="Elkhart Lake CRB Board" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

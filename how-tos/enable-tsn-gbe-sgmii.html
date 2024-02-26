@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enable TSN GbE SGMII &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Enable Pre-OS Payload Support" href="enable-pre-os-payload.html" />
+    <link rel="prev" title="TSN" href="enable-intel-tsn.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Enable TSN GbE SGMII</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tsn-gbe-configuration-settings">TSN GbE configuration settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-configuration-data-with-configeditor-gui">Update configuration data with ConfigEditor GUI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#run-the-configeditor-py-tool-from-sbl-source-code">1. Run the ConfigEditor.py tool from SBL source code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#open-sbl-default-configuration-data">2. Open SBL default configuration data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load-the-delta-file">3. Load the delta file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-options-to-enable-tsn-gbe-sgmii">4. Change options to enable TSN GbE SGMII</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#save-the-changes-to-the-delta-file">5. Save the changes to the delta file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#update-configuration-data-directly-on-delta-file">Update configuration data directly on delta file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-netboot.html">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-pxe-uboot.html">PXE Boot Through U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">Enable TSN GbE SGMII</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="enable-tsn-gbe-sgmii">
+<span id="id1"></span><h1>Enable TSN GbE SGMII<a class="headerlink" href="#enable-tsn-gbe-sgmii" title="Permalink to this heading"></a></h1>
+<p>There are three Gigabit Ethernet (GbE) Controllers that reside in Elkhart Lake PCH including Intel® PSE. One is owned by PCH host, and the other two are owned by Intel® PSE. The GbE controller can operate at multiple speeds, 10/100/1000 Mbps (RGMII &amp; SGMII) &amp; 2.5Gbps (SGMII+) and in either full duplex or half duplex mode. GbE Host supports SGMII only. GbE PSE0 and GbE PSE1 support RGMII, SGMII and SGMII+.</p>
+<section id="tsn-gbe-configuration-settings">
+<span id="tsn-gbe-settings"></span><h2>TSN GbE configuration settings<a class="headerlink" href="#tsn-gbe-configuration-settings" title="Permalink to this heading"></a></h2>
+<p>SBL provides several configuration items for TSN GbE settings. Take Elkhart Lake as an example.</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/slimbootloader/slimbootloader/blob/master/Platform/ElkhartlakeBoardPkg/CfgData/CfgData_Silicon.yaml">https://github.com/slimbootloader/slimbootloader/blob/master/Platform/ElkhartlakeBoardPkg/CfgData/CfgData_Silicon.yaml</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- PchTsnGbeSgmiiEnable :
+    name         : PCH TSN SGMII Support
+    type         : Combo
+    option       : $EN_DIS
+    help         : &gt;
+                   Enable/disable PCH TSN SGMII support 0=Disable 1=Enable
+    length       : 1b
+    value        : 0x1
+- PseTsnGbe0SgmiiEnable :
+    name         : PSE TSN 0 SGMII Support
+    type         : Combo
+    option       : $EN_DIS
+    help         : &gt;
+                   Enable/disable PSE TSN 0 SGMII support 0=Disable 1=Enable
+    length       : 1b
+    value        : 0x00
+- PseTsnGbe1SgmiiEnable :
+    name         : PSE TSN 1 SGMII Support
+    type         : Combo
+    option       : $EN_DIS
+    help         : &gt;
+                   Enable/disable PSE TSN 1 SGMII support 0=Disable 1=Enable
+    length       : 1b
+    value        : 0x00
+- PseTsnGbe0PhyInterfaceType :
+    name         : PSE TSN 0 Phy Interface Type
+    type         : EditNum, HEX, (0x00,0x3)
+    help         : &gt;
+                   Set PSE TSN 0 Phy Interface Type 0: Not Connected, 1: RGMII, 2: SGMII, 3:SGMII+
+    length       : 2b
+    value        : 0x01
+- PseTsnGbe1PhyInterfaceType :
+    name         : PSE TSN 1 Phy Interface Type
+    type         : EditNum, HEX, (0x00,0x3)
+    help         : &gt;
+                   Set PSE TSN 1 Phy Interface Type 0: Not Connected, 1: RGMII, 2: SGMII, 3:SGMII+
+    length       : 2b
+    value        : 0x01
+</pre></div>
+</div>
+</div></blockquote>
+<p>User can directly change the default values in CfgData_Silicon.yaml, but the default values will be overridden if the same fields exist in a board specific delta file. For further information on delta file, refer to <a href="https://slimbootloader.github.io/specs/config.html?delta-dlt-file-explained#delta-dlt-file-explained" target="_blank">DLT File</a>. The following two sections illustrate the steps to update TSN GBE configuration settings in the board specific delta file with and without using SBL ConfigEditor GUI tool.</p>
+</section>
+<section id="update-configuration-data-with-configeditor-gui">
+<h2>Update configuration data with ConfigEditor GUI<a class="headerlink" href="#update-configuration-data-with-configeditor-gui" title="Permalink to this heading"></a></h2>
+<section id="run-the-configeditor-py-tool-from-sbl-source-code">
+<h3>1. Run the ConfigEditor.py tool from SBL source code<a class="headerlink" href="#run-the-configeditor-py-tool-from-sbl-source-code" title="Permalink to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">ConfigEditor</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="open-sbl-default-configuration-data">
+<h3>2. Open SBL default configuration data<a class="headerlink" href="#open-sbl-default-configuration-data" title="Permalink to this heading"></a></h3>
+<p>Open default configuration file CfgDataDef.yaml from platform configuration data folder. Take Elkhart Lake as an example, open the file <code class="docutils literal notranslate"><span class="pre">Platform\ElkhartlakeBoardPkg\CfgData\CfgDataDef.yaml</span></code> in this step.</p>
+<img alt="../_images/tsn_gbe_open_yaml.png" src="../_images/tsn_gbe_open_yaml.png" />
+</section>
+<section id="load-the-delta-file">
+<h3>3. Load the delta file<a class="headerlink" href="#load-the-delta-file" title="Permalink to this heading"></a></h3>
+<p>Same SBL image can boot multiple boards based on board ID. Each board delta file would override the default SBL configuration data. So need to load the board delta file if it already exists. The board delta file would be in the same folder with CfgDataDef.yaml. Open <code class="docutils literal notranslate"><span class="pre">CfgData_Ext_IotgCrb.dlt</span></code> as an example.</p>
+<img alt="../_images/tsn_gbe_open_delta.png" src="../_images/tsn_gbe_open_delta.png" />
+</section>
+<section id="change-options-to-enable-tsn-gbe-sgmii">
+<h3>4. Change options to enable TSN GbE SGMII<a class="headerlink" href="#change-options-to-enable-tsn-gbe-sgmii" title="Permalink to this heading"></a></h3>
+<p>Find TSN GbE settings from ConfigEditor and update the options if required.</p>
+<img alt="../_images/tsn_gbe_options.png" src="../_images/tsn_gbe_options.png" />
+</section>
+<section id="save-the-changes-to-the-delta-file">
+<h3>5. Save the changes to the delta file<a class="headerlink" href="#save-the-changes-to-the-delta-file" title="Permalink to this heading"></a></h3>
+<p>Save the changes back to the same delta file (<code class="docutils literal notranslate"><span class="pre">CfgData_Ext_IotgCrb.dlt</span></code> in this example) to override the original one.</p>
+<img alt="../_images/tsn_gbe_save_delta.png" src="../_images/tsn_gbe_save_delta.png" />
+</section>
+</section>
+<section id="update-configuration-data-directly-on-delta-file">
+<h2>Update configuration data directly on delta file<a class="headerlink" href="#update-configuration-data-directly-on-delta-file" title="Permalink to this heading"></a></h2>
+<p>User can manually update configuration data by having something like the following added to the board specific delta file (<code class="docutils literal notranslate"><span class="pre">CfgData_Ext_IotgCrb.dlt</span></code> in this example).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SILICON_CFG_DATA</span><span class="o">.</span><span class="n">PchTsnGbeSgmiiEnable</span>       <span class="o">|</span> <span class="mh">0x01</span>
+<span class="n">SILICON_CFG_DATA</span><span class="o">.</span><span class="n">PseTsnGbe0SgmiiEnable</span>      <span class="o">|</span> <span class="mh">0x01</span>
+<span class="n">SILICON_CFG_DATA</span><span class="o">.</span><span class="n">PseTsnGbe1SgmiiEnable</span>      <span class="o">|</span> <span class="mh">0x01</span>
+<span class="n">SILICON_CFG_DATA</span><span class="o">.</span><span class="n">PseTsnGbe0PhyInterfaceType</span> <span class="o">|</span> <span class="mh">0x02</span>
+<span class="n">SILICON_CFG_DATA</span><span class="o">.</span><span class="n">PseTsnGbe1PhyInterfaceType</span> <span class="o">|</span> <span class="mh">0x02</span>
+</pre></div>
+</div>
+<p>With the above configuration data change, rebuild SBL. Then the TSN GbE configuration settings would be enabled and effective in new SBL IFWI image.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enable-intel-tsn.html" class="btn btn-neutral float-left" title="TSN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="enable-pre-os-payload.html" class="btn btn-neutral float-right" title="Enable Pre-OS Payload Support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

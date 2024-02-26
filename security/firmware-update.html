@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firmware Update &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Container Security" href="container-security.html" />
+    <link rel="prev" title="Measured Boot" href="measured-boot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Security Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="boot-guard.html">Boot Guard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verified-boot.html">Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key-management.html">SBL Build and Sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key-management.html#key-management">Key Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measured-boot.html">Measured Boot</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Firmware Update</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generating-capsule">Generating capsule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#component-id-string">Component ID String</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-component-binaries-for-capsule">Generating Component Binaries for Capsule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-sbl-binary-for-capsule">Generating SBL binary for capsule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-configuration-data-binary-for-capsule">Generating configuration data binary for capsule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-microcode-binary-for-capsule">Generating microcode binary for capsule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-container-component-binary-for-capsule">Generating Container Component binary for capsule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#capsule-definition">Capsule Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triggering-firmware-update">Triggering Firmware Update</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#trigger-update-from-linux-operating-system">Trigger Update From Linux Operating System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trigger-update-from-windows-operating-system">Trigger Update From Windows Operating System</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trigger-update-from-shell">Trigger Update From Shell</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#capsule-location">Capsule Location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#firmware-update-status">Firmware Update Status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="container-security.html">Container Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware-resiliency-and-recovery.html">Firmware Resiliency and Recovery</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Security Features</a></li>
+      <li class="breadcrumb-item active">Firmware Update</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="firmware-update">
+<span id="id1"></span><h1>Firmware Update<a class="headerlink" href="#firmware-update" title="Permalink to this heading"></a></h1>
+<p>SBL implements a secure and fail-safe firmware update mechanism.</p>
+<ul class="simple">
+<li><p>The firmware update code is implemented as an SBL payload.</p></li>
+<li><p>SBL launches the firmware update payload when it detects a firmware update signal.</p></li>
+<li><p>The firmware update code authenticates a capsule before writing to the relevant region.</p></li>
+<li><p>The firmware update code maintains a state machine in non-volatile storage to keep track of update progress. This allows the update to continue where it left off in case of interruption.</p></li>
+<li><p>The SBL image contains redundant boot components and depends on hardware assisted switch to toggle between them. This allows a working update mechanism to be maintained in case of failure.</p></li>
+</ul>
+<p>SBL supports the update of the following items, either by themselves or together:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>BIOS region</p></li>
+<li><p>CSME region</p></li>
+<li><p>Config data component (of BIOS region)</p></li>
+<li><p>uCode component (of BIOS region)</p></li>
+<li><p>ACM component (of BIOS region)</p></li>
+<li><p>Full container (in BIOS region)</p></li>
+<li><p>Component within a container (in BIOS region)</p></li>
+</ul>
+</div></blockquote>
+<p>The following flow occurs during a firmware update:</p>
+<blockquote>
+<div><p><strong>Step 1:</strong>  The firmware update capsule is copied to the location specified in SBL configuration options.</p>
+<p><strong>Step 2:</strong>  The firmware update is triggered from SBL shell or from operating system and is followed by system reset.</p>
+<p><strong>Step 3:</strong>  SBL detects firmware update signal and sets platform into firmware update mode.</p>
+<p><strong>Step 4:</strong>  After all hardware initializations are complete, SBL sees that it is in firmware update mode and loads firmware update payload to start update flow.</p>
+<p><strong>Step 5:</strong>  The firmware update payload gathers capsule image from selected media and verifies it.</p>
+<p><strong>Step 6:</strong>  The firmware update payload initializes state machine and identifies the update images in the capsule.</p>
+<p><strong>Step 7:</strong>  The firmware update payload loops through and updates each firmware identified in the capsule image. Specifically:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>It records update status after each firmware update.</p></li>
+<li><p>It resets the system after the firmware update if a region/component requires it.</p></li>
+<li><p>If updating any redundant regions/components (e.g. BIOS, uCode, etc.), it:</p>
+<ol class="arabic simple">
+<li><p>Updates the regions/components on backup partition</p></li>
+<li><p>Sets backup parition as ‘active’</p></li>
+<li><p>Reboots</p></li>
+<li><p>Boots from backup partition</p></li>
+<li><p>Updates the regions/components on primary partition</p></li>
+<li><p>Sets primary partition as ‘active’</p></li>
+<li><p>Reboots</p></li>
+</ol>
+</li>
+<li><p>If only updating non-redundant regions/components in BIOS region (e.g. CSME, IPFW, etc.), it:</p>
+<ol class="arabic simple">
+<li><p>Updates the regions/components</p></li>
+<li><p>Reboots</p></li>
+</ol>
+</li>
+<li><p>In case of a power failure, it will use its state machine to continue from where it left off.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Step 8:</strong>  The firmware update payload marks the end of the update and returns SBL back to normal execution. Specifically:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>It sets state machine to done state, which indicates firmware update is completed.</p></li>
+<li><p>It terminates firmware update.</p></li>
+<li><p>It resets system to boot to operating system.</p></li>
+</ol>
+</div></blockquote>
+</div></blockquote>
+<section id="generating-capsule">
+<span id="generate-capsule"></span><h2>Generating capsule<a class="headerlink" href="#generating-capsule" title="Permalink to this heading"></a></h2>
+<p>After gathering required firmware binaries, capsule image can be generated using capsule generation tool. Please refer to <a class="reference internal" href="#generate-binaries-for-capsule"><span class="std std-ref">Generating Component Binaries for Capsule</span></a> for details about generating component binaries for capsule.</p>
+<blockquote>
+<div><p>The capsule tool (<code class="docutils literal notranslate"><span class="pre">GenCapsuleFirmware.py</span></code>) creates a capsule image that can be processed by SBL in firmware update flow.</p>
+<p>The capsule tool is capable of incorporating multiple firmware images into single capsule binary.</p>
+<p>Each firmware is identified and included in the capsule image using a string. These strings are constructed as follows:</p>
+<ul class="simple">
+<li><p>For non-container components, simply use its 4 character string identifier &lt;4 byte comp id&gt;.</p></li>
+<li><p>For container components, use its 4 character container identifier along with its 4 character component identifier &lt;4 byte id for component inside container : 4 byte id container id&gt;.</p></li>
+</ul>
+<p>These firmware identifier strings should be followed by the assoicated binary path.</p>
+<p>Command Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="mi">4</span> <span class="n">byte</span> <span class="n">comp</span> <span class="nb">id</span><span class="o">&gt;</span> <span class="o">&lt;</span> <span class="n">FW</span> <span class="n">IMAGE</span> <span class="n">BINARY</span> <span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="mi">4</span> <span class="n">byte</span> <span class="n">container</span> <span class="n">component</span> <span class="n">string</span> <span class="nb">id</span><span class="p">:</span><span class="mi">4</span> <span class="n">byte</span> <span class="n">comp</span> <span class="nb">id</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">FW</span> <span class="n">IMAGE</span> <span class="n">BINARY</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="mi">4</span> <span class="n">byte</span> <span class="n">comp</span> <span class="nb">id</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">FW</span> <span class="n">IMAGE</span> <span class="n">BINARY</span> <span class="n">n</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">k</span> <span class="n">PRIVKEY</span> <span class="o">-</span><span class="n">o</span> <span class="n">NEWIMAGE</span> <span class="p">[</span><span class="o">-</span><span class="n">q</span><span class="p">]</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">p</span>  <span class="o">&lt;</span><span class="mi">4</span> <span class="n">byte</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Payload</span> <span class="n">Image</span><span class="o">&gt;</span><span class="p">,</span>
+                        <span class="n">Payload</span> <span class="n">image</span> <span class="n">that</span> <span class="n">goes</span> <span class="n">into</span> <span class="n">firmware</span> <span class="n">update</span> <span class="n">capsule</span>
+  <span class="o">-</span><span class="n">k</span> <span class="n">PRIVKEY</span><span class="p">,</span> <span class="o">--</span><span class="n">priv_key</span> <span class="n">PRIVKEY</span>
+                        <span class="n">KEY_ID</span> <span class="ow">or</span> <span class="n">RSA</span> <span class="mi">2048</span><span class="o">/</span><span class="mi">3072</span> <span class="n">private</span> <span class="n">key</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">PEM</span> <span class="nb">format</span> <span class="n">to</span> <span class="n">sign</span> <span class="n">image</span><span class="o">.</span>
+                        <span class="n">Use</span> <span class="s1">&#39;KEY_ID_FIRMWAREUPDATE_RSA2048/KEY_ID_FIRMWAREUPDATE_RSA3072&#39;</span> <span class="k">for</span> <span class="n">KEY_ID</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">NEWIMAGE</span><span class="p">,</span> <span class="o">--</span><span class="n">output</span> <span class="n">NEWIMAGE</span>
+                        <span class="n">Output</span> <span class="n">file</span> <span class="k">for</span> <span class="n">signed</span> <span class="n">image</span>
+  <span class="o">-</span><span class="n">q</span><span class="p">,</span> <span class="o">--</span><span class="n">quiet</span>           <span class="n">without</span> <span class="n">output</span> <span class="n">messages</span> <span class="ow">or</span> <span class="n">temp</span> <span class="n">files</span>
+</pre></div>
+</div>
+<p>The following command generates a capsule image (<code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code>) containing an SBL image (<code class="docutils literal notranslate"><span class="pre">sbl.bios.bin</span></code>), CSME image (<code class="docutils literal notranslate"><span class="pre">csme.bin</span></code>), and CSME firmware
+update driver (<code class="docutils literal notranslate"><span class="pre">csme_fw_update_driver.bin</span></code>) signed by key <code class="docutils literal notranslate"><span class="pre">FirmwareUpdateTestKey_Priv_RSA2048.pem</span></code>.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p BIOS sbl.bios.bin -p CSME  csme.bin -p CSMD csme_fw_update_driver.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
+Successfully signed Bootloader image!
+$
+</pre></div>
+</div>
+<p>The following command generates a capsule image (<code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code>) containing a container component TSN MAC address inside container IPFW (<code class="docutils literal notranslate"><span class="pre">tsnmacaddr.bin</span></code>)
+signed by key <code class="docutils literal notranslate"><span class="pre">FirmwareUpdateTestKey_Priv_RSA2048.pem</span></code>.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python ./BootloaderCorePkg/Tools/GenCapsuleFirmware.py -p TMAC:IPFW tsnmacaddr.bin -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin
+Successfully signed Bootloader image!
+$
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The capsule tool will <em>not</em> allow building of a capsule image which contains overlapping firmware components (e.g. BIOS and TMAC:IPFW).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The SBL_KEY_DIR is the path to SblKeys directory used on SBL.</p>
+</div>
+</div></blockquote>
+<section id="component-id-string">
+<h3>Component ID String<a class="headerlink" href="#component-id-string" title="Permalink to this heading"></a></h3>
+<p>This section explains how to determine 4 byte string identifier for each of updatable components used in SBL</p>
+<p>If the updatable component is part of flash map, 4 byte string identifying the component should be the component id from flash map. During the runtime, firmware update payload will look for this 4 byte string in the flash map, if found, it will update the component.</p>
+<p>As an example, the following is a sample flash map:</p>
+<blockquote>
+<div><table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>SG1B</p></td>
+<td><p>0x4e5000(0xFFCE5000)</p></td>
+<td><p>0x0db000</p></td>
+<td><p>Uncompressed, R_B</p></td>
+</tr>
+<tr class="row-even"><td><p>KEYH</p></td>
+<td><p>0x4e4000(0xFFCE4000)</p></td>
+<td><p>0x001000</p></td>
+<td><p>Uncompressed, R_B</p></td>
+</tr>
+<tr class="row-odd"><td><p>CNFG</p></td>
+<td><p>0x4e0000(0xFFCE0000)</p></td>
+<td><p>0x004000</p></td>
+<td><p>Uncompressed, R_B</p></td>
+</tr>
+<tr class="row-even"><td><p>FWUP</p></td>
+<td><p>0x4c0000(0xFFCC0000)</p></td>
+<td><p>0x020000</p></td>
+<td><p>Compressed  , R_B</p></td>
+</tr>
+<tr class="row-odd"><td><p>SG02</p></td>
+<td><p>0x440000(0xFFC40000)</p></td>
+<td><p>0x080000</p></td>
+<td><p>Compressed  , R_B</p></td>
+</tr>
+<tr class="row-even"><td><p>UCOD</p></td>
+<td><p>0x3c0000(0xFFBC0000)</p></td>
+<td><p>0x080000</p></td>
+<td><p>Uncompressed, R_B</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>If configuration data component to be updated, 4 byte string “CNFG” should be passed to capsule generation tool along with configuration data binary.</p>
+<p>BIOS binary, CSME binary, and CSME update driver are assigned 4 byte pre-defined string identifier and can be found in the table below.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>String ID</strong></p></td>
+<td><p><strong>Firmware</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>BIOS</strong></p></td>
+<td><p>Slim Bootloader</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>CSME</strong></p></td>
+<td><p>CSME update binary</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>CSMD</strong></p></td>
+<td><p>CSME update driver</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</section>
+<section id="generating-component-binaries-for-capsule">
+<span id="generate-binaries-for-capsule"></span><h3>Generating Component Binaries for Capsule<a class="headerlink" href="#generating-component-binaries-for-capsule" title="Permalink to this heading"></a></h3>
+</section>
+<section id="generating-sbl-binary-for-capsule">
+<h3>Generating SBL binary for capsule<a class="headerlink" href="#generating-sbl-binary-for-capsule" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Please refer to <strong>Slimbootloader binary for capsule image</strong> section of desired board page in <strong>Supported Hardware</strong> to understand how to generate Slimbootloader binary for capsule.</p>
+</div></blockquote>
+</section>
+<section id="generating-configuration-data-binary-for-capsule">
+<h3>Generating configuration data binary for capsule<a class="headerlink" href="#generating-configuration-data-binary-for-capsule" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Components inside the BIOS region are often padded to certain alignment and size.</p>
+<p>Configuration Data region inside SBL is padded and so for generating capsule image to update configuration data region, please use CFGDATA.pad file available after building Slim Bootloader. After building Slim Bootloader, CFGDATA.pad file is available at Build/BootloaderCorePkg/DEBUG_VS2015x86/FV/CFGDATA.pad</p>
+</div></blockquote>
+</section>
+<section id="generating-microcode-binary-for-capsule">
+<h3>Generating microcode binary for capsule<a class="headerlink" href="#generating-microcode-binary-for-capsule" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>There are 2 ways to generate a microcode binary for capsule:</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Build SBL</dt><dd><p>SBL builds generate a microcode region that gets integrated into SBL. This can be used for microcode updates as well. It is located at Build/BootloaderCorePkg/DEBUG_VS2019/FV/UCODE.pad.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Run uCode Utility</dt><dd><p>uCode Utility generates a microcode region based on the slot size and microcode patches specified (see <a class="reference internal" href="../tools/UcodeUtility.html#ucode-utility"><span class="std std-ref">uCode Utility</span></a>). This is solely meant for microcode updates.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="generating-container-component-binary-for-capsule">
+<h3>Generating Container Component binary for capsule<a class="headerlink" href="#generating-container-component-binary-for-capsule" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Slim Bootloader can update component regions inside container component in the BIOS region.
+GenContainer.py tool can help sign and create a component binary that can be used for updating a specific component region inside the container.</p>
+<p>Following is a sample command to create signed component for capsule
+GenContainer.py sign -f &lt;name of the component&gt; -o &lt;output file name&gt; -c lz4 -a RSA2048_PSS_SHA2_256 -k $SBL_KEY_DIR/ContainerTestKey_Priv_RSA2048.pem -td BaseTools/Bin/Win32</p>
+<p>The output file generated using above command can be used to create capsule.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GenContainer.py tool is available at SblPlatform/BootloaderCorePkg/Tools folder.</p>
+</div>
+</section>
+</section>
+<section id="capsule-definition">
+<h2>Capsule Definition<a class="headerlink" href="#capsule-definition" title="Permalink to this heading"></a></h2>
+<p>SBL capsule starts with a SBL capsule header followed by SBL capsule data, SHA 256 signature and public key.</p>
+<p>For ease of use SBL capsule data contains capsule defined by UEFI specification, which starts with EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER followed by capsule body.</p>
+<p>SBL capsule layout is shown in this picture</p>
+<a class="reference internal image-reference" href="../_images/capsule_layout.png"><img alt="|SPN| Capsule layout" class="align-center" src="../_images/capsule_layout.png" style="width: 600px;" /></a>
+<p>SBL capsule header is defined below</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// FileGuid is a GUID that identifies this image as a |SPN| capsule</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">EFI_GUID</span><span class="w">                    </span><span class="n">FileGuid</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// The size, in bytes of this structure</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">HeaderSize</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Version of Firmware contained in the capsule, this field is not used today.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">FirmwreVersion</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Attributes associated with the capsule, this field is not used today.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">CapsuleFlags</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Offset to the public key in the capsule image.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">PubKeyOffset</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Size of public key</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">PubKeySize</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Offset to the capsule data in the capsule image.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">ImageOffset</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Size of capsule data</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">ImageSize</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Offset to the SHA 256 signature inside the capsule image.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">SignatureOffset</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Size of signature data.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">SignatureSize</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Reserved for future use.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">                      </span><span class="n">Reserved</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="w"> </span><span class="n">FIRMWARE_UPDATE_HEADER</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is defined in UEFI specification and is as follows</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w"> </span><span class="n">Version</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// The number of drivers included in the capsule and the number of corresponding</span>
+<span class="w">  </span><span class="c1">/// offsets stored in ItemOffsetList array.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT16</span><span class="w"> </span><span class="n">EmbeddedDriverCount</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// The number of payload items included in the capsule and the number of</span>
+<span class="w">  </span><span class="c1">/// corresponding offsets stored in the ItemOffsetList array.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT16</span><span class="w"> </span><span class="n">PayloadItemCount</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Variable length array of dimension [EmbeddedDriverCount + PayloadItemCount]</span>
+<span class="w">  </span><span class="c1">/// containing offsets of each of the drivers and payload items contained within the capsule</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">// UINT64 ItemOffsetList[];</span>
+<span class="p">}</span><span class="w"> </span><span class="n">EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER</span><span class="p">;</span>
+
+<span class="w"> </span><span class="cp">#define EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER_INIT_VERSION       0x00000001</span>
+</pre></div>
+</div>
+<p>EFI_FIRMWARE_MANAGEMENT_CAPSULE_HEADER is followed by one or multiple update images each preceeded by EFI_FIRMWARE_MANAGEMENT_CAPSULE_IMAGE_HEADER header and is defined in UEFI specification as follows</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">   </span><span class="n">Version</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Used to identify device firmware targeted by this update. This guid is matched by</span>
+<span class="w">  </span><span class="c1">/// system firmware against ImageTypeId field within a EFI_FIRMWARE_IMAGE_DESCRIPTOR</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">EFI_GUID</span><span class="w"> </span><span class="n">UpdateImageTypeId</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Passed as ImageIndex in call to EFI_FIRMWARE_MANAGEMENT_PROTOCOL.SetImage ()</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT8</span><span class="w">    </span><span class="n">UpdateImageIndex</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">UINT8</span><span class="w">    </span><span class="n">reserved_bytes</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Size of the binary update image which immediately follows this structure</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">   </span><span class="n">UpdateImageSize</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// Size of the VendorCode bytes which optionally immediately follow binary update image in the capsule</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w">   </span><span class="n">UpdateVendorCodeSize</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="c1">/// The HardwareInstance to target with this update. If value is zero it means match all</span>
+<span class="w">  </span><span class="c1">/// HardwareInstances. This field allows update software to target only a single device in</span>
+<span class="w">  </span><span class="c1">/// cases where there are more than one device with the same ImageTypeId GUID.</span>
+<span class="w">  </span><span class="c1">/// This header is outside the signed data of the Authentication Info structure and</span>
+<span class="w">  </span><span class="c1">/// therefore can be modified without changing the Auth data.</span>
+<span class="w">  </span><span class="c1">///</span>
+<span class="w">  </span><span class="n">UINT64</span><span class="w">   </span><span class="n">UpdateHardwareInstance</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">EFI_FIRMWARE_MANAGEMENT_CAPSULE_IMAGE_HEADER</span><span class="p">;</span>
+
+<span class="cp">#define EFI_FIRMWARE_MANAGEMENT_CAPSULE_IMAGE_HEADER_INIT_VERSION 0x00000002</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to UEFI specification for more details about capsule header and data.</p>
+</div>
+</section>
+<section id="triggering-firmware-update">
+<h2>Triggering Firmware Update<a class="headerlink" href="#triggering-firmware-update" title="Permalink to this heading"></a></h2>
+<p>SBL supports triggering firmware update from Linux, Windows, and SBL shell.</p>
+<p>SBL provides a platform independent abstracted way of triggering firmware update from operating system. SBL provides two ACPI methods, DWMI.WQ00 for read and DWMI.WS00 for write to a platform specific chipset register that can survive a reset to signal firmware update. Please refer to <strong>Triggering Firmware Update</strong> section of desired board page in <strong>Supported Hardware</strong> to find Sample implementation.</p>
+<section id="trigger-update-from-linux-operating-system">
+<h3>Trigger Update From Linux Operating System<a class="headerlink" href="#trigger-update-from-linux-operating-system" title="Permalink to this heading"></a></h3>
+<p>If your Linux kernel includes the Kconfig option <cite>INTEL_WMI_SBL_FW_UPDATE</cite> you can trigger a firmware update with the command below followed by restarting the system</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/wmi/devices/44FADEB1-B204-40F2-8581-394BBDC1B651/firmware_update_request
+reboot
+</pre></div>
+</div>
+</section>
+<section id="trigger-update-from-windows-operating-system">
+<h3>Trigger Update From Windows Operating System<a class="headerlink" href="#trigger-update-from-windows-operating-system" title="Permalink to this heading"></a></h3>
+<p>Users can use windows provided WMI service to call DWMI.WQ00 and DWMI.WS00 ACPI methods to trigger firmware update. Following the reset, Slim Bootloader boots into firmware update mode</p>
+<p>A sample implementation of a VB script to call these methods from Windows operating system is provided below</p>
+<div class="highlight-vbscript notranslate"><div class="highlight"><pre><span></span><span class="k">set</span><span class="w"> </span><span class="n">Service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">GetObject</span><span class="p">(</span><span class="s2">&quot;winmgmts:root/wmi&quot;</span><span class="p">)</span>
+<span class="k">set</span><span class="w"> </span><span class="n">EnumSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Service</span><span class="p">.</span><span class="n">InstancesOf</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;AcpiFirmwareCommunication&quot;</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">Instance</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">EnumSet</span>
+<span class="w">  </span><span class="n">Wscript</span><span class="p">.</span><span class="n">Echo</span><span class="w"> </span><span class="s2">&quot;Current  Val: &quot;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">Hex</span><span class="p">(</span><span class="n">instance</span><span class="p">.</span><span class="n">Command</span><span class="p">)</span>
+<span class="w">  </span><span class="n">instance</span><span class="p">.</span><span class="n">Command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="n">instance</span><span class="p">.</span><span class="n">Put_</span><span class="p">()</span>
+<span class="w">  </span><span class="n">Wscript</span><span class="p">.</span><span class="n">Echo</span><span class="w"> </span><span class="s2">&quot;Set New Val: &quot;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">Hex</span><span class="p">(</span><span class="n">instance</span><span class="p">.</span><span class="n">Command</span><span class="p">)</span>
+<span class="k">next</span><span class="w"> </span><span class="c1">&#39;instance</span>
+</pre></div>
+</div>
+</section>
+<section id="trigger-update-from-shell">
+<h3>Trigger Update From Shell<a class="headerlink" href="#trigger-update-from-shell" title="Permalink to this heading"></a></h3>
+<p>During development, one can use shell command to manually test firmware update without relying on support in OS.</p>
+<ol class="arabic">
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code> into the /boot/efi/ directory of the device identified by CAPSULE_INFO_CFG_DATA (default is first USB flash drive)</p></li>
+<li><p>Boot and press any key to enter SBL shell</p></li>
+<li><p>Type command <code class="docutils literal notranslate"><span class="pre">fwupdate</span></code> from shell</p>
+<p>Observe SBL resets the platform and performs update flow. It resets <em>multiple</em> times to complete the update process.</p>
+<p>A sample boot messages from console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Shell&gt; fwupdate
+HECI SecMode 0
+...
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP0
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+BootPolicy : 0x00000010
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+Jump to payload
+...
+Starting Firmware Update
+...
+=================Read Capsule Image==============
+...
+CapsuleImage: 0x787AF000, CapsuleSize: 0xEFE248
+HASH Verification Success! Component Type (5)
+RSA Verification Success!
+The new BOOTLOADER image passed verification
+...
+HECI/CSE ready for update
+Updating 0x77F000, Size:0x10000
+................  Finished     0%
+Updating 0x78F000, Size:0x10000
+................  Finished     1%
+...
+Updating 0xEDF000, Size:0x10000
+................  Finished    99%
+Updating 0xEEF000, Size:0xE000
+..............  Finished    99%
+.Reset required to proceed with the firmware update.
+
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP1
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+BootPolicy : 0x00000010
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+=================Read Capsule Image==============
+...
+CapsuleImage: 0x787AE000, CapsuleSize: 0xEFE248
+HASH Verification Success! Component Type (5)
+RSA Verification Success!
+The new BOOTLOADER image passed verification
+...
+HECI/CSE prepare for update failed
+Updating 0x0, Size:0x10000
+x...............  Finished     0%
+Updating 0x10000, Size:0x10000
+................  Finished     1%
+Updating 0x20000, Size:0x10000
+................  Finished    99%
+Updating 0x770000, Size:0xF000
+...............  Finished    99%
+.Reset required to proceed with the firmware update.
+
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP0
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+Firmware update Done! clear CSE flag to normal boot mode.
+...
+============= Intel Slim Bootloader STAGE1A =============
+...
+============= Intel Slim Bootloader STAGE1B =============
+...
+BOOT: BP0
+MODE: 0
+BoardID: 0E
+PlatformName: UP2
+...
+============= Intel Slim Bootloader STAGE2 =============
+...
+==================== OS Loader ====================
+
+Starting Kernel ...
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="capsule-location">
+<h2>Capsule Location<a class="headerlink" href="#capsule-location" title="Permalink to this heading"></a></h2>
+<p>The location of the firmware update capsule image is passed to Firmware update payload through CAPSULE_INFO_CFG_DATA configuration data.</p>
+<p>As an example, please refer to CAPSULE_INFO_CFG_DATA configuration data from <code class="docutils literal notranslate"><span class="pre">Platform\ApollolakeBoardPkg\CfgData\CfgData_CapsuleInformation.yaml</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Capsule update defined by UEFI specification is different from SBL capsule format.</p>
+</div>
+</section>
+<section id="firmware-update-status">
+<h2>Firmware Update Status<a class="headerlink" href="#firmware-update-status" title="Permalink to this heading"></a></h2>
+<p>SBL reports firmware update status through custom defined Firmware Update status (FWST) ACPI table. FWST ACPI table will be available as part of RSDT and can be identified with a table signature “FWST”.</p>
+<p>FWST ACPI table makes use of EFI_SYSTEM_RESOURCE_TABLE defined in UEFI specification to report firmware update status.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to UEFI specification for structure definition of EFI_SYSTEM_RESOURCE_TABLE and EFI_SYSTEM_RESOURCE_ENTRY.</p>
+</div>
+<p>FWST ACPI table will contain EFI_SYSTEM_RESOURCE_ENTRY entry for each of the component updated through capsule update, update status is part of EFI_SYSTEM_RESOURCE_ENTRY entry.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="measured-boot.html" class="btn btn-neutral float-left" title="Measured Boot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="container-security.html" class="btn btn-neutral float-right" title="Container Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

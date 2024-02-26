@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>uCode Utility &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorials" href="../tutorials/index.html" />
+    <link rel="prev" title="Gpio Tool" href="GpioTool.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BuildTool.html">Build Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StitchTool.html">Stitch Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenContainer.html">Container Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigTools.html">Configuration Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GpioTool.html">Gpio Tool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">uCode Utility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tools</a></li>
+      <li class="breadcrumb-item active">uCode Utility</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ucode-utility">
+<span id="id1"></span><h1>uCode Utility<a class="headerlink" href="#ucode-utility" title="Permalink to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">UcodeUtility.py</span></code> generates a microcode binary for use with firmware updates.</p>
+<p>Command Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">UcodeUtility</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">s</span> <span class="n">SLOT_SIZE</span> <span class="o">-</span><span class="n">i</span> <span class="n">INPUT_FILE_NAMES</span> <span class="p">[</span><span class="n">INPUT_FILE_NAMES</span> <span class="o">...</span><span class="p">]</span> <span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT_FILE_NAME</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+<span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+<span class="o">-</span><span class="n">s</span> <span class="n">SLOT_SIZE</span><span class="p">,</span> <span class="o">--</span><span class="n">slot</span><span class="o">-</span><span class="n">size</span> <span class="n">SLOT_SIZE</span>
+                        <span class="n">Specify</span> <span class="n">the</span> <span class="n">ucode</span> <span class="n">slot</span> <span class="n">size</span> <span class="p">(</span><span class="ow">in</span> <span class="nb">bytes</span><span class="p">)</span><span class="o">.</span>
+<span class="o">-</span><span class="n">i</span> <span class="n">INPUT_FILE_NAMES</span> <span class="p">[</span><span class="n">INPUT_FILE_NAMES</span> <span class="o">...</span><span class="p">],</span> <span class="o">--</span><span class="n">input_file_names</span> <span class="n">INPUT_FILE_NAMES</span> <span class="p">[</span><span class="n">INPUT_FILE_NAMES</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">Specify</span> <span class="n">the</span> <span class="n">ucode</span> <span class="n">file</span> <span class="n">names</span> <span class="p">(</span><span class="o">*.</span><span class="n">pdb</span> <span class="n">files</span><span class="p">)</span><span class="o">.</span>
+<span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT_FILE_NAME</span><span class="p">,</span> <span class="o">--</span><span class="n">output_file_name</span> <span class="n">OUTPUT_FILE_NAME</span>
+                        <span class="n">Specify</span> <span class="n">an</span> <span class="n">output</span> <span class="n">file</span> <span class="n">name</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>It is expected that this microcode binary be integrated into a firmware update capsule (see <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a>).</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="GpioTool.html" class="btn btn-neutral float-left" title="Gpio Tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorials/index.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Feb 26, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
