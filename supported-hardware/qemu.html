@@ -154,20 +154,7 @@
 <h2>Boot to Yocto on QEMU Emulator<a class="headerlink" href="#boot-to-yocto-on-qemu-emulator" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Download <a class="reference external" href="http://downloads.yoctoproject.org/releases/yocto/yocto-2.5/machines/genericx86-64/core-image-minimal-genericx86-64.hddimg">QEMU Yocto Image</a> to SBL top level source directory</p></li>
-<li><p>Mount <code class="docutils literal notranslate"><span class="pre">core-image-minimal-genericx86-64.hddimg</span></code> locally and rename <code class="docutils literal notranslate"><span class="pre">bzImage</span></code> to <code class="docutils literal notranslate"><span class="pre">vmlinuz</span></code></p></li>
 </ol>
-<p>Linux Users:: Use the commands below</p>
-<blockquote>
-<div><p>sudo mkdir /mnt/yocto
-sudo mount -o loop core-image-minimal-genericx86-64.hddimg /mnt/yocto
-sudo mv /mnt/yocto/bzImage /mnt/yocto/vmlinuz
-sudo umount /mnt/yocto</p>
-</div></blockquote>
-<p>Windows Users:: Use the method below</p>
-<blockquote>
-<div><p>Windows users may need tools that allow mounting the hddimg as a virtual drive in Windows.
-Once mounted, the bzImage file can be renamed to vmlinuz as required by SBL.</p>
-</div></blockquote>
 <ol class="arabic simple" start="3">
 <li><p>Boot new Yocto image (with graphic console).</p></li>
 </ol>
