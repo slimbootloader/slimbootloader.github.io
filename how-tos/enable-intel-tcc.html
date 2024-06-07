@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel® TCC enable &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TSN" href="enable-intel-tsn.html" />
+    <link rel="prev" title="Enable Verified Boot" href="enable-verified-boot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Intel® TCC enable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#intel-tcc-overview">Intel® TCC overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-tcc-subregion">Intel® TCC subregion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-tcc-detail-settings">Intel® TCC detail settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#open-sbl-default-configuration-data">1. open SBL default configuration data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load-the-delta-file">2. load the delta file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-option-to-enable-tcc">3. change option to enable tcc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#save-the-change-to-delta-file">4. save the change to delta file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-sbl">5. build SBL</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-tcc-rtcm-setting">Intel® TCC RTCM setting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-1-select-boot-flag">Step 1: Select boot flag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-select-image-type">Step 2: Select image type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-fill-extra-image-name">Step 3: Fill extra image name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4-save-the-change-to-delta-file">Step 4: Save the change to delta file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#update-component-in-intel-tcc-subregion">Update component in Intel® TCC subregion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-1-get-the-raw-component-binary">Step 1: Get the raw component binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-sign-the-raw-component-binary">Step 2:Sign the raw component binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-generate-capsule-image">Step 3: Generate capsule image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4-copy-capsule-image">Step 4: Copy capsule image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-5-trigger-firmware-update">Step 5: Trigger firmware update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-netboot.html">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-pxe-uboot.html">PXE Boot Through U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">Intel® TCC enable</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-tcc-enable">
+<span id="tcc-enable"></span><h1>Intel® TCC enable<a class="headerlink" href="#intel-tcc-enable" title="Permalink to this heading"></a></h1>
+<p>Intel® TCC feature includes Intel® TCC subregion support, Intel® TCC detail configuration, SBL boot option for real-time configuration manager (RTCM), etc.
+For each SBL platform, there is a build configuration file BoardConfig.py. User could check this build configuration  file to make sure self.ENABLE_TCC is set to 1 to enable TCC subregion.
+The other Intel® TCC related configuration data might also be enabled when self.ENABLE_TCC is set. User could check the platform configuration  BoardConfig.py for details.</p>
+<p>This section will discuss Intel® TCC feature with SBL.</p>
+<section id="intel-tcc-overview">
+<span id="tcc-overview"></span><h2>Intel® TCC overview<a class="headerlink" href="#intel-tcc-overview" title="Permalink to this heading"></a></h2>
+<p>Intel® TCC (Time Coordinated Computing) is a set of capabilities that improve compute efficiency for real-time applications by solving jitter and latency issues inside the compute node. This creates fast connections that keep IP blocks within the system in sync. To learn more about Intel® TCC, see <a href="https://software.intel.com/content/www/us/en/secure/develop/time-coordinated-computing-tools.html?oslc_config.context=https%3A%2F%2Frtc.intel.com%2Fgc%2Fconfiguration%2F904" target="_blank">Intel® TCC Tools</a> for details.</p>
+<p>Here is the Intel® TCC work flow overview with SBL when Intel® TCC is supported on the platforms.</p>
+<a class="reference internal image-reference" href="../_images/Tcc_overview.png"><img alt="../_images/Tcc_overview.png" src="../_images/Tcc_overview.png" style="width: 500px;" /></a>
+<p>SBL defined several subregions for TCC components inside SBL IFWI. Each subregion could be updated via SBL firmware update mechanism. During boot time, SBL would load these TCC components from these subregions and install TCC RTCT ACPI table.</p>
+<p>SBL supports two popular payloads: UEFI payload and OsLoader payload.
+When booting with UEFI payload, UEFI payload would load RTCM from OS boot media and run RTCM before booting OS, or UEFI payload could boot a hypervisor which would have a built-in RTCM.
+When booting with OsLoader Payload, Osloader Payload would check the SBL boot option to decide to boot RTCM or not. If RTCM is configured in SBL boot option, SBL would load RTCM from OS boot media and run it before OS. If hypervisor with built-in RTCM would be boot from SBL, user should disable RTCM from SBL boot option configuration data.</p>
+<p>From Intel® TCC Tools application, user could generate streams config component and cache config component. These components need be signed using the same key used in SBL build so that it could pass SBL verification in the boot time.
+Before putting the signed TCC component into SBL subregion, it should be encapsulated to a capsule image which is signed by a firmware update key. The firmware update key should match with SBL key so that the capsule image could pass SBL capsule verification during firmware update. The capsule location could be specified by SBL configuration data, SBL will update the TCC subregion using the specified capsule image in next boot once firmware update is triggered. Similarly, user could also update cache reservation library (CRL) binary using SBL firmware update flow.</p>
+</section>
+<section id="intel-tcc-subregion">
+<h2>Intel® TCC subregion<a class="headerlink" href="#intel-tcc-subregion" title="Permalink to this heading"></a></h2>
+<p>Subregion support in BIOS region is a generic SBL feature. Each subregion could define its own subregion size and authentication method for the component inside the subregion.
+SBL defined several subregion for Intel® TCC binaries.</p>
+<p><strong>Cache Configurator</strong></p>
+<p>SBL doesn’t have knowledge on the content of Cache subregion. It is loaded as a sub-region component and is sent directly to Intel® Firmware Support Package (Intel® FSP) to process it.</p>
+<p><strong>Streams Configurator</strong></p>
+<p>When Data Streams Optimizer (DSO) is enabled, SBL would uses the BIOS settings from this subregion to update SBL setting and FSP settings. For the other information from this subregion, the Intel® Firmware Support Package (Intel® FSP) is expected to process it.</p>
+<p><strong>Cache Reservation Library</strong></p>
+<p>The cache reservation library (CRL) is described as Time Optimized Partitioning and is delivered to SBL as a binary. SBL doesn’t have knowledge on the content of CRL. It is loaded as a sub-region component and report it in ACPI RTCT table.</p>
+<dl>
+<dt>SBL defines these regions in SBL platform build config file BoardConfig.py. Take Tiger Lake as an example.</dt><dd><p><a class="reference external" href="https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/BoardConfig.py">https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/BoardConfig.py</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">ENABLE_TCC</span>  <span class="o">=</span> <span class="mi">1</span>
+<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ENABLE_TCC</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TCC_CCFG_SIZE</span>   <span class="o">=</span> <span class="mh">0x00001000</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TCC_CRL_SIZE</span>    <span class="o">=</span> <span class="mh">0x00008000</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TCC_STREAM_SIZE</span> <span class="o">=</span> <span class="mh">0x00005000</span>
+
+<span class="c1"># Name | Image File     | CompressAlg |         AuthType          |                 Key File                        |Region Align| Region Size         | Svn Info</span>
+<span class="c1"># ===============================================================================================================================================================</span>
+<span class="p">(</span><span class="s1">&#39;IPFW&#39;</span><span class="p">,</span>  <span class="s1">&#39;SIIPFW.bin&#39;</span><span class="p">,</span>      <span class="s1">&#39;&#39;</span><span class="p">,</span>        <span class="n">container_list_auth_type</span><span class="p">,</span>   <span class="s1">&#39;KEY_ID_CONTAINER&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>         <span class="mi">0</span><span class="p">,</span>                          <span class="mi">0</span><span class="p">,</span>     <span class="mi">0</span><span class="p">),</span>   <span class="c1"># Container Header</span>
+<span class="p">(</span><span class="s1">&#39;TCCC&#39;</span><span class="p">,</span>  <span class="s1">&#39;&#39;</span><span class="p">,</span>             <span class="s1">&#39;Lz4&#39;</span><span class="p">,</span>        <span class="n">container_list_auth_type</span><span class="p">,</span>   <span class="s1">&#39;KEY_ID_CONTAINER_COMP&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TCC_CCFG_SIZE</span><span class="p">,</span>     <span class="mi">0</span><span class="p">),</span>   <span class="c1"># TCC Cache Config</span>
+<span class="p">(</span><span class="s1">&#39;TCCM&#39;</span><span class="p">,</span>  <span class="s1">&#39;&#39;</span><span class="p">,</span>             <span class="s1">&#39;Lz4&#39;</span><span class="p">,</span>        <span class="n">container_list_auth_type</span><span class="p">,</span>   <span class="s1">&#39;KEY_ID_CONTAINER_COMP&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TCC_CRL_SIZE</span><span class="p">,</span>      <span class="mi">0</span><span class="p">),</span>   <span class="c1"># TCC Cache Reservation Library</span>
+<span class="p">(</span><span class="s1">&#39;TCCT&#39;</span><span class="p">,</span>  <span class="s1">&#39;&#39;</span><span class="p">,</span>             <span class="s1">&#39;Lz4&#39;</span><span class="p">,</span>        <span class="n">container_list_auth_type</span><span class="p">,</span>   <span class="s1">&#39;KEY_ID_CONTAINER_COMP&#39;</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_RSA_SIGN_TYPE</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TCC_STREAM_SIZE</span><span class="p">,</span>   <span class="mi">0</span><span class="p">),</span>   <span class="c1"># TCC Stream Config</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>In the build configuration file, user could set <code class="docutils literal notranslate"><span class="pre">self.ENABLE_TCC</span></code> to 1 to enable Intel® TCC subregion and adjust TCC subregion size. All Intel® TCC subregion are in container name “IPFW” by default.
+In each subregion, it has a unique region name identified by 4 characters. SBL would use it when loading component from subregion and update it via firmware update.
+One of the options to put Intel® TCC binaries (Cache config, stream config and CRL) into these subregion as part of IFWI is to specify the Image file name in this build config file, and copy
+the corresponding binaries into Platform&lt;Platform&gt;BoardPkgBinaries folder in SBL source code before building SBL. And user could also specify different compression and authentication method for
+the component inside this subregion.</p>
+</section>
+<section id="intel-tcc-detail-settings">
+<span id="tcc-settings"></span><h2>Intel® TCC detail settings<a class="headerlink" href="#intel-tcc-detail-settings" title="Permalink to this heading"></a></h2>
+<dl>
+<dt>SBL provides several configuration items for Intel® TCC settings.</dt><dd><p><a class="reference external" href="https://github.com/slimbootloader/slimbootloader/blob/master/Platform/CommonBoardPkg/CfgData/CfgData_Tcc.yaml">https://github.com/slimbootloader/slimbootloader/blob/master/Platform/CommonBoardPkg/CfgData/CfgData_Tcc.yaml</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">TccEnable</span>      <span class="p">:</span>
+    <span class="n">name</span>         <span class="p">:</span> <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">TCC</span> <span class="n">Mode</span>
+    <span class="nb">type</span>         <span class="p">:</span> <span class="n">Combo</span>
+    <span class="n">option</span>       <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="n">Disabled</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">Enabled</span>
+    <span class="n">help</span>         <span class="p">:</span> <span class="o">&gt;</span>
+                   <span class="n">Enable</span><span class="o">/</span><span class="n">Disable</span> <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Time</span> <span class="n">Coordinated</span> <span class="n">Computing</span> <span class="n">Mode</span><span class="o">.</span>
+                   <span class="n">When</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">this</span> <span class="n">will</span> <span class="n">modify</span> <span class="n">system</span> <span class="n">settings</span> <span class="n">to</span> <span class="n">improve</span> <span class="n">real</span><span class="o">-</span><span class="n">time</span> <span class="n">performance</span><span class="o">.</span>
+    <span class="n">length</span>       <span class="p">:</span> <span class="mh">0x1</span>
+    <span class="n">value</span>        <span class="p">:</span> <span class="mh">0x0</span>
+<span class="o">-</span> <span class="n">TccTuning</span>      <span class="p">:</span>
+    <span class="n">name</span>         <span class="p">:</span> <span class="n">Data</span> <span class="n">Streams</span> <span class="n">Optimizer</span>
+    <span class="nb">type</span>         <span class="p">:</span> <span class="n">Combo</span>
+    <span class="n">option</span>       <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="n">Disabled</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">Enabled</span>
+    <span class="n">help</span>         <span class="p">:</span> <span class="o">&gt;</span>
+                   <span class="n">Enable</span><span class="o">/</span><span class="n">Disable</span> <span class="n">Data</span> <span class="n">Streams</span> <span class="n">Optimizer</span> <span class="p">(</span><span class="n">DSO</span><span class="p">)</span><span class="o">.</span>
+                   <span class="n">Enable</span> <span class="n">will</span> <span class="n">utilize</span> <span class="n">DSO</span> <span class="n">Subregion</span> <span class="n">to</span> <span class="n">tune</span> <span class="n">system</span><span class="o">.</span> <span class="n">DSO</span> <span class="n">settings</span> <span class="n">supersede</span> <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">TCC</span> <span class="n">Mode</span> <span class="n">settings</span> <span class="n">that</span> <span class="n">overlap</span> <span class="n">between</span> <span class="n">the</span> <span class="n">two</span><span class="o">.</span>
+    <span class="n">length</span>       <span class="p">:</span> <span class="mh">0x1</span>
+    <span class="n">value</span>        <span class="p">:</span> <span class="mh">0x0</span>
+<span class="o">-</span> <span class="n">TccSoftSram</span>    <span class="p">:</span>
+    <span class="n">name</span>         <span class="p">:</span> <span class="n">Software</span> <span class="n">SRAM</span>
+    <span class="nb">type</span>         <span class="p">:</span> <span class="n">Combo</span>
+    <span class="n">option</span>       <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="n">Disabled</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">Enabled</span>
+    <span class="n">help</span>         <span class="p">:</span> <span class="o">&gt;</span>
+                   <span class="n">Enable</span><span class="o">/</span><span class="n">Disable</span> <span class="n">Software</span> <span class="n">SRAM</span><span class="o">.</span>
+                   <span class="n">Enable</span> <span class="n">will</span> <span class="n">allocate</span> <span class="mi">1</span> <span class="n">way</span> <span class="n">of</span> <span class="n">LLC</span><span class="p">;</span> <span class="k">if</span> <span class="n">Cache</span> <span class="n">Configuration</span> <span class="n">subregion</span> <span class="ow">is</span> <span class="n">available</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">allocate</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">subregion</span><span class="o">.</span>
+    <span class="n">length</span>       <span class="p">:</span> <span class="mh">0x1</span>
+    <span class="n">value</span>        <span class="p">:</span> <span class="mh">0x0</span>
+<span class="o">-</span> <span class="n">TccErrorLog</span>      <span class="p">:</span>
+    <span class="n">name</span>         <span class="p">:</span> <span class="n">Error</span> <span class="n">Log</span>
+    <span class="nb">type</span>         <span class="p">:</span> <span class="n">Combo</span>
+    <span class="n">option</span>       <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="n">Disabled</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">Enabled</span>
+    <span class="n">help</span>         <span class="p">:</span> <span class="o">&gt;</span>
+                   <span class="n">Enable</span> <span class="ow">or</span> <span class="n">Disable</span> <span class="n">Error</span> <span class="n">Log</span><span class="o">.</span> <span class="n">Enable</span> <span class="n">will</span> <span class="n">record</span> <span class="n">errors</span> <span class="n">related</span> <span class="n">to</span> <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">TCC</span> <span class="ow">and</span> <span class="n">save</span> <span class="n">them</span> <span class="n">to</span> <span class="n">memory</span><span class="o">.</span>
+    <span class="n">length</span>       <span class="p">:</span> <span class="mh">0x1</span>
+    <span class="n">value</span>        <span class="p">:</span> <span class="mh">0x0</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>User could directly change the default values in CfgData_Tcc.yaml, but the default values will be overridden if same fields exist in a board specific delta file.
+It is preferred to use SBL ConfigEditor.py tool to change SBL configuration data to update the board specific delta file before building SBL.</p>
+<p>To use SBL configuration tool to change the delta file, run the ConfigEditor.py tool from SBL source code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">ConfigEditor</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Following these steps to change SBL configuration data.</p>
+<section id="open-sbl-default-configuration-data">
+<h3>1. open SBL default configuration data<a class="headerlink" href="#open-sbl-default-configuration-data" title="Permalink to this heading"></a></h3>
+<p>Open default configuration file CfgDataDef.yaml from platform configuration data folder. Take Tiger Lake as example, open file <code class="docutils literal notranslate"><span class="pre">Platform\TigerlakeBoardPkg\CfgData\CfgDataDef.yaml</span></code> in this step.</p>
+<img alt="../_images/tcc_open_yaml.png" src="../_images/tcc_open_yaml.png" />
+</section>
+<section id="load-the-delta-file">
+<h3>2. load the delta file<a class="headerlink" href="#load-the-delta-file" title="Permalink to this heading"></a></h3>
+<p>Same SBL image could boot multiple boards based on board ID. Each board delta file would override the default SBL configuration data. So need load the board delta file if it is already exists as below.
+The board delta file would be in same folder with CfgDataDef.yaml. Open <code class="docutils literal notranslate"><span class="pre">CfgData_Int_Tglu_Ddr4.dlt</span></code> as an example.</p>
+<img alt="../_images/tcc_open_delta.png" src="../_images/tcc_open_delta.png" />
+</section>
+<section id="change-option-to-enable-tcc">
+<h3>3. change option to enable tcc<a class="headerlink" href="#change-option-to-enable-tcc" title="Permalink to this heading"></a></h3>
+<p>Find Intel® TCC settings from ConfigEditor and update the options if required.</p>
+<img alt="../_images/tcc_update_tcc.png" src="../_images/tcc_update_tcc.png" />
+</section>
+<section id="save-the-change-to-delta-file">
+<h3>4. save the change to delta file<a class="headerlink" href="#save-the-change-to-delta-file" title="Permalink to this heading"></a></h3>
+<p>After changing option, save the changes back to the same delta file (<code class="docutils literal notranslate"><span class="pre">CfgData_Int_Tglu_Ddr4.dlt</span></code> in this example) to override the original one.</p>
+<img alt="../_images/tcc_save_tcc.png" src="../_images/tcc_save_tcc.png" />
+<p>After saved the delta file, the following lines will be added to the new delta file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TCC_CFG_DATA</span><span class="o">.</span><span class="n">TccEnable</span>                   <span class="o">|</span> <span class="mh">0x1</span>
+<span class="n">TCC_CFG_DATA</span><span class="o">.</span><span class="n">TccTuning</span>                   <span class="o">|</span> <span class="mh">0x1</span>
+<span class="n">TCC_CFG_DATA</span><span class="o">.</span><span class="n">TccSoftSram</span>                 <span class="o">|</span> <span class="mh">0x1</span>
+<span class="n">TCC_CFG_DATA</span><span class="o">.</span><span class="n">TccErrorLog</span>                 <span class="o">|</span> <span class="mh">0x1</span>
+</pre></div>
+</div>
+</section>
+<section id="build-sbl">
+<h3>5. build SBL<a class="headerlink" href="#build-sbl" title="Permalink to this heading"></a></h3>
+<p>With above configuration data change, rebuild SBL then the TCC settings would be enabled in new SBL image.</p>
+</section>
+</section>
+<section id="intel-tcc-rtcm-setting">
+<h2>Intel® TCC RTCM setting<a class="headerlink" href="#intel-tcc-rtcm-setting" title="Permalink to this heading"></a></h2>
+<p>As described in <a class="reference internal" href="#tcc-overview"><span class="std std-ref">Intel® TCC overview</span></a>, SBL supports OsLoader payload and UEFI payload. Both payload doesn’t need load and run real-time configuration manager (RTCM) when booting hypervisor image since hypervisor image is expected to have a built-in RTCM.
+When UEFI payload is used, there is no special module for RTCM load. User could manually load and run RTCM before normal OS, or using a startup script to load and run RTCM before normal OS, or using other methods.
+When OsLoader payload is used, SBL boot option need be configured correctly so that SBL OsLoader could load and run RTCM before a normal OS.
+After building an RTCM container, user could either directly update boot option configuration data file CfgData_BootOption.yaml, or using ConfigEditor.py tool to update it.</p>
+<p>Below are the steps on how to update the SBL boot option to enable RTCM for OsLoader Payload using the ConfigEditor.py tool.</p>
+<p><strong>Container build command:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>python BootloaderCorePkg\Tools\GenContainer.py create -cl RTCM:&lt;path/to/rtcm&gt; -t NORMAL -k &lt;path/to/key&gt;
+</pre></div>
+</div>
+<section id="step-1-select-boot-flag">
+<h3>Step 1: Select boot flag<a class="headerlink" href="#step-1-select-boot-flag" title="Permalink to this heading"></a></h3>
+<p>Following step 1 ~ 2 in <a class="reference internal" href="#tcc-settings"><span class="std std-ref">Intel® TCC detail settings</span></a> to open default configuration data and delta file using ConfigEditor tool, then select <code class="docutils literal notranslate"><span class="pre">Boot</span> <span class="pre">Option</span> <span class="pre">0</span></code> as below.</p>
+<img alt="../_images/boot_option_flags.png" src="../_images/boot_option_flags.png" />
+<p>There are six boot option entries listed in this example. Since SBL need load RTCM beside loading normal OS boot image in the same boot cycle, it would need two boot option entries (Let’s use the first two entries as an example).
+The first boot option entry is used to configure the normal OS boot image and the “boot flags” in the first boot option entry need set to <code class="docutils literal notranslate"><span class="pre">Extra</span> <span class="pre">image</span> <span class="pre">support</span></code> to indicate there is an extra image to load/boot.</p>
+</section>
+<section id="step-2-select-image-type">
+<h3>Step 2: Select image type<a class="headerlink" href="#step-2-select-image-type" title="Permalink to this heading"></a></h3>
+<p>Select the second boot option entry used to configure extra boot image RTCM, and change the boot image type to <code class="docutils literal notranslate"><span class="pre">Extra</span> <span class="pre">Image</span></code> as below.</p>
+<img alt="../_images/boot_option_image_type.png" src="../_images/boot_option_image_type.png" />
+</section>
+<section id="step-3-fill-extra-image-name">
+<h3>Step 3: Fill extra image name<a class="headerlink" href="#step-3-fill-extra-image-name" title="Permalink to this heading"></a></h3>
+<p>After image type is changed, some fields might be hidden since they are not required. Update <code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">OS</span> <span class="pre">info</span> <span class="pre">or</span> <span class="pre">LBA</span> <span class="pre">address</span></code> to RTCM file name actual file name in boot media.
+Often RTCM file exists in same partition with normal OS image. Here fill the file name “/boot/sbl_rtcm” as below.</p>
+<img alt="../_images/boot_option_image_name.png" src="../_images/boot_option_image_name.png" />
+</section>
+<section id="step-4-save-the-change-to-delta-file">
+<h3>Step 4: Save the change to delta file<a class="headerlink" href="#step-4-save-the-change-to-delta-file" title="Permalink to this heading"></a></h3>
+<p>Follow step 4 in <a class="reference internal" href="#tcc-settings"><span class="std std-ref">Intel® TCC detail settings</span></a> to save the changes, rebuild SBL then RTCM would be loaded and run from SBL OsLoader payload before booting OS.</p>
+</section>
+</section>
+<section id="update-component-in-intel-tcc-subregion">
+<h2>Update component in Intel® TCC subregion<a class="headerlink" href="#update-component-in-intel-tcc-subregion" title="Permalink to this heading"></a></h2>
+<p>Some of the subregion could be updated using Intel® TCC Tools or through a manual capsule update flow.
+Details on the manual steps will be discussed in this section.</p>
+<p>All of the Intel® TCC binaries can be updated individually or at the same time.
+Below example shows how to update one component from Yocto.</p>
+<section id="step-1-get-the-raw-component-binary">
+<h3>Step 1: Get the raw component binary<a class="headerlink" href="#step-1-get-the-raw-component-binary" title="Permalink to this heading"></a></h3>
+<p>The binary could be generated by Intel® TCC Tools (e.g. Stream Config), or could be downloaded from a website (e.g. CRL).
+Let’s use CRL binary TccCrl.bin as an example.</p>
+</section>
+<section id="step-2-sign-the-raw-component-binary">
+<h3>Step 2:Sign the raw component binary<a class="headerlink" href="#step-2-sign-the-raw-component-binary" title="Permalink to this heading"></a></h3>
+<p>Generate a signed file from the raw binary (TccCrl.bin).
+Using SBL GenContainer.py tool to sign the raw component to get a signed file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">sign</span> <span class="o">-</span><span class="n">f</span> <span class="n">TccCrl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">SignedTccCrl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">a</span> <span class="n">RSA3072_PSS_SHA2_384</span> <span class="o">-</span><span class="n">k</span> <span class="n">ContainerCompTestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span>
+</pre></div>
+</div>
+<p>The output file (SignedTccCrl.bin) generated from the above command is a signed binary that will be verified by SBL during boot, so make sure the signing key ContainerCompTestKey_Priv_RSA3072.pem is same from Sblkeys folder when SBL is built.</p>
+<p>SBL support component compression during signing the raw component binary. SBL would automatically decompress the component during the component loading. Take LZ4 compression as example on yocto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">sign</span> <span class="o">-</span><span class="n">f</span> <span class="n">TccCrl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">SignedTccCrl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">a</span> <span class="n">RSA3072_PSS_SHA2_384</span> <span class="o">-</span><span class="n">k</span> <span class="n">ContainerCompTestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span>  <span class="o">-</span><span class="n">c</span> <span class="n">lz4</span> <span class="o">-</span><span class="n">td</span> <span class="n">BaseTools</span><span class="o">/</span><span class="n">BinWrappers</span><span class="o">/</span><span class="n">PosixLike</span><span class="o">/</span><span class="n">Lz4Compress</span>
+</pre></div>
+</div>
+<p><strong>NOTE:</strong> The compression tool Lz4Compress will be generated from SBL source code during SBL build at BaseTools/BinWrappers/PosixLike/Lz4Compress in Linux. For windows system, the compression tool will be generated at
+BaseToolsBinWin32Lz4Compress.exe. so the windows compress command is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">sign</span> <span class="o">-</span><span class="n">f</span> <span class="n">TccCrl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">SignedTccCrl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">a</span> <span class="n">RSA3072_PSS_SHA2_384</span> <span class="o">-</span><span class="n">k</span> <span class="n">ContainerCompTestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="n">c</span> <span class="n">lz4</span> <span class="o">-</span><span class="n">td</span> <span class="n">BaseTools</span>\<span class="n">Bin</span>\<span class="n">Win32</span>
+</pre></div>
+</div>
+<p>More compression info could be found from command “python BootloaderCorePkgToolsGenContainer.py -h”.</p>
+</section>
+<section id="step-3-generate-capsule-image">
+<h3>Step 3: Generate capsule image<a class="headerlink" href="#step-3-generate-capsule-image" title="Permalink to this heading"></a></h3>
+<p>Create a capsule Image from the signed component file for the firmware update using SBL GenCapsuleFirmware.py tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">TCCM</span><span class="p">:</span><span class="n">IPFW</span> <span class="n">SignedTccCrl</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="n">FirmwareUpdateTestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>Using SBL <code class="docutils literal notranslate"><span class="pre">GenCapsuleFirmware.py</span></code> tool to encapsulate the file SignedTccCrl.bin generated in previous step to get a capsule file (FwuImage.bin).
+The output file (FwuImage.bin) generated from the above command is a signed capsule that will be verified by SBL during firmware update, so make sure the signing key FirmwareUpdateTestKey_Priv_RSA3072.pem is same from Sblkeys folder when SBL is built.</p>
+<p>The above command uses “-p” parameter to specify capsule payload including the subregion name “TCCM:IPFW” and component file name “SignedTccCrl.bin”.
+The subregion name should match with the one defined in SBL build config file BoardConfig.py. By default all the subregions are under container IPFW region.
+SBL also supports to update multiple TCC subregions with one capsule image.
+Below command will generate a capsule image to update Intel® TCC Cache config and Intel® TCC Streams at same time:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span>\<span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">TCCC</span><span class="p">:</span><span class="n">IPFW</span> <span class="n">SignedTccCacheCfg</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">p</span> <span class="n">TCCT</span><span class="p">:</span><span class="n">IPFW</span> <span class="n">SignedTccStreams</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="n">FirmwareUpdateTestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-copy-capsule-image">
+<h3>Step 4: Copy capsule image<a class="headerlink" href="#step-4-copy-capsule-image" title="Permalink to this heading"></a></h3>
+<p>During SBL firmware update, SBL will try to find the capsule image from the location specified from SBL configuration file CfgData_CapsuleInformation.yaml.
+CfgData_CapsuleInformation.yaml is platform specific config data file in YAML format and it could be customized for the capsule location including
+capsule storage device (USB, NVMe, SATA, etc.), boot partition, file system and capsule image name.
+On most platform SBL would set the capsule location to file /boot/efi/FwuImage.bin under USB or NVMe FAT32 boot partition by default.</p>
+<p>Copy the capsule image FwuImage.bin to the location specified in SBL configuration file CfgData_CapsuleInformation.yaml.</p>
+</section>
+<section id="step-5-trigger-firmware-update">
+<h3>Step 5: Trigger firmware update<a class="headerlink" href="#step-5-trigger-firmware-update" title="Permalink to this heading"></a></h3>
+<p>To support triggering firmware update from an OS, SBL exposes an ACPI method. The OS can call these ACPI methods to trigger firmware update. Following the reset, SBL will boot into the firmware update mode.</p>
+<p>Trigger firmware update from Yocto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">wmi</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="mi">44</span><span class="n">FADEB1</span><span class="o">-</span><span class="n">B204</span><span class="o">-</span><span class="mi">40</span><span class="n">F2</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">394</span><span class="n">BBDC1B651</span><span class="o">/</span><span class="n">firmware_update_request</span>
+</pre></div>
+</div>
+<p>Finally, reboot the machine to let SBL run into firmware update mode.
+Once the board reboots, the firmware update flow in SBL will begin. There may be few reboots during this flow before finally booting to Yocto again.</p>
+<p><strong>NOTE:</strong></p>
+<p>Some platform might put all the Intel® TCC related SBL configuration data into a separate delta file (e.g. <a class="reference external" href="https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/CfgData/CfgData_Tcc_Feature.dlt">https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/CfgData/CfgData_Tcc_Feature.dlt</a>).
+And this delta file could be automatically applied when self.ENABLE_TCC is set in BoardConfig.py based on BoardConfig.py implementation. In this case, user could directly update this TCC delta file for the detail TCC configuration.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enable-verified-boot.html" class="btn btn-neutral float-left" title="Enable Verified Boot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="enable-intel-tsn.html" class="btn btn-neutral float-right" title="TSN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

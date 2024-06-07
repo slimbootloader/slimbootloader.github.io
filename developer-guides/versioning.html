@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Versioning &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot Performance" href="boot-performance.html" />
+    <link rel="prev" title="Boot from Flash" href="flash-boot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
+      <li class="breadcrumb-item active">Versioning</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="versioning">
+<span id="id1"></span><h1>Versioning<a class="headerlink" href="#versioning" title="Permalink to this heading"></a></h1>
+<p>SBL implements a simple versioning structure with many features:</p>
+<ul class="simple">
+<li><p>Image identification (e.g. supported platforms)</p></li>
+<li><p>Core major and minor revision (See <a href="https://semver.org/" target="_blank">Semantic Versioning</a>)</p></li>
+<li><p>Project major and minor revision</p></li>
+<li><p>Traceability to release process and build environment (e.g. git SHA1, dirty bit, build number)</p></li>
+<li><p>Security version (SVN) to provide Anti-Rollback protection during firmware update</p></li>
+</ul>
+<p>Version Information data structure (<code class="docutils literal notranslate"><span class="pre">BootlLoaderVersionGuid.h</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+  <span class="n">UINT16</span>             <span class="n">BuildNumber</span><span class="p">;</span>        <span class="o">/*</span> <span class="n">A</span> <span class="n">hour</span><span class="o">-</span><span class="n">granularity</span> <span class="n">time</span> <span class="n">stamp</span>     <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">ProjMinorVersion</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Project</span> <span class="ow">or</span> <span class="n">platform</span> <span class="n">major</span> <span class="n">version</span> <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">ProjMajorVersion</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Project</span> <span class="ow">or</span> <span class="n">platform</span> <span class="n">minor</span> <span class="n">version</span> <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">CoreMinorVersion</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Core</span> <span class="n">code</span> <span class="n">major</span> <span class="n">version</span>           <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">CoreMajorVersion</span><span class="p">;</span>   <span class="o">/*</span> <span class="n">Core</span> <span class="n">code</span> <span class="n">minor</span> <span class="n">version</span>           <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">SecureVerNum</span><span class="p">;</span>       <span class="o">/*</span> <span class="n">Security</span> <span class="n">version</span> <span class="n">number</span> <span class="p">(</span><span class="n">SVN</span><span class="p">)</span>     <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">Reserved</span> <span class="p">:</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="n">UINT8</span>              <span class="n">BldDebug</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>       <span class="o">/*</span> <span class="n">Bootloader</span> <span class="n">debug</span> <span class="n">build</span> <span class="k">if</span> <span class="mi">1</span>       <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">FspDebug</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>       <span class="o">/*</span> <span class="n">FSP</span> <span class="n">debug</span> <span class="n">build</span> <span class="k">if</span> <span class="mi">1</span>              <span class="o">*/</span>
+  <span class="n">UINT8</span>              <span class="n">Dirty</span>    <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>       <span class="o">/*</span> <span class="n">Dirty</span> <span class="n">flag</span> <span class="kn">from</span> <span class="nn">git</span>               <span class="o">*/</span>
+<span class="p">}</span> <span class="n">IMAGE_BUILD_INFO</span><span class="p">;</span>
+
+<span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+  <span class="n">UINT32</span>             <span class="n">Signature</span><span class="p">;</span>          <span class="o">/*</span> <span class="s1">&#39;$SBH&#39;</span>                            <span class="o">*/</span>
+  <span class="n">UINT16</span>             <span class="n">HeaderLength</span><span class="p">;</span>
+  <span class="n">UINT8</span>              <span class="n">HeaderRevision</span><span class="p">;</span>
+  <span class="n">UINT8</span>              <span class="n">Reserved</span><span class="p">;</span>
+  <span class="n">UINT64</span>             <span class="n">ImageId</span><span class="p">;</span>            <span class="o">/*</span> <span class="n">Unique</span> <span class="n">ASCII</span> <span class="n">string</span> <span class="n">per</span> <span class="n">platform</span> <span class="o">*/</span>
+  <span class="n">IMAGE_BUILD_INFO</span>   <span class="n">ImageVersion</span><span class="p">;</span>
+  <span class="n">UINT64</span>             <span class="n">SourceVersion</span><span class="p">;</span>      <span class="o">/*</span> <span class="n">First</span> <span class="mi">8</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">git</span> <span class="n">SHA1</span>        <span class="o">*/</span>
+<span class="p">}</span> <span class="n">BOOT_LOADER_VERSION</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Image build data <code class="docutils literal notranslate"><span class="pre">IMAGE_BUILD_INFO</span></code> can be configured in board configuration file <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code>. One can specify <code class="docutils literal notranslate"><span class="pre">BUILD_NUMBER</span></code> in environment variables to provide references in an automated build and release setup (e.g. Jenkins)</p>
+<p>During build process, version data is generated and embedded in SBL image with signature <code class="docutils literal notranslate"><span class="pre">$SBH</span></code>.</p>
+<p>During boot, SBL passes version data to OS via HOB data list with GUID <code class="docutils literal notranslate"><span class="pre">gBootLoaderVersionGuid</span></code> and also prints it to the serial console. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SBID: SB_APLI
+ISVN: 001
+IVER: 000.005.001.000.02490
+SVER: 77F65EAF257FD5DE-dirty
+FDBG: BLD(D) FSP(R)
+FSPV: ID($APLFSP$) REV(01040301)
+</pre></div>
+</div>
+<p>For build reproducibility required by certain strict development process, one can provide a <em>hard-coded</em> version information in a file during the build process. See <a class="reference internal" href="../tools/BuildTool.html#build-tool"><span class="std std-ref">Build Tool</span></a> for more details.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="flash-boot.html" class="btn btn-neutral float-left" title="Boot from Flash" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="boot-performance.html" class="btn btn-neutral float-right" title="Boot Performance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

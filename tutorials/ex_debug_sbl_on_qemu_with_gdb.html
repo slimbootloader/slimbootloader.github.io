@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise \- Debug SBL on QEMU with GDB &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exercise \- SBL Shell/CLI" href="ex_sbl_shell_cli.html" />
+    <link rel="prev" title="Exercise \- Run SBL on QEMU" href="ex_run_sbl_on_qemu.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ex_build_sbl_for_qemu.html">Exercise \- Build SBL for QEMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_run_sbl_on_qemu.html">Exercise \- Run SBL on QEMU</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exercise \- Debug SBL on QEMU with GDB</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-sbl-qemu-image">Prepare SBL QEMU image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-qemu-target">Launch QEMU target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-gdb">Launch GDB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transit-stage1a-to-stage1b">Transit Stage1A to Stage1B</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transit-stage1b-to-stage2">Transit Stage1B to Stage2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transit-stage2-to-payload">Transit Stage2 to Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ex_sbl_shell_cli.html">Exercise \- SBL Shell/CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_boot_to_linux.html">Exercise \- Boot to Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_feature_custom_splash.html">Exercise \- Feature Customization - Splash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_feature_custom_verified_boot.html">Exercise \- Feature Customization - Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_feature_custom_boot_order.html">Exercise \- Feature Customization - Boot Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_uefi_payload.html">Exercise \- UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ex_corrupt_sbl_component.html">Exercise \- Corrupt SBL Component</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Exercise \- Debug SBL on QEMU with GDB</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="exercise-debug-spn-on-qemu-with-gdb">
+<span id="exercisedebugsblonqemuwithgdb"></span><h1>Exercise \- Debug SBL on QEMU with GDB<a class="headerlink" href="#exercise-debug-spn-on-qemu-with-gdb" title="Permalink to this heading"></a></h1>
+<p>This page is to provide basic GDB usage on QEMU target for better understanding SBL flow.</p>
+<section id="prepare-sbl-qemu-image">
+<h2>Prepare SBL QEMU image<a class="headerlink" href="#prepare-sbl-qemu-image" title="Permalink to this heading"></a></h2>
+<p>By default, SBL uses compile optimization for binary size and code speed.
+The compile optimization sometime makes source level debugging hard to use.
+To demonstrate better source level debugging, let’s lower the compile optimization level for this tutorial session.
+‘–noopt’ will generate less optimized image, but still link time optimization is done to avoid very big size image.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/slimbootloader/
+$ python BuildLoader.py build qemu --noopt
+</pre></div>
+</div>
+</section>
+<section id="launch-qemu-target">
+<h2>Launch QEMU target<a class="headerlink" href="#launch-qemu-target" title="Permalink to this heading"></a></h2>
+<p>Open a terminal to launch the target and launch the target with ‘-s -S’ option.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/slimbootloader/
+$ qemu-system-x86_64 -m 256M -machine q35 -nographic -serial mon:stdio -pflash Outputs/qemu/SlimBootloader.bin -s -S
+</pre></div>
+</div>
+<img alt="Start QEMU target to wait for GDB" src="../_images/gdb_target_start.png" />
+</section>
+<section id="launch-gdb">
+<h2>Launch GDB<a class="headerlink" href="#launch-gdb" title="Permalink to this heading"></a></h2>
+<p>Open an another terminal and launch GDB with helper script and ‘-tui’(Text UI) option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/slimbootloader/
+$ cd Platform/QemuBoardPkg/Script
+$ gdb -x gdbinit -tui
+</pre></div>
+</div>
+<img alt="Start GDB with helper scripts" src="../_images/gdb_host_start.png" />
+<p>There are useful tui commands.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">layout</span> <span class="n">asm</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">layout</span> <span class="n">src</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">layout</span> <span class="n">reg</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">layout</span> <span class="nb">next</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">focus</span> <span class="n">src</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">focus</span> <span class="n">asm</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">focus</span> <span class="n">cmd</span>
+</pre></div>
+</div>
+<p>Here are basic gdb commands.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">quit</span> <span class="p">(</span><span class="o">=</span><span class="n">q</span><span class="p">,</span> <span class="n">quit</span> <span class="n">gdb</span> <span class="n">session</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="k">continue</span> <span class="p">(</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="k">continue</span> <span class="n">to</span> <span class="n">execute</span> <span class="n">code</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">step</span> <span class="p">(</span><span class="n">step</span> <span class="n">program</span> <span class="n">until</span> <span class="n">it</span> <span class="n">reaches</span> <span class="n">a</span> <span class="n">different</span> <span class="n">source</span> <span class="n">line</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">stepi</span> <span class="p">(</span><span class="n">step</span> <span class="n">one</span> <span class="n">instruction</span> <span class="n">exactly</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="nb">next</span> <span class="p">(</span><span class="n">step</span> <span class="n">program</span><span class="p">,</span> <span class="n">proceeding</span> <span class="n">through</span> <span class="n">subroutine</span> <span class="n">calls</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">nexti</span> <span class="p">(</span><span class="n">step</span> <span class="n">one</span> <span class="n">instruction</span><span class="p">,</span> <span class="n">but</span> <span class="n">proceed</span> <span class="n">through</span> <span class="n">subroutine</span> <span class="n">calls</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="k">break</span> <span class="n">SecStartup2</span> <span class="p">(</span><span class="o">=</span><span class="n">b</span> <span class="n">SecStartup2</span><span class="p">,</span> <span class="k">break</span> <span class="n">at</span> <span class="n">SecStartup2</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="k">break</span> <span class="o">*</span><span class="mh">0xffff4052</span> <span class="p">(</span><span class="o">=</span><span class="n">b</span> <span class="o">*</span><span class="mh">0xffff4052</span><span class="p">,</span> <span class="k">break</span> <span class="n">at</span> <span class="mh">0xffff4052</span> <span class="n">memory</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="nb">print</span> <span class="n">LdrGlobalData</span> <span class="p">(</span><span class="n">p</span> <span class="n">LdrGlobalData</span><span class="p">,</span> <span class="nb">print</span> <span class="n">value</span> <span class="n">of</span> <span class="n">LdrGlobalData</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="nb">print</span><span class="o">/</span><span class="n">x</span> <span class="n">LdrGlobalData</span><span class="o">-&gt;</span><span class="n">Signature</span> <span class="p">(</span><span class="n">p</span><span class="o">/</span><span class="n">x</span> <span class="n">LdrGlobalData</span><span class="o">-&gt;</span><span class="n">Signature</span><span class="p">,</span> <span class="nb">print</span> <span class="n">value</span> <span class="n">of</span> <span class="n">LdrGlobalData</span><span class="o">-&gt;</span><span class="n">Signature</span> <span class="ow">in</span> <span class="nb">hex</span> <span class="n">value</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">info</span> <span class="n">registers</span> <span class="p">(</span><span class="o">=</span><span class="n">i</span> <span class="n">r</span><span class="p">,</span> <span class="nb">print</span> <span class="n">general</span> <span class="n">registers</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">info</span> <span class="nb">all</span><span class="o">-</span><span class="n">registers</span> <span class="p">(</span><span class="o">=</span><span class="n">i</span> <span class="n">al</span><span class="p">,</span> <span class="nb">print</span> <span class="nb">all</span> <span class="n">registers</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">info</span> <span class="n">breakpoints</span> <span class="p">(</span><span class="o">=</span><span class="n">i</span> <span class="n">b</span><span class="p">,</span> <span class="nb">print</span> <span class="nb">all</span> <span class="k">break</span> <span class="n">points</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">info</span> <span class="nb">locals</span> <span class="p">(</span><span class="o">=</span><span class="n">i</span> <span class="n">lo</span><span class="p">,</span> <span class="nb">print</span> <span class="n">local</span> <span class="n">variables</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">info</span> <span class="n">variables</span> <span class="p">(</span><span class="o">=</span><span class="n">i</span> <span class="n">va</span><span class="p">,</span> <span class="nb">print</span> <span class="nb">all</span> <span class="k">global</span> <span class="ow">and</span> <span class="n">local</span> <span class="n">variables</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">info</span> <span class="n">stack</span> <span class="p">(</span><span class="o">=</span><span class="n">i</span> <span class="n">s</span><span class="p">,</span> <span class="nb">print</span> <span class="n">call</span> <span class="n">stack</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="nb">list</span> <span class="n">SecStartup2</span> <span class="p">(</span><span class="o">=</span><span class="n">l</span> <span class="n">SecStartup2</span><span class="p">,</span> <span class="n">show</span> <span class="n">SecStartup2</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">TUI</span> <span class="n">source</span> <span class="n">window</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="nb">list</span> <span class="mi">346</span> <span class="p">(</span><span class="o">=</span><span class="n">l</span> <span class="mi">346</span><span class="p">,</span> <span class="n">show</span> <span class="n">line</span><span class="c1">#346 in TUI source window)</span>
+</pre></div>
+</div>
+<img alt="Example TUI layout command" src="../_images/gdb_tui_layout.png" />
+</section>
+<section id="transit-stage1a-to-stage1b">
+<h2>Transit Stage1A to Stage1B<a class="headerlink" href="#transit-stage1a-to-stage1b" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">The transition from Stage1A to Stage1B is done in ContinueFunc(). However, Stage1A is not XIP (eXecution In Place).</div>
+<div class="line">Stage1A code is shadow-copied to PcdStage1ALoadBase and continues to execute with relative execution offset. See, SecStartup2 () in BootloaderCorePkg/Stage1A/Stage1A.c.</div>
+<div class="line">Therefore, GDB won’t stop ContinueFunc() even if you set a breakpoint at ContinueFunc().</div>
+</div>
+<p>Let’s set a breakpoint before relative execution of ContinueFunc(). See, ContinueEntry (&amp;Stage1aHob) in Stage1A.c.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">l</span> <span class="mi">272</span> <span class="p">(</span><span class="n">to</span> <span class="n">see</span> <span class="n">the</span> <span class="n">code</span> <span class="n">around</span> <span class="n">ContinueEntry</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">Stage1aHob</span><span class="p">);,</span> <span class="n">line</span><span class="c1"># may change)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="mi">272</span> <span class="p">(</span><span class="nb">set</span> <span class="n">a</span> <span class="nb">breakpoint</span> <span class="n">at</span> <span class="n">ContinueEntry</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">Stage1aHob</span><span class="p">);)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span> <span class="p">(</span><span class="k">continue</span> <span class="n">to</span> <span class="nb">next</span> <span class="nb">breakpoint</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="o">*</span><span class="mh">0xfffff3b3</span> <span class="p">(</span><span class="nb">set</span> <span class="n">a</span> <span class="n">breakpint</span> <span class="n">at</span> <span class="n">callq</span> <span class="o">*%</span><span class="n">rdx</span><span class="p">,</span> <span class="n">address</span> <span class="n">may</span> <span class="n">change</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+</pre></div>
+</div>
+<img alt="Before relative execution in Stage1A ContinueFunc" src="../_images/gdb_1a_continuefunc.png" />
+<p>Do step one instruction exactly with stepi(=si) command for relative code execution.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">si</span>
+</pre></div>
+</div>
+<img alt="No source available due to relative execution" src="../_images/gdb_contf_no_src.png" />
+<p>No source avilable in source window because ContinueFunc is relative executed, so no symbol match found.
+Now, it’s time to run loadthis again to re-load proper symbol.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">loadthis</span>
+</pre></div>
+</div>
+<img alt="Re-load symbol after relative code execution" src="../_images/gdb_contf_loadthis.png" />
+<p>Now, we are at the beginning of Stage1A ContinueFunc(). The transition to Stage1B is done in StageEntry() at the end of ContinueFunc(). Let’s set a breakpoint before going to Stage1B entry point.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">l</span> <span class="mi">407</span> <span class="p">(</span><span class="n">to</span> <span class="n">see</span> <span class="n">around</span> <span class="n">StageEntry</span><span class="p">()</span> <span class="n">code</span><span class="p">,</span> <span class="n">line</span><span class="c1"># may change)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="mi">407</span> <span class="p">(</span><span class="nb">set</span> <span class="n">a</span> <span class="nb">breakpoint</span> <span class="n">at</span> <span class="n">StageEntry</span><span class="p">(),</span> <span class="n">line</span><span class="c1"># may change)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="o">*</span><span class="mh">0x72a14</span> <span class="p">(</span><span class="nb">set</span> <span class="n">a</span> <span class="nb">breakpoint</span> <span class="n">at</span> <span class="n">call</span> <span class="o">*%</span><span class="n">eax</span><span class="p">,</span> <span class="n">address</span> <span class="n">may</span> <span class="n">change</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+</pre></div>
+</div>
+<img alt="Before going to Stage1B entry point" src="../_images/gdb_before_stage1b.png" />
+<p>Let’s go into Stage1B with stepi(=si) command, re-load symbol and get to Stage1B SecStartup.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">si</span> <span class="p">(</span><span class="n">no</span> <span class="n">source</span> <span class="n">available</span> <span class="n">again</span><span class="p">,</span> <span class="n">time</span> <span class="n">to</span> <span class="n">re</span><span class="o">-</span><span class="n">load</span> <span class="n">symbol</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">loadthis</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="n">SecStartup</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+</pre></div>
+</div>
+<img alt="SecStartup in Stage1B" src="../_images/gdb_b_secstartup.png" />
+</section>
+<section id="transit-stage1b-to-stage2">
+<h2>Transit Stage1B to Stage2<a class="headerlink" href="#transit-stage1b-to-stage2" title="Permalink to this heading"></a></h2>
+<p>Now we are at SecStartup in Stage1B. The transition from Stage1B to Stage2 is done at the end of Stage1B ContinueFunc().</p>
+<p>Let’s break before SwitchStack() at the end of ContinueFunc().</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">l</span> <span class="mi">567</span> <span class="p">(</span><span class="n">to</span> <span class="n">see</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">ContinueFunc</span><span class="p">(),</span> <span class="n">line</span><span class="c1"># may change)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="mi">567</span> <span class="p">(</span><span class="nb">set</span> <span class="n">a</span> <span class="nb">breakpoint</span> <span class="n">at</span> <span class="n">SwitchStack</span><span class="p">(),</span> <span class="n">line</span><span class="c1"># may change)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">p</span><span class="o">/</span><span class="n">x</span> <span class="p">((</span><span class="n">STAGE_HDR</span> <span class="o">*</span><span class="p">)</span><span class="n">Stage2Hob</span><span class="o">-&gt;</span><span class="n">Stage2ExeBase</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Entry</span>
+</pre></div>
+</div>
+<img alt="Set a breakpoint before SwitchStack" src="../_images/gdb_b_contf.png" />
+<p>The returned address ‘$n = 0xee635a0’ is Stage2 entry point. Let’s set a breakpoint at the address and stop at Stage2 SecStartup.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="o">*</span><span class="mh">0xee635a0</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">loadthis</span> <span class="p">(</span><span class="n">to</span> <span class="n">re</span><span class="o">-</span><span class="n">load</span> <span class="n">Stage2</span> <span class="n">symbol</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="n">SecStartup</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+</pre></div>
+</div>
+<img alt="Set a breakpoint before SwitchStack" src="../_images/gdb_2_secstartup.png" />
+</section>
+<section id="transit-stage2-to-payload">
+<h2>Transit Stage2 to Payload<a class="headerlink" href="#transit-stage2-to-payload" title="Permalink to this heading"></a></h2>
+<p>Now we are at SecStartup in Stage2. The transition from Stage2 to Payload is done at the end of Stage2 NormalBootPath().</p>
+<p>Let’s break before PldEntry() at the end of NormalBootPath().</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">l</span> <span class="mi">252</span> <span class="p">(</span><span class="n">to</span> <span class="n">see</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">NormalBootPath</span><span class="p">()</span><span class="o">.</span> <span class="n">line</span><span class="c1"># may change)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="mi">252</span> <span class="p">(</span><span class="nb">set</span> <span class="n">a</span> <span class="nb">breakpoint</span> <span class="n">at</span> <span class="n">PldEntry</span> <span class="p">(</span><span class="n">PldHobList</span><span class="p">,</span> <span class="p">(</span><span class="n">VOID</span> <span class="o">*</span><span class="p">)</span><span class="n">PldBase</span><span class="p">))</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="o">*</span><span class="mh">0xee5e428</span> <span class="p">(</span><span class="nb">set</span> <span class="n">a</span> <span class="nb">breakpoint</span> <span class="n">at</span> <span class="n">callq</span> <span class="o">*-</span><span class="mh">0xb8</span><span class="p">(</span><span class="o">%</span><span class="n">rbp</span><span class="p">)</span> <span class="n">before</span> <span class="n">calling</span> <span class="n">PldEntry</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+</pre></div>
+</div>
+<img alt="Set a breakpoint before PldEntry" src="../_images/gdb_before_pld.png" />
+<p>Let’s go into Payload with stepi(=si) command, re-load symbol and get to Payload SecStartup.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">si</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">loadthis</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">b</span> <span class="n">SecStartup</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">c</span>
+</pre></div>
+</div>
+<img alt="SecStartup in Payload" src="../_images/gdb_pld_secstartup.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ex_run_sbl_on_qemu.html" class="btn btn-neutral float-left" title="Exercise \- Run SBL on QEMU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ex_sbl_shell_cli.html" class="btn btn-neutral float-right" title="Exercise \- SBL Shell/CLI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

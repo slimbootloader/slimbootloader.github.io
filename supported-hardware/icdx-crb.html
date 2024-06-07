@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ice Lake -D CRB Boards &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Meteor Lake Platforms" href="mtl-rvp.html" />
+    <link rel="prev" title="Elkhart Lake CRB Board" href="ehl-crb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Supported Hardware</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="adl-rvp.html">Alder Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cfl-crb.html">Coffee Lake Refresh CRB Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cml-rvp.html">Comet Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ehl-crb.html">Elkhart Lake CRB Board</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ice Lake -D CRB Boards</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-boards">Supported Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#brightoncity-board-lcc">Brightoncity Board (LCC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#morocity-board-hcc">Morocity Board (HCC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#board-id-assignments">Board ID Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building">Building</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stitching">Stitching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-uart">Debug UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flashing">Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spi-header-on-brightoncity-board-r1k5">SPI header on Brightoncity Board (R1K5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spi-header-on-morocity-board-j2g6">SPI header on Morocity Board (J2G6)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capsule-image-for-icxd">Capsule image for ICX-D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triggering-firmware-update">Triggering Firmware Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#booting-yocto-linux">Booting Yocto Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mtl-rvp.html">Meteor Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qemu.html">QEMU Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qsp.html">Simics® QSP Virtual Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raptor-lake.html">Raptor Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html">Tiger Lake RVP Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2.html">UP<sup>2</sup> Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up2-6000.html">UP<sup>2</sup> 6000 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="up7000adln50.html">UP Squared Pro 7000 Edge Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei12.html">UP Xtreme i12 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whl-crb.html">Whiskey Lake CRB Board</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Supported Hardware</a></li>
+      <li class="breadcrumb-item active">Ice Lake -D CRB Boards</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ice-lake-d-crb-boards">
+<h1>Ice Lake -D CRB Boards<a class="headerlink" href="#ice-lake-d-crb-boards" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Intel® Xeon™ D1700/D2700 Processor, formally known as ICX-D family.</p>
+</div>
+<section id="supported-boards">
+<h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Permalink to this heading"></a></h2>
+<p>SBL supports various platforms corresponding to ICX-D-LCC and ICX-D-HCC Processors.</p>
+</section>
+<section id="brightoncity-board-lcc">
+<h2>Brightoncity Board (LCC)<a class="headerlink" href="#brightoncity-board-lcc" title="Permalink to this heading"></a></h2>
+<img alt="|ICXD| Brightoncity board (LCC)" src="../_images/brightoncity.png" />
+</section>
+<section id="morocity-board-hcc">
+<h2>Morocity Board (HCC)<a class="headerlink" href="#morocity-board-hcc" title="Permalink to this heading"></a></h2>
+<img alt="|ICXD| Morocity board (HCC)" src="../_images/morocity.png" />
+</section>
+<section id="board-id-assignments">
+<h2>Board ID Assignments<a class="headerlink" href="#board-id-assignments" title="Permalink to this heading"></a></h2>
+<p>Each ICX-D board is assigned a unique platform ID</p>
+<blockquote>
+<div><table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Board</p></td>
+<td><p>Platform ID</p></td>
+</tr>
+<tr class="row-even"><td><p>ICX-D LCC</p></td>
+<td><p>0x00</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICX-D HCC</p></td>
+<td><p>0x02</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</section>
+<section id="building">
+<h2>Building<a class="headerlink" href="#building" title="Permalink to this heading"></a></h2>
+<p>To build SBL for ICX-D platforms:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">a</span> <span class="n">x64</span>
+
+<span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">idv</span><span class="p">,</span> <span class="n">idvh</span>
+</pre></div>
+</div>
+<p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p>
+</section>
+<section id="stitching">
+<h2>Stitching<a class="headerlink" href="#stitching" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Gather ICX-D IFWI firmware image</p></li>
+</ol>
+<blockquote>
+<div><p>Users can either download the full IFWI image if the IFWI image release is available or read the existing IFWI image on the board using SPI programmer.
+This image contains additional firmware ingredients that are required boot on ICX-D.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">StitchLoader.py</span></code> currently does not support stitching with boot guard feature <strong>enabled</strong>.
+To stitch with Boot Guard enabled, please use <code class="docutils literal notranslate"><span class="pre">StitchIfwi.py</span></code>.</p>
+</div>
+<ol class="arabic" start="2">
+<li><p>Stitch SBL images into downloaded BIOS image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">IdavilleBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/&lt;</span><span class="n">plat</span><span class="o">&gt;/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>where -i = Input file, -o = Output file, plat = idv/idvh</p>
+</div></blockquote>
+<p>For example, to stitch SBL IFWI image <code class="docutils literal notranslate"><span class="pre">sbl_idv_ifwi.bin</span></code> from ICX-D downloaded firmware images:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">IdavilleBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">idv</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_idv_ifwi</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>For more details on stitch tool, see <a class="reference internal" href="../tools/StitchTool.html#stitch-tool"><span class="std std-ref">Stitch Tool</span></a> on how to stitch the IFWI image with SBL.</p>
+</section>
+<section id="debug-uart">
+<h2>Debug UART<a class="headerlink" href="#debug-uart" title="Permalink to this heading"></a></h2>
+<p>For ICX-D platforms, serial port connector location can be found from the above table for each supported target board.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.</p>
+</div>
+<a class="reference internal image-reference" href="../_images/uart.png"><img alt="|ICXD| Board Setup" class="align-center" src="../_images/uart.png" style="width: 600px;" /></a>
+</section>
+<section id="flashing">
+<h2>Flashing<a class="headerlink" href="#flashing" title="Permalink to this heading"></a></h2>
+<p>Flash the generated <code class="docutils literal notranslate"><span class="pre">sbl_idv_ifwi.bin</span></code> to the target board using a DediProg SF100 or SF600 programmer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Refer the table above to identify the connector on the target board for SPI flash programmer. When using such device, please ensure:</p>
+<ol class="arabic simple">
+<li><p>The alignment/polarity when connecting Dediprog to the board.</p></li>
+<li><p>The power to the board is turned <strong>off</strong> while the programmer is connected (even when not in use).</p></li>
+<li><p>The programmer is set to update the flash from offset 0x0.</p></li>
+</ol>
+</div>
+</section>
+<section id="spi-header-on-brightoncity-board-r1k5">
+<h2>SPI header on Brightoncity Board (R1K5)<a class="headerlink" href="#spi-header-on-brightoncity-board-r1k5" title="Permalink to this heading"></a></h2>
+<a class="reference internal image-reference" href="../_images/lcc_spi.png"><img alt="|ICXD| SPI Header on Brightoncity board (R1K5)" src="../_images/lcc_spi.png" style="width: 600px;" /></a>
+</section>
+<section id="spi-header-on-morocity-board-j2g6">
+<h2>SPI header on Morocity Board (J2G6)<a class="headerlink" href="#spi-header-on-morocity-board-j2g6" title="Permalink to this heading"></a></h2>
+<a class="reference internal image-reference" href="../_images/hcc_spi.png"><img alt="|ICXD| SPI Header on Morocity board (J2G6)" src="../_images/hcc_spi.png" style="width: 600px;" /></a>
+</section>
+<section id="capsule-image-for-icxd">
+<h2>Capsule image for ICX-D<a class="headerlink" href="#capsule-image-for-icxd" title="Permalink to this heading"></a></h2>
+<p>The Slimbootloader.bin image generated from the build steps above can be used to create a capsule image.
+Please refer to <a class="reference internal" href="../tools/BuildTool.html#build-tool"><span class="std std-ref">Build Tool</span></a> on generating SBL image.</p>
+<p>For ICX-D platform, the below command can be used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">./</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">BIOS</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">idv</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="o">&lt;</span><span class="n">Keys</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>For more details on generating capsule image, please refer <a class="reference internal" href="../security/firmware-update.html#generate-capsule"><span class="std std-ref">Generating capsule</span></a>.</p>
+</section>
+<section id="triggering-firmware-update">
+<h2>Triggering Firmware Update<a class="headerlink" href="#triggering-firmware-update" title="Permalink to this heading"></a></h2>
+<p>SBL for ICX-D uses BIOSSCRATCHPAD3_CFG (Bus 0x1E, Dev 0, Func 2, PCI_Config 0xAC) to trigger firmware update. When BIT0 is set, SBL will set the boot mode to FLASH_UPDATE.
+Please refer to <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a> on how to trigger firmware update flow.
+Below is an example:</p>
+<p>To trigger firmware update in SBL shell:</p>
+<ol class="arabic">
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code> into root directory on FAT partition of a USB key</p></li>
+<li><p>Boot and press any key to enter SBL shell</p></li>
+<li><p>Type command <code class="docutils literal notranslate"><span class="pre">fwupdate</span></code> from shell</p>
+<p>SBL will reset the platform and initiate firmware update flow. The platform will reset <em>multiple</em> times to complete the update process.</p>
+<p>A sample boot messages from console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shell</span><span class="o">&gt;</span> <span class="n">fwupdate</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1A</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1B</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="n">BOOT</span><span class="p">:</span> <span class="n">BP0</span>
+<span class="n">MODE</span><span class="p">:</span> <span class="mi">18</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE2</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="n">Jump</span> <span class="n">to</span> <span class="n">payload</span>
+<span class="o">...</span>
+<span class="n">Starting</span> <span class="n">Firmware</span> <span class="n">Update</span>
+<span class="o">...</span>
+<span class="o">=================</span><span class="n">Read</span> <span class="n">Capsule</span> <span class="n">Image</span><span class="o">==============</span>
+<span class="o">...</span>
+<span class="o">................</span>
+<span class="n">Finished</span>     <span class="mi">1</span><span class="o">%</span>
+<span class="o">...</span>
+<span class="n">Finished</span>    <span class="mi">99</span><span class="o">%</span>
+<span class="o">...</span>
+<span class="o">...</span>
+
+<span class="n">Reset</span> <span class="n">required</span> <span class="n">to</span> <span class="n">proceed</span> <span class="k">with</span> <span class="n">the</span> <span class="n">firmware</span> <span class="n">update</span><span class="o">.</span>
+
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1A</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE1B</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="n">BOOT</span><span class="p">:</span> <span class="n">BP1</span>
+<span class="n">MODE</span><span class="p">:</span> <span class="mi">18</span>
+<span class="o">...</span>
+<span class="o">=============</span> <span class="n">Intel</span> <span class="n">Slim</span> <span class="n">Bootloader</span> <span class="n">STAGE2</span> <span class="o">=============</span>
+<span class="o">...</span>
+<span class="o">=================</span><span class="n">Read</span> <span class="n">Capsule</span> <span class="n">Image</span><span class="o">==============</span>
+<span class="o">...</span>
+<span class="o">................</span>
+<span class="n">Finished</span>     <span class="mi">1</span><span class="o">%</span>
+<span class="o">...</span>
+<span class="n">Finished</span>    <span class="mi">99</span><span class="o">%</span>
+<span class="n">Updating</span> <span class="mh">0x002B1000</span><span class="p">,</span> <span class="n">Size</span><span class="p">:</span><span class="mh">0x0A000</span>
+<span class="o">...............</span>
+<span class="n">Finished</span>   <span class="mi">100</span><span class="o">%</span>
+<span class="n">Set</span> <span class="nb">next</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x7C</span>
+<span class="n">Firmware</span> <span class="n">Update</span> <span class="n">status</span> <span class="n">updated</span> <span class="n">to</span> <span class="n">reserved</span> <span class="n">region</span>
+<span class="n">Set</span> <span class="nb">next</span> <span class="n">FWU</span> <span class="n">state</span><span class="p">:</span> <span class="mh">0x77</span>
+<span class="n">Reset</span> <span class="n">required</span> <span class="n">to</span> <span class="n">proceed</span> <span class="k">with</span> <span class="n">the</span> <span class="n">firmware</span> <span class="n">update</span><span class="o">.</span>
+<span class="o">...</span>
+<span class="o">====================</span> <span class="n">OS</span> <span class="n">Loader</span> <span class="o">====================</span>
+
+<span class="n">Starting</span> <span class="n">Kernel</span> <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="booting-yocto-linux">
+<h2>Booting Yocto Linux<a class="headerlink" href="#booting-yocto-linux" title="Permalink to this heading"></a></h2>
+<p>You may need to change boot options to boot from USB. See <a class="reference internal" href="../how-tos/change-boot-option.html#change-boot-options"><span class="std std-ref">Change Boot Options</span></a>.</p>
+<ol class="arabic simple">
+<li><p>Download Yocto Linux</p></li>
+<li><p>Create bootable USB key. For example: In Windows, Rufus can be used. In Linux, etcher app can be used.</p></li>
+<li><p>Boot the bootable OS image from USB key on the board.</p></li>
+</ol>
+<p>See <a class="reference internal" href="../developer-guides/configuration.html#dynamic-platform-id"><span class="std std-ref">Platform ID Detection using GPIOs</span></a> for more details.</p>
+<p>To customize board configurations in <code class="docutils literal notranslate"><span class="pre">*.dlt</span></code> file, make sure to specify <code class="docutils literal notranslate"><span class="pre">PlatformId</span></code> to the corresponding values for the board.</p>
+<p>See <a class="reference internal" href="../tools/ConfigTools.html#configuration-tool"><span class="std std-ref">Configuration Tools</span></a> for more details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ehl-crb.html" class="btn btn-neutral float-left" title="Elkhart Lake CRB Board" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mtl-rvp.html" class="btn btn-neutral float-right" title="Meteor Lake Platforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

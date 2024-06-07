@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netboot / PXE boot with UEFI Payload &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot Ubuntu" href="boot-ubuntu.html" />
+    <link rel="prev" title="Boot Windows with UEFI Payload" href="boot-windows.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-pxe-uboot.html">PXE Boot Through U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">Netboot / PXE boot with UEFI Payload</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="netboot-pxe-boot-with-uefi-payload">
+<span id="boot-netboot"></span><h1>Netboot / PXE boot with UEFI Payload<a class="headerlink" href="#netboot-pxe-boot-with-uefi-payload" title="Permalink to this heading"></a></h1>
+<p>Some users may choose to boot their operating system over a network. This guide shows how to use Netboot to enable booting over a network.</p>
+<p><a class="reference external" href="https://netboot.xyz/">netboot.xyz</a> lets you PXE boot various operating system installers or utilities over the network. <a class="reference external" href="https://ipxe.org/">iPXE</a> is an open source network boot firmware. It provides a full PXE implementation.</p>
+<p>netboot.xyz can be built as an UEFI Application and can be included in the UEFI Payload. The UEFI Payload can be customized to launch the netboot.xyz application as a boot target.</p>
+<p>The steps below provide instruction on how to build UEFI Payload with netboot.xyz application -</p>
+<p><strong>Steps:</strong></p>
+<ol class="arabic simple">
+<li><p>Clone the <code class="docutils literal notranslate"><span class="pre">edk2</span></code> repository.</p></li>
+<li><p>Create a new directory inside <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg</span></code> called <code class="docutils literal notranslate"><span class="pre">NetBoot</span></code>.</p></li>
+<li><p>Create a new directory inside <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg\NetBoot</span></code> called <code class="docutils literal notranslate"><span class="pre">X64</span></code>.</p></li>
+<li><p>Download the netboot.xyz binary from <a class="reference external" href="https://boot.netboot.xyz/ipxe/netboot.xyz.efi">here</a> and place it into the directory created above - i.e. inside <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg\NetBoot\X64</span></code></p></li>
+<li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">NetBoot.inf</span></code> in <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg\NetBoot</span></code> and paste the following contents in it -</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>##  @file
+<span class="linenos"> 2</span>#  This is the Netboot binary file.
+<span class="linenos"> 3</span>#
+<span class="linenos"> 4</span>#  Copyright (c) 2021, Intel Corporation. All rights reserved.&lt;BR&gt;
+<span class="linenos"> 5</span>#
+<span class="linenos"> 6</span>#  This program and the accompanying materials
+<span class="linenos"> 7</span>#  are licensed and made available under the terms and conditions of the BSD License
+<span class="linenos"> 8</span>#  which accompanies this distribution. The full text of the license may be found at
+<span class="linenos"> 9</span>#  http://opensource.org/licenses/bsd-license.php
+<span class="linenos">10</span>#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN &quot;AS IS&quot; BASIS,
+<span class="linenos">11</span>#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+<span class="linenos">12</span>#
+<span class="linenos">13</span>#
+<span class="linenos">14</span>##
+<span class="linenos">15</span>##
+<span class="linenos">16</span>
+<span class="linenos">17</span>[Defines]
+<span class="linenos">18</span>  INF_VERSION                    = 0x00010006
+<span class="linenos">19</span>  BASE_NAME                      = NetBoot
+<span class="linenos">20</span>  FILE_GUID                      = 4CDF2DAE-B4C7-482C-B468-99C812911FF5
+<span class="linenos">21</span>  MODULE_TYPE                    = UEFI_APPLICATION
+<span class="linenos">22</span>  VERSION_STRING                 = 1.0
+<span class="linenos">23</span>
+<span class="linenos">24</span>[Binaries.X64]
+<span class="linenos">25</span>  PE32|X64/NetBoot.efi|*
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg\UefiPayloadPkg.dec</span></code> and add the following line in the <code class="docutils literal notranslate"><span class="pre">[Guids]</span></code> section -</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gUefiPayloadNetBootAppGuid = { 0x4cdf2dae, 0xb4c7, 0x482c, { 0xb4, 0x68, 0x99, 0xc8, 0x12, 0x91, 0x1f, 0xf5 } }
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg\UefiPayloadPkg.fdf</span></code> and add the following line at the end of the <code class="docutils literal notranslate"><span class="pre">[FV.DXEFV]</span></code> section.</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># NetBoot
+INF  RuleOverride = BINARY USE = X64 UefiPayloadPkg/NetBoot/NetBoot.inf
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>In the same file, comment out the line in the <code class="docutils literal notranslate"><span class="pre">Shell</span></code> part under the <code class="docutils literal notranslate"><span class="pre">[FV.DXEFV]</span></code> section.</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg\Library\PlatformBootManagerLib\PlatformBootManager.c</span></code> and add the following line in the <code class="docutils literal notranslate"><span class="pre">PlatformBootManagerAfterConsole</span></code> function after <code class="docutils literal notranslate"><span class="pre">EfiBootManagerRefreshAllBootOption()</span></code> call -</p></li>
+</ol>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="c1">// Register Netboot</span>
+<span class="n">PlatformRegisterFvBootOption</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">gUefiPayloadNetBootAppGuid</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;Netboot (iPXE)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">LOAD_OPTION_ACTIVE</span><span class="p">);</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">edk2\UefiPayloadPkg\Library\PlatformBootManagerLib\PlatformBootManagerLib.inf</span></code> and add the following line in the <code class="docutils literal notranslate"><span class="pre">[Guids]</span></code> section -</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gUefiPayloadNetBootAppGuid
+</pre></div>
+</div>
+<ol class="arabic simple" start="11">
+<li><p>Build the UEFI Payload: <a class="reference external" href="https://github.com/tianocore/edk2/blob/master/UefiPayloadPkg/BuildAndIntegrationInstructions.txt">UEFI Payload Build Instructions</a></p></li>
+<li><p>Copy the generated <code class="docutils literal notranslate"><span class="pre">UEFIPAYLOAD.fd</span></code> into <code class="docutils literal notranslate"><span class="pre">slimbootloader\PayloadPkg\PayloadBins\UefiNetBoot.fd</span></code></p></li>
+<li><p>Build SBL for your platform</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>python BuildLoader.py build &lt;platform&gt; -p &quot;OsLoader.efi:LLDR:Lz4;UefiNetBoot.fd:UEFI:Lzma&quot;
+</pre></div>
+</div>
+<ol class="arabic simple" start="14">
+<li><p>Flash and boot</p></li>
+</ol>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="boot-windows.html" class="btn btn-neutral float-left" title="Boot Windows with UEFI Payload" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="boot-ubuntu.html" class="btn btn-neutral float-right" title="Boot Ubuntu" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

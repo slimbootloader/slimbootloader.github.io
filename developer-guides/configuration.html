@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Payloads" href="payload.html" />
+    <link rel="prev" title="Memory Map" href="memory-map.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html">Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-flow.html#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yaml-files">YAML Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dlt-files">DLT Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-flow">Configuration Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-editor-tool">Configuration Editor Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#platform-id">Platform ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#platform-configuration-files">Platform Configuration Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#platform-id-configuration">Platform ID Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#platform-id-detection-using-gpios">Platform ID Detection using GPIOs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-configuration-categories">Common Configuration Categories</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#step-by-step-configuration-flow">Step-by-step Configuration Flow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#files">Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools">Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#process">Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-console-outputs">Example Console Outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gpio-configuration">GPIO Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gpio-cfio">GPIO / CFIO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gpio-configurability">GPIO Configurability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#processing-of-gpio-configurations">Processing of GPIO configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-configuration">Example configuration:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<span id="configuration-feature"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
+<p>Ease of platform and board customization is one of the most important design goal of creating SBL. It has many benefits from both system perspective and business use cases. For example,</p>
+<ul class="simple">
+<li><p>By using a centralized configuration infrastructure code, it is easier to manage all configuration related data in all boot stages in the same way</p></li>
+<li><p>Because configuration data is <em>packed</em> into a central region in SBL image, it is easier to customize these changes, or add security protection, or optimize its footprint.</p></li>
+<li><p>By defining a standardized human readable configuration format, it is easier to create tools to provide user interface to manage many platform configurations.</p></li>
+</ul>
+<p>SBL has two sets of configuration data in the image</p>
+<dl class="simple">
+<dt><strong>Internal configuration data</strong></dt><dd><p>Software default values. It is unchangeable once SBL is built. In case of external configuration data is not available or corrupted, internal data is loaded instead.</p>
+</dd>
+<dt><strong>External configuration data</strong></dt><dd><p>Platform specific data which is configurable by tools. It can be protected with user provided key.</p>
+</dd>
+</dl>
+<p>SBL configuration infrastructure includes the following and is designed to support multiple boards with one firmware image.</p>
+<ul class="simple">
+<li><p>Configuration declarations in YAML files</p></li>
+<li><p>Configuration deltas in DLT files</p></li>
+<li><p>Configuration tools</p></li>
+</ul>
+<section id="yaml-files">
+<span id="configuration-files-and-configuration-flow"></span><h2>YAML Files<a class="headerlink" href="#yaml-files" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>All platform configuration settings including memory, silicon, GPIO, OS boot policy, security settings etc are declared in a custom format and uses YAML Syntax
+(<a class="reference internal" href="../specs/config.html#configuration-spec"><span class="std std-ref">SBL Configuration</span></a>).</p></li>
+<li><p>YAML configuration files, in general are located in project specific board folder, while some common configuration files are located at PlatformCommonBoardPkgCfgData.</p></li>
+<li><p>For example, you can find the configuration files for Apollo Lake platform under PlatformApollolakeBoardPkgCfgData folder.</p></li>
+</ul>
+<p>Please note that you may find many YAML files. However, only CfgDataDef.yaml is the primary file used for the platform configuration, and other sub YAML files will be
+included by the primary YAML file to provide component specific configuration.</p>
+<p>The main platform configuration file is specified in CfgDataDef.yaml. An example configuration file in YAML syntax is provided below.</p>
+<img alt="../_images/ConfigDefYaml.PNG" src="../_images/ConfigDefYaml.PNG" />
+</section>
+<section id="dlt-files">
+<h2>DLT Files<a class="headerlink" href="#dlt-files" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>DLT (delta) files are used to provide overrides to settings in YAML files to address board-level differences, including GPIO, boot policy, PCIE configuration, security settings etc.</p></li>
+<li><p>DLT files contain unique Platform ID, and build tools will apply the settings to firmware images based on the platform ID.</p></li>
+<li><p>DLT file that overrides configuration parameters for all boards (board id 0) is also supported. A typical use case is in case of Platform ID as explained below.</p></li>
+</ul>
+<p>DLT file can be generated in different ways:</p>
+<ul class="simple">
+<li><p>Change any existing settings, and save it to DLT file with Configuration Editor Tool.</p></li>
+<li><p>Load values from an existing binary file, and then save the changes as DLT file.</p></li>
+</ul>
+<p>A project may include multiple DLT files to handle multiple boards and are included in the project’s BoardConfig.py file as below.
+self._CFGDATA_EXT_FILE    = [‘CfgData_Ext_Def.dlt’, ‘CfgData_Ext_Gpmrb.dlt’]</p>
+<img alt="../_images/ConfigDlt.PNG" src="../_images/ConfigDlt.PNG" />
+</section>
+<section id="configuration-flow">
+<h2>Configuration Flow<a class="headerlink" href="#configuration-flow" title="Permalink to this heading"></a></h2>
+<img alt="../_images/ConfigFlow.PNG" src="../_images/ConfigFlow.PNG" />
+<p>During SBL build, the configuration data in the YAML files are parsed by the configuration tools to generate the header files as well as the configuration binary.
+In addition to generating and stitching of configuration binaries through SBL build process, editing of configuration parameters post build is also supported.</p>
+<p>Post-build configuration update can be done with the project’s configuration YAML/DLT files and the updated configuration binary can be restitched without having to rebuild SBL
+project. Please see <a class="reference internal" href="#config-steps"><span class="std std-ref">Step-by-step Configuration Flow</span></a> for details.</p>
+<p>All the configuration tools required by the configuration process can be found under BootloaderCorePkg/Tools folder.</p>
+</section>
+<section id="configuration-editor-tool">
+<h2>Configuration Editor Tool<a class="headerlink" href="#configuration-editor-tool" title="Permalink to this heading"></a></h2>
+<p>SBL supports a Configuration Editor Tool (ConfigEditor.py) to configure firmware settings with graphics UI. This tool is included in SBL source package at BootloaderCorePkg/Tools.</p>
+<img alt="../_images/CfgEditOpen.png" src="../_images/CfgEditOpen.png" />
+<img alt="../_images/CfgEditDefYaml.png" src="../_images/CfgEditDefYaml.png" />
+</section>
+<section id="platform-id">
+<span id="id1"></span><h2>Platform ID<a class="headerlink" href="#platform-id" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Platform ID and board ID are used interchangeably in this section</p>
+</div>
+<p>SBL uses platform ID to select the associated configuration data. The platform ID can be specified at build time or dynamically detected from GPIO pins at runtime. At the beginning of Stage 1B (<code class="docutils literal notranslate"><span class="pre">GetBoardIdFromGpioPins()</span></code>), SBL attempts to load GPIO platform ID by tag <code class="docutils literal notranslate"><span class="pre">CDATA_PID_GPIO_TAG</span></code>. If the tag is found, the actual platform ID value is read from the GPIO pins. Otherwise, SBL uses static platform ID.</p>
+<p>SBL supports up to 32 platform IDs. Note that Platform ID <strong>0</strong> served to carry the default CFGDATA values defined in the CfgDataDef.yaml file. So it cannot be used for a real board. So technically, SBL can support upto 31 boards.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In addition to board specific delta files, a DLT file that overrides configuration parameters for all boards (board id 0) is also supported. If platform ID needs to be configurable without source, DLT file for board ID 0 is required. This is useful when common board settings are to be changed without changing the platform configuration YAML file.</p>
+</div>
+</section>
+<section id="platform-configuration-files">
+<h2>Platform Configuration Files<a class="headerlink" href="#platform-configuration-files" title="Permalink to this heading"></a></h2>
+<section id="platform-id-configuration">
+<span id="static-platform-id"></span><h3>Platform ID Configuration<a class="headerlink" href="#platform-id-configuration" title="Permalink to this heading"></a></h3>
+<p>Provide platform ID (1-15) value in board configuration file (<code class="docutils literal notranslate"><span class="pre">*.dlt</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PLATFORMID_CFG_DATA</span><span class="o">.</span><span class="n">PlatformId</span>                  <span class="o">|</span> <span class="mh">0x7</span>
+</pre></div>
+</div>
+</section>
+<section id="platform-id-detection-using-gpios">
+<span id="dynamic-platform-id"></span><h3>Platform ID Detection using GPIOs<a class="headerlink" href="#platform-id-detection-using-gpios" title="Permalink to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Configure designated <strong>4</strong> GPIO pins in board configuration file using Configuration Editor.</p></li>
+<li><p>Provide platform ID value (0-15) in board configuration file (<code class="docutils literal notranslate"><span class="pre">*.dlt</span></code>):</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PLATFORMID_CFG_DATA</span><span class="o">.</span><span class="n">PlatformId</span>                  <span class="o">|</span> <span class="mh">0x9</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Internally, SBL adds 16 to Platform ID detected using GPIOs in order not to conflict with static IDs.</p>
+</div>
+</section>
+<section id="common-configuration-categories">
+<h3>Common Configuration Categories<a class="headerlink" href="#common-configuration-categories" title="Permalink to this heading"></a></h3>
+<p>SBL comes with commonly used configurable options for a given platform. One can add new configurations (<code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;/CfgData/*.yaml</span></code>) and Stage 1B board specific code (<code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;/Library/Stage1BBoardInitLib/</span></code>)</p>
+<p>Configuration data are grouped by categories:</p>
+<ul class="simple">
+<li><p>GPIO</p>
+<ul>
+<li><p>More details on GPIO configuration are given in the <a class="reference internal" href="#gpio-configuration"><span class="std std-ref">GPIO Configuration</span></a> section below</p></li>
+</ul>
+</li>
+<li><p>Memory and eMMC tuning</p></li>
+<li><p>Graphics related</p></li>
+<li><p>Device related (USB, eMMC etc)</p></li>
+<li><p>Security</p></li>
+<li><p>Boot options</p></li>
+<li><p>Feature related (e.g., log level)</p></li>
+<li><p>…</p></li>
+</ul>
+<p>Configuration data is loaded and verified in Stage1B. Once loaded, SBL groups related configuration item by <em>tags</em> and the data can be retrieved by calling function <code class="docutils literal notranslate"><span class="pre">FindConfigDataByTag()</span></code>. For example, <code class="docutils literal notranslate"><span class="pre">CDATA_USB_TAG</span></code>.</p>
+</section>
+</section>
+<section id="step-by-step-configuration-flow">
+<span id="config-steps"></span><h2>Step-by-step Configuration Flow<a class="headerlink" href="#step-by-step-configuration-flow" title="Permalink to this heading"></a></h2>
+<p>Users will need to have the following prerequisites to begin the flow.</p>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Top-level YAML file, CfgDataDef.yaml, and Internal/External .DLT files.</p></li>
+<li><p>Default configuration data, CfgDataInt.bin and/or CfgData_Default.dlt</p></li>
+<li><p>RSA key file.</p></li>
+</ul>
+</section>
+<section id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>CfgDataStitch.py, CfgDataTool.py, ConfigEditor.py, GenCfgData.py</p></li>
+</ul>
+</section>
+<section id="process">
+<h3>Process<a class="headerlink" href="#process" title="Permalink to this heading"></a></h3>
+<p><strong>Load:</strong></p>
+<p>Open <em>ConfigEditor</em> GUI tool, ConfigEditor.py.</p>
+<p>Load top-level CfgDataDef.yaml file. Now the platform settings with
+default values are shown in the <em>ConfigEditor</em>.</p>
+<p>Load board-specific DLT file (e.g., CfgData_Ext_Up2.dlt, and so on).
+Once this is loaded, <em>ConfigEditor</em> will display the overwritten values
+as specified in the DLT file.</p>
+<p><strong>Change values:</strong></p>
+<p>If user choose to change additional settings, it can be done at this
+time either in the DLT file directly or using <em>ConfigEditor</em>. For a
+different platform, make sure to set/modify the platform ID value
+accordingly. Then save the changes back into the DLT file (or) it can
+also be saved as a binary file using <em>ConfigEditor</em>. New DLT file or new
+binary that is created will then have the newly changed settings.</p>
+<p><strong>Stitch into final image:</strong></p>
+<p>Open a command window and cd into the location of the CfgDataStitch.py
+folder.</p>
+<p>Run this Python* script in the command window: <strong>CfgDataStitch.py -h</strong>
+for parameters for this script.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">CfgDataStitch</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">sbl_ifwi_old</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="n">ConfigTestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="n">s</span> <span class="n">SblOpen</span>\<span class="n">BootloaderCorePkg</span>\<span class="n">Tools</span> <span class="o">-</span><span class="n">c</span> <span class="o">.</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_ifwi_patched</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;&lt;</span><span class="n">platform</span> <span class="n">ID</span><span class="o">&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Once the above script is run successfully, the new configuration data is
+patched and the new IFWI image has been created.</p>
+<p><strong>Boot:</strong></p>
+<p>Users can now flash the new image that contains the changed
+configuration values onto the board, then boot to SBL shell and check
+boot options that are changed with the new values.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An example pre build configuration flow to configure GPIOs can be found here <a class="reference external" href="https://slimbootloader.github.io/how-tos/configure_gpio.html#gpio-config-data">https://slimbootloader.github.io/how-tos/configure_gpio.html#gpio-config-data</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An example post build configuration flow to configure Boot Options can be found here <a class="reference external" href="https://slimbootloader.github.io/how-tos/change-boot-option.html#change-at-post-build-time">https://slimbootloader.github.io/how-tos/change-boot-option.html#change-at-post-build-time</a></p>
+</div>
+</section>
+<section id="example-console-outputs">
+<h3>Example Console Outputs<a class="headerlink" href="#example-console-outputs" title="Permalink to this heading"></a></h3>
+<p>External configuration data for board (platform 1) is loaded:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>============= Intel Slim Bootloader STAGE1B =============
+...
+BoardID: 0001
+Load External Cfg data...BIOS
+Load EXT CFG Data @ 0xFEF05FF8:0x0080 ... Success
+HASH Verification Success! Component Type (4)
+RSA Verification Success!
+...
+Load Security Cfg Data
+...
+Load Memory Cfg Data
+...
+Load Graphics Cfg Data
+...
+</pre></div>
+</div>
+</section>
+</section>
+<section id="gpio-configuration">
+<span id="id2"></span><h2>GPIO Configuration<a class="headerlink" href="#gpio-configuration" title="Permalink to this heading"></a></h2>
+<section id="gpio-cfio">
+<h3>GPIO / CFIO<a class="headerlink" href="#gpio-cfio" title="Permalink to this heading"></a></h3>
+<p>Modern chipsets pack multiple functions and are often constrained by the package
+size and limited number of pins. These Configurable IO (CFIO) pins need to be configured
+at boot time to connect them to selected functionality based on platform designs.</p>
+<p>The selected functionality could be a General Purpose IO (GPIO) or some other
+alternative function (SPI, I2C, etc.)</p>
+<p>General Purpose IO (GPIO) is a digital signal pin and can be configured
+to be either an input or an output signal. GPIO pins offer flexibility
+to platform designers and can be used for a variety of purposes. For
+example, a laptop lid may be connected to a gpio pin to signal when the
+lid is closed and can be used to turn on/off the display. Another example
+of a GPIO is to drive a status LED on the chassis.
+A very good primer on GPIO can be found here -
+<a class="reference external" href="https://www.kernel.org/doc/html/latest/driver-api/gpio/intro.html#what-is-a-gpio">https://www.kernel.org/doc/html/latest/driver-api/gpio/intro.html#what-is-a-gpio</a>.</p>
+</section>
+<section id="gpio-configurability">
+<h3>GPIO Configurability<a class="headerlink" href="#gpio-configurability" title="Permalink to this heading"></a></h3>
+<p>SBL provides an user friendly interface to ease configuration of GPIO/CFIO through
+its configuration infrastructure. The goal of Slim Bootloader’s configuration mechanism
+is to customize a given reference implementation to another board with as minimal code
+changes as possible.</p>
+<p>This requires a reference implementaion to expose <strong>all</strong> GPIO as configurable options. This
+includes not just those CFIO pads used for GPIO functionality, but also those used by other
+controllers like SPI, I2C, etc.. This provides maximum flexibility in terms of which GPIOs are
+used for board designs. When a specific CFIO is not used as GPIO, initialization of that pad
+by the GPIO initialization module may not be needed and a mechanism to skip that is needed.
+Slim Bootloader configuration provides this mechanism throuh the SKIP flag as part of
+a GPIO configuration. When the SKIP flag is set, the configurability for that GPIO may also be
+hidden by the GUI tool using the SKIP flag as a conditional variable.</p>
+<p>SBL projects provide a reference board GPIO setup as the <strong>baseline configuration</strong>. As
+explained above, this base GPIO table includes configuration for all pins present on the SoC.
+A custom design may differ from this baseline implementation. Thus, an ability to
+override entries in the base configuration is also provided through delta GPIO tables.
+To optimize for space, a design approach of not duplicating the entire GPIO table for
+each board was adopted. Instead of duplicating the entire GPIO table for each delta
+configuration, the <a class="reference internal" href="../tools/ConfigTools.html#cfgdatatool"><span class="std std-ref">CfgDataTool</span></a> tool will optimize the configuration binary blob
+to only have a <strong>base GPIO table</strong> that includes configuration for all pins present on the
+SoC <strong>plus delta tables</strong> that override entries from the base table.</p>
+<p>Each GPIO table will include a GPIO table bitmask that will indicate if the GPIO entry from
+the base table will be used for configuration or if it will be skipped. A GPIO Configuration
+from the base table can be skipped either (1) If it is used for native function and may
+be be initialized by the silicon code or (2) If it is overridden by the delta configuration
+and will be  configured from the delta table. The GPIO table bitmask will be updated by the
+CfgDataTool.</p>
+<p>Users should customize the GPIO/CFIO configuration to match their hardware designs.
+Refer to <a class="reference internal" href="../how-tos/configure_gpio.html#change-gpio-options"><span class="std std-ref">GPIO / CFIO Configuration</span></a> for a step-by-step guide.</p>
+</section>
+<section id="processing-of-gpio-configurations">
+<h3>Processing of GPIO configurations<a class="headerlink" href="#processing-of-gpio-configurations" title="Permalink to this heading"></a></h3>
+<p><a class="reference internal" href="../tools/ConfigTools.html#cfgdatatool"><span class="std std-ref">CfgDataTool</span></a> is responsible for processing the GPIO configuration described in the
+YAML and delta files.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">CfgData_Gpio.yaml</span></code> file contains the GPIO table for Platform ID 0.</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">CfgData_Gpio.yaml</span></code> defines a <code class="docutils literal notranslate"><span class="pre">GPIO_CFG_HDR</span></code> followed by a number of GPIO configuration entries for
+Platform ID 0 (refer to <a class="reference internal" href="#platform-id"><span class="std std-ref">Platform ID</span></a> for more details)</p></li>
+<li><p>This is the <strong>Base Table</strong> for a number of boards using the same SoC (board IDs 1 - 31).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">GPIO_CFG_HDR</span></code> includes fields that specify the Item Count, Item Size, Base Table BitMask, etc.</p></li>
+<li><p>One of the fields in the <code class="docutils literal notranslate"><span class="pre">GPIO_CFG_HDR</span></code> is <code class="docutils literal notranslate"><span class="pre">GpioBaseTableId</span></code> which refers to a Base Table. The
+<code class="docutils literal notranslate"><span class="pre">GpioBaseTableId</span></code> in <code class="docutils literal notranslate"><span class="pre">CfgData_Gpio.yaml</span></code> (for platform ID 0) should be set to <code class="docutils literal notranslate"><span class="pre">0xFF</span></code> and will be
+processed by the tool (see below).</p></li>
+</ul>
+</li>
+<li><p>The <strong>delta YAML</strong> files will contain configurations for GPIO pins that are to be configured differently
+than the base table. Or if desired, it is also fine to provide a full GPIO pin configurations.</p></li>
+<li><p>The configuration for each pin is described using 2 DWORDS. The explanation for fields within the
+DWORDS can be found in the platform’s GPIO configuration template.</p></li>
+</ul>
+<p><br /></p>
+<ul>
+<li><p>Processing of <strong>base GPIO table</strong> (<code class="docutils literal notranslate"><span class="pre">CfgData_Gpio.yaml</span></code>):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The tool creates a Base GPIO table with <code class="docutils literal notranslate"><span class="pre">GPIO_CFG_HDR</span></code> followed by a number of GPIO
+configuration entries.</p></li>
+<li><p>The tool updates the <code class="docutils literal notranslate"><span class="pre">BaseTableBitMask</span></code> in the <code class="docutils literal notranslate"><span class="pre">GPIO_CFG_HDR</span></code>. Each bit in the bitmask
+specifies if a pin will be configured or not. 1 = configured, 0 = skipped.</p></li>
+<li><p>The entire base GPIO table will be present in the final configuration binary</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Processing of the <strong>delta table</strong> (dlt files):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The tool creates a delta GPIO table for a specific platform ID. The delta table will
+have <code class="docutils literal notranslate"><span class="pre">GPIO_CFG_HDR</span></code> followed by the configuration for GPIO pins that are to be configured
+differently than the base GPIO table.</p></li>
+<li><p>The tool updates the <code class="docutils literal notranslate"><span class="pre">GpioBaseTableId</span></code> to refer to the GPIO Table for Platform ID 0.</p></li>
+<li><p>The tool parses the delta table and updates the <code class="docutils literal notranslate"><span class="pre">BaseTableBitMask</span></code> if a GPIO pin is present
+in both the base table and the delta table, and their configuration values are different, the base
+table entry is skipped and the entry from the delta table is used for configuring the GPIO.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Slim Bootloader GPIO initialization module will first locate the GPIO table for that particular
+platform (identified by the Platform ID) and then use the <code class="docutils literal notranslate"><span class="pre">GpioBaseTableId</span></code> in its <code class="docutils literal notranslate"><span class="pre">GPIO_CFG_HDR</span></code>
+to locate the Base GPIO Table. The GPIO table for that specific platform is created by copying
+entries from the Base GPIO table filetered by <code class="docutils literal notranslate"><span class="pre">BaseTableBitMask</span></code> and entries from the delta table
+appended at the end.</p></li>
+<li><p>For more information on GPIO configuration processing, you can refer to the CfgDataTool function
+<code class="docutils literal notranslate"><span class="pre">ProcessCfgArray()</span></code> in <code class="docutils literal notranslate"><span class="pre">CfgDataTool.py</span></code></p></li>
+</ul>
+</section>
+<section id="example-configuration">
+<h3>Example configuration:<a class="headerlink" href="#example-configuration" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>Let us consider a platform with 8 GPIO pins.</p>
+<ul>
+<li><p>The base table is as follows</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A0</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000000</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000010</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A1</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x40000101</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000011</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A2</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x80000201</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000012</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A3</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0xC0000301</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000013</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A4</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000400</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000014</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A5</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x40000500</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000015</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A6</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x80000601</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000016</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!expand</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> GPIO_TMPL </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">GPP_A7</span><span class="w">  </span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0xC0000700</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">0x00000017</span><span class="w"> </span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>The delta table for Platform ID 1 sets the skip flag for GPP_A1</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">GPIO_CFG_DATA.GpioConfPad1_GPP_A1.GPIOSkip | 1</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>The tool will parse the base table and create the bitmask <code class="docutils literal notranslate"><span class="pre">0xFF</span></code> as no pin is being skipped
+<code class="docutils literal notranslate"><span class="pre">GpioBaseTableBitMask</span> <span class="pre">=</span> <span class="pre">0xFF</span> <span class="pre">=</span> <span class="pre">0b11111111</span></code></p></li>
+<li><p>The tool will then parse the delta table and clear the bit for GPP_A1 as it is skipped
+<code class="docutils literal notranslate"><span class="pre">GpioBaseTableBitMask</span> <span class="pre">=</span> <span class="pre">0xFD</span> <span class="pre">=</span> <span class="pre">0b11111101</span></code></p></li>
+<li><p>This bitmask will now be used by the Stage2 code to apply the configuration correctly.</p></li>
+</ul>
+</li>
+</ul>
+<p><br /></p>
+<ul>
+<li><p>The delta table for Platform ID 31 sets the skip flag for GPP_A1 and GPP_A6, and overrides configuation
+for GPP_A3, and GPP_A4</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">GPIO_CFG_DATA.GpioConfPad1_GPP_A1.GPIOSkip | 1</span>
+<span class="l l-Scalar l-Scalar-Plain">GPIO_CFG_DATA.GpioConfPad1_GPP_A6.GPIOSkip | 1</span>
+
+<span class="l l-Scalar l-Scalar-Plain">GPIO_CFG_DATA.GpioConfPad0_GPP_A3 | 0x40000801</span>
+<span class="l l-Scalar l-Scalar-Plain">GPIO_CFG_DATA.GpioConfPad1_GPP_A4 | 0x00050014</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>The tool will parse the base table and create the bitmask <code class="docutils literal notranslate"><span class="pre">0xFF</span></code> as no pin is being skipped
+<code class="docutils literal notranslate"><span class="pre">GpioBaseTableBitMask</span> <span class="pre">=</span> <span class="pre">0xFF</span> <span class="pre">=</span> <span class="pre">0b11111111</span></code></p></li>
+<li><p>The tool will then parse the delta table and clear the bits for GPP_A1, GPP_A6, and GPP_A3, GPP_A4
+<code class="docutils literal notranslate"><span class="pre">GpioBaseTableBitMask</span> <span class="pre">=</span> <span class="pre">0xA5</span> <span class="pre">=</span> <span class="pre">0b10100101</span></code></p></li>
+<li><p>This bitmask will now be used by the Stage2 code to apply the configuration correctly.</p></li>
+</ul>
+</li>
+<li><p>The image below illustrates the above configuration:</p></li>
+</ul>
+<img alt="../_images/gpio_cfg_hdr_markup.png" src="../_images/gpio_cfg_hdr_markup.png" />
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="memory-map.html" class="btn btn-neutral float-left" title="Memory Map" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="payload.html" class="btn btn-neutral float-right" title="Payloads" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

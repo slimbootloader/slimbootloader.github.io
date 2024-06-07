@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Tool &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Stitch Tool" href="StitchTool.html" />
+    <link rel="prev" title="Tools" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tools</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build Tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working">Working</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="StitchTool.html">Stitch Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenContainer.html">Container Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigTools.html">Configuration Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GpioTool.html">Gpio Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UcodeUtility.html">uCode Utility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tools</a></li>
+      <li class="breadcrumb-item active">Build Tool</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="build-tool">
+<span id="id1"></span><h1>Build Tool<a class="headerlink" href="#build-tool" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code> compiles source code with all the <em>magics</em> to generate output image(s). It provides two subcommands: build and clean.</p>
+<p>You can build SBL with the following options:</p>
+<ul class="simple">
+<li><p>Build for a supported target</p></li>
+<li><p>Debug or release build</p></li>
+<li><p>Use debug image of FSP</p></li>
+<li><p>Change your payload files</p></li>
+<li><p>Attach a version data structure of your own</p></li>
+</ul>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>Command Syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">subcommand</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">options</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">subcommand</span><span class="o">&gt;</span>  <span class="p">:</span> <span class="n">build</span> <span class="ow">or</span> <span class="n">build_dsc</span> <span class="ow">or</span> <span class="n">clean</span>
+<span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span>      <span class="p">:</span> <span class="n">board</span> <span class="n">name</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">apl</span><span class="p">,</span> <span class="n">qemu</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Windows and Linux share the same command line options as follows. For example, for <code class="docutils literal notranslate"><span class="pre">build</span></code> subcommand:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">r</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">fp</span> <span class="n">FSPPATH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">fd</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PAYLOAD</span><span class="p">]</span> <span class="n">board</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+<span class="n">board</span>                 <span class="n">Board</span> <span class="n">Name</span> <span class="p">(</span><span class="n">apl</span><span class="p">,</span> <span class="n">qemu</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>                      <span class="n">Show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="o">--</span><span class="n">release</span>                   <span class="n">Release</span> <span class="n">build</span>
+  <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">usever</span>                    <span class="n">Use</span> <span class="n">board</span> <span class="n">version</span> <span class="n">file</span>
+  <span class="o">-</span><span class="n">fp</span> <span class="n">FSPPATH</span>                     <span class="n">FSP</span> <span class="n">binary</span> <span class="n">path</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">FspBin</span> <span class="ow">in</span> <span class="n">Silicon</span> <span class="n">folder</span>
+  <span class="o">-</span><span class="n">fd</span><span class="p">,</span> <span class="o">--</span><span class="n">fspdebug</span>                 <span class="n">Use</span> <span class="n">debug</span> <span class="n">FSP</span> <span class="n">binary</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">PAYLOAD</span><span class="p">,</span> <span class="o">--</span><span class="n">payload</span> <span class="n">PAYLOAD</span>   <span class="n">Payload</span> <span class="n">file</span> <span class="n">name</span>
+</pre></div>
+</div>
+<p>For a list of platforms supported:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python BuildLoader.py build ?
+</pre></div>
+</div>
+<p>If build is successful, <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> folder will contain the build binaries. One of the output files will be <code class="docutils literal notranslate"><span class="pre">Stitch_Components.zip</span></code> which will be used in the stitching step.</p>
+<p>SBL supports a single image supporting up to 32 board configurations for the same type of board or platform. To add multi-board support, see <a class="reference internal" href="../developer-guides/configuration.html#configuration-feature"><span class="std std-ref">Configuration</span></a>.</p>
+</section>
+<section id="working">
+<h2>Working<a class="headerlink" href="#working" title="Permalink to this heading"></a></h2>
+<p>The overall flow of the build process is shown below:</p>
+<ul class="simple">
+<li><p>Environment initialization</p></li>
+<li><p>Early build initialization</p>
+<ul>
+<li><p>Toolchains and dependencies are verified</p></li>
+<li><p>BaseTools are compiled</p></li>
+</ul>
+</li>
+<li><p>Board build hook: <code class="docutils literal notranslate"><span class="pre">pre-build:</span> <span class="pre">before</span></code></p>
+<ul>
+<li><p>Create build directory</p></li>
+<li><p>Generate dlt file from CfgData</p></li>
+</ul>
+</li>
+<li><p>Pre-build:</p>
+<ul>
+<li><p>Make sure SBL signing keys exist</p></li>
+<li><p>Build or grab FSP</p></li>
+<li><p>Create Firmware Interface Table (FIT)</p></li>
+<li><p>Create Bootloader Version Info file</p></li>
+<li><p>Create VBT</p></li>
+<li><p>Create DSC file for build</p></li>
+<li><p>Rebase FSP</p></li>
+<li><p>Create config data</p></li>
+<li><p>Build reset vector // Note - clarify</p></li>
+</ul>
+</li>
+<li><p>Board build hook: <code class="docutils literal notranslate"><span class="pre">pre-build:after</span></code></p>
+<ul>
+<li><p>User can specify if any processing needs to be done at this point and can add relevant functionality to this build hook</p></li>
+</ul>
+</li>
+<li><p>Call EDK-II’s <code class="docutils literal notranslate"><span class="pre">build</span></code> command</p></li>
+<li><p>Board build hook: <code class="docutils literal notranslate"><span class="pre">post-build:</span> <span class="pre">before</span></code></p>
+<ul>
+<li><p>User can specify if any processing needs to be done at this point and can add relevant functionality to this build hook</p></li>
+</ul>
+</li>
+<li><p>Post-build:</p>
+<ul>
+<li><p>Generate binaries for:</p>
+<ul>
+<li><p>UEFI Variable Storage</p></li>
+<li><p>ACM and Diagnostic ACM</p></li>
+<li><p>MRC Training Data</p></li>
+<li><p>Bootloader Variable storage</p></li>
+<li><p>Microcode</p></li>
+<li><p>Payload and EPayload</p></li>
+<li><p>FW Update</p></li>
+</ul>
+</li>
+<li><p>Generate container images</p></li>
+<li><p>Patch stages</p></li>
+<li><p>Create redundant components</p></li>
+<li><p>Stitch</p></li>
+</ul>
+</li>
+<li><p>Board build hook: <code class="docutils literal notranslate"><span class="pre">post-build:</span> <span class="pre">after</span></code></p>
+<ul>
+<li><p>User can specify if any processing needs to be done at this point and can add relevant functionality to this build hook</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="StitchTool.html" class="btn btn-neutral float-right" title="Stitch Tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

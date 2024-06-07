@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boot ACRN Hypervisor &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tools" href="../tools/index.html" />
+    <link rel="prev" title="Add Fastboot Support" href="add-fastboot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-netboot.html">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-pxe-uboot.html">PXE Boot Through U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot ACRN Hypervisor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-spn">Build SBL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flash-spn">Flash SBL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-up">Boot Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enter-fastboot-mode">Enter Fastboot Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#acrn-how-to">ACRN How-To</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upgrade-spn">Upgrade SBL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">Boot ACRN Hypervisor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="boot-acrn-hypervisor">
+<span id="boot-acrn"></span><h1>Boot ACRN Hypervisor<a class="headerlink" href="#boot-acrn-hypervisor" title="Permalink to this heading"></a></h1>
+<p>Step-by-Step guide to build a custom SBL to boot ACRN and provision eMMC on UP<sup>2</sup>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a lengthy but rewarding process. Please expect a few hours to complete this guide.</p>
+</div>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<p>Before you start, prepare the following items:</p>
+<ul class="simple">
+<li><p>Serial debug adapter for UART0 on UP<sup>2</sup> - Required to trigger fastboot and perform firmware update</p></li>
+<li><p>Micro USB cable (type A to microB)</p></li>
+<li><p>USB flash drive</p></li>
+<li><p><strong>RECOMMENDED:</strong> A SPI programmer in case you brick UP<sup>2</sup> and need to restore factory BIOS. See <a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">BIOS chip flashing</a> for details.</p></li>
+</ul>
+<p>For more details on setting up the hardware, see <a class="reference internal" href="../supported-hardware/up2.html#up2-board"><span class="std std-ref">UP2 Board</span></a>.</p>
+</section>
+<section id="build-spn">
+<h2>Build SBL<a class="headerlink" href="#build-spn" title="Permalink to this heading"></a></h2>
+<p>This section describes how to build a custom SBL with fastboot support.</p>
+<p><strong>Step 1:</strong> Install tool chains and clone SBL source code from GitHub</p>
+<blockquote>
+<div><p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">iasl</span> <span class="n">python</span> <span class="n">uuid</span><span class="o">-</span><span class="n">dev</span> <span class="n">nasm</span> <span class="n">openssl</span> <span class="n">gcc</span><span class="o">-</span><span class="n">multilib</span> <span class="n">qemu</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">slimbootloader</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="s2">&quot;email@example.com&quot;</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="s2">&quot;your name&quot;</span>
+</pre></div>
+</div>
+<p>Compile SBL just to verify your setup is complete:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">apl</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Step 2:</strong> Download additional required images and tools</p>
+<ol class="arabic simple">
+<li><p>Download fastboot executable <code class="docutils literal notranslate"><span class="pre">fastboot.elf</span></code> from <a href="https://github.com/intel/kernelflinger/raw/master/prebuilt/board/APL_UP2/fastboot.elf" target="_blank">here</a> to SBL source directory</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Download UP<sup>2</sup> BIOS from <a href="https://downloads.up-community.org/download/up-squared-uefi-bios-v4-0/" target="_blank">here</a> and unzip as is in SBL source directory</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Download IAS script <code class="docutils literal notranslate"><span class="pre">iasimage</span></code> from <a href="https://raw.githubusercontent.com/intel/iasimage/master/iasimage" target="_blank">here</a>
+
+Run as root the following commands::
+
+  # apt-get install python3 python3-pip
+  # pip3 install cryptography==2.2.2 to SBL source directory</p></li>
+</ol>
+<p><strong>Step 3:</strong> Generate IAS image containing <code class="docutils literal notranslate"><span class="pre">fastboot.elf</span></code></p>
+<blockquote>
+<div><p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">Platform</span><span class="o">/</span><span class="n">ApollolakeBoardPkg</span><span class="o">/</span><span class="n">SpiIasBin</span>
+<span class="n">touch</span> <span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">chmod</span> <span class="mi">755</span> <span class="o">./</span><span class="n">iasimage</span>
+<span class="o">./</span><span class="n">iasimage</span> <span class="n">create</span> <span class="o">-</span><span class="n">o</span> <span class="n">Platform</span><span class="o">/</span><span class="n">ApollolakeBoardPkg</span><span class="o">/</span><span class="n">SpiIasBin</span><span class="o">/</span><span class="n">iasimage1</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">d</span> <span class="o">./</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">Keys</span><span class="o">/</span><span class="n">TestSigningPrivateKey</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="n">i</span> <span class="mh">0x40000</span> <span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span> <span class="n">fastboot</span><span class="o">.</span><span class="n">elf</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">iasimage1.bin</span></code></dt><dd><p>The binary file will be added into SBL image during build process</p>
+<p>See <a class="reference internal" href="create-ias-boot-image.html#create-ias-boot-image"><span class="std std-ref">Create IAS Boot Image</span></a> for additional details.</p>
+</dd>
+</dl>
+<p><strong>Step 4:</strong> Build and stitch</p>
+<blockquote>
+<div><p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python BuildLoader.py build apl
+python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i UPA1AM40.bin -s Outputs/apl/Stitch_Components.zip -o sbl_up2_ifwi.bin -p 0xAA00000E -b bios.bin
+python BootloaderCorePkg/Tools/GenCapsuleFirmware.py -k $SBL_KEY_DIR/FirmwareUpdateTestKey_Priv_RSA2048.pem -o FwuImage.bin -b bios.bin
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">sbl_up2_ifwi.bin</span></code></dt><dd><p>The binary file to be flashed by BIOS flash tool or SPI programmer</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code></dt><dd><p>The binary file to be copied to USB flash drive to upgrade SBL from shell command</p>
+</dd>
+</dl>
+</section>
+<section id="flash-spn">
+<h2>Flash SBL<a class="headerlink" href="#flash-spn" title="Permalink to this heading"></a></h2>
+<p>This section describes how to update SBL for the <strong>first</strong> time from UEFI BIOS shell interface.</p>
+<p><strong>Step 1:</strong> BIOS flash tool is included in the same BIOS package downloaded <a href="https://downloads.up-community.org/download/up-squared-uefi-bios-v4-0/" target="_blank">here</a></p>
+<p>BIOS flash tool is named <code class="docutils literal notranslate"><span class="pre">Fpt_xxx.efi</span></code> inside the BIOS package.</p>
+<p><strong>Step 2:</strong> Copy <strong>ALL</strong> files from the downloaded BIOS package and <code class="docutils literal notranslate"><span class="pre">sbl_up2_ifwi.bin</span></code> to a USB flash drive formatted in FAT32</p>
+<p><strong>Step 3:</strong> Insert USB flash drive and boot UP<sup>2</sup>. Press <strong>F7</strong> during boot to enter UEFI shell</p>
+<blockquote>
+<div><p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shell</span><span class="o">&gt;</span> <span class="n">fs1</span><span class="p">:</span>
+<span class="n">Shell</span><span class="o">&gt;</span> <span class="n">ls</span>
+<span class="n">Shell</span><span class="o">&gt;</span> <span class="n">Fpt_3</span><span class="mf">.1.50.2222</span><span class="o">.</span><span class="n">efi</span> <span class="o">-</span><span class="n">f</span> <span class="n">sbl_up2_ifwi</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">y</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="n">FPT</span> <span class="n">Operation</span> <span class="n">Successful</span><span class="o">.</span>
+<span class="n">Shell</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The update process takes a few minutes.</p>
+</section>
+<section id="boot-up">
+<h2>Boot Up<a class="headerlink" href="#boot-up" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SBL uses UART0 (CN16 connector) for early boot debug messages.</p>
+</div>
+<p>Connect serial adapter between UP<sup>2</sup> and the host. Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.</p>
+<p>Power on UP<sup>2</sup> and observe the following debug messages from serial connection:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>BtGuard: VB : 0, MB : 0
+
+============= Intel Slim Bootloader STAGE1A =============
+SBID: SB_APLI
+ISVN: 001
+IVER: 000.005.001.000.05486
+SVER: EDC112328CF3E414
+FDBG: BLD(D) FSP(R)
+FSPV: ID($APLFSP$) REV(01040301)
+Loader global data @ 0xFEF01D54
+Run  STAGE1A @ 0xFEF80000
+Load STAGE1B @ 0xFEF88000
+No BtGuard verification !
+
+...
+
+====================Os Loader====================
+
+
+Press any key within 1 second(s) to enter the command shell
+Boot options (in HEX):
+
+...
+</pre></div>
+</div>
+</section>
+<section id="enter-fastboot-mode">
+<h2>Enter Fastboot Mode<a class="headerlink" href="#enter-fastboot-mode" title="Permalink to this heading"></a></h2>
+<p>Currently the only method to enter fastboot mode is by user commands from SBL shell.</p>
+<p><strong>Step 1:</strong> Reset UP<sup>2</sup> and press any key in serial console to enter shell</p>
+<p><strong>Step 2:</strong> Type user command from shell to enter fastboot mode</p>
+<p>Example debug messages (including user commands):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>====================Os Loader====================
+
+
+Press any key within 2 second(s) to enter the command shell
+
+Shell&gt; boot
+Boot options (in HEX):
+
+Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+  0|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  1|      0|   MMC |    0 |   0 |    0 |  RAW |    1 | 0x0       &lt;-- ACRN boot option settings
+  2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  3|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  4|      4|   MEM |    0 |   0 |    0 |  RAW |    0 | 0x0       &lt;-- fastboot settings
+
+SubCommand:
+  s   -- swap boot order by index
+  a   -- modify all boot options one by one
+  q   -- quit boot option change
+  idx -- modify the boot option specified by idx (0 to 0x4)
+s
+Enter first index to swap (0x0 to 0x4)
+0
+Enter second index to swap (0x0 to 0x4)
+4
+Updated the Boot Option List
+Boot options (in HEX):
+
+Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+  0|      4|   MEM |    0 |   0 |    0 |  RAW |    0 | 0x0
+  1|      0|   MMC |    0 |   0 |    0 |  RAW |    1 | 0x0
+  2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  3|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  4|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+
+
+Shell&gt; exit
+Boot options (in HEX):
+
+Idx|ImgType|DevType|DevNum|Flags|HwPart|FsType|SwPart|File/Lbaoffset
+  0|      4|   MEM |    0 |   0 |    0 |  RAW |    0 | 0x0
+  1|      0|   MMC |    0 |   0 |    0 |  RAW |    1 | 0x0
+  2|      0|  SATA |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  3|      0|   USB |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+  4|      0|   MMC |    0 |   0 |    0 |  FAT |    0 | iasimage.bin
+
+BootMediumPciBase(0x1000000)
+Getting boot image from... MEM
+Try to find boot partition
+Part 00: 0xFF9DC000--0xFFB2C000, LBA count: 0x150000
+SPI BIOS region: (1 logical partitions)
+Find partition success
+BootSlot = 0x0
+Load image from SwPart (0x0), LbaAddr(0x0)
+HASH Verification Success! Component Type (6)
+RSA Verification Success!
+IAS image is properly signed/verified
+IAS size = 0x149404, file number: 2
+IAS Image Type = 0x4
+cmd Count = [0x0]
+Boot image is ELF format...
+and Image is Multiboot format
+SetupBootImage: Status = Success
+
+...
+...
+...
+
+Starting MB Kernel ...
+
+ abl cmd 00: console=ttyS0,115200
+ abl cmd 00 length: 20
+ abl cmd 01: fw_boottime=15230
+ abl cmd 01 length: 17
+boot target: 1
+target=1
+Enter fastboot mode ...
+Start Send HECI Message: EndOfPost
+HECI sec_mode 00000000
+GetSeCMode successful
+GEN_END_OF_POST size is 4
+uefi_call_wrapper(SendwACK) =  0
+Group    =000000FF
+Command  =0000000C
+IsRespone=00000001
+Result   =00000000
+RequestedActions   =00000000
+USB for fastboot transport layer selected   &lt;-- fastboot mode is active now!
+</pre></div>
+</div>
+<p><strong>Step 4:</strong> Verify fastboot connection</p>
+<blockquote>
+<div><p>Connect USB cable between host and UP<sup>2</sup> USB OTG port.</p>
+<p>Run (as root):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># apt-get install fastboot</span>
+
+<span class="c1"># fastboot devices</span>
+<span class="n">HBG4a2428525f7</span>  <span class="n">fastboot</span>
+
+<span class="c1"># fastboot getvar version-bootloader</span>
+<span class="n">version</span><span class="o">-</span><span class="n">bootloader</span><span class="p">:</span> <span class="n">fastboot</span><span class="o">-</span><span class="n">NonAndroid</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="n">userdebug</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="acrn-how-to">
+<h2>ACRN How-To<a class="headerlink" href="#acrn-how-to" title="Permalink to this heading"></a></h2>
+<p>Now it’s time to visit <a href="https://projectacrn.github.io/latest/tutorials/using_sbl_on_up2.html" target="_blank">Project ACRN website</a> to build, flash and boot a complete ACRN Hypervisor with UOS on UP<sup>2</sup> board.</p>
+</section>
+<section id="upgrade-spn">
+<h2>Upgrade SBL<a class="headerlink" href="#upgrade-spn" title="Permalink to this heading"></a></h2>
+<p>Sometimes, you may need to update SBL firmware with newer versions on UP<sup>2</sup>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is highly recommended to have an SPI programmer in case UP<sup>2</sup> is bricked after firmware update.</p>
+</div>
+<p><strong>Step 1:</strong> Copy <code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code> onto USB flash drive formatted in FAT32</p>
+<p><strong>Step 2:</strong> Reset UP<sup>2</sup> and press any key to enter shell</p>
+<blockquote>
+<div><p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shell</span><span class="o">&gt;</span>
+
+<span class="n">Shell</span><span class="o">&gt;</span> <span class="n">fwupdate</span>
+<span class="n">HECI</span> <span class="n">SecMode</span> <span class="mi">0</span>
+<span class="n">Group</span>    <span class="o">=</span><span class="mi">00000020</span>
+<span class="n">Command</span>  <span class="o">=</span><span class="mi">00000007</span>
+<span class="n">IsRespone</span><span class="o">=</span><span class="mi">00000001</span>
+<span class="n">Result</span>   <span class="o">=</span><span class="mi">00000000</span>
+<span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The system should start updating and reset itself <strong>a few times</strong>. If the update is successful, the system should boot into ACRN again.</p>
+<p>To confirm the SBL is updated correctly, take notes of the version information from serial debug messages <strong>before</strong> and <strong>after</strong> the update:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>BtGuard: VB : 0, MB : 0
+
+============= Intel Slim Bootloader STAGE1A =============
+SBID: SB_APLI
+ISVN: 001
+IVER: 000.005.001.000.05482 &lt;-- Last part (05482) is a unique time stamp from build
+SVER: C815BBFB25461C98      &lt;-- GIT commit SHA1
+FDBG: BLD(D) FSP(R)
+FSPV: ID($APLFSP$) REV(01040301)
+Loader global data @ 0xFEF01D54
+Run  STAGE1A @ 0xFEF80000
+Load STAGE1B @ 0xFEF88000
+No BtGuard verification !
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="add-fastboot.html" class="btn btn-neutral float-left" title="Add Fastboot Support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tools/index.html" class="btn btn-neutral float-right" title="Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

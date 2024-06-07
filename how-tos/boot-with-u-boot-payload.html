@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boot Linux with U-Boot Payload &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PXE Boot Through U-Boot Payload" href="boot-pxe-uboot.html" />
+    <link rel="prev" title="Boot Linux as a Payload" href="boot-with-linux-payload.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-netboot.html">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-ubuntu.html#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot Linux with U-Boot Payload</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-instruction-for-u-boot">Build Instruction for U-Boot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-slim-bootloader">Prepare Slim Bootloader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-instruction-for-qemu-target">Build Instruction for QEMU target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-linux-booting-on-qemu-target">Test Linux booting on QEMU target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-instruction-for-leafhill-apl-target">Build Instruction for LeafHill (APL) target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-instruction-to-use-elf-u-boot">Build Instruction to use ELF U-Boot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-pxe-uboot.html">PXE Boot Through U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">Boot Linux with U-Boot Payload</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="boot-linux-with-u-boot-payload">
+<h1>Boot Linux with U-Boot Payload<a class="headerlink" href="#boot-linux-with-u-boot-payload" title="Permalink to this heading"></a></h1>
+<p>SBL can boot Linux by using <a class="reference external" href="https://gitlab.denx.de/">U-Boot</a> Payload.</p>
+<p>This page provides a step-by-step how to build SBL with U-Boot Payload.</p>
+<section id="build-instruction-for-u-boot">
+<h2>Build Instruction for U-Boot<a class="headerlink" href="#build-instruction-for-u-boot" title="Permalink to this heading"></a></h2>
+<p>Build U-Boot and obtain u-boot-dtb.bin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://gitlab.denx.de/u-boot/u-boot.git &amp;&amp; cd u-boot
+$ make distclean
+$ make slimbootloader_defconfig
+$ make all
+</pre></div>
+</div>
+</section>
+<section id="prepare-slim-bootloader">
+<h2>Prepare Slim Bootloader<a class="headerlink" href="#prepare-slim-bootloader" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Create PayloadBins directory in PayloadPkg:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p &lt;Slim Bootloader Dir&gt;/PayloadPkg/PayloadBins/
+</pre></div>
+</div>
+</li>
+<li><p>Copy u-boot-dtb.bin to PayloadBins directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cp &lt;U-Boot Dir&gt;/u-boot-dtb.bin &lt;Slim Bootloader Dir&gt;/PayloadPkg/PayloadBins/u-boot-dtb.bin
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="build-instruction-for-qemu-target">
+<h2>Build Instruction for QEMU target<a class="headerlink" href="#build-instruction-for-qemu-target" title="Permalink to this heading"></a></h2>
+<p>Slim Bootloader supports multiple payloads, and a board of Slim Bootloader
+detects its target payload by PayloadId in board configuration.
+The PayloadId can be any 4 Bytes value.</p>
+<ol class="arabic">
+<li><p>Update PayloadId. Let’s use ‘U-BT’ as an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vi Platform/QemuBoardPkg/CfgData/CfgDataExt_Brd1.dlt
+-GEN_CFG_DATA.PayloadId                     | &#39;AUTO&#39;
++GEN_CFG_DATA.PayloadId                     | &#39;U-BT&#39;
+</pre></div>
+</div>
+</li>
+<li><p>Update payload text base. PAYLOAD_EXE_BASE must be the same as U-Boot
+CONFIG_SYS_TEXT_BASE in board/intel/slimbootloader/Kconfig.
+PAYLOAD_LOAD_HIGH must be 0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vi Platform/QemuBoardPkg/BoardConfig.py
++               self.PAYLOAD_LOAD_HIGH    = 0
++               self.PAYLOAD_EXE_BASE     = 0x00100000
+</pre></div>
+</div>
+</li>
+<li><p>Build QEMU target. Make sure u-boot-dtb.bin and U-BT PayloadId
+in build command. The output is Outputs/qemu/SlimBootloader.bin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python BuildLoader.py build qemu -p &quot;OsLoader.efi:LLDR:Lz4;u-boot-dtb.bin:U-BT:Lzma&quot;
+</pre></div>
+</div>
+</li>
+<li><p>Launch Slim Bootloader on QEMU.
+You should reach at U-Boot serial console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ qemu-system-x86_64 -machine q35 -nographic -serial mon:stdio -pflash Outputs/qemu/SlimBootloader.bin
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="test-linux-booting-on-qemu-target">
+<h2>Test Linux booting on QEMU target<a class="headerlink" href="#test-linux-booting-on-qemu-target" title="Permalink to this heading"></a></h2>
+<p>Let’s use LeafHill (APL) Yocto image for testing.
+Download it from <a class="reference external" href="http://downloads.yoctoproject.org/releases/yocto/yocto-2.0/machines/leafhill/">http://downloads.yoctoproject.org/releases/yocto/yocto-2.0/machines/leafhill/</a>.</p>
+<ol class="arabic">
+<li><p>Prepare Yocto hard disk image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget http://downloads.yoctoproject.org/releases/yocto/yocto-2.0/machines/leafhill/leafhill-4.0-jethro-2.0.tar.bz2
+$ tar -xvf leafhill-4.0-jethro-2.0.tar.bz2
+$ ls -l leafhill-4.0-jethro-2.0/binary/core-image-sato-intel-corei7-64.hddimg
+</pre></div>
+</div>
+</li>
+<li><p>Launch Slim Bootloader on QEMU with disk image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ qemu-system-x86_64 -machine q35 -nographic -serial mon:stdio -pflash Outputs/qemu/SlimBootloader.bin -drive id=mydrive,if=none,file=/path/to/core-image-sato-intel-corei7-64.hddimg,format=raw -device ide-hd,drive=mydrive
+</pre></div>
+</div>
+</li>
+<li><p>Update boot environment values on shell:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=&gt;</span> <span class="n">setenv</span> <span class="n">bootfile</span> <span class="n">vmlinuz</span>
+<span class="o">=&gt;</span> <span class="n">setenv</span> <span class="n">bootdev</span> <span class="n">scsi</span>
+<span class="o">=&gt;</span> <span class="n">boot</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="build-instruction-for-leafhill-apl-target">
+<h2>Build Instruction for LeafHill (APL) target<a class="headerlink" href="#build-instruction-for-leafhill-apl-target" title="Permalink to this heading"></a></h2>
+<p>LeafHill is using PCI UART2 device as a serial port.
+For MEM32 serial port, CONFIG_SYS_NS16550_MEM32 needs to be enabled in U-Boot.</p>
+<ol class="arabic">
+<li><p>Enable CONFIG_SYS_NS16550_MEM32 in U-Boot:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vi include/configs/slimbootloader.h
++#define CONFIG_SYS_NS16550_MEM32
+ #ifdef CONFIG_SYS_NS16550_MEM3
+</pre></div>
+</div>
+</li>
+<li><p>Build U-Boot:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make disclean
+$ make slimbootloader_defconfig
+$ make all
+</pre></div>
+</div>
+</li>
+<li><p>Copy u-boot-dtb.bin to Slim Bootloader.
+Slim Bootloader looks for a payload from the specific location.
+Copy the build u-boot-dtb.bin to the expected location:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p &lt;Slim Bootloader Dir&gt;/PayloadPkg/PayloadBins/
+$ cp &lt;U-Boot Dir&gt;/u-boot-dtb.bin &lt;Slim Bootloader Dir&gt;/PayloadPkg/PayloadBins/u-boot-dtb.bin
+</pre></div>
+</div>
+</li>
+<li><p>Update PayloadId. Let’s use ‘U-BT’ as an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vi Platform/ApollolakeBoardPkg/CfgData/CfgData_Int_LeafHill.dlt
+-GEN_CFG_DATA.PayloadId                     | &#39;AUTO
++GEN_CFG_DATA.PayloadId                     | &#39;U-BT&#39;
+</pre></div>
+</div>
+</li>
+<li><p>Update payload text base.</p></li>
+</ol>
+<ul>
+<li><p>PAYLOAD_EXE_BASE must be the same as U-Boot CONFIG_SYS_TEXT_BASE
+in board/intel/slimbootloader/Kconfig.</p></li>
+<li><p>PAYLOAD_LOAD_HIGH must be 0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vi Platform/ApollolakeBoardPkg/BoardConfig.py
++               self.PAYLOAD_LOAD_HIGH    = 0
++               self.PAYLOAD_EXE_BASE     = 0x00100000
+</pre></div>
+</div>
+</li>
+</ul>
+<ol class="arabic" start="6">
+<li><p>Build APL target. Make sure u-boot-dtb.bin and U-BT PayloadId
+in build command. The output is Outputs/apl/Stitch_Components.zip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python BuildLoader.py build apl -p &quot;OsLoader.efi:LLDR:Lz4;u-boot-dtb.bin:U-BT:Lzma&quot;
+</pre></div>
+</div>
+</li>
+<li><p>Stitch IFWI.</p>
+<p>Refer to Apollolake page in Slim Bootloader document site:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python Platform/ApollolakeBoardPkg/Script/StitchLoader.py -i &lt;Existing IFWI&gt; -s Outputs/apl/Stitch_Components.zip -o &lt;Output IFWI&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Flash IFWI.</p>
+<p>Use DediProg to flash IFWI. You should reach at U-Boot serial console.</p>
+</li>
+</ol>
+</section>
+<section id="build-instruction-to-use-elf-u-boot">
+<h2>Build Instruction to use ELF U-Boot<a class="headerlink" href="#build-instruction-to-use-elf-u-boot" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Enable CONFIG_OF_EMBED:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vi configs/slimbootloader_defconfig
++CONFIG_OF_EMBED=y
+</pre></div>
+</div>
+</li>
+<li><p>Build U-Boot:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make disclean
+$ make slimbootloader_defconfig
+$ make all
+$ strip u-boot (removing symbol for reduced size)
+</pre></div>
+</div>
+</li>
+<li><p>Do same steps as above</p></li>
+</ol>
+<ul>
+<li><p>Copy u-boot (ELF) to PayloadBins directory</p></li>
+<li><p>Update PayloadId ‘U-BT’ as above.</p></li>
+<li><p>No need to set PAYLOAD_LOAD_HIGH and PAYLOAD_EXE_BASE.</p></li>
+<li><p>Build Slim Bootloader. Use u-boot instead of u-boot-dtb.bin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python BuildLoader.py build &lt;qemu or apl&gt; -p &quot;OsLoader.efi:LLDR:Lz4;u-boot:U-BT:Lzma&quot;
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="boot-with-linux-payload.html" class="btn btn-neutral float-left" title="Boot Linux as a Payload" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="boot-pxe-uboot.html" class="btn btn-neutral float-right" title="PXE Boot Through U-Boot Payload" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

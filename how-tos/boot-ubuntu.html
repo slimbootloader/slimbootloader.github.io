@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boot Ubuntu &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot VxWorks" href="boot-vxworks.html" />
+    <link rel="prev" title="Netboot / PXE boot with UEFI Payload" href="boot-netboot.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-Tos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-new-payload.html#helloworld-payload">HelloWorld Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrate-multiple-payloads.html">Integrate Multiple Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-container-boot-image.html">Create Container Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create-ias-boot-image.html">Create IAS Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-windows.html">Boot Windows with UEFI Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-netboot.html">Netboot / PXE boot with UEFI Payload</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-spn-os-container-boot">Setup SBL OS Container Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-vxworks.html">Boot VxWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-zephyr.html">Boot Zephyr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-micropython.html">Boot MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-linux-payload.html">Boot Linux as a Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-with-u-boot-payload.html">Boot Linux with U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-pxe-uboot.html">PXE Boot Through U-Boot Payload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-memory-down.html">Configure Memory Down</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect-time-logs.html">Capture Boot Time Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html">GPIO / CFIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
+      <li class="breadcrumb-item active">Boot Ubuntu</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="boot-ubuntu">
+<span id="id1"></span><h1>Boot Ubuntu<a class="headerlink" href="#boot-ubuntu" title="Permalink to this heading"></a></h1>
+<p>SBL can boot Ubuntu Linux using SBL with default OS loader. This page provides a step-by-step guide how to do so.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>OS Loader payload is capable of booting Ubuntu if it was installed using UEFI Payload. See <a class="reference internal" href="#note-on-boot-option"><span class="std std-ref">Setup SBL OS Container Boot</span></a> for details on configuring your boot option to support Ubuntu booting with OS Loader.</p>
+</div>
+<p>The following steps have been verified with Ubuntu Linux 20.04 LTS (64-bit).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Traditional Linux booting using vmlinuz, initrd, and config.cfg is only supported with the debug build of SBL or if you have <strong>self.HAVE_VERIFIED_BOOT = 0</strong> in your BoardConfig.py; you can test using debug build initially but for release build support consider packaging the vmlinuz, initrd, and config.cfg into container image format. See <a class="reference internal" href="create-container-boot-image.html#create-container-boot-image"><span class="std std-ref">Create Container Boot Image</span></a> for more details.</p>
+</div>
+<p><strong>STEP 1:</strong> Build SBL</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The BoardConfig.py option <strong>self.ENABLE_GRUB_CONFIG = 1</strong> should be set when building SBL.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you encounter any error loading the vmlinuz or initrd files due to space allocation issues you may need to increase the value of your <strong>self.PLD_HEAP_SIZE</strong> set in your board’s BoardConfig.py and re-build SBL and flash as a new IFWI. Consider the following formula for your value: PLD_HEAP_SIZE = initrd size + kernel size + 32MB</p>
+</div>
+<p><strong>STEP 2:</strong> Flash IFWI image to the board</p>
+<p><strong>STEP 3:</strong> Download Ubuntu Desktop 20.04 ISO image from Ubuntu website</p>
+<p><strong>STEP 4:</strong> Create a USB flash drive from the ISO image with Rufus tool. The recommended settings to use for Rufus setup are given in the images below.</p>
+<img alt="Rufus settings for GPT and UEFI" src="../_images/Rufus_Settings.png" />
+<img alt="Rufus settings in ISO mode" src="../_images/Rufus_Settings2.png" />
+<p><strong>STEP 5:</strong> Boot from USB flash drive</p>
+<p>From serial console, boot to shell and enter <cite>boot</cite> command, check that your USB settings should look similar to the below (the value of File/Lbaoffset does not matter):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Idx</span><span class="o">|</span><span class="n">ImgType</span><span class="o">|</span><span class="n">DevType</span><span class="o">|</span><span class="n">DevNum</span><span class="o">|</span><span class="n">Flags</span><span class="o">|</span><span class="n">HwPart</span><span class="o">|</span><span class="n">FsType</span><span class="o">|</span><span class="n">SwPart</span><span class="o">|</span><span class="n">File</span><span class="o">/</span><span class="n">Lbaoffset</span>
+  <span class="mi">0</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>   <span class="n">USB</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>  <span class="n">FAT</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">xxx</span> <span class="o">*</span><span class="n">Current</span>
+</pre></div>
+</div>
+<p>If your USB settings don’t look similar to the above then enter <cite>0</cite> and update the settings accordingly when prompted.</p>
+<p>Continue the boot by typing <cite>exit</cite> in the shell.</p>
+<p>When done successfully the terminal should look something like the below.</p>
+<img alt="Reference boot terminal" src="../_images/ubuntu_step_0.png" />
+<p>Boot Menu should show up on the serial console. If grub-entry <cite>0</cite> does not work reboot and try grub-entry <cite>1</cite> to install Ubuntu.</p>
+<p><strong>STEP 6:</strong> Follow instructions to install Ubuntu</p>
+<ol class="arabic simple">
+<li><p>Once booted to the initial Ubuntu Installation UI, select the <cite>Try Ubuntu</cite> option to perform some pre-install configuration.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_1.png"><img alt="Try Ubuntu UI option" src="../_images/ubuntu_step_1.png" style="width: 600px;" /></a>
+<ol class="arabic simple" start="2">
+<li><p>In the upper left-hand corner select the <cite>Activities</cite> menu and open a <cite>Terminal</cite> window.</p></li>
+</ol>
+<img alt="Activities and Terminal window" src="../_images/ubuntu_step_2.png" />
+<ol class="arabic simple" start="3">
+<li><p>In the terminal you can use <cite>lsblk</cite> to confirm the media you will use for installation followed by <cite>gdisk</cite> to wipe the media. In this example we will be using the <cite>/dev/nvme1n1</cite> device.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_3.png"><img alt="lsblk and gdisk wiping" src="../_images/ubuntu_step_3.png" style="width: 600px;" /></a>
+<ol class="arabic simple" start="4">
+<li><p>Create a new GPT using <cite>gdisk</cite> before beginning the installation.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_4.png"><img alt="Using gdisk to create a new GPT on the install media" src="../_images/ubuntu_step_4.png" style="width: 600px;" /></a>
+<ol class="arabic simple" start="5">
+<li><p>Select the <cite>Install Ubuntu 20.04 LTS</cite> icon to begin the installation process.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_5.png"><img alt="Selecting the install Ubuntu icon" src="../_images/ubuntu_step_5.png" style="width: 600px;" /></a>
+<p>Continue the installation process until you reach the <cite>Installation Type</cite> page.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_6.png"><img alt="Selecting the install Ubuntu icon" src="../_images/ubuntu_step_6.png" style="width: 600px;" /></a>
+<ol class="arabic simple" start="6">
+<li><p>On the <cite>Installation Type</cite> page select the <cite>Something else</cite> option and continue to the next page.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_7.png"><img alt="Selecting the something else option" src="../_images/ubuntu_step_7.png" style="width: 600px;" /></a>
+<ol class="arabic simple" start="7">
+<li><p>Make sure the installation media is selected in the drop-down menu at the bottom of the window. Continue by selecting the <cite>free space</cite> entry for the selected device.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_8.png"><img alt="Installation type page start" src="../_images/ubuntu_step_8.png" style="width: 600px;" /></a>
+<p>Proceed to click the <cite>+</cite> button to add the first partition. This first partition is optional: add a 500MB FAT32 partition.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_9.png"><img alt="Add FAT32 partition" src="../_images/ubuntu_step_9.png" style="width: 600px;" /></a>
+<p>Proceed to click the <cite>+</cite> button to add the next partition.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_10.png"><img alt="Add root partition" src="../_images/ubuntu_step_10.png" style="width: 600px;" /></a>
+<p>This partition is required: add a root partition (EXT4 recommended). In this example we leave some space for a swap partition at the end of the media (~4GB).</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_11.png"><img alt="Configure the root partition" src="../_images/ubuntu_step_11.png" style="width: 600px;" /></a>
+<p>Proceed to click the <cite>+</cite> button to add the next partition.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_12.png"><img alt="Add swap partition" src="../_images/ubuntu_step_12.png" style="width: 600px;" /></a>
+<p>This partition is optional: add a swap partition.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_13.png"><img alt="Add swap partition" src="../_images/ubuntu_step_13.png" style="width: 600px;" /></a>
+<p>Once all partitioning is completed proceed by clicking the <cite>Install Now</cite> button.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_14.png"><img alt="Continue with Install Now" src="../_images/ubuntu_step_14.png" style="width: 600px;" /></a>
+<p>You may encounter the below pop-up about a “Reserved BIOS boot area”, this is not needed for SBL and can be ignored.</p>
+<img alt="Reserved BIOS boot area warning" src="../_images/ubuntu_step_15.png" />
+<p>You may encounter the below pop-up about no mount point for the FAT32 file system, you may go back to add a mount point if desired or you can disregard by clicking <cite>Continue</cite>.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_16.png"><img alt="Configure the root partition" src="../_images/ubuntu_step_16.png" style="width: 600px;" /></a>
+<p>You should see a final summary of the partitions that will be installed. If you added all 3 of the partitions it will look similar to the below.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_17.png"><img alt="Configure the root partition" src="../_images/ubuntu_step_17.png" style="width: 600px;" /></a>
+<p>Continue with the installation until reaching the <cite>Installation Complete</cite> window.</p>
+</section>
+<section id="setup-spn-os-container-boot">
+<span id="note-on-boot-option"></span><h1>Setup SBL OS Container Boot<a class="headerlink" href="#setup-spn-os-container-boot" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At this point the remaining steps are considered optional for OS container booting. To boot your installation your settings should match the below aside from the DevType and DevNum which may be different in your case; the value of File/Lbaoffset does not matter in this case. If earlier you skipped adding the FAT32 partition your SwPart value should be set to 0 instead.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Idx</span><span class="o">|</span><span class="n">ImgType</span><span class="o">|</span><span class="n">DevType</span><span class="o">|</span><span class="n">DevNum</span><span class="o">|</span><span class="n">Flags</span><span class="o">|</span><span class="n">HwPart</span><span class="o">|</span><span class="n">FsType</span><span class="o">|</span><span class="n">SwPart</span><span class="o">|</span><span class="n">File</span><span class="o">/</span><span class="n">Lbaoffset</span>
+  <span class="mi">0</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>  <span class="n">NVME</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">EXT2</span> <span class="o">|</span>    <span class="mi">1</span> <span class="o">|</span> <span class="n">xxx</span> <span class="o">*</span><span class="n">Current</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>Before restarting the system select the <cite>Continue Testing</cite> option.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_18.png"><img alt="Continue testing select" src="../_images/ubuntu_step_18.png" style="width: 600px;" /></a>
+<ol class="arabic simple" start="9">
+<li><p>Go back into a terminal window and double check the media devices with the <cite>lsblk</cite> command making note of the media Ubuntu was just installed to. Proceed to run <cite>mkdir root</cite> and mount partition 2 of the newly installed media to this folder, in the case of this example we run <cite>sudo mount /dev/nvme1n1p2 ./root/</cite>. Check the contents of <cite>./root/boot</cite> and note the contents, there are 2 files of interest, a kernel image and a corresponding initrd.</p></li>
+</ol>
+<img alt="Mount installation media root partition" src="../_images/ubuntu_step_19.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your kernel and initrd versions may be different from the ones displayed in the above image, e.g. 5.11.0-27-generic.</p>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>If you have a network connection you can download the tools utilized to create a signed OS container for booting Ubuntu (required for release mode boot of SBL) by running the commands below. Alternatively you can download these scripts onto a USB and copy them into the Ubuntu environment manually or run the next steps on a different system altogether (you will need to copy the kernel image and initrd files to the other system however).</p></li>
+</ol>
+<p><cite>wget</cite> commands to download the container generation tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span>
+<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">CommonUtility</span><span class="o">.</span><span class="n">py</span>
+<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">slimbootloader</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">SingleSign</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you require a proxy you can modify the wget command by adding on the following, <cite>-e https_proxy=&lt;my.proxy.com:port&gt;</cite>.</p>
+</div>
+<p>Once completed you should now have these 3 files downloaded locally.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_20.png"><img alt="Download container tool with wget" src="../_images/ubuntu_step_20.png" style="width: 600px;" /></a>
+<p>11. We need to generate the kernel command line parameters file.
+The following is a basic command line that can be used, you may modify it further if desired:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;root=/dev/nvme1n1p2 ro quiet splash&quot;</span> <span class="o">&gt;</span> <span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>We should now have the cmdline.txt file saved.</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_step_21.png"><img alt="Generate cmdline.txt file" src="../_images/ubuntu_step_21.png" style="width: 600px;" /></a>
+<p>12. You will need to copy your <cite>OS1_TestKey_Priv_RSA2048.pem</cite> or <cite>OS1_TestKey_Priv_RSA3072.pem</cite> (depending on the RSA and SHA types specified in your <cite>BoardConfig.py</cite>) from your <cite>SblKeys</cite> folder where SBL was built to the Ubuntu machine and run the series of commands below to create the <cite>sbl_os</cite> container, copy this to the <cite>root/boot</cite> folder of your installation media, and lastly unmount the <cite>root</cite> partition of your installation media.
+The commands are as follows in this example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">GenContainer</span><span class="o">.</span><span class="n">py</span> <span class="n">create</span> <span class="o">-</span><span class="n">cl</span> <span class="n">CMDL</span><span class="p">:</span><span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span> <span class="n">KRNL</span><span class="p">:</span><span class="o">./</span><span class="n">root</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-&lt;</span><span class="n">kernel</span><span class="o">-</span><span class="n">version</span><span class="o">&gt;</span> <span class="n">INRD</span><span class="p">:</span><span class="o">./</span><span class="n">root</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-&lt;</span><span class="n">kernel</span><span class="o">-</span><span class="n">version</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">k</span> <span class="o">./</span><span class="n">SblKeys</span><span class="o">/</span><span class="n">OS1_TestKey_Priv_RSA3072</span><span class="o">.</span><span class="n">pem</span> <span class="o">-</span><span class="n">a</span> <span class="n">RSA3072_PKCS1_SHA2_384</span> <span class="o">-</span><span class="n">t</span> <span class="n">CLASSIC</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_os</span>
+<span class="n">sudo</span> <span class="n">cp</span> <span class="n">sbl_os</span> <span class="o">./</span><span class="n">root</span><span class="o">/</span><span class="n">boot</span>
+<span class="n">sudo</span> <span class="n">umount</span> <span class="o">./</span><span class="n">root</span>
+</pre></div>
+</div>
+<p>The output should look something like the below.</p>
+<img alt="Generate container, copy to root, umount root" src="../_images/ubuntu_step_22.png" />
+<ol class="arabic simple" start="13">
+<li><p>Shutdown the Ubuntu system, remove the USB flash drive, and reboot the system.</p></li>
+</ol>
+<p>SBL should now be able to boot the Ubuntu sbl_os container file.</p>
+<p>If you are facing difficulty check the <cite>boot</cite> command output to confirm your boot options are configured similar to the below (depending on the media you installed Ubuntu to):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Idx</span><span class="o">|</span><span class="n">ImgType</span><span class="o">|</span><span class="n">DevType</span><span class="o">|</span><span class="n">DevNum</span><span class="o">|</span><span class="n">Flags</span><span class="o">|</span><span class="n">HwPart</span><span class="o">|</span><span class="n">FsType</span><span class="o">|</span><span class="n">SwPart</span><span class="o">|</span><span class="n">File</span><span class="o">/</span><span class="n">Lbaoffset</span>
+  <span class="mi">0</span><span class="o">|</span>      <span class="mi">0</span><span class="o">|</span>  <span class="n">NVME</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>   <span class="mi">0</span> <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span> <span class="n">EXT2</span> <span class="o">|</span>    <span class="mi">1</span> <span class="o">|</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">sbl_os</span> <span class="o">*</span><span class="n">Current</span>
+</pre></div>
+</div>
+<p>This is indicating that NVMe device number instance 0 (if you have more than 1 NVMe you may need to try the other device instances) should have a 2nd partition (e.g. SwPart=1) with an EXT2/3/4 file system and the file <cite>/boot/sbl_os</cite> which is the Ubuntu container image generated in the earlier steps. If earlier you skipped adding the FAT32 partition your SwPart value should be set to 0 instead.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="boot-netboot.html" class="btn btn-neutral float-left" title="Netboot / PXE boot with UEFI Payload" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="boot-vxworks.html" class="btn btn-neutral float-right" title="Boot VxWorks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

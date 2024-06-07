@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting Started" href="../getting-started/index.html" />
+    <link rel="prev" title="Slim Bootloader Project Documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<span id="intro"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
+<blockquote class="epigraph">
+<div><p><cite>The art of simplicity is a puzzle of complexity.</cite> – <strong>Douglas Horton</strong></p>
+</div></blockquote>
+<section id="design-philosophy">
+<h2>Design Philosophy<a class="headerlink" href="#design-philosophy" title="Permalink to this heading"></a></h2>
+<p>Platform firmware has two primary responsibilities:</p>
+<ul class="simple">
+<li><p><strong>Initializing the hardware</strong></p></li>
+<li><p><strong>Booting an Operating System</strong></p></li>
+</ul>
+<p>Designing platform firmware can be monolithic combining hardware initialization and boot functionality, <em>OR</em> it can take a modular and staged boot flow. The choice of the design depends on system requirements.</p>
+<p>Separating initialization and boot logic is desirable for certain device classes, for example, IoT devices, as it provides the flexibility for unique use cases. A good example is the choice of operating system used in IoT devices - it is typical to deploy OS having unique boot requirements. The OS may vary from standards based like Windows using UEFI to embedded OS or RTOS using OS specific boot protocols.</p>
+<p>Slim Bootloader (SBL) is designed with the modular approach by providing hardware initialization, then launching a <em>payload</em> to boot OS.</p>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
+<p>Slim Bootloader is designed to be:</p>
+<ul class="simple">
+<li><p><strong>Small</strong></p></li>
+<li><p><strong>Fast</strong></p></li>
+<li><p><strong>Secure</strong></p></li>
+<li><p><strong>Extensible</strong></p></li>
+<li><p><strong>Configurable</strong></p></li>
+</ul>
+<p>In addition, it provides built-in features:</p>
+<ul class="simple">
+<li><p><strong>Multiple OS Support</strong></p></li>
+<li><p><strong>Firmware Update</strong></p></li>
+</ul>
+</section>
+<section id="frequently-asked-questions">
+<span id="faqs"></span><h2>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>What is Slim Bootloader (SBL)?</dt><dd><p>Slim Bootloader is an open-source boot firmware, built from the ground up to be small, secure and optimized running on Intel x86 architecture.</p>
+</dd>
+<dt>What platforms are supported by SBL?</dt><dd><p>Initially, SBL supports the following Apollo Lake platform: UP<sup>2</sup> board, Intel Leaf Hill CRBs and QEMU virtual machine. More upcoming platforms will be supported in the future.</p>
+</dd>
+<dt>What license does SBL use?</dt><dd><p>SBL is released under BSD plus Patents <a href="https://opensource.org/licenses/BSDplusPatent" target="_blank">License</a>.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Who are the maintainers of SBL?</dt><dd><p>Intel maintains open source code on <a href="https://github.com/slimbootloader/slimbootloader" target="_blank">GitHub</a>.</p>
+</dd>
+</dl>
+<dl>
+<dt>What are options to debug SBL?</dt><dd><p>SBL supports source level debugging using Intel UEFI Development Kit (UDK) debug tool (via UART). Depending on the board configuration, developers can also debug SBL with Intel trace hub, secure debug token (if enabled) or memory buffers.</p>
+</dd>
+<dt>Is Embedded Controller (EC) supported?</dt><dd><p>No. Different boards may have different EC or SuperIO. Developers need implement the code for the target board.</p>
+</dd>
+<dt>Does it support RTOS?</dt><dd><p>SBL features loading x86 ELF executables in its payload stage. We have verified loading Open Source Zephyr RTOS (See <a class="reference internal" href="../how-tos/boot-zephyr.html#boot-zephyr"><span class="std std-ref">Boot Zephyr</span></a>).</p>
+</dd>
+<dt>What tool chains are supported to compile SBL?</dt><dd><p>SBL supports Microsoft Visual Studio 2015/2017 and GNU GCC toolchains (gcc 7 or newer). Additional tools including Python (3.6), nasm, and IASL are required to build SBL.</p>
+<p>The current version of BaseTools is UDK2018 from EDKII open source project.</p>
+</dd>
+<dt>Does SBL support verified boot and measured boot?</dt><dd><p>Yes. SBL supports both from software point of view. In order to enable hardware root-of-trust in SBL, the Intel stitching software kit is required. For measured boot, SBL supports TPM (Trusted Platform Module) 2.0.</p>
+</dd>
+<dt>Does SBL support SMM?</dt><dd><p>SBL does not support SMM. If SMM is required, a new SBL payload can be created to support it.</p>
+</dd>
+<dt>Does SBL support Over-the-Air (OTA) firmware update?</dt><dd><p>SBL has a built-in firmware update payload that features power-fail safe mechanism. OS specific OTA support can be implemented based on the provided firmware update interface in SBL.</p>
+</dd>
+<dt>Does SBL support splash screen?</dt><dd><p>Yes. Custom splash screen can be enabled or disabled (for boot performance) via SBL build options.</p>
+</dd>
+<dt>Does SBL support legacy boot?</dt><dd><p>SBL currently does not support option ROM or CSM mode.</p>
+</dd>
+<dt>Do you have a porting guide for new boards?</dt><dd><p>Please visit and search <a class="reference internal" href="../developer-guides/index.html#developer-guide"><span class="std std-ref">Developer’s Guide</span></a> section first. We plan to post step-by-step porting guides with more details.</p>
+</dd>
+<dt>I need help…</dt><dd><p>Subscribe to our <a href="https://groups.io/g/slimbootloader" target="_blank">Mailing List</a> or search <a href="https://groups.io/g/slimbootloader/topics" target="_blank">Archives</a>.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>It doesn’t work for me…</dt><dd><p>Email us via our mailing list or direclty submit an issue on <a href="https://github.com/slimbootloader/slimbootloader/issues" target="_blank">GitHub</a>.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>I want to contribute…</dt><dd><p>You are welcome to contribute our project in different ways including code, documentation or ideas. We’d be happy to review your contributions!</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Slim Bootloader Project Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../getting-started/index.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

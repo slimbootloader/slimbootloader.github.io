@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boot Flow &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Flash Map" href="flashmap.html" />
+    <link rel="prev" title="Firmware Support Package" href="fsp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source-tree.html">Source Tree Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stitching-ifwi.html">Stitch IFWI Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fsp.html">Firmware Support Package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot Flow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stage-1a">Stage 1A</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stage-1b">Stage 1B</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stage-2">Stage 2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ldrglobal-loader-global-data">LdrGlobal - Loader Global Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#end-to-end-call-graph">End-to-End Call Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#platform-initialization">Platform Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flashmap.html">Flash Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="memory-map.html">Memory Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-performance.html">Boot Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
+      <li class="breadcrumb-item active">Boot Flow</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="boot-flow">
+<span id="id1"></span><h1>Boot Flow<a class="headerlink" href="#boot-flow" title="Permalink to this heading"></a></h1>
+<p>SBL uses a linear staged boot flow to initialize platform and launch OS. It consists of four stages:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stage</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Stage 1A</p></td>
+<td><p>Pre-memory initialization</p></td>
+</tr>
+<tr class="row-odd"><td><p>Stage 1B</p></td>
+<td><p>Initialize main memory</p></td>
+</tr>
+<tr class="row-even"><td><p>Stage 2</p></td>
+<td><p>Post memory initialization: initialize CPU, I/O controllers, devices etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Payload</p></td>
+<td><p>Load, verify and launch OS images; or perform firmware update</p></td>
+</tr>
+</tbody>
+</table>
+<div class="graphviz"><img src="../_images/graphviz-37fe79f57f3e9ad6b66fd4b50c1d12ac27eba0e0.png" alt="digraph bootflow {
+   bgcolor=&quot;transparent&quot;;
+   rankdir=LR;
+     compound=true;
+     node [fontsize=10, shape=record, style=rounded];
+     edge [fontsize=10];
+
+     subgraph cluster_stages {
+       label=&quot;Boot Stages&quot;; fontsize=11;
+       style=&quot;filled,rounded&quot;; color=&quot;#F0F0F0&quot;;
+
+       &quot;Stage 1A&quot; -&gt; &quot;Stage 1B&quot; -&gt; &quot;Stage 2&quot; -&gt; &quot;Payload&quot;;
+
+     }
+}" class="graphviz" /></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When verified boot is enabled, each current stage verifies the next stage before transferring control to the next.
+If verification fails, one of two things occurs. If resiliency is enabled, the boot is swapped over to the alternate partition
+to recover the broken partition (see <a class="reference internal" href="../security/firmware-resiliency-and-recovery.html#firmware-resiliency-and-recovery"><span class="std std-ref">Firmware Resiliency and Recovery</span></a>). Otherwise, the boot is halted.</p>
+</div>
+<section id="stage-1a">
+<h2>Stage 1A<a class="headerlink" href="#stage-1a" title="Permalink to this heading"></a></h2>
+<p>After coming out of reset, Stage 1A sets up the initial exectution environment to support the
+execution of the following stages. When the processor starts executing from the reset vector,
+writeable memory may not be available and a stack might have not been setup. So, the reset vector
+code is typically implemented using assembly language instructions. Stage 1A is also excuted from
+the flash (Read-only memory) and the lack of writeable memory prevents the usage of global variables.</p>
+<p>Stage 1A contains a module called VTF (Volume Top File) which is placed at the top within the Stage 1A FV.
+The VTF contains the reset vector code and hence the VTF needs to be placed at an appropriate
+address so that the reset vector code in the the Vtf0 file (Identified by the GUID <code class="docutils literal notranslate"><span class="pre">1BA0062E-C779-4582-8566-336AE8F78F09</span></code>)
+aligns with the reset vector of Intel x86 architecture.</p>
+<p>The entry point for the Stage1A module within the Stage1A FV (<code class="docutils literal notranslate"><span class="pre">_ModuleEntryPoint</span></code>) is placed as
+the first DWORD of the built FV. The reset vector code from the Vtf0 jumps to this address and continues
+from the <code class="docutils literal notranslate"><span class="pre">_ModuleEntryPoint</span></code> defined in <code class="docutils literal notranslate"><span class="pre">SecEntry.nasm</span></code>.</p>
+<p>After coming out of reset, Stage 1A performs the following initialization steps:</p>
+<ul>
+<li><p>Switch from 16-bit real mode to 32-bit protected mode to provide full 32-bit memory addressibility</p></li>
+<li><p>Calls the FSP-T provided <code class="docutils literal notranslate"><span class="pre">TempRamInit()</span></code> API which configures a temporary writeable memory</p></li>
+<li><p>Sets up a stack in the Temporary memory initialized by FSP’s <code class="docutils literal notranslate"><span class="pre">TempRamInit()</span></code> API</p></li>
+<li><p>Initializes Stage 1A parameters, jumps to C code</p></li>
+<li><p>Initializes Global Data structures (<code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code>) to be used by the Bootloader</p></li>
+<li><p>Initializes the configured debug port by calling into Board-specific initialization functions</p></li>
+<li><p>Loads and jumps to Stage 1B</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The Stage 1B entry point is defined by the <code class="docutils literal notranslate"><span class="pre">_ModuleEntryPoint</span></code> (provided by <code class="docutils literal notranslate"><span class="pre">ModuleEntryLib</span></code>).</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>Data Passed from Stage 1A assembly to Stage 1A C code</strong> –</p>
+<ul class="simple">
+<li><p>Stage 1A C code expects the struct <code class="docutils literal notranslate"><span class="pre">STAGE1A_ASM_PARAM</span></code> to be on the stack</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SecEntry.nasm</span></code> pushes the elements of the struct on the stack in the expected order</p></li>
+</ul>
+<p><strong>Data Passed from Stage 1A to Stage 1B</strong> –</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Stage1A_PARAM</span></code> struct</p></li>
+</ul>
+</section>
+<section id="stage-1b">
+<h2>Stage 1B<a class="headerlink" href="#stage-1b" title="Permalink to this heading"></a></h2>
+<p>The primary purpose of Stage1B is to bring up the system memory and performs the following
+initialization steps:</p>
+<ul>
+<li><p>Early platform init</p></li>
+<li><p>Load and build configuration database</p></li>
+<li><p>Calls FSP-M provided <code class="docutils literal notranslate"><span class="pre">FspMemoryInit()</span></code> which initializes the system’s main memory</p></li>
+<li><p>Sets up the global data structures in RAM and migrates LdrGlobal from the stack in temporary memory to the main memory</p></li>
+<li><p>Saves system memory information like - TOLUM (Top of low usable memory), TOUUM (Top of upper usable memory), etc.</p></li>
+<li><p>Switches from the stack in temporary memory to the one in the main memory</p></li>
+<li><p>Calls FSP-M provided <code class="docutils literal notranslate"><span class="pre">TempRamExit()</span></code> API to tear down the temporary memory set up in the
+cache and returns the cache to its normal operating mode</p></li>
+<li><p>Loads and jumps to Stage2</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The Stage 2 entry point is defined by the <code class="docutils literal notranslate"><span class="pre">_ModuleEntryPoint</span></code> (provided by <code class="docutils literal notranslate"><span class="pre">ModuleEntryLib</span></code>).</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Data Passed from Stage 1B to Stage 2</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">STAGE2_PARAM</span></code> struct</p></li>
+</ul>
+</section>
+<section id="stage-2">
+<h2>Stage 2<a class="headerlink" href="#stage-2" title="Permalink to this heading"></a></h2>
+<p>Stage 2 is the “post-memory” stage and is responsible for completing system initialization after
+main memory is available. Stage 2 code is run from main memory and may be compressed. Stage 2 includes
+relocation information which allows Stage 2 to be run from the main memory.</p>
+<p>Stage 2 performs the following initialization steps:</p>
+<ul>
+<li><p>Completes remaning GPIO initialization</p></li>
+<li><p>Calls FSP-S provided <code class="docutils literal notranslate"><span class="pre">FspSiliconInit()</span></code> API to initialize the chipset and I/O controllers</p></li>
+<li><p>PCI Enumeration and resource allocation</p></li>
+<li><p>ACPI initlization</p></li>
+<li><p>Prepares HOBs required by the payload</p></li>
+<li><p>Calls FSP-S provided <code class="docutils literal notranslate"><span class="pre">FspNotifyPhase</span></code> APIs - <code class="docutils literal notranslate"><span class="pre">ReadyToBoot</span></code>, <code class="docutils literal notranslate"><span class="pre">EndOfFirmware</span></code></p></li>
+<li><p>Loads and jumps to the payload. Stage 2 passes the HOB List pointer, and the Payload executable base to the payload.</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="c1">// Payload Entry Point</span>
+<span class="n">VOID</span>
+<span class="n">EFIAPI</span>
+<span class="n">SecStartup</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">IN</span><span class="w"> </span><span class="n">VOID</span><span class="w">                   </span><span class="o">*</span><span class="n">HobListPtr</span><span class="p">,</span>
+<span class="w">  </span><span class="n">IN</span><span class="w"> </span><span class="n">VOID</span><span class="w">                   </span><span class="o">*</span><span class="n">PldBase</span>
+<span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="ldrglobal-loader-global-data">
+<h1>LdrGlobal - Loader Global Data<a class="headerlink" href="#ldrglobal-loader-global-data" title="Permalink to this heading"></a></h1>
+<p>The Loader Global Data structure is used to store important information throughout the different
+execution phases of the bootloader. It consists of information like available memory start and
+end addresses, top of stack address, performance data, HOB pointers, Config data pointers,
+Payload ID, etc. The entire list can be seen in <code class="docutils literal notranslate"><span class="pre">BootloaderCoreGlobal.h</span></code> - <code class="docutils literal notranslate"><span class="pre">LOADER_GLOBAL_DATA</span></code>
+struct. This data is passed from stage to stage until the bootloader passes control to the
+payload. <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code> is not passed to the payload. The data is however still maintained within
+the bootloader reserved memory to be used for S3 resume.</p>
+<p>Stage 1A creates the data structure (<code class="docutils literal notranslate"><span class="pre">LOADER_GLOBAL_DATA</span></code>) and a pointer to this structure on
+the stack. Stage 1A adds the following info to <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code>: Stack information, Available memory
+top and bottom, temporary memory top and bottom, debug level.</p>
+<p>Stage 1B retrieves the <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code> pointer and appends more information to the data
+(Key Hash Store, Config Database). Once Stage 1B has initialized main memory using FSP-M,
+it creates the data structure in the memory reserved for the bootloader by FSP-M and copies
+over the data from the earlier temporary memory. Stage 1B adds and updates several fields
+in <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code> like available memory top &amp; bottom, DMA buffer pointer, S3 data pointer.</p>
+<p>Stage 2 again retrieves the <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code> pointer and appends the <code class="docutils literal notranslate"><span class="pre">HobList</span></code> pointer to the global
+data struct to be used by S3 resume functionality.</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code> data is used across all stages of Slim Bootloader, a predefined or consistent
+way to retrieve the <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code> data is required. As interrupts are not used in the bootloader,
+the <code class="docutils literal notranslate"><span class="pre">IDTR</span></code> is used to store the pointer to the <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code> struct. <code class="docutils literal notranslate"><span class="pre">BootloaderCoreLib</span></code> abstracts this
+location by providing <code class="docutils literal notranslate"><span class="pre">GetLoaderGlobalDataPointer()</span></code> and <code class="docutils literal notranslate"><span class="pre">SetLoaderGlobalDataPointer()</span></code> functions.
+After creating the <code class="docutils literal notranslate"><span class="pre">LdrGlobal</span></code>, Stage 1A then saves the pointer to the structure by calling the
+<code class="docutils literal notranslate"><span class="pre">SetLoaderGlobalDataPointer()</span></code> function. Stage 1B and Stage 2 use the <code class="docutils literal notranslate"><span class="pre">GetLoaderGlobalDataPointer()</span></code>
+function to retrieve the location.</p>
+</section>
+<section id="end-to-end-call-graph">
+<span id="call-graph"></span><h1>End-to-End Call Graph<a class="headerlink" href="#end-to-end-call-graph" title="Permalink to this heading"></a></h1>
+<p>The function call graph in SBL code from reset vector to OS launch.</p>
+<a class="reference internal image-reference" href="../_images/call_graph.png"><img alt="|SPN| Calling Graph" class="align-center" src="../_images/call_graph.png" style="width: 600px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This call graph changes if resiliency is enabled and recovery is attempted (see <a class="reference internal" href="../security/firmware-resiliency-and-recovery.html#firmware-resiliency-and-recovery"><span class="std std-ref">Firmware Resiliency and Recovery</span></a>).</p>
+</div>
+</section>
+<section id="platform-initialization">
+<h1>Platform Initialization<a class="headerlink" href="#platform-initialization" title="Permalink to this heading"></a></h1>
+<p>In SBL, board initialization code is located in <code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;</span></code> directory. Each stage provides a ‘hook point’ for board specific code. To port a new board, one should implement changes in <code class="docutils literal notranslate"><span class="pre">BoardInit()</span></code> function for each stage under <code class="docutils literal notranslate"><span class="pre">Platform/&lt;platform_foo&gt;/Library</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VOID</span>
+<span class="n">BoardInit</span> <span class="p">(</span>
+  <span class="n">IN</span>  <span class="n">BOARD_INIT_PHASE</span>  <span class="n">InitPhase</span>
+  <span class="p">);</span>
+</pre></div>
+</div>
+<p>During board initialization, SBL further divides the flow into multiple phases to provide a fine granularity control. These phases are defined in <code class="docutils literal notranslate"><span class="pre">PlatformService.h</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">enum</span> <span class="p">{</span>
+  <span class="n">PreTempRamInit</span>     <span class="o">=</span> <span class="mh">0x10</span><span class="p">,</span>
+  <span class="n">PostTempRamInit</span>    <span class="o">=</span> <span class="mh">0x20</span><span class="p">,</span>
+  <span class="n">PreConfigInit</span>      <span class="o">=</span> <span class="mh">0x30</span><span class="p">,</span>
+  <span class="n">PostConfigInit</span>     <span class="o">=</span> <span class="mh">0x40</span><span class="p">,</span>
+  <span class="n">PreMemoryInit</span>      <span class="o">=</span> <span class="mh">0x50</span><span class="p">,</span>
+  <span class="n">PostMemoryInit</span>     <span class="o">=</span> <span class="mh">0x60</span><span class="p">,</span>
+  <span class="n">PreTempRamExit</span>     <span class="o">=</span> <span class="mh">0x70</span><span class="p">,</span>
+  <span class="n">PostTempRamExit</span>    <span class="o">=</span> <span class="mh">0x80</span><span class="p">,</span>
+  <span class="n">PreSiliconInit</span>     <span class="o">=</span> <span class="mh">0x90</span><span class="p">,</span>
+  <span class="n">PostSiliconInit</span>    <span class="o">=</span> <span class="mh">0xA0</span><span class="p">,</span>
+  <span class="n">PrePciEnumeration</span>  <span class="o">=</span> <span class="mh">0xB0</span><span class="p">,</span>
+  <span class="n">PostPciEnumeration</span> <span class="o">=</span> <span class="mh">0xC0</span><span class="p">,</span>
+  <span class="n">PrePayloadLoading</span>  <span class="o">=</span> <span class="mh">0xD0</span><span class="p">,</span>
+  <span class="n">PostPayloadLoading</span> <span class="o">=</span> <span class="mh">0xE0</span><span class="p">,</span>
+  <span class="n">EndOfStages</span>        <span class="o">=</span> <span class="mh">0xF0</span><span class="p">,</span>
+  <span class="n">ReadyToBoot</span>        <span class="o">=</span> <span class="mh">0xF8</span><span class="p">,</span>
+  <span class="n">EndOfFirmware</span>      <span class="o">=</span> <span class="mh">0xFF</span>
+<span class="p">}</span> <span class="n">BOARD_INIT_PHASE</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fsp.html" class="btn btn-neutral float-left" title="Firmware Support Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="flashmap.html" class="btn btn-neutral float-right" title="Flash Map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2024, Intel Corporation.
+      <span class="lastupdated">Last updated on Jun 07, 2024.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
