@@ -123,7 +123,7 @@
 <section id="build-tools-download-ubuntu">
 <h2>Build Tools Download - Ubuntu<a class="headerlink" href="#build-tools-download-ubuntu" title="Permalink to this heading"></a></h2>
 <p>Install required packages on Ubuntu:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install -y build-essential python uuid-dev openssl gcc-multilib qemu git
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib qemu-system git iasl nasm
 </pre></div>
 </div>
 <section id="build-using-dockers-optional">
@@ -183,6 +183,10 @@ Please ensure to install <strong>Dekstop Development with C++</strong> along wit
 <p>LLVM 15.0.7</p>
 <p><a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7/" target="_blank">https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7/</a></p>
 <p><strong>Require:</strong> Install to C:\LLVM</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Add an environment variable: CLANG_BIN=C:\LLVM\bin\</p>
+</div>
 <p>Openssl (latest)</p>
 <p>Download latest win64 version from <a href="https://wiki.openssl.org/index.php/Binaries" target="_blank">https://wiki.openssl.org/index.php/Binaries</a>)</p>
 <p><strong>Require:</strong> Install to C:\Openssl</p>
@@ -217,7 +221,7 @@ For example: set OPENSSL_PATH=C:\Openssl\bin</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2024, Intel Corporation.
-      <span class="lastupdated">Last updated on Jun 07, 2024.
+      <span class="lastupdated">Last updated on Nov 15, 2024.
       </span></p>
   </div>
 
