@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UP Xtreme i12 13th Board &mdash; Slim Bootloader 1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5b5f7025" />
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=f2a433a1"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -122,10 +120,10 @@
            <div itemprop="articleBody">
              
   <section id="upx12rplp-board">
-<span id="upx12-13th-board"></span><h1>UP Xtreme i12 13th Board<a class="headerlink" href="#upx12rplp-board" title="Link to this heading"></a></h1>
+<span id="upx12-13th-board"></span><h1>UP Xtreme i12 13th Board<a class="headerlink" href="#upx12rplp-board" title="Permalink to this heading"></a></h1>
 <p>The <a href="https://www.aaeon.com/en/p/up-board-up-squared-i12" target="_blank">UP Xtreme i12 13th board</a> (UP Xtreme i12 13th) is an x86 maker board based on Intel platform Raptor Lake-P. The UP boards are used in IoT, industrial automation, digital signage areas, etc.</p>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
 <p>SBL supports UP Xtreme i12 13th maker board. To start developing SBL, the following equipment, software and environments are required:</p>
 <ul class="simple">
 <li><p><a href="https://www.aaeon.com/en/p/up-board-up-squared-i12" target="_blank">UP Xtreme i12 13th board</a></p></li>
@@ -137,12 +135,11 @@
 </ul>
 </section>
 <section id="board-setup">
-<h2>Board Setup<a class="headerlink" href="#board-setup" title="Link to this heading"></a></h2>
-<a class="reference internal image-reference" href="../_images/upxi12rplp_setup.jpg"><img alt="|UPX12RPLP| Board Setup" class="align-center" src="../_images/upxi12rplp_setup.jpg" style="width: 600px;" />
-</a>
+<h2>Board Setup<a class="headerlink" href="#board-setup" title="Permalink to this heading"></a></h2>
+<a class="reference internal image-reference" href="../_images/upxi12rplp_setup.jpg"><img alt="|UPX12RPLP| Board Setup" class="align-center" src="../_images/upxi12rplp_setup.jpg" style="width: 600px;" /></a>
 </section>
 <section id="before-you-start">
-<h2>Before You Start<a class="headerlink" href="#before-you-start" title="Link to this heading"></a></h2>
+<h2>Before You Start<a class="headerlink" href="#before-you-start" title="Permalink to this heading"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>As you plan to reprogram the SPI flash, it’s a good idea to backup the pre-installed BIOS image first.</p>
@@ -171,7 +168,7 @@
 </div>
 </section>
 <section id="building">
-<h2>Building<a class="headerlink" href="#building" title="Link to this heading"></a></h2>
+<h2>Building<a class="headerlink" href="#building" title="Permalink to this heading"></a></h2>
 <p>UP Xtreme i12 13th board is based on Intel Raptor Lake-P. To build:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">rplp</span>
 </pre></div>
@@ -179,7 +176,7 @@
 <p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p>
 </section>
 <section id="stitching">
-<h2>Stitching<a class="headerlink" href="#stitching" title="Link to this heading"></a></h2>
+<h2>Stitching<a class="headerlink" href="#stitching" title="Permalink to this heading"></a></h2>
 <p>Stitch SBL images with factory BIOS image using the stitch tool:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">AlderlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">rplp</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span> <span class="mh">0xAA000114</span>
 
@@ -196,7 +193,7 @@ If Boot Guard is enabled, please use StitchIfwi.py script instead.</p>
 <p>See <a class="reference internal" href="../tools/StitchTool.html#stitch-tool"><span class="std std-ref">Stitch Tool</span></a> on how to stitch the IFWI image with SBL.</p>
 </section>
 <section id="slimbootloader-binary-for-capsule">
-<h2>Slimbootloader binary for capsule<a class="headerlink" href="#slimbootloader-binary-for-capsule" title="Link to this heading"></a></h2>
+<h2>Slimbootloader binary for capsule<a class="headerlink" href="#slimbootloader-binary-for-capsule" title="Permalink to this heading"></a></h2>
 <p>A capsule image could ecapsulate a Slimbootloader image to be used in firmware update mechanism. More information is described in <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a>.</p>
 <p>For the process running properly, an IFWI image programmed on board with TOP SWAP size configuration is required.</p>
 <div class="admonition note">
@@ -225,7 +222,7 @@ If Boot Guard is enabled, please use StitchIfwi.py script instead.</p>
 <p>For more details on generating capsule image, please refer <a class="reference internal" href="../security/firmware-update.html#generate-capsule"><span class="std std-ref">Generating capsule</span></a>.</p>
 </section>
 <section id="triggering-firmware-update">
-<h2>Triggering Firmware Update<a class="headerlink" href="#triggering-firmware-update" title="Link to this heading"></a></h2>
+<h2>Triggering Firmware Update<a class="headerlink" href="#triggering-firmware-update" title="Permalink to this heading"></a></h2>
 <p>Please refer to <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a> on how to trigger firmware update flow.
 Below is an example:</p>
 <p>To trigger firmware update in SBL shell:</p>
@@ -238,7 +235,7 @@ Below is an example:</p>
 </ol>
 </section>
 <section id="flashing">
-<h2>Flashing<a class="headerlink" href="#flashing" title="Link to this heading"></a></h2>
+<h2>Flashing<a class="headerlink" href="#flashing" title="Permalink to this heading"></a></h2>
 <p>Flash the IFWI image to UP Xtreme i12 13th board using a SPI programmer. Header CN19 on the board should be used, see <a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">instructions</a> for additional details.</p>
 <p><strong>Good Luck!</strong></p>
 </section>
@@ -256,7 +253,7 @@ Below is an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2024, Intel Corporation.
-      <span class="lastupdated">Last updated on Nov 15, 2024.
+      <span class="lastupdated">Last updated on Nov 19, 2024.
       </span></p>
   </div>
 
