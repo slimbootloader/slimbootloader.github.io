@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alder Lake Platforms &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>Arrow Lake Platforms &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Apollo Lake CRB Boards" href="apollo-lake-crb.html" />
-    <link rel="prev" title="Supported Hardware" href="index.html" /> 
+    <link rel="next" title="Coffee Lake Refresh CRB Board" href="cfl-crb.html" />
+    <link rel="prev" title="Apollo Lake CRB Boards" href="apollo-lake-crb.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,19 +53,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Supported Hardware</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Alder Lake Platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adl-rvp.html">Alder Lake Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Arrow Lake Platforms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#supported-boards">Supported Boards</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#debug-uart">Debug UART</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#building">Building</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stitching">Stitching</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flashing">Flashing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#capsule-image-for-adl">Capsule image for Alder Lake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capsule-image-for-arl">Capsule image for Arrow Lake</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#triggering-firmware-update">Triggering Firmware Update</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#booting-yocto-linux">Booting Yocto Linux</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="apollo-lake-crb.html">Apollo Lake CRB Boards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="arl-rvp.html">Arrow Lake Platforms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cfl-crb.html">Coffee Lake Refresh CRB Board</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cml-rvp.html">Comet Lake RVP Board</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ehl-crb.html">Elkhart Lake CRB Board</a></li>
@@ -111,7 +111,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Supported Hardware</a></li>
-      <li class="breadcrumb-item active">Alder Lake Platforms</li>
+      <li class="breadcrumb-item active">Arrow Lake Platforms</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,16 +120,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="alder-lake-platforms">
-<h1>Alder Lake Platforms<a class="headerlink" href="#alder-lake-platforms" title="Permalink to this heading"></a></h1>
+  <section id="arrow-lake-platforms">
+<h1>Arrow Lake Platforms<a class="headerlink" href="#arrow-lake-platforms" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>12th Generation Intel® Core™ Processor, formally known as Alder Lake family.</p>
+<p>15th Generation Intel® Core™ Processor, formally known as Arrow Lake family.</p>
 </div>
 <section id="supported-boards">
 <h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Permalink to this heading"></a></h2>
-<p>SBL supports various platforms corresponding to Alder Lake-S, Alder Lake-P, Alder Lake-PS, Alder Lake-N, Arizona Beach (AZB) and Amston Lake Processors.</p>
-<p>Each Alder Lake board is assigned with a unique platform ID.</p>
+<p>SBL supports various platforms corresponding to Arrow Lake-H , Arrow Lake-U and Arrow Lake-S.</p>
+<p>Each Arrow Lake board is assigned with a unique platform ID.</p>
 <blockquote>
 <div><table class="docutils align-default">
 <tbody>
@@ -139,65 +139,41 @@
 <td><p>UART</p></td>
 <td><p>PLAT</p></td>
 </tr>
-<tr class="row-even"><td><p>ADL-S DDR4</p></td>
+<tr class="row-even"><td><p>ARL-H/U DDR5 RVP</p></td>
+<td><p>0x0018</p></td>
+<td><p>J1G2</p></td>
+<td><p>J9B2</p></td>
+<td><p>arlh / arlu</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARL-H/U DDR5 CRB</p></td>
+<td><p>0x001A</p></td>
+<td><p>J3H2</p></td>
+<td><p>J7A1</p></td>
+<td><p>arlh / arlu</p></td>
+</tr>
+<tr class="row-even"><td><p>ARL-H/U LPDDR5</p></td>
+<td><p>0x0019</p></td>
+<td><p>J1G2</p></td>
+<td><p>J9B2</p></td>
+<td><p>arlh / arlu</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARL-S DDR5 RVP S02</p></td>
 <td><p>0x0017</p></td>
-<td><p>J1G2</p></td>
-<td><p>U6J1</p></td>
-<td><p>adls</p></td>
+<td><p>J2B4</p></td>
+<td><p>J6J3</p></td>
+<td><p>arls</p></td>
 </tr>
-<tr class="row-odd"><td><p>ADL-S DDR5</p></td>
-<td><p>0x001B</p></td>
-<td><p>J1G2</p></td>
-<td><p>U6J1</p></td>
-<td><p>adls</p></td>
+<tr class="row-even"><td><p>ARL-S DDR5 RVP S03</p></td>
+<td><p>0x0016</p></td>
+<td><p>J122198</p></td>
+<td><p>J6J3</p></td>
+<td><p>arls</p></td>
 </tr>
-<tr class="row-even"><td><p>ADL-P DDR5</p></td>
-<td><p>0x0012</p></td>
-<td><p>J1C1</p></td>
-<td><p>J9J3</p></td>
-<td><p>adlp</p></td>
-</tr>
-<tr class="row-odd"><td><p>ADL-P LPDDR5</p></td>
-<td><p>0x0013</p></td>
-<td><p>J1C1</p></td>
-<td><p>J9J3</p></td>
-<td><p>adlp</p></td>
-</tr>
-<tr class="row-even"><td><p>ADL-P LPDDR4</p></td>
-<td><p>0x0010</p></td>
-<td><p>J1C1</p></td>
-<td><p>J9J3</p></td>
-<td><p>adlp</p></td>
-</tr>
-<tr class="row-odd"><td><p>ADL-PS DDR5 RVP</p></td>
-<td><p>0x000B</p></td>
-<td><p>J25</p></td>
-<td><p>J109</p></td>
-<td><p>adlps</p></td>
-</tr>
-<tr class="row-even"><td><p>ADL-PS DDR5 CRB</p></td>
-<td><p>0x000D</p></td>
-<td><p>J31</p></td>
-<td><p>J34</p></td>
-<td><p>adlps</p></td>
-</tr>
-<tr class="row-odd"><td><p>ADL-N DDR5 CRB</p></td>
-<td><p>0x000A</p></td>
-<td><p>J2E2</p></td>
-<td><p>J9A1</p></td>
-<td><p>adln</p></td>
-</tr>
-<tr class="row-even"><td><p>AZB LPDDR5 CRB</p></td>
-<td><p>0x0009</p></td>
-<td><p>J30</p></td>
-<td><p>J32</p></td>
-<td><p>azb</p></td>
-</tr>
-<tr class="row-odd"><td><p>ASL DDR5 CRB</p></td>
-<td><p>0x000A</p></td>
-<td><p>J2E2</p></td>
-<td><p>J9A1</p></td>
-<td><p>adln</p></td>
+<tr class="row-odd"><td><p>ARL-S DDR5 RVP S04</p></td>
+<td><p>0x0015</p></td>
+<td><p>Flash on SPI Socket</p></td>
+<td><p>J6J3</p></td>
+<td><p>arls</p></td>
 </tr>
 </tbody>
 </table>
@@ -205,7 +181,7 @@
 </section>
 <section id="debug-uart">
 <h2>Debug UART<a class="headerlink" href="#debug-uart" title="Permalink to this heading"></a></h2>
-<p>For Alder Lake platforms, serial port connector location can be found from the above table for each supported target board.</p>
+<p>For Arrow Lake platforms, serial port connector location can be found from the above table for each supported target board.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Configure host PuTTY or minicom to 115200bps, 8N1, no hardware flow control.</p>
@@ -213,26 +189,22 @@
 </section>
 <section id="building">
 <h2>Building<a class="headerlink" href="#building" title="Permalink to this heading"></a></h2>
-<p>To build SBL for any Alder Lake platform:</p>
+<p>To build SBL for any Arrow Lake platform:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span>
 
-<span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">adlp</span><span class="p">,</span> <span class="n">adls</span><span class="p">,</span> <span class="n">adlps</span><span class="p">,</span> <span class="n">adln</span><span class="p">,</span> <span class="n">azb</span>
+<span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">arlh</span> <span class="o">/</span> <span class="n">arlu</span> <span class="o">/</span> <span class="n">arls</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>adln platform option supports both ADL-N and ASL platforms.</p>
-</div>
-<p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p>
+<p>Note: The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p>
 </section>
 <section id="stitching">
 <h2>Stitching<a class="headerlink" href="#stitching" title="Permalink to this heading"></a></h2>
 <ol class="arabic simple">
-<li><p>Gather Alder Lake IFWI firmware image</p></li>
+<li><p>Gather Arrow Lake IFWI firmware image</p></li>
 </ol>
 <blockquote>
 <div><p>Users can either download the full IFWI image if the IFWI image release is available or read the existing IFWI image on the board using SPI programmer.
-This image contains additional firmware ingredients that are required boot on Alder Lake.</p>
+This image contains additional firmware ingredients that are required boot on Arrow Lake.</p>
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -241,23 +213,23 @@ To stitch with Boot Guard enabled, please use <code class="docutils literal notr
 </div>
 <ol class="arabic" start="2">
 <li><p>Stitch SBL images into downloaded BIOS image:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">AlderlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/&lt;</span><span class="n">plat</span><span class="o">&gt;/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">ArrowlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/&lt;</span><span class="n">plat</span><span class="o">&gt;/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <blockquote>
-<div><p>where -i = Input file, -o = Output file, plat = adls/adlp</p>
+<div><p>where -i = Input file, -o = Output file, plat = arlh, arlu or arls</p>
 </div></blockquote>
-<p>For example, to stitch SBL IFWI image <code class="docutils literal notranslate"><span class="pre">sbl_adls_ifwi.bin</span></code> from ADL-S downloaded firmware images:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">AlderlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">adls</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_adls_ifwi</span><span class="o">.</span><span class="n">bin</span>
+<p>For example, to stitch SBL IFWI image <code class="docutils literal notranslate"><span class="pre">sbl_arlh_ifwi.bin</span></code> from ARL-H downloaded firmware images:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">ArrowlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">arlh</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_arlh_ifwi</span><span class="o">.</span><span class="n">bin</span>
 </pre></div>
 </div>
 <p>For more details on stitch tool, see <a class="reference internal" href="../tools/StitchTool.html#stitch-tool"><span class="std std-ref">Stitch Tool</span></a> on how to stitch the IFWI image with SBL.</p>
 </section>
 <section id="flashing">
 <h2>Flashing<a class="headerlink" href="#flashing" title="Permalink to this heading"></a></h2>
-<p>Flash the generated <code class="docutils literal notranslate"><span class="pre">sbl_adlx_ifwi.bin</span></code> to the target board using a DediProg SF100 or SF600 programmer.</p>
+<p>Flash the generated <code class="docutils literal notranslate"><span class="pre">sbl_arlh_ifwi.bin</span></code> to the target board using a DediProg SF100 or SF600 programmer.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Refer the table above to identify the connector on the target board for SPI flash programmer. When using such device, please ensure:</p>
@@ -268,11 +240,11 @@ To stitch with Boot Guard enabled, please use <code class="docutils literal notr
 </ol>
 </div>
 </section>
-<section id="capsule-image-for-adl">
-<h2>Capsule image for Alder Lake<a class="headerlink" href="#capsule-image-for-adl" title="Permalink to this heading"></a></h2>
+<section id="capsule-image-for-arl">
+<h2>Capsule image for Arrow Lake<a class="headerlink" href="#capsule-image-for-arl" title="Permalink to this heading"></a></h2>
 <p>The Slimbootloader.bin image generated from the build steps above can be used to create a capsule image.
 Please refer to <a class="reference internal" href="../tools/BuildTool.html#build-tool"><span class="std std-ref">Build Tool</span></a> on generating SBL image.</p>
-<p>For all Alder Lake platforms, the below command can be used:</p>
+<p>For all Arrow Lake platforms, the below command can be used:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">./</span><span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">BIOS</span> <span class="n">Outputs</span><span class="o">/&lt;</span><span class="n">plat</span><span class="o">&gt;/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="o">&lt;</span><span class="n">Keys</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
 </pre></div>
 </div>
@@ -280,7 +252,7 @@ Please refer to <a class="reference internal" href="../tools/BuildTool.html#buil
 </section>
 <section id="triggering-firmware-update">
 <h2>Triggering Firmware Update<a class="headerlink" href="#triggering-firmware-update" title="Permalink to this heading"></a></h2>
-<p>SBL for Alder Lake uses BIT16 of PMC I/O register (Over-Clocking WDT Control (OC_WDT_CTL) - Offset 54h) to trigger firmware update. When BIT16 is set, SBL will set the boot mode to FLASH_UPDATE.
+<p>SBL for Arrow Lake uses BIT16 of PMC I/O register (Over-Clocking WDT Control (OC_WDT_CTL) - Offset 54h) to trigger firmware update. When BIT16 is set, SBL will set the boot mode to FLASH_UPDATE.
 Please refer to <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a> on how to trigger firmware update flow.
 Below is an example:</p>
 <p>To trigger firmware update in SBL shell:</p>
@@ -365,8 +337,8 @@ Below is an example:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Supported Hardware" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="apollo-lake-crb.html" class="btn btn-neutral float-right" title="Apollo Lake CRB Boards" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="apollo-lake-crb.html" class="btn btn-neutral float-left" title="Apollo Lake CRB Boards" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cfl-crb.html" class="btn btn-neutral float-right" title="Coffee Lake Refresh CRB Board" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
