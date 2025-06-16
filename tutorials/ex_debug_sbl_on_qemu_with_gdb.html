@@ -113,13 +113,9 @@
 <section id="prepare-sbl-qemu-image">
 <h2>Prepare SBL QEMU image<a class="headerlink" href="#prepare-sbl-qemu-image" title="Permalink to this heading"></a></h2>
 <p>By default, SBL uses compile optimization for binary size and code speed.
-The compile optimization sometime makes source level debugging hard to use.
-To demonstrate better source level debugging, let’s lower the compile optimization level for this tutorial session.
-‘–noopt’ will generate less optimized image, but still link time optimization is done to avoid very big size image.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/slimbootloader/
-$ python BuildLoader.py build qemu --noopt
-</pre></div>
-</div>
+The compile optimization sometime makes source level debugging hard to use.</p>
+<p>$ cd /path/to/slimbootloader/
+$ python BuildLoader.py build qemu</p>
 </section>
 <section id="launch-qemu-target">
 <h2>Launch QEMU target<a class="headerlink" href="#launch-qemu-target" title="Permalink to this heading"></a></h2>
@@ -273,7 +269,7 @@ Now, it’s time to run loadthis again to re-load proper symbol.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2025, Intel Corporation.
-      <span class="lastupdated">Last updated on May 13, 2025.
+      <span class="lastupdated">Last updated on Jun 16, 2025.
       </span></p>
   </div>
 
