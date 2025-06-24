@@ -144,9 +144,12 @@
 </pre></div>
 </div>
 <p>Use ‘-h’ to get help message for a command.</p>
+<p>Apart from the above commands, developers may also implement platform specific shell commands within <code class="docutils literal notranslate"><span class="pre">Platform/&lt;*BoardPkg&gt;/Library/ShellExtensionLib/</span></code>.
+An example being shell command <code class="docutils literal notranslate"><span class="pre">gpio</span></code> for Alder Lake platform (refer <code class="docutils literal notranslate"><span class="pre">Platform/AlderlakeBoardPkg/Library/ShellExtensionLib/CmdGpio.c</span></code>) to read and write the required GPIO pin.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For small image footprint or security reasons, one can exclude shell module from SBL in release builds.</p>
+<p>For small image footprint or security reasons, one can exclude shell module from SBL in release builds.
+The OsLoader shell can be enabled/disabled for release builds through <code class="docutils literal notranslate"><span class="pre">Config</span> <span class="pre">Editor</span> <span class="pre">tool</span> <span class="pre">-&gt;</span> <span class="pre">OS</span> <span class="pre">Boot</span> <span class="pre">Options</span> <span class="pre">-&gt;</span> <span class="pre">Boot</span> <span class="pre">to</span> <span class="pre">OsLoader</span> <span class="pre">Shell</span></code>.</p>
 </div>
 </section>
 
@@ -162,7 +165,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2025, Intel Corporation.
-      <span class="lastupdated">Last updated on Jun 16, 2025.
+      <span class="lastupdated">Last updated on Jun 24, 2025.
       </span></p>
   </div>
 
