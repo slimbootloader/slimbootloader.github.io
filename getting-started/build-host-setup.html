@@ -54,7 +54,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Build Environment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#building-on-linux">Building on Linux</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-tools-download-ubuntu">Build Tools Download - Ubuntu</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-tools-download-ubuntu">Build Tools Download - Ubuntu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-tools-download-fedora">Build Tools Download - Fedora</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#build-using-dockers-optional">Build using Dockers (Optional)</a></li>
 </ul>
 </li>
@@ -109,6 +110,7 @@
 <section id="building-on-linux">
 <span id="running-on-linux"></span><h2>Building on Linux<a class="headerlink" href="#building-on-linux" title="Permalink to this heading"></a></h2>
 <p>Supported environment: <strong>Ubuntu Linux 22.04 LTS</strong></p>
+<p>Community supported: <strong>Fedora 42</strong> (Experimental)</p>
 <p>Install the following software:</p>
 <ul class="simple">
 <li><p>GCC 9.4.0 or above</p></li>
@@ -124,6 +126,24 @@
 <h2>Build Tools Download - Ubuntu<a class="headerlink" href="#build-tools-download-ubuntu" title="Permalink to this heading"></a></h2>
 <p>Install required packages on Ubuntu:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt install -y build-essential python3 uuid-dev openssl gcc-multilib qemu-system git iasl nasm
+</pre></div>
+</div>
+</section>
+<section id="build-tools-download-fedora">
+<h2>Build Tools Download - Fedora<a class="headerlink" href="#build-tools-download-fedora" title="Permalink to this heading"></a></h2>
+<p>Install required packages on Fedora:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo dnf group install -y development-tools
+$ sudo dnf install -y python3.12 libuuid-devel openssl openssl-devel \
+openssl-devel-engine glibc-devel.i686 libstdc++-devel.i686 qemu git \
+acpica-tools nasm
+</pre></div>
+</div>
+<p>Create and load python environment with required packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p $HOME/Workspace/Environments
+$ python3.12 -m venv $HOME/Workspace/Environments/SBL
+$ source $HOME/Workspace/Environments/SBL/bin/activate
+$ pip install --upgrade pip
+$ pip install edk2-pytool-library setuptools
 </pre></div>
 </div>
 <section id="build-using-dockers-optional">
@@ -221,7 +241,7 @@ For example: set OPENSSL_PATH=C:\Openssl\bin</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2025, Intel Corporation.
-      <span class="lastupdated">Last updated on Jun 24, 2025.
+      <span class="lastupdated">Last updated on Jun 27, 2025.
       </span></p>
   </div>
 
