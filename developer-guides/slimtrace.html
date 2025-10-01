@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boot Image &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>SlimTrace &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Boot Options" href="boot-options.html" />
-    <link rel="prev" title="OsLoader" href="osloader.html" /> 
+    <link rel="next" title="Contribution Guidelines" href="contributions.html" />
+    <link rel="prev" title="Logging" href="logging.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -67,7 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="payload.html">Payloads</a></li>
 <li class="toctree-l2"><a class="reference internal" href="osloader.html">OsLoader</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Boot Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flash-boot.html">Boot from Flash</a></li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
@@ -76,7 +76,13 @@
 <li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slimtrace.html">SlimTrace</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SlimTrace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-it-works">How It Works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="contributions.html">Contribution Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ingredients-update.html">Ingredients upgrade</a></li>
 </ul>
@@ -105,7 +111,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
-      <li class="breadcrumb-item active">Boot Image</li>
+      <li class="breadcrumb-item active">SlimTrace</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -114,29 +120,73 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="boot-image">
-<h1>Boot Image<a class="headerlink" href="#boot-image" title="Permalink to this heading"></a></h1>
-<p>Booting quickly and securely is highly desirable, and in many use cases, mandatory. SBL OsLoader payload is designed to boot an OS by loading and verifying a kernel image
-in an SBL container image format. SBL supports <a href="https://www.gnu.org/software/grub/manual/multiboot/multiboot.html" target="_blank">Multiboot Specification</a> compliant boot images encapsulated in an SBL boot container.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>See <a class="reference internal" href="../tools/GenContainer.html#gen-container-tool"><span class="std std-ref">Container Tool</span></a> for more details on container format.</p>
+  <section id="slimtrace">
+<h1>SlimTrace<a class="headerlink" href="#slimtrace" title="Permalink to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>SlimTrace is designed to simplify the Slim Bootloader debugging process by automatically injecting debug print statements. The tool works with a call graph to help identify the exact point where an error occurs, streamlining the debugging workflow.</p>
+</section>
+<section id="how-it-works">
+<h2>How It Works<a class="headerlink" href="#how-it-works" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>File Tracking</strong>: The tool scans and generates a list (cscope.files) of all relevant C source files that need to be tracked.</p></li>
+<li><p><strong>Code Tokenization</strong>: The tracked C files are processed using <a class="reference external" href="https://cscope.sourceforge.io/">Cscope</a> to extract tokenized data (cscope.out) information.</p></li>
+<li><p><strong>Call Graph Generation</strong>: The tokenized data is then passed to <a class="reference external" href="https://sourceforge.net/p/tceetree/wiki/Home/">tceetree</a> to generate a function call graph (tceetree.out).</p></li>
+<li><p><strong>Debug Print Injection</strong>: Based on the call graph, the tool automatically inserts debug print statements at each function in the firmware code call graph.</p></li>
+<li><p><strong>Build and Fix</strong>: The updated firmware code is then built and checked for any size-related issues. Then it auto-fixes the issue and rebuilds till a successful build is achieved.</p></li>
+<li><p><strong>Error Detection</strong>: After execution of new firmware, it helps to pinpoint the exact location where error occurred with the additional prints.</p></li>
+</ol>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Python (to execute the tool).</p></li>
+<li><p>Slim Bootloader code build environment.</p></li>
+<li><p>Cscope and tceetree installed in “SlimTrace/Tools” folder.</p></li>
+</ul>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>Navigate to the SlimTrace directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>SlimTrace
+</pre></div>
 </div>
-<p>SBL container containing the boot image can be stored one of the OsLoader supported boot media. SBL OsLoader payload supports many different partition layouts and file systems
-and can also load the boot image from a raw partition using the LBA number.</p>
-<p>See <a class="reference internal" href="../how-tos/create-container-boot-image.html#create-container-boot-image"><span class="std std-ref">Create Container Boot Image</span></a> for more details.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>SBL <strong>debug</strong> build is able to boot standard Linux kernel without packing in SBL container image format. See <a class="reference internal" href="build-system.html#release-build"><span class="std std-ref">Release vs Debug Build</span></a> for more details.</p>
+<p><strong>Update Config.yaml:</strong></p>
+<p>The config file contains all the build commands, clean commands, and platform-specific information. Update the same if needed.
+To add support for a new platform, add a new entry in this config file. Use the provided data as a reference.</p>
+<p><strong>Update IgnoreList.yaml:</strong></p>
+<p>IgnoreList.yaml contains folder, file and function names that need to be ignored during generation of the call graph.
+Update them accordingly. This list is optional, but you can add entries that are not related to the specific issue to make the call graph clean and speed up the process.</p>
+<p>Run the following command to analyze your firmware code:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: SlimTrace.py [-h] -f FUNCTION_NAME -d SBL_PATH -p PLATFORM_NAME
+
+SlimTrace - Slim Bootloader Automated Debug and Triage Tool
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+required arguments:
+  -f FUNCTION_NAME, --FunctionName FUNCTION_NAME
+                        Last reported error function name
+  -d SBL_PATH, --DirectoryPath SBL_PATH
+                        Path to Slim Bootloader source directory
+  -p PLATFORM_NAME, --Platform PLATFORM_NAME
+                        Platform name as defined in Config.yaml file
+</pre></div>
 </div>
+<p><strong>Example (on Windows host):</strong></p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>python.exe .\SlimTrace.py -f PciEnumeration -d ..\..\..\..\slimbootloader\ -p AZB
+</pre></div>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="osloader.html" class="btn btn-neutral float-left" title="OsLoader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="boot-options.html" class="btn btn-neutral float-right" title="Boot Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="logging.html" class="btn btn-neutral float-left" title="Logging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contributions.html" class="btn btn-neutral float-right" title="Contribution Guidelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
