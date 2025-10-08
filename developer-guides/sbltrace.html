@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SlimTrace &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>SblTrace &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -76,7 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="debugging-with-cca.html">Source Level Debugging with Intel(R) SVT CCA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging-with-udk.html">Source Level Debugging with Intel(R) UDK Debugger</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">SlimTrace</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SblTrace</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#how-it-works">How It Works</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
@@ -111,7 +111,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Developer’s Guide</a></li>
-      <li class="breadcrumb-item active">SlimTrace</li>
+      <li class="breadcrumb-item active">SblTrace</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,11 +120,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="slimtrace">
-<h1>SlimTrace<a class="headerlink" href="#slimtrace" title="Permalink to this heading"></a></h1>
+  <section id="sbltrace">
+<h1>SblTrace<a class="headerlink" href="#sbltrace" title="Permalink to this heading"></a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
-<p>SlimTrace is designed to simplify the Slim Bootloader debugging process by automatically injecting debug print statements. The tool works with a call graph to help identify the exact point where an error occurs, streamlining the debugging workflow.</p>
+<p>SblTrace is designed to simplify the Slim Bootloader debugging process by automatically injecting debug print statements. The tool works with a call graph to help identify the exact point where an error occurs, streamlining the debugging workflow.</p>
 </section>
 <section id="how-it-works">
 <h2>How It Works<a class="headerlink" href="#how-it-works" title="Permalink to this heading"></a></h2>
@@ -142,13 +142,13 @@
 <ul class="simple">
 <li><p>Python (to execute the tool).</p></li>
 <li><p>Slim Bootloader code build environment.</p></li>
-<li><p>Cscope and tceetree installed in “SlimTrace/Tools” folder.</p></li>
+<li><p>Cscope and tceetree installed in “SblTrace/Tools” folder.</p></li>
 </ul>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
-<p>Navigate to the SlimTrace directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>SlimTrace
+<p>Navigate to the SblTrace directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>SblTrace
 </pre></div>
 </div>
 <p><strong>Update Config.yaml:</strong></p>
@@ -158,9 +158,9 @@ To add support for a new platform, add a new entry in this config file. Use the 
 <p>IgnoreList.yaml contains folder, file and function names that need to be ignored during generation of the call graph.
 Update them accordingly. This list is optional, but you can add entries that are not related to the specific issue to make the call graph clean and speed up the process.</p>
 <p>Run the following command to analyze your firmware code:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: SlimTrace.py [-h] -f FUNCTION_NAME -d SBL_PATH -p PLATFORM_NAME
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: SblTrace.py [-h] -f FUNCTION_NAME -d SBL_PATH -p PLATFORM_NAME
 
-SlimTrace - Slim Bootloader Automated Debug and Triage Tool
+SblTrace - Slim Bootloader Automated Debug and Triage Tool
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -175,7 +175,7 @@ required arguments:
 </pre></div>
 </div>
 <p><strong>Example (on Windows host):</strong></p>
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>python.exe .\SlimTrace.py -f PciEnumeration -d ..\..\..\..\slimbootloader\ -p AZB
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>python.exe .\SblTrace.py -f PciEnumeration -d ..\..\..\..\slimbootloader\ -p AZB
 </pre></div>
 </div>
 </section>
@@ -193,7 +193,7 @@ required arguments:
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2025, Intel Corporation.
-      <span class="lastupdated">Last updated on Oct 01, 2025.
+      <span class="lastupdated">Last updated on Oct 08, 2025.
       </span></p>
   </div>
 
