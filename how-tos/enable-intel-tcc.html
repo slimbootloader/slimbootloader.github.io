@@ -167,11 +167,11 @@ Before putting the signed TCC component into SBL subregion, it should be encapsu
 <section id="intel-tcc-subregion">
 <h2>Intel® TCC subregion<a class="headerlink" href="#intel-tcc-subregion" title="Permalink to this heading"></a></h2>
 <p>Subregion support in BIOS region is a generic SBL feature. Each subregion could define its own subregion size and authentication method for the component inside the subregion.
-SBL defined several subregion for Intel® TCC binaries.</p>
+SBL defined several subregions for Intel® TCC binaries.</p>
 <p><strong>Cache Configurator</strong></p>
 <p>SBL doesn’t have knowledge on the content of Cache subregion. It is loaded as a sub-region component and is sent directly to Intel® Firmware Support Package (Intel® FSP) to process it.</p>
 <p><strong>Streams Configurator</strong></p>
-<p>When Data Streams Optimizer (DSO) is enabled, SBL would uses the BIOS settings from this subregion to update SBL setting and FSP settings. For the other information from this subregion, the Intel® Firmware Support Package (Intel® FSP) is expected to process it.</p>
+<p>When Data Streams Optimizer (DSO) is enabled, SBL would use the BIOS settings from this subregion to update SBL setting and FSP settings. For other information from this subregion, the Intel® Firmware Support Package (Intel® FSP) is expected to process it.</p>
 <p><strong>Cache Reservation Library</strong></p>
 <p>The cache reservation library (CRL) is described as Time Optimized Partitioning and is delivered to SBL as a binary. SBL doesn’t have knowledge on the content of CRL. It is loaded as a sub-region component and report it in ACPI RTCT table.</p>
 <dl>
@@ -192,11 +192,11 @@ SBL defined several subregion for Intel® TCC binaries.</p>
 </div>
 </dd>
 </dl>
-<p>In the build configuration file, user could set <code class="docutils literal notranslate"><span class="pre">self.ENABLE_TCC</span></code> to 1 to enable Intel® TCC subregion and adjust TCC subregion size. All Intel® TCC subregion are in container name “IPFW” by default.
-In each subregion, it has a unique region name identified by 4 characters. SBL would use it when loading component from subregion and update it via firmware update.
-One of the options to put Intel® TCC binaries (Cache config, stream config and CRL) into these subregion as part of IFWI is to specify the Image file name in this build config file, and copy
+<p>In the build configuration file, user could set <code class="docutils literal notranslate"><span class="pre">self.ENABLE_TCC</span></code> to 1 to enable Intel® TCC subregions and adjust TCC subregion size. All Intel® TCC subregions are in a container named “IPFW” by default.
+In each subregion, it has a unique region name identified by 4 characters. SBL would use it when loading component from subregions and update it via firmware update.
+One of the options to put Intel® TCC binaries (Cache config, stream config and CRL) into these subregions as part of IFWI is to specify the Image file name in this build config file, and copy
 the corresponding binaries into Platform&lt;Platform&gt;BoardPkgBinaries folder in SBL source code before building SBL. And user could also specify different compression and authentication method for
-the component inside this subregion.</p>
+the component inside these subregions.</p>
 </section>
 <section id="intel-tcc-detail-settings">
 <span id="tcc-settings"></span><h2>Intel® TCC detail settings<a class="headerlink" href="#intel-tcc-detail-settings" title="Permalink to this heading"></a></h2>
@@ -397,7 +397,7 @@ And this delta file could be automatically applied when self.ENABLE_TCC is set i
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2025, Intel Corporation.
-      <span class="lastupdated">Last updated on Oct 08, 2025.
+      <span class="lastupdated">Last updated on Oct 13, 2025.
       </span></p>
   </div>
 
