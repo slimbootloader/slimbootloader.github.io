@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enable Pre-OS Payload Support &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>Customizing SMBIOS Production Data Using YAML &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Reduce debug messages" href="reduce-debug-message.html" />
-    <link rel="prev" title="Enable TSN GbE SGMII" href="enable-tsn-gbe-sgmii.html" /> 
+    <link rel="next" title="Tools" href="../tools/index.html" />
+    <link rel="prev" title="Boot ACRN Hypervisor" href="boot-acrn.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,7 +62,7 @@
 <li class="toctree-l2"><a class="reference internal" href="enable-intel-tcc.html">Intel® TCC enable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Enable Pre-OS Payload Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reduce-debug-message.html">Reduce debug messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="add-new-library.html">Add New Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="add-new-payload.html">Create New Payload</a></li>
@@ -86,7 +86,11 @@
 <li class="toctree-l2"><a class="reference internal" href="configure_gpio.html#run-gengpiodata-tool">Run GenGpioData Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="add-fastboot.html">Add Fastboot Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="boot-acrn.html">Boot ACRN Hypervisor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="customize-smbios-production-data.html">Customizing SMBIOS Production Data Using YAML</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Customizing SMBIOS Production Data Using YAML</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-customize-production-data">How to Customize Production Data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
@@ -111,7 +115,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
-      <li class="breadcrumb-item active">Enable Pre-OS Payload Support</li>
+      <li class="breadcrumb-item active">Customizing SMBIOS Production Data Using YAML</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,28 +124,67 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="enable-pre-os-payload-support">
-<span id="enable-pre-os-payload"></span><h1>Enable Pre-OS Payload Support<a class="headerlink" href="#enable-pre-os-payload-support" title="Permalink to this heading"></a></h1>
-<p>Pre-OS payload support is an additional feature supported by SBL via OS Loader payload in which OS Loader will load both the main OS and a pre-OS payload into memory and will pass control to the pre-OS payload instead of the main OS. After the pre-OS payload finishes execution it is expected that the pre-OS payload will pass control to the main OS that OS Loader previously loaded into memory.</p>
-<p>Pre-OS payload support can only be enabled or disabled at build time.</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">BoardConfig.py</span></code> change/add the following entry:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">ENABLE_PRE_OS_CHECKER</span>   <span class="o">=</span> <span class="mi">1</span>
+  <section id="customizing-smbios-production-data-using-yaml">
+<h1>Customizing SMBIOS Production Data Using YAML<a class="headerlink" href="#customizing-smbios-production-data-using-yaml" title="Permalink to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>SBL now supports a flexible method for customizing SMBIOS production data (board name, serial numbers, etc.) for each platform.</p>
+<p>Instead of modifying source code, users can simply edit a YAML file (<cite>SmbiosStrings.yaml</cite>) to define all SMBIOS strings for their product.</p>
+<p>This YAML file is converted to a binary blob during the build process and automatically loaded by the firmware at runtime.</p>
+<p>YAML file location:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Platform/&lt;Platform&gt;BoardPkg/SmbiosStrings.yaml
 </pre></div>
 </div>
-<p>A pre-OS payload binary needs to be provided in the <code class="docutils literal notranslate"><span class="pre">Platform/&lt;Platform_Foo&gt;/Binaries/</span></code> directory and named as <code class="docutils literal notranslate"><span class="pre">PreOsChecker.bin</span></code>.</p>
-<p>When this is enabled the OS Loader payload should be used in FV format so that <code class="docutils literal notranslate"><span class="pre">PreOsChecker.bin</span></code> is included into the payload per the <code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/BootloaderCorePkg.fdf</span></code> [FV.OsLoader] section.</p>
-<p>To use OS Loader payload as an FV in SBL run the <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code> command with the <code class="docutils literal notranslate"><span class="pre">-p</span></code> argument as given below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">platform_name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span> <span class="n">OsLoader</span><span class="o">.</span><span class="n">Fv</span><span class="p">:</span><span class="n">LLDR</span><span class="p">:</span><span class="n">Lz4</span>
+</section>
+<section id="how-to-customize-production-data">
+<h2>How to Customize Production Data<a class="headerlink" href="#how-to-customize-production-data" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Locate the platform `SmbiosStrings.yaml` file</strong>
+- Example: <cite>Platform/ArrowlakeBoardPkg/SmbiosStrings.yaml</cite></p></li>
+<li><p><strong>Modify or add entries for the SMBIOS types and string indices you want to customize.</strong>
+- Example:</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Each entry has exactly 3 lines: - type:, idx:, string</span>
+<span class="c1"># Entry Strings are always quoted with double quotes</span>
+
+<span class="nt">smbios_strings</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Type 0: BIOS Information</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">    </span><span class="c1"># BIOS Vendor</span>
+<span class="w">    </span><span class="nt">idx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">string</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Intel</span><span class="nv"> </span><span class="s">Corporation&quot;</span>
+<span class="w">    </span><span class="c1"># type 0, Idx 2 and 3 are optional</span>
+
+<span class="w">  </span><span class="c1"># Type 1: System Information</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">    </span><span class="c1"># Manufacturer</span>
+<span class="w">    </span><span class="nt">idx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">string</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Intel</span><span class="nv"> </span><span class="s">Corporation&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">    </span><span class="c1"># Product Name</span>
+<span class="w">    </span><span class="nt">idx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">idx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">string</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">Custom</span><span class="nv"> </span><span class="s">Product</span><span class="nv"> </span><span class="s">Name&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">idx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">string</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">Custom</span><span class="nv"> </span><span class="s">Version&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">idx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">string</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SN1234567890&quot;</span>
 </pre></div>
 </div>
+</div></blockquote>
+</li>
+<li><p><strong>Build SBL</strong>
+- The YAML will be converted to <cite>smbios.bin</cite> and automatically loaded by SBL at runtime.</p></li>
+</ol>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="enable-tsn-gbe-sgmii.html" class="btn btn-neutral float-left" title="Enable TSN GbE SGMII" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reduce-debug-message.html" class="btn btn-neutral float-right" title="Reduce debug messages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="boot-acrn.html" class="btn btn-neutral float-left" title="Boot ACRN Hypervisor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tools/index.html" class="btn btn-neutral float-right" title="Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
