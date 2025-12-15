@@ -126,11 +126,11 @@
 <h1>Raptor Lake Platforms<a class="headerlink" href="#raptor-lake-platforms" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>13th Generation Intel® Core™ Processor, formally known as Raptor Lake family. [RPL]-S Refresh is also supported.</p>
+<p>13th Generation Intel® Core™ Processor, formally known as Raptor Lake family. Raptor Lake-S Refresh is also supported.</p>
 </div>
 <section id="supported-boards">
 <h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Permalink to this heading"></a></h2>
-<p>SBL supports various platforms corresponding to Raptor Lake-S Processors.</p>
+<p>SBL supports various platforms corresponding to Raptor Lake-S, Raptor Lake-P and Raptor Lake-PS.</p>
 <p>Each Raptor Lake board is assigned with a unique platform ID.</p>
 <blockquote>
 <div><table class="docutils align-default">
@@ -153,6 +153,36 @@
 <td><p>R6J1</p></td>
 <td><p>rpls</p></td>
 </tr>
+<tr class="row-even"><td><p>RPL-P DDR5 CRB</p></td>
+<td><p>0x0008</p></td>
+<td><p>J6B1</p></td>
+<td><p>J7A1</p></td>
+<td><p>rplp</p></td>
+</tr>
+<tr class="row-odd"><td><p>RPL-P DDR5 RVP</p></td>
+<td><p>0x0012</p></td>
+<td><p>J1C1</p></td>
+<td><p>J1E1</p></td>
+<td><p>rplp</p></td>
+</tr>
+<tr class="row-even"><td><p>RPL-P LPDDR5 RVP</p></td>
+<td><p>0x013</p></td>
+<td><p>J1C1</p></td>
+<td><p>J1E1</p></td>
+<td><p>rplp</p></td>
+</tr>
+<tr class="row-odd"><td><p>RPL-PS DDR5 CRB</p></td>
+<td><p>0x000D</p></td>
+<td><p>J31</p></td>
+<td><p>J34</p></td>
+<td><p>rplps</p></td>
+</tr>
+<tr class="row-even"><td><p>RPL-PS DDR5 RVP</p></td>
+<td><p>0x000B</p></td>
+<td><p>J41</p></td>
+<td><p>J109</p></td>
+<td><p>rplps</p></td>
+</tr>
 </tbody>
 </table>
 </div></blockquote>
@@ -170,7 +200,7 @@
 <p>To build SBL for any Raptor Lake platform:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span>
 
-<span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">rpls</span>
+<span class="o">&lt;</span><span class="n">PLAT</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">rpls</span> <span class="o">/</span> <span class="n">rplp</span> <span class="o">/</span> <span class="n">rplps</span>
 </pre></div>
 </div>
 <p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p>
@@ -197,23 +227,25 @@ To stitch with Boot Guard enabled, please use <code class="docutils literal notr
 </li>
 </ol>
 <blockquote>
-<div><p>where -i = Input file, -o = Output file, plat = rpls</p>
+<div><p>where -i = Input file, -o = Output file, plat = rpls, rplp or rplps</p>
 </div></blockquote>
 <p>For example, to stitch SBL IFWI image <code class="docutils literal notranslate"><span class="pre">sbl_rpls_ifwi.bin</span></code> from RPL-S downloaded firmware images:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">RaptorlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">rpls</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_rpls_ifwi</span><span class="o">.</span><span class="n">bin</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">RaptorlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="n">xxxx</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/&lt;</span><span class="n">plat</span><span class="o">&gt;/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_rpls_ifwi</span><span class="o">.</span><span class="n">bin</span>
 </pre></div>
 </div>
 <p>For more details on stitch tool, see <a class="reference internal" href="../tools/StitchTool.html#stitch-tool"><span class="std std-ref">Stitch Tool</span></a> on how to stitch the IFWI image with SBL.</p>
 </section>
 <section id="flashing">
 <h2>Flashing<a class="headerlink" href="#flashing" title="Permalink to this heading"></a></h2>
-<p>Flash the generated <code class="docutils literal notranslate"><span class="pre">sbl_rpls_ifwi.bin</span></code> to the target board using a DediProg SF100 or SF600 programmer.</p>
+<p>Flash the generated <code class="docutils literal notranslate"><span class="pre">sbl_&lt;plat&gt;_ifwi.bin</span></code> to the target board using a DediProg SF100 or SF600 programmer.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Refer the table above to identify the connector on the target board for SPI flash programmer. When using such device, please ensure:
-#. The alignment/polarity when connecting Dediprog to the board.
-#. The power to the board is turned <strong>off</strong> while the programmer is connected (even when not in use).
-#. The programmer is set to update the flash from offset 0x0.</p>
+<p>Refer the table above to identify the connector on the target board for SPI flash programmer. When using such device, please ensure:</p>
+<ol class="arabic simple">
+<li><p>The alignment/polarity when connecting Dediprog to the board.</p></li>
+<li><p>The power to the board is turned <strong>off</strong> while the programmer is connected (even when not in use).</p></li>
+<li><p>The programmer is set to update the flash from offset 0x0.</p></li>
+</ol>
 </div>
 </section>
 <section id="capsule-image-for-rpl">
@@ -327,7 +359,7 @@ Below is an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2025, Intel Corporation.
-      <span class="lastupdated">Last updated on Nov 04, 2025.
+      <span class="lastupdated">Last updated on Dec 15, 2025.
       </span></p>
   </div>
 
