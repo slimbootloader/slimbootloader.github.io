@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UP Xtreme i12 13th Board &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>UP Squared Pro TWL Board &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Whiskey Lake CRB Board" href="whl-crb.html" />
-    <link rel="prev" title="UP Xtreme i12 Board" href="upxtremei12.html" /> 
+    <link rel="next" title="UP Squared Pro 7000 Edge Board" href="up7000adln50.html" />
+    <link rel="prev" title="UP2 6000 Board" href="up2-6000.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -70,12 +70,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tgl-rvp.html">Tiger Lake RVP Board</a></li>
 <li class="toctree-l2"><a class="reference internal" href="up2.html">UP<sup>2</sup> Board</a></li>
 <li class="toctree-l2"><a class="reference internal" href="up2-6000.html">UP<sup>2</sup> 6000 Board</a></li>
-<li class="toctree-l2"><a class="reference internal" href="up2-twl.html">UP Squared Pro TWL Board</a></li>
-<li class="toctree-l2"><a class="reference internal" href="up7000adln50.html">UP Squared Pro 7000 Edge Board</a></li>
-<li class="toctree-l2"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a></li>
-<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a></li>
-<li class="toctree-l2"><a class="reference internal" href="upxtremei12.html">UP Xtreme i12 Board</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">UP Xtreme i12 13th Board</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">UP Squared Pro TWL Board</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#board-setup">Board Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#before-you-start">Before You Start</a></li>
@@ -86,6 +81,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#flashing">Flashing</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="up7000adln50.html">UP Squared Pro 7000 Edge Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtreme.html">UP Xtreme Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei11.html">UP Xtreme i11 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei12.html">UP Xtreme i12 Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upxtremei12rplp.html">UP Xtreme i12 13th Board</a></li>
 <li class="toctree-l2"><a class="reference internal" href="whl-crb.html">Whiskey Lake CRB Board</a></li>
 </ul>
 </li>
@@ -114,7 +114,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Supported Hardware</a></li>
-      <li class="breadcrumb-item active">UP Xtreme i12 13th Board</li>
+      <li class="breadcrumb-item active">UP Squared Pro TWL Board</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -123,16 +123,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="upx12rplp-board">
-<span id="upx12-13th-board"></span><h1>UP Xtreme i12 13th Board<a class="headerlink" href="#upx12rplp-board" title="Permalink to this heading"></a></h1>
-<p>The <a href="https://www.aaeon.com/en/p/up-board-up-squared-i12" target="_blank">UP Xtreme i12 13th board</a> (UP Xtreme i12 13th) is an x86 maker board based on Intel platform Raptor Lake-P. The UP boards are used in IoT, industrial automation, digital signage areas, etc.</p>
+  <section id="up2twl-board">
+<span id="up2-twl-board"></span><h1>UP Squared Pro TWL Board<a class="headerlink" href="#up2twl-board" title="Permalink to this heading"></a></h1>
+<p>The <a href="https://up-shop.org/default/up-squared-pro-twl-ai-dev-kit.html" target="_blank">UP Squared Pro TWL board</a> (UP Squared Pro TWL) is an x86 maker board based on Intel platform Twin Lake. The UP boards are used in AI development, edge computing, industrial-grade applications, etc.</p>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
-<p>SBL supports UP Xtreme i12 13th maker board. To start developing SBL, the following equipment, software and environments are required:</p>
+<p>SBL supports UP Squared Pro TWL maker board. To start developing SBL, the following equipment, software and environments are required:</p>
 <ul class="simple">
-<li><p><a href="https://www.aaeon.com/en/p/up-board-up-squared-i12" target="_blank">UP Xtreme i12 13th board</a></p></li>
+<li><p><a href="https://up-shop.org/default/up-squared-pro-twl-ai-dev-kit.html" target="_blank">UP Squared Pro TWL board</a></p></li>
 <li><p>Custom SPI flashing cable (<a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">instructions</a>).</p></li>
-<li><p><a href="https://up-shop.org/usb-2-0-pin-header-cable.html" target="_blank">USB 2.0 pin header cable</a> for debug uart output. OR <a class="reference internal" href="#upx12-debug-uart-pinout">Make your own</a>.</p></li>
+<li><p><a href="https://up-shop.org/usb-2-0-pin-header-cable.html" target="_blank">USB 2.0 pin header cable</a> for debug uart output. OR <a class="reference internal" href="#up2twl-debug-uart-pinout">Make your own</a>.</p></li>
 <li><p>DediProg SF100 or SF600 programmer</p></li>
 <li><p>Linux host (see <a class="reference internal" href="../getting-started/build-host-setup.html#running-on-linux"><span class="std std-ref">Building on Linux</span></a> for details)</p></li>
 <li><p>Internet access</p></li>
@@ -140,7 +140,7 @@
 </section>
 <section id="board-setup">
 <h2>Board Setup<a class="headerlink" href="#board-setup" title="Permalink to this heading"></a></h2>
-<a class="reference internal image-reference" href="../_images/upxi12rplp_setup.jpg"><img alt="|UPX12RPLP| Board Setup" class="align-center" src="../_images/upxi12rplp_setup.jpg" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../_images/up2_twl_setup.jpg"><img alt="|UP2TWL| Board Setup" class="align-center" src="../_images/up2_twl_setup.jpg" style="width: 600px;" /></a>
 </section>
 <section id="before-you-start">
 <h2>Before You Start<a class="headerlink" href="#before-you-start" title="Permalink to this heading"></a></h2>
@@ -149,10 +149,10 @@
 <p>As you plan to reprogram the SPI flash, it’s a good idea to backup the pre-installed BIOS image first.</p>
 </div>
 <p>Boot the board and enter BIOS setup menu to get familiar with the board features and settings.</p>
-<p id="upx12-debug-uart-pinout">Early boot serial debug console can be reached via UART1 located on CN9 header on the UP Xtreme i12 13th board. Make sure you can observe serial output message running the factory BIOS first.</p>
+<p id="up2twl-debug-uart-pinout">Early boot serial debug console can be reached via UART1 located on CN14 header on the UP Squared Pro TWL board. Make sure you can observe serial output message running the factory BIOS first.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To make your own UART debug adapter by direct wiring, refer to CN9 Header Pinout for UART1:</p>
+<p>To make your own UART debug adapter by direct wiring, refer to CN14 Header Pinout for UART1:</p>
 <table class="docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p>Pin</p></td>
@@ -173,8 +173,8 @@
 </section>
 <section id="building">
 <h2>Building<a class="headerlink" href="#building" title="Permalink to this heading"></a></h2>
-<p>UP Xtreme i12 13th board is based on Intel RPL-P. To build:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">rplp</span>
+<p>UP Squared Pro TWL board is based on Intel Twin Lake. To build:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">uptwl</span>
 </pre></div>
 </div>
 <p>The output images are generated under <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p>
@@ -182,11 +182,11 @@
 <section id="stitching">
 <h2>Stitching<a class="headerlink" href="#stitching" title="Permalink to this heading"></a></h2>
 <p>Stitch SBL images with factory BIOS image using the stitch tool:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">AlderlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">rplp</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span> <span class="mh">0xAA000114</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">AlderlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">uptwl</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span> <span class="mh">0xAA00011E</span>
 
-<span class="o">&lt;</span><span class="n">BIOS_IMAGE</span><span class="o">&gt;</span>     <span class="p">:</span> <span class="n">Input</span> <span class="n">file</span><span class="o">.</span> <span class="n">Factory</span> <span class="n">BIOS</span> <span class="n">extracted</span> <span class="kn">from</span> <span class="nn">UP</span> <span class="n">Xtreme</span> <span class="n">i12</span> <span class="mi">13</span><span class="n">th</span> <span class="n">board</span><span class="o">.</span>
+<span class="o">&lt;</span><span class="n">BIOS_IMAGE</span><span class="o">&gt;</span>     <span class="p">:</span> <span class="n">Input</span> <span class="n">file</span><span class="o">.</span> <span class="n">Factory</span> <span class="n">BIOS</span> <span class="n">extracted</span> <span class="kn">from</span> <span class="nn">UP</span> <span class="n">Squared</span> <span class="n">Pro</span> <span class="n">TWL</span> <span class="n">board</span><span class="o">.</span>
 <span class="o">&lt;</span><span class="n">SBL_IFWI_IMAGE</span><span class="o">&gt;</span> <span class="p">:</span> <span class="n">Output</span> <span class="n">file</span><span class="o">.</span> <span class="n">New</span> <span class="n">IFWI</span> <span class="n">image</span> <span class="k">with</span> <span class="n">SBL</span> <span class="ow">in</span> <span class="n">BIOS</span> <span class="n">region</span><span class="o">.</span>
-<span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span>       <span class="p">:</span> <span class="mi">4</span><span class="o">-</span><span class="n">byte</span> <span class="n">platform</span> <span class="n">data</span> <span class="k">for</span> <span class="n">platform</span> <span class="n">ID</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">14</span><span class="p">)</span> <span class="ow">and</span> <span class="n">debug</span> <span class="n">UART</span> <span class="n">port</span> <span class="n">index</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">01</span><span class="p">)</span><span class="o">.</span>
+<span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span>       <span class="p">:</span> <span class="mi">4</span><span class="o">-</span><span class="n">byte</span> <span class="n">platform</span> <span class="n">data</span> <span class="k">for</span> <span class="n">platform</span> <span class="n">ID</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">1</span><span class="n">E</span><span class="p">)</span> <span class="ow">and</span> <span class="n">debug</span> <span class="n">UART</span> <span class="n">port</span> <span class="n">index</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">01</span><span class="p">)</span><span class="o">.</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -198,29 +198,21 @@ If Boot Guard is enabled, please use StitchIfwi.py script instead.</p>
 </section>
 <section id="slimbootloader-binary-for-capsule">
 <h2>Slimbootloader binary for capsule<a class="headerlink" href="#slimbootloader-binary-for-capsule" title="Permalink to this heading"></a></h2>
-<p>A capsule image could ecapsulate a Slimbootloader image to be used in firmware update mechanism. More information is described in <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a>.</p>
-<p>For the process running properly, an IFWI image programmed on board with TOP SWAP size configuration is required.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Enabling TOP SWAP size configuration requires additional firmware components and tools.</p>
-</div>
 <p>Creating Slimbootloader binary for capsule image requires the following steps:</p>
-<p>Build SBL for UP Xtreme i12 13th:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">rplp</span>
+<p>Build SBL for UP Squared Pro TWL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">uptwl</span>
 </pre></div>
 </div>
-<p>Edit the 4-byte platform data in Slimbootloader image by <em>Hexedit</em> or equivalent hexdecimal editor.</p>
-<p>Go to top of TOP SWAP A at address 0xCFFFF4, edit <code class="docutils literal notranslate"><span class="pre">14</span> <span class="pre">01</span> <span class="pre">00</span> <span class="pre">AA</span></code> as below</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">00</span><span class="n">CFFFF0</span>   <span class="mi">90</span> <span class="mi">90</span> <span class="n">EB</span> <span class="n">B9</span>  <span class="mi">14</span> <span class="mi">01</span> <span class="mi">00</span> <span class="n">AA</span>  <span class="n">A4</span> <span class="mi">50</span> <span class="n">FF</span> <span class="n">FF</span>  <span class="mi">00</span> <span class="mi">50</span> <span class="n">FF</span> <span class="n">FF</span>  <span class="o">................</span>
+<p>Run stitching process as described above to create a SBL IFWI binary <code class="docutils literal notranslate"><span class="pre">sbl_up2_twl_ifwi.bin</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">Platform</span><span class="o">/</span><span class="n">AlderlakeBoardPkg</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">StitchLoader</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">BIOS_IMAGE_NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">uptwl</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">o</span> <span class="n">sbl_up2_twl_ifwi</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">p</span> <span class="mh">0xAA00011E</span>
 </pre></div>
 </div>
-<p>Go to top of TOP SWAP B at address 0xC7FFF4, edit <code class="docutils literal notranslate"><span class="pre">14</span> <span class="pre">01</span> <span class="pre">00</span> <span class="pre">AA</span></code> as below</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">00</span><span class="n">C7FFF0</span>   <span class="mi">90</span> <span class="mi">90</span> <span class="n">EB</span> <span class="n">B9</span>  <span class="mi">14</span> <span class="mi">01</span> <span class="mi">00</span> <span class="n">AA</span>  <span class="n">A4</span> <span class="mi">50</span> <span class="n">FF</span> <span class="n">FF</span>  <span class="mi">00</span> <span class="mi">50</span> <span class="n">FF</span> <span class="n">FF</span>  <span class="o">................</span>
+<p>Extract <code class="docutils literal notranslate"><span class="pre">bios.bin</span></code> from SBL IFWI image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">IfwiUtility</span><span class="o">.</span><span class="n">py</span> <span class="n">extract</span> <span class="o">-</span><span class="n">i</span> <span class="n">sbl_up2_twl_ifwi</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">p</span> <span class="n">IFWI</span><span class="o">/</span><span class="n">BIOS</span> <span class="o">-</span><span class="n">o</span> <span class="n">bios</span><span class="o">.</span><span class="n">bin</span>
 </pre></div>
 </div>
-<p>For more details on TOP SWAP regions, please refer <a class="reference internal" href="../developer-guides/flashmap.html#flash-layout"><span class="std std-ref">Flash Layout</span></a></p>
 <p>Generate capsule update image <code class="docutils literal notranslate"><span class="pre">FwuImage.bin</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">BIOS</span> <span class="n">Outputs</span><span class="o">/</span><span class="n">rplp</span><span class="o">/</span><span class="n">SlimBootloader</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="n">KEY_ID_FIRMWAREUPDATE_RSA3072</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">GenCapsuleFirmware</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">BIOS</span> <span class="n">bios</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">k</span> <span class="n">KEY_ID_FIRMWAREUPDATE_RSA3072</span> <span class="o">-</span><span class="n">o</span> <span class="n">FwuImage</span><span class="o">.</span><span class="n">bin</span>
 </pre></div>
 </div>
 <p>For more details on generating capsule image, please refer <a class="reference internal" href="../security/firmware-update.html#generate-capsule"><span class="std std-ref">Generating capsule</span></a>.</p>
@@ -240,7 +232,7 @@ Below is an example:</p>
 </section>
 <section id="flashing">
 <h2>Flashing<a class="headerlink" href="#flashing" title="Permalink to this heading"></a></h2>
-<p>Flash the IFWI image to UP Xtreme i12 13th board using a SPI programmer. Header CN19 on the board should be used, see <a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">instructions</a> for additional details.</p>
+<p>Flash the IFWI image to UP Squared Pro TWL board using a SPI programmer. Header CN18 on the board should be used, see <a href="https://wiki.up-community.org/BIOS_chip_flashing_on_UP_Squared" target="_blank">instructions</a> for additional details.</p>
 <p><strong>Good Luck!</strong></p>
 </section>
 </section>
@@ -249,8 +241,8 @@ Below is an example:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="upxtremei12.html" class="btn btn-neutral float-left" title="UP Xtreme i12 Board" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="whl-crb.html" class="btn btn-neutral float-right" title="Whiskey Lake CRB Board" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="up2-6000.html" class="btn btn-neutral float-left" title="UP2 6000 Board" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="up7000adln50.html" class="btn btn-neutral float-right" title="UP Squared Pro 7000 Edge Board" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
