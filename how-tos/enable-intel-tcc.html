@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intel® TCC enable &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>Enable Intel® TCC &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -59,7 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="customize-build.html">Customize Build</a></li>
 <li class="toctree-l2"><a class="reference internal" href="change-boot-option.html">Change Boot Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enable-verified-boot.html">Enable Verified Boot</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Intel® TCC enable</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Enable Intel® TCC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enable-intel-tsn.html">TSN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enable-tsn-gbe-sgmii.html">Enable TSN GbE SGMII</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enable-pre-os-payload.html">Enable Pre-OS Payload Support</a></li>
@@ -111,7 +111,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">How-Tos</a></li>
-      <li class="breadcrumb-item active">Intel® TCC enable</li>
+      <li class="breadcrumb-item active">Enable Intel® TCC</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,14 +120,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="intel-tcc-enable">
-<span id="tcc-enable"></span><h1>Intel® TCC enable<a class="headerlink" href="#intel-tcc-enable" title="Permalink to this heading"></a></h1>
-<p>Intel® TCC (Time Coordinated Computing) is a set of capabilities that improve compute efficiency for real-time applications by solving jitter and latency issues inside the compute node. This creates fast connections that keep IP blocks within the system in sync. To learn more about Intel® TCC, see <a href="https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/real-time/overview.html" target="_blank"> Intel® TCC Overview</a> for details.
-For a platform supporting TCC, there is a build configuration file BoardConfig.py. User could check this build configuration  file to make sure self.ENABLE_TCC is set to 1 to enable TCC.
-The other Intel® TCC related configuration data might also be enabled when self.ENABLE_TCC is set. User could check the platform configuration  BoardConfig.py for details.</p>
+  <section id="enable-intel-tcc">
+<span id="tcc-enable"></span><h1>Enable Intel® TCC<a class="headerlink" href="#enable-intel-tcc" title="Permalink to this heading"></a></h1>
+<p>Intel® TCC (Time Coordinated Computing) is a set of capabilities that improve compute efficiency for real-time applications by solving jitter and latency issues inside the compute node. This creates fast connections that keep IP blocks within the system in sync. To learn more about Intel® TCC, see <a href="https://www.intel.com/content/www/us/en/developer/topic-technology/edge-5g/real-time/overview.html" target="_blank"> Intel® TCC Overview</a> for details.</p>
+<p>For a platform supporting TCC, users can check the platform build configuration file, BoardConfig.py, to make sure <code class="docutils literal notranslate"><span class="pre">self.ENABLE_TCC</span></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code> to enable TCC.</p>
+<p>Other Intel® TCC related configuration data might also be enabled when <code class="docutils literal notranslate"><span class="pre">self.ENABLE_TCC</span></code> is set. Users can check the platform configuration BoardConfig.py for details.</p>
 <p><strong>NOTE:</strong></p>
-<p>Some platform might put all the Intel® TCC related SBL configuration data into a separate delta file (e.g. <a class="reference external" href="https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/CfgData/CfgData_Tcc_Feature.dlt">https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/CfgData/CfgData_Tcc_Feature.dlt</a>).
-And this delta file could be automatically applied when self.ENABLE_TCC is set in BoardConfig.py based on BoardConfig.py implementation. In this case, user could directly update this TCC delta file for the detail TCC configuration.</p>
+<p>Some platforms might put the Intel® TCC related SBL configuration data into a separate delta file (e.g. <a class="reference external" href="https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/CfgData/CfgData_Tcc_Feature.dlt">https://github.com/slimbootloader/slimbootloader/blob/master/Platform/TigerlakeBoardPkg/CfgData/CfgData_Tcc_Feature.dlt</a>).
+This delta file is automatically applied when <code class="docutils literal notranslate"><span class="pre">self.ENABLE_TCC</span></code> is set in BoardConfig.py, based on the BoardConfig.py implementation. In this case, users can directly update this TCC delta file for detailed TCC configuration.</p>
 </section>
 
 
@@ -142,7 +142,7 @@ And this delta file could be automatically applied when self.ENABLE_TCC is set i
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2026, Intel Corporation.
-      <span class="lastupdated">Last updated on Feb 11, 2026.
+      <span class="lastupdated">Last updated on Feb 16, 2026.
       </span></p>
   </div>
 

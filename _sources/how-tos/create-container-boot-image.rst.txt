@@ -37,10 +37,16 @@ Run::
 
   GenContainer.py create -cl CMDL:<cmdline.txt> KRNL:<vmlinuz> INRD:<initrd> -k <RSA_private_key> -t CLASSIC -o container.bin
 
+Where::
+
      <RSA_private_key>: RSA 2048/3072 private key path in PEM format to sign image.
                         Ex: OS1_TestKey_Priv_RSA2048.pem/OS1_TestKey_Priv_RSA3072.pem available in SblKeys directory. Alternatively it can be generated from GenerateKeys.py
      <RSA_private_key>: Hash of the public key should be included in SBL Key Manifest and HASH_USAGE should be set to 'PUBKEY_OS' during SBL build.
                         SBL Key hash manifest is configured in GetKeyHashList in platform BoarConfig.py. Default hash included is for OS1_TestKey_Priv_RSA2048.pem/OS1_TestKey_Priv_RSA3072.pem.
+
+.. note:: **Windows users:** Absolute paths with drive letters (e.g., ``C:\``) or paths with spaces in the ``-cl`` option will cause errors. Use the ``-cd`` option to specify the input directory and pass only file names in ``-cl``.
+
+   ``GenContainer.py create -cd C:\path\to\inputs -cl CMDL:cmdline.txt KRNL:vmlinuz INRD:initrd -k <RSA_private_key> -t CLASSIC -o container.bin``
 
 Sample output messages::
 
