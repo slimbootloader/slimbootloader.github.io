@@ -19,7 +19,7 @@ Prerequisite
 
 .. |Intel UDK Debugger| raw:: html
 
-   <a href="https://firmware.intel.com/develop/intel-uefi-tools-and-utilities/intel-uefi-development-kit-debugger-tool#overlay-context=develop" target="_blank">Intel UDK Debugger</a>
+   <a href="https://www.intel.com/content/www/us/en/content-details/671474/intel-uefi-development-kit-intel-udk-debugger-tool-version-1-5-configuration-and-setup-guide.html" target="_blank">Intel UDK Debugger</a>
 
   
 * The Intel |copy| UDK Debugger can be downloaded |here| for Windows and |this| for Linux, install Intel UDK Debugger with default configuration values.  
