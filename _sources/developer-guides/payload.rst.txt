@@ -8,10 +8,10 @@ Payloads
 Payloads
 ^^^^^^^^^^^^^^^^^^^
 
-Os Loader (Built-in)
+OsLoader (Built-in)
   A versatile linux loader implementation that boots Linux, ELF, UEFI-PI FV, or PE executables. It also supports launching OSes compliant with the MultiBoot specification.
 
-  When built as an FV formatted payload OS Loader permits the inclusion and launching of a pre-OS payload binary that will hand-off control to an OS after the pre-OS payload finishes execution.
+  When built as an FV formatted payload OsLoader permits the inclusion and launching of a pre-OS payload binary that will hand-off control to an OS after the pre-OS payload finishes execution.
 
   See :ref:`enable-pre-os-payload` for more details.
 
@@ -50,7 +50,7 @@ A payload can be **Tightly Coupled** or **Loosely Coupled** with Slim Bootloader
 Multiple Payload Support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In some use cases, more than one payload is necessary in |SPN|. However, it is difficult to fit all payloads into limited flash device. For example, UEFI payload image can be over 1MB in size. This feature is designed to support multiple payloads, allowing built-in payload (OsLoader) reside in redundant region, while the **external** payloads in non-redundant region.
+In some use cases, more than one payload is necessary in |SPN|. However, it is difficult to fit all payloads into limited flash device. For example, UEFI payload image can be over 1MB in size. This feature is designed to support multiple payloads, allowing built-in payload (OsLoader) to reside in redundant region, while the **external** payloads in non-redundant region.
 
 See :ref:`integrate-multiple-payloads` for more details.
 

@@ -125,8 +125,8 @@
 <section id="id1">
 <h2>Payloads<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <dl>
-<dt>Os Loader (Built-in)</dt><dd><p>A versatile linux loader implementation that boots Linux, ELF, UEFI-PI FV, or PE executables. It also supports launching OSes compliant with the MultiBoot specification.</p>
-<p>When built as an FV formatted payload OS Loader permits the inclusion and launching of a pre-OS payload binary that will hand-off control to an OS after the pre-OS payload finishes execution.</p>
+<dt>OsLoader (Built-in)</dt><dd><p>A versatile linux loader implementation that boots Linux, ELF, UEFI-PI FV, or PE executables. It also supports launching OSes compliant with the MultiBoot specification.</p>
+<p>When built as an FV formatted payload OsLoader permits the inclusion and launching of a pre-OS payload binary that will hand-off control to an OS after the pre-OS payload finishes execution.</p>
 <p>See <a class="reference internal" href="../how-tos/enable-pre-os-payload.html#enable-pre-os-payload"><span class="std std-ref">Enable Pre-OS Payload Support</span></a> for more details.</p>
 </dd>
 <dt>Firmware Update Payload (Built-in)</dt><dd><p>A special purpose payload to update full boot flash in a secure and fault-tolerant flow.</p>
@@ -161,7 +161,7 @@
 </section>
 <section id="multiple-payload-support">
 <h2>Multiple Payload Support<a class="headerlink" href="#multiple-payload-support" title="Permalink to this heading"></a></h2>
-<p>In some use cases, more than one payload is necessary in SBL. However, it is difficult to fit all payloads into limited flash device. For example, UEFI payload image can be over 1MB in size. This feature is designed to support multiple payloads, allowing built-in payload (OsLoader) reside in redundant region, while the <strong>external</strong> payloads in non-redundant region.</p>
+<p>In some use cases, more than one payload is necessary in SBL. However, it is difficult to fit all payloads into limited flash device. For example, UEFI payload image can be over 1MB in size. This feature is designed to support multiple payloads, allowing built-in payload (OsLoader) to reside in redundant region, while the <strong>external</strong> payloads in non-redundant region.</p>
 <p>See <a class="reference internal" href="../how-tos/integrate-multiple-payloads.html#integrate-multiple-payloads"><span class="std std-ref">Integrate Multiple Payloads</span></a> for more details.</p>
 <p>See <a class="reference internal" href="../how-tos/add-new-payload.html#create-new-payload"><span class="std std-ref">Create New Payload</span></a> for more details.</p>
 </section>
@@ -179,7 +179,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2026, Intel Corporation.
-      <span class="lastupdated">Last updated on Feb 18, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

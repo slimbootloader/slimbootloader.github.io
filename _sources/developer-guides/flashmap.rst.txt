@@ -44,7 +44,7 @@ UCOD       Microcode Patch
 MRCD       MRC training data
 VARS       Variable data
 KEYH       Key hash store
-PYLD       Normal Payload (typically OS loader)
+PYLD       Normal Payload (typically OsLoader)
 EPLD       Extended Payload container (UEFI payload, Linux payload, etc)
 IAS1       First IAS image (typically for provisioning or recovery use)
 IAS2       Second IAS image

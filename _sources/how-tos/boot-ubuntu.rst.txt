@@ -3,9 +3,9 @@
 Boot Ubuntu
 ------------
 
-|SPN| can boot Ubuntu Linux using |SPN| with default OS loader. This page provides a step-by-step guide how to do so.
+|SPN| can boot Ubuntu Linux using |SPN| with default OsLoader. This page provides a step-by-step guide how to do so.
 
-.. note:: OS Loader payload is capable of booting Ubuntu if it was installed using UEFI Payload. See :ref:`note-on-boot-option` for details on configuring your boot option to support Ubuntu booting with OS Loader.
+.. note:: OsLoader payload is capable of booting Ubuntu if it was installed using UEFI Payload. See :ref:`note-on-boot-option` for details on configuring your boot option to support Ubuntu booting with OsLoader.
 
 The following steps have been verified with Ubuntu Linux 20.04 LTS (64-bit).
 
