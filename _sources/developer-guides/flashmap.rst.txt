@@ -33,29 +33,32 @@ The flash map data structure is an array based manifest with some header informa
 
 Flash Components
 ^^^^^^^^^^^^^^^^^
-========= =========================
+========= =================================================================
 Signature  Component Description
-========= =========================
-SG1A       Stage 1A
-SG1B       Stage 1B
-SG02       Stage 2
-ACM0       ACM module
-UCOD       Microcode Patch
+========= =================================================================
+SG1A       Stage 1A (Initial bootloader)
+SG1B       Stage 1B (Memory initialization)
+SG02       Stage 2 (Silicon initialization)
+ACM0       Authenticated Code Module (ACM)
+DACM       Diagnostic ACM
+UCOD       Microcode patches
 MRCD       MRC training data
-VARS       Variable data
+VARS       Variable storage
+UVAR       UEFI variable storage
 KEYH       Key hash store
-PYLD       Normal Payload (typically OsLoader)
-EPLD       Extended Payload container (UEFI payload, Linux payload, etc)
-IAS1       First IAS image (typically for provisioning or recovery use)
-IAS2       Second IAS image
-FWUP       Firmware Update Payload
-CNFG       External configuration data
+PYLD       OsLoader payload
+EPLD       Extended payload container (UEFI payload, Linux payload, etc)
+IPFW       SIIP Firmware
+CTR1       SPI Container 1
+CTR2       SPI Container 2
+FWUP       Firmware update payload
+CNFG       Configuration data
 _BPM       Boot Policy Manifest
 OEMK       OEM Key Manifest
-RSVD       Reserved
-EMTY       Empty
+RSVD       Bootloader reserved
+EMTY       Empty region
 UNKN       Unknown
-========= =========================
+========= =================================================================
 
 .. _flash-layout:
 

@@ -158,60 +158,69 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>SG1A</p></td>
-<td><p>Stage 1A</p></td>
+<td><p>Stage 1A (Initial bootloader)</p></td>
 </tr>
 <tr class="row-odd"><td><p>SG1B</p></td>
-<td><p>Stage 1B</p></td>
+<td><p>Stage 1B (Memory initialization)</p></td>
 </tr>
 <tr class="row-even"><td><p>SG02</p></td>
-<td><p>Stage 2</p></td>
+<td><p>Stage 2 (Silicon initialization)</p></td>
 </tr>
 <tr class="row-odd"><td><p>ACM0</p></td>
-<td><p>ACM module</p></td>
+<td><p>Authenticated Code Module (ACM)</p></td>
 </tr>
-<tr class="row-even"><td><p>UCOD</p></td>
-<td><p>Microcode Patch</p></td>
+<tr class="row-even"><td><p>DACM</p></td>
+<td><p>Diagnostic ACM</p></td>
 </tr>
-<tr class="row-odd"><td><p>MRCD</p></td>
+<tr class="row-odd"><td><p>UCOD</p></td>
+<td><p>Microcode patches</p></td>
+</tr>
+<tr class="row-even"><td><p>MRCD</p></td>
 <td><p>MRC training data</p></td>
 </tr>
-<tr class="row-even"><td><p>VARS</p></td>
-<td><p>Variable data</p></td>
+<tr class="row-odd"><td><p>VARS</p></td>
+<td><p>Variable storage</p></td>
+</tr>
+<tr class="row-even"><td><p>UVAR</p></td>
+<td><p>UEFI variable storage</p></td>
 </tr>
 <tr class="row-odd"><td><p>KEYH</p></td>
 <td><p>Key hash store</p></td>
 </tr>
 <tr class="row-even"><td><p>PYLD</p></td>
-<td><p>Normal Payload (typically OsLoader)</p></td>
+<td><p>OsLoader payload</p></td>
 </tr>
 <tr class="row-odd"><td><p>EPLD</p></td>
-<td><p>Extended Payload container (UEFI payload, Linux payload, etc)</p></td>
+<td><p>Extended payload container (UEFI payload, Linux payload, etc)</p></td>
 </tr>
-<tr class="row-even"><td><p>IAS1</p></td>
-<td><p>First IAS image (typically for provisioning or recovery use)</p></td>
+<tr class="row-even"><td><p>IPFW</p></td>
+<td><p>SIIP Firmware</p></td>
 </tr>
-<tr class="row-odd"><td><p>IAS2</p></td>
-<td><p>Second IAS image</p></td>
+<tr class="row-odd"><td><p>CTR1</p></td>
+<td><p>SPI Container 1</p></td>
 </tr>
-<tr class="row-even"><td><p>FWUP</p></td>
-<td><p>Firmware Update Payload</p></td>
+<tr class="row-even"><td><p>CTR2</p></td>
+<td><p>SPI Container 2</p></td>
 </tr>
-<tr class="row-odd"><td><p>CNFG</p></td>
-<td><p>External configuration data</p></td>
+<tr class="row-odd"><td><p>FWUP</p></td>
+<td><p>Firmware update payload</p></td>
 </tr>
-<tr class="row-even"><td><p>_BPM</p></td>
+<tr class="row-even"><td><p>CNFG</p></td>
+<td><p>Configuration data</p></td>
+</tr>
+<tr class="row-odd"><td><p>_BPM</p></td>
 <td><p>Boot Policy Manifest</p></td>
 </tr>
-<tr class="row-odd"><td><p>OEMK</p></td>
+<tr class="row-even"><td><p>OEMK</p></td>
 <td><p>OEM Key Manifest</p></td>
 </tr>
-<tr class="row-even"><td><p>RSVD</p></td>
-<td><p>Reserved</p></td>
+<tr class="row-odd"><td><p>RSVD</p></td>
+<td><p>Bootloader reserved</p></td>
 </tr>
-<tr class="row-odd"><td><p>EMTY</p></td>
-<td><p>Empty</p></td>
+<tr class="row-even"><td><p>EMTY</p></td>
+<td><p>Empty region</p></td>
 </tr>
-<tr class="row-even"><td><p>UNKN</p></td>
+<tr class="row-odd"><td><p>UNKN</p></td>
 <td><p>Unknown</p></td>
 </tr>
 </tbody>
@@ -288,7 +297,7 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2026, Intel Corporation.
-      <span class="lastupdated">Last updated on Feb 20, 2026.
+      <span class="lastupdated">Last updated on Feb 27, 2026.
       </span></p>
   </div>
 

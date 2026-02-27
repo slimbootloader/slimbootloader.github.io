@@ -70,12 +70,12 @@
 <li class="toctree-l2"><a class="reference internal" href="bootimage.html">Boot Image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html">Boot Options</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Boot from Flash</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#creating-container-image">Creating Container image.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-container-image">Creating Container image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#place-the-image-in-platform-folder">Place the image in platform folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bios-boot">BIOS BOOT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#boot-options-for-boot-bios">Boot options for Boot BIOS.</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adding-container-to-pdr-region-using-stitching">Adding Container to PDR region using Stitching.</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#boot-options-for-boot-from-pdr">Boot options for Boot from PDR.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-container-to-bios-region">Adding Container to BIOS region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-options-for-boot-from-bios-region">Boot options for Boot from BIOS region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-container-to-pdr-region-using-stitching">Adding Container to PDR region using Stitching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boot-options-for-boot-from-pdr">Boot options for Boot from PDR</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
@@ -125,7 +125,7 @@
   <section id="boot-from-flash">
 <h1>Boot from Flash<a class="headerlink" href="#boot-from-flash" title="Permalink to this heading"></a></h1>
 <section id="creating-container-image">
-<h2>Creating Container image.<a class="headerlink" href="#creating-container-image" title="Permalink to this heading"></a></h2>
+<h2>Creating Container image<a class="headerlink" href="#creating-container-image" title="Permalink to this heading"></a></h2>
 <p>Container image is stored in raw format on flash partition without using EXT2 or FAT file system.
 See <a class="reference internal" href="../how-tos/create-container-boot-image.html#create-container-boot-image"><span class="std std-ref">Create Container Boot Image</span></a> for more details.</p>
 <div class="admonition note">
@@ -136,38 +136,38 @@ See <a class="reference internal" href="../how-tos/create-container-boot-image.h
 <section id="place-the-image-in-platform-folder">
 <h2>Place the image in platform folder<a class="headerlink" href="#place-the-image-in-platform-folder" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
-<li><p>Create folder SpiIasBin/ in platform folder of specific project.</p>
+<li><p>Create folder SpiContainerBin/ in platform folder of specific project.</p>
 <blockquote>
-<div><p>Example: Platform/&lt;ProjectBoardPkg&gt;/SpiIasBins</p>
+<div><p>Example: Platform/&lt;ProjectBoardPkg&gt;/SpiContainerBin</p>
 </div></blockquote>
 </li>
-<li><p>Copy Container binary image into SpiIasBin folder.</p></li>
+<li><p>Copy Container binary image into SpiContainerBin folder.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Container image should be named as iasimage1.bin for Ist Container region and iasimage2.bin for second Container region.</p>
+<p>Container image should be named as SPI_CONTAINER1.bin for 1st Container region and SPI_CONTAINER2.bin for second Container region.</p>
 </div>
 </section>
-<section id="bios-boot">
-<h2>BIOS BOOT<a class="headerlink" href="#bios-boot" title="Permalink to this heading"></a></h2>
-<p><strong>Step 1:</strong> Add iasimage to non-redundant region of BIOS region.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;SPI_IAS1.bin&#39;</span> <span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_PAD</span> <span class="o">|</span> <span class="n">ias1_flag</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_POS_TAIL</span><span class="p">)</span>
+<section id="adding-container-to-bios-region">
+<h2>Adding Container to BIOS region<a class="headerlink" href="#adding-container-to-bios-region" title="Permalink to this heading"></a></h2>
+<p><strong>Step 1:</strong> Add SPI_CONTAINER1.bin to non-redundant region of BIOS region.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;SPI_CONTAINER1.bin&#39;</span> <span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_CONTAINER1_SIZE</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_PAD</span> <span class="o">|</span> <span class="n">container1_flag</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_POS_TAIL</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Step 2:</strong> Define size of Container image:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span> <span class="o">=</span> <span class="mh">0x700000</span>
+<p><strong>Step 2:</strong> Define size of the container image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">SPI_CONTAINER1_SIZE</span> <span class="o">=</span> <span class="mh">0x700000</span>
 </pre></div>
 </div>
-<p><strong>Step 3:</strong> Increase non-redundant area size by Container image:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">NON_REDUNDANT_SIZE</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span>
+<p><strong>Step 3:</strong> Increase non-redundant area size by size of the container image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">NON_REDUNDANT_SIZE</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_CONTAINER1_SIZE</span>
 </pre></div>
 </div>
-<p><strong>Step 4:</strong> Increase slim bootloader size to max:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">SLIMBOOTLOADER_SIZE</span> <span class="o">=</span> <span class="mh">0xE00000</span>
+<p><strong>Step 4:</strong> Increase slim bootloader size to maximum depending on the platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">SLIMBOOTLOADER_SIZE</span> <span class="o">=</span> <span class="mh">0x01000000</span> <span class="p">(</span><span class="mi">16</span> <span class="n">MB</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Step 5:</strong> Define iasimage flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ias1_flag</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_IAS1_SIZE</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_IGNOR</span>
+<p><strong>Step 5:</strong> Define container image flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">container1_flag</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_CONTAINER1_SIZE</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_IGNOR</span>
 </pre></div>
 </div>
 <p><strong>Step 6:</strong> Remove any redundant region to create space for Container image:</p>
@@ -175,8 +175,8 @@ See <a class="reference internal" href="../how-tos/create-container-boot-image.h
 </pre></div>
 </div>
 </section>
-<section id="boot-options-for-boot-bios">
-<h2>Boot options for Boot BIOS.<a class="headerlink" href="#boot-options-for-boot-bios" title="Permalink to this heading"></a></h2>
+<section id="boot-options-for-boot-from-bios-region">
+<h2>Boot options for Boot from BIOS region<a class="headerlink" href="#boot-options-for-boot-from-bios-region" title="Permalink to this heading"></a></h2>
 <p>See <a class="reference internal" href="boot-options.html#boot-options"><span class="std std-ref">Boot Options</span></a> for more details.</p>
 <p><strong>Step 1:</strong> Get LBA address from flash map during build. For example refer
 below image, 0x3f8000 is the LBA offset of Container image.</p>
@@ -185,16 +185,16 @@ below image, 0x3f8000 is the LBA offset of Container image.</p>
 <a class="reference internal image-reference" href="../_images/BIOS_boot.png"><img alt="Boot flash." class="align-center" src="../_images/BIOS_boot.png" style="width: 6.5in; height: 3.19547in;" /></a>
 </section>
 <section id="adding-container-to-pdr-region-using-stitching">
-<h2>Adding Container to PDR region using Stitching.<a class="headerlink" href="#adding-container-to-pdr-region-using-stitching" title="Permalink to this heading"></a></h2>
+<h2>Adding Container to PDR region using Stitching<a class="headerlink" href="#adding-container-to-pdr-region-using-stitching" title="Permalink to this heading"></a></h2>
 <p>Container image can be added to PDR region in two ways using stitching or using FIT tool.</p>
 <p>Using Stitching method.</p>
 <p><strong>Step 1:</strong> To place the image in PDR region, add the below changes to StitchIfwiConfig.py in function get_xml_change_list().:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;./FlashLayout/PdrRegion/Length&#39;</span><span class="p">,</span> <span class="s1">&#39;0x700000&#39;</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;./FlashLayout/PdrRegion/InputFile&#39;</span><span class="p">,</span> <span class="s1">&#39;$SourceDir\iasimage1.bin&#39;</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;./FlashLayout/PdrRegion/Enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;Enabled&#39;</span><span class="p">),</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;./FlashLayout/Regions/PdrRegion/Length&#39;</span><span class="p">,</span> <span class="s1">&#39;0x700000&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;./FlashLayout/Regions/PdrRegion/InputFile&#39;</span><span class="p">,</span> <span class="s1">&#39;$SourceDir\SPI_CONTAINER1.bin&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;./FlashLayout/Regions/PdrRegion/Enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;Enabled&#39;</span><span class="p">),</span>
 </pre></div>
 </div>
-<p><strong>Step 2:</strong> Copy iasimage1.bin to ‘Input/iasimage1.bin’</p>
+<p><strong>Step 2:</strong> Copy SPI_CONTAINER1.bin to ‘Input/SPI_CONTAINER1.bin’</p>
 <p><strong>Step 3:</strong> Stitch the final image.</p>
 <p>Adding Container image to PDR using FIT tool.</p>
 <p><strong>Step 1:</strong> Open the IFWI using FIT tool.</p>
@@ -203,7 +203,7 @@ below image, 0x3f8000 is the LBA offset of Container image.</p>
 <p><strong>Step 3:</strong> Build the image.</p>
 </section>
 <section id="boot-options-for-boot-from-pdr">
-<h2>Boot options for Boot from PDR.<a class="headerlink" href="#boot-options-for-boot-from-pdr" title="Permalink to this heading"></a></h2>
+<h2>Boot options for Boot from PDR<a class="headerlink" href="#boot-options-for-boot-from-pdr" title="Permalink to this heading"></a></h2>
 <p><strong>Step 1:</strong> Change boot options as below.</p>
 <a class="reference internal image-reference" href="../_images/PDR_BOOT.png"><img alt="Boot flash." class="align-center" src="../_images/PDR_BOOT.png" style="width: 6.5in; height: 3.04586in;" /></a>
 </section>
@@ -221,7 +221,7 @@ below image, 0x3f8000 is the LBA offset of Container image.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2026, Intel Corporation.
-      <span class="lastupdated">Last updated on Feb 20, 2026.
+      <span class="lastupdated">Last updated on Feb 27, 2026.
       </span></p>
   </div>
 
