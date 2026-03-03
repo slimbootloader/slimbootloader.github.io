@@ -145,12 +145,12 @@ See <a class="reference internal" href="../how-tos/create-container-boot-image.h
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Container image should be named as SPI_CONTAINER1.bin for 1st Container region and SPI_CONTAINER2.bin for second Container region.</p>
+<p>Container image should be named as containerimage1.bin  for 1st Container region and containerimage2.bin for second Container region.</p>
 </div>
 </section>
 <section id="adding-container-to-bios-region">
 <h2>Adding Container to BIOS region<a class="headerlink" href="#adding-container-to-bios-region" title="Permalink to this heading"></a></h2>
-<p><strong>Step 1:</strong> Add SPI_CONTAINER1.bin to non-redundant region of BIOS region.:</p>
+<p><strong>Step 1:</strong> Add containerimage1.bin to non-redundant region of BIOS region.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;SPI_CONTAINER1.bin&#39;</span> <span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPI_CONTAINER1_SIZE</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_FILE_PAD</span> <span class="o">|</span> <span class="n">container1_flag</span><span class="p">,</span> <span class="n">STITCH_OPS</span><span class="o">.</span><span class="n">MODE_POS_TAIL</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -179,7 +179,7 @@ See <a class="reference internal" href="../how-tos/create-container-boot-image.h
 <h2>Boot options for Boot from BIOS region<a class="headerlink" href="#boot-options-for-boot-from-bios-region" title="Permalink to this heading"></a></h2>
 <p>See <a class="reference internal" href="boot-options.html#boot-options"><span class="std std-ref">Boot Options</span></a> for more details.</p>
 <p><strong>Step 1:</strong> Get LBA address from flash map during build. For example refer
-below image, 0x3f8000 is the LBA offset of Container image.</p>
+below image, 0x622f90 is the LBA offset of Container image.</p>
 <a class="reference internal image-reference" href="../_images/Flashmap.png"><img alt="Boot flash." class="align-center" src="../_images/Flashmap.png" style="width: 5.92361in; height: 1.72222in;" /></a>
 <p><strong>Step 2:</strong> Config boot options in config editor as below to boot from BIOS.</p>
 <a class="reference internal image-reference" href="../_images/BIOS_boot.png"><img alt="Boot flash." class="align-center" src="../_images/BIOS_boot.png" style="width: 6.5in; height: 3.19547in;" /></a>
@@ -190,11 +190,11 @@ below image, 0x3f8000 is the LBA offset of Container image.</p>
 <p>Using Stitching method.</p>
 <p><strong>Step 1:</strong> To place the image in PDR region, add the below changes to StitchIfwiConfig.py in function get_xml_change_list().:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;./FlashLayout/Regions/PdrRegion/Length&#39;</span><span class="p">,</span> <span class="s1">&#39;0x700000&#39;</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;./FlashLayout/Regions/PdrRegion/InputFile&#39;</span><span class="p">,</span> <span class="s1">&#39;$SourceDir\SPI_CONTAINER1.bin&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;./FlashLayout/Regions/PdrRegion/InputFile&#39;</span><span class="p">,</span> <span class="s1">&#39;$SourceDir\containerimage1.bin&#39;</span><span class="p">),</span>
 <span class="p">(</span><span class="s1">&#39;./FlashLayout/Regions/PdrRegion/Enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;Enabled&#39;</span><span class="p">),</span>
 </pre></div>
 </div>
-<p><strong>Step 2:</strong> Copy SPI_CONTAINER1.bin to ‘Input/SPI_CONTAINER1.bin’</p>
+<p><strong>Step 2:</strong> Copy containerimage1.bin to ‘Input/containerimage1.bin’</p>
 <p><strong>Step 3:</strong> Stitch the final image.</p>
 <p>Adding Container image to PDR using FIT tool.</p>
 <p><strong>Step 1:</strong> Open the IFWI using FIT tool.</p>
@@ -221,7 +221,7 @@ below image, 0x3f8000 is the LBA offset of Container image.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2026, Intel Corporation.
-      <span class="lastupdated">Last updated on Feb 27, 2026.
+      <span class="lastupdated">Last updated on Mar 03, 2026.
       </span></p>
   </div>
 
