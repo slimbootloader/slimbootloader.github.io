@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>uCode Utility &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>SblBuilderGui Tool &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SblBuilderGui Tool" href="SblBuilderGui.html" />
-    <link rel="prev" title="Gpio Tool" href="GpioTool.html" /> 
+    <link rel="next" title="Tutorials" href="../tutorials/index.html" />
+    <link rel="prev" title="uCode Utility" href="UcodeUtility.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,8 +62,15 @@
 <li class="toctree-l2"><a class="reference internal" href="GenContainer.html">Container Tool</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ConfigTools.html">Configuration Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GpioTool.html">Gpio Tool</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">uCode Utility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SblBuilderGui.html">SblBuilderGui Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UcodeUtility.html">uCode Utility</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SblBuilderGui Tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working">Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#screenshot">Screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-links">Additional Links</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
@@ -87,7 +94,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Tools</a></li>
-      <li class="breadcrumb-item active">uCode Utility</li>
+      <li class="breadcrumb-item active">SblBuilderGui Tool</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -96,31 +103,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ucode-utility">
-<span id="id1"></span><h1>uCode Utility<a class="headerlink" href="#ucode-utility" title="Permalink to this heading"></a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">UcodeUtility.py</span></code> generates a microcode binary for use with firmware updates.</p>
-<p>Command Syntax:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">UcodeUtility</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">s</span> <span class="n">SLOT_SIZE</span> <span class="o">-</span><span class="n">i</span> <span class="n">INPUT_FILE_NAMES</span> <span class="p">[</span><span class="n">INPUT_FILE_NAMES</span> <span class="o">...</span><span class="p">]</span> <span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT_FILE_NAME</span>
-
-<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
-<span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
-<span class="o">-</span><span class="n">s</span> <span class="n">SLOT_SIZE</span><span class="p">,</span> <span class="o">--</span><span class="n">slot</span><span class="o">-</span><span class="n">size</span> <span class="n">SLOT_SIZE</span>
-                        <span class="n">Specify</span> <span class="n">the</span> <span class="n">ucode</span> <span class="n">slot</span> <span class="n">size</span> <span class="p">(</span><span class="ow">in</span> <span class="nb">bytes</span><span class="p">)</span><span class="o">.</span>
-<span class="o">-</span><span class="n">i</span> <span class="n">INPUT_FILE_NAMES</span> <span class="p">[</span><span class="n">INPUT_FILE_NAMES</span> <span class="o">...</span><span class="p">],</span> <span class="o">--</span><span class="n">input_file_names</span> <span class="n">INPUT_FILE_NAMES</span> <span class="p">[</span><span class="n">INPUT_FILE_NAMES</span> <span class="o">...</span><span class="p">]</span>
-                        <span class="n">Specify</span> <span class="n">the</span> <span class="n">ucode</span> <span class="n">file</span> <span class="n">names</span> <span class="p">(</span><span class="o">*.</span><span class="n">pdb</span> <span class="n">files</span><span class="p">)</span><span class="o">.</span>
-<span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT_FILE_NAME</span><span class="p">,</span> <span class="o">--</span><span class="n">output_file_name</span> <span class="n">OUTPUT_FILE_NAME</span>
-                        <span class="n">Specify</span> <span class="n">an</span> <span class="n">output</span> <span class="n">file</span> <span class="n">name</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>It is expected that this microcode binary be integrated into a firmware update capsule (see <a class="reference internal" href="../security/firmware-update.html#firmware-update"><span class="std std-ref">Firmware Update</span></a>).</p>
+  <section id="sblbuildergui-tool">
+<h1>SblBuilderGui Tool<a class="headerlink" href="#sblbuildergui-tool" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>SblBuilderGui is a graphical front end for the Slim Bootloader build flow.
+It provides a convenient way to select a target board, choose build options,
+preview the generated build command, and launch the same <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code>
+workflow used by the command-line build tool.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>The SblBuilderGui tool is designed to simplify common build tasks:</p>
+<ul class="simple">
+<li><p>Point the GUI to a Slim Bootloader source tree.</p></li>
+<li><p>Select a supported platform and board configuration.</p></li>
+<li><p>Choose the build mode, FSP build type, and payload type.</p></li>
+<li><p>Select a UEFI payload binary when the payload type requires one.</p></li>
+<li><p>Review the generated command in the command preview field.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Build</span></code> to run the build, or <code class="docutils literal notranslate"><span class="pre">Clean</span></code> to remove build artifacts.</p></li>
+</ul>
+<p>The GUI refreshes available boards and payload files from the source tree so
+the options stay aligned with the current repository contents.</p>
+</section>
+<section id="working">
+<h2>Working<a class="headerlink" href="#working" title="Permalink to this heading"></a></h2>
+<p>SblBuilderGui is a thin orchestration layer over the standard Slim Bootloader
+build pipeline. After the user selects the desired options, the tool
+constructs the corresponding <code class="docutils literal notranslate"><span class="pre">BuildLoader.py</span></code> command and runs it in the
+selected repository directory.</p>
+<p>The high-level flow is:</p>
+<ul class="simple">
+<li><p>Configure inputs from the GUI controls.</p></li>
+<li><p>Preview the command that will be executed.</p></li>
+<li><p>Run the build in the SBL source directory.</p></li>
+<li><p>Produce build artifacts under the <code class="docutils literal notranslate"><span class="pre">Outputs</span></code> directory.</p></li>
+</ul>
+<p>The underlying build flow follows the same stages described by the Build Tool
+documentation, including environment initialization, pre-build processing, the
+EDK II build step, and post-build packaging and stitching.</p>
+</section>
+<section id="screenshot">
+<h2>Screenshot<a class="headerlink" href="#screenshot" title="Permalink to this heading"></a></h2>
+<img alt="SblBuilderGui tool screenshot" class="align-center" src="../_images/SblBuilderGui_Setup.png" />
+<img alt="SblBuilderGui build screenshot" class="align-center" src="../_images/SblBuilderGui_Build.png" />
+</section>
+<section id="additional-links">
+<h2>Additional Links<a class="headerlink" href="#additional-links" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://slimbootloader.github.io/tools/BuildTool.html">Build Tool</a></p></li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="GpioTool.html" class="btn btn-neutral float-left" title="Gpio Tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="SblBuilderGui.html" class="btn btn-neutral float-right" title="SblBuilderGui Tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="UcodeUtility.html" class="btn btn-neutral float-left" title="uCode Utility" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorials/index.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
