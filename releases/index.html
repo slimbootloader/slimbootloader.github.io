@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terminology and Acronyms &mdash; Slim Bootloader 1.0 documentation</title>
+  <title>Releases &mdash; Slim Bootloader 1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -22,7 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="References and Links" href="references.html" /> 
+    <link rel="next" title="Release 26.06 Highlights" href="release-26-06.html" />
+    <link rel="prev" title="Introduction" href="../introduction/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,7 +51,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release-26-06.html">Release 26.06 Highlights</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
@@ -59,8 +63,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References and Links</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Terminology and Acronyms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
 </ul>
 
         </div>
@@ -77,7 +81,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Terminology and Acronyms</li>
+      <li class="breadcrumb-item active">Releases</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -86,37 +90,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="terminology-and-acronyms">
-<h1>Terminology and Acronyms<a class="headerlink" href="#terminology-and-acronyms" title="Permalink to this heading"></a></h1>
-<p><strong>SBL</strong> Slim Bootloader</p>
-<p><strong>UDK</strong> UEFI Development Kit</p>
-<p><strong>TPM</strong> Trusted Platform Module</p>
-<p><strong>ASL</strong> ACPI Source Language</p>
-<p><strong>NASM</strong> Assembler/Disassembler for Intel architecture.</p>
-<dl>
-<dt>FSP</dt><dd><p>Firmware Support Package. FSP is a binary image embedded in SBL to initialize main memory and chipset for Intel SoCs. It provides a standardized API that boot loaders call into in order to initialize the silicon. These APIs are required in order to boot an OS.</p>
-<p>An FSP v2.0 compliant image consists of three subcomponents:</p>
-<ul class="simple">
-<li><p>FSP-T (<strong>T</strong>emporary Memory or Cache-As-RAM Initialization)</p></li>
-<li><p>FSP-M (<strong>M</strong>emory Initialization)</p></li>
-<li><p>FSP-S (<strong>S</strong>ilicon Initialization)</p></li>
+  <section id="releases">
+<span id="id1"></span><h1>Releases<a class="headerlink" href="#releases" title="Permalink to this heading"></a></h1>
+<p>This section contains release notes for each Slim Bootloader release. Starting with
+the 26.06 release, Slim Bootloader follows a semi-annual release schedule (June and
+December), with version numbers in <strong>Year(YY).Month(MM)</strong> format.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release-26-06.html">Release 26.06 Highlights</a></li>
 </ul>
-</dd>
-<dt>IFWI</dt><dd><p>Integrated FirmWare Image. A complete flashable SPI image including all required
-firmware ingredients to boot on Intel platforms.</p>
-</dd>
-<dt>Zephyr</dt><dd><p>A small scalable open source RTOS for IoT embedded devices.</p>
-</dd>
-<dt>Dockers</dt><dd><p>This software uses operating system level virtualization to develop and deliver software in package called containers. The software that hosts these containers is called Docker Engine.</p>
-</dd>
-</dl>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="references.html" class="btn btn-neutral float-left" title="References and Links" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../introduction/index.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="release-26-06.html" class="btn btn-neutral float-right" title="Release 26.06 Highlights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

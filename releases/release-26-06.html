@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release 26.06 Highlights &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting Started" href="../getting-started/index.html" />
+    <link rel="prev" title="Releases" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Releases</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Release 26.06 Highlights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-s-new">What’s New</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#common-library-improvements">Common Library Improvements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#firmware-update-enhancements">Firmware Update Enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#payload-updates">Payload Updates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ui-and-tooling">UI and Tooling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#crypto-library-update">Crypto Library Update</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#new-platform-support">New Platform Support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Releases</a></li>
+      <li class="breadcrumb-item active">Release 26.06 Highlights</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="release-26-06-highlights">
+<span id="release-26-06"></span><h1>Release 26.06 Highlights<a class="headerlink" href="#release-26-06-highlights" title="Permalink to this heading"></a></h1>
+<p>Slim Bootloader 26.06 includes new common libraries, firmware update
+enhancements, UI tooling, payload improvements, crypto library updates,
+and new platform support.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Area</p></th>
+<th class="head"><p>Updates</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ACPI</p></td>
+<td><p>MADT, DMAR, and MCFG common library support</p></td>
+</tr>
+<tr class="row-odd"><td><p>Common libraries</p></td>
+<td><p>Common PsdLib, AMT library, TopSwap library, and I2C library</p></td>
+</tr>
+<tr class="row-even"><td><p>HECI</p></td>
+<td><p>Common HECI library cleanup</p></td>
+</tr>
+<tr class="row-odd"><td><p>Firmware update</p></td>
+<td><p>Enhancements to skip specific fields and regions</p></td>
+</tr>
+<tr class="row-even"><td><p>Payload support</p></td>
+<td><p>TXT support for RPL through the UEFI payload</p></td>
+</tr>
+<tr class="row-odd"><td><p>OsLoader</p></td>
+<td><p>Added flags for extra image support and shell build support</p></td>
+</tr>
+<tr class="row-even"><td><p>UI and tooling</p></td>
+<td><p>SBL GUI Builder Tool and Simple UI setup support</p></td>
+</tr>
+<tr class="row-odd"><td><p>Crypto</p></td>
+<td><p>IppCryptoLib migration to 2.0 for x64</p></td>
+</tr>
+<tr class="row-even"><td><p>Platforms</p></td>
+<td><p>Added support for GNR-D, BTL-S 12P, and the AAEON UP SQUARED PRO TWL board</p></td>
+</tr>
+</tbody>
+</table>
+<section id="what-s-new">
+<h2>What’s New<a class="headerlink" href="#what-s-new" title="Permalink to this heading"></a></h2>
+<section id="common-library-improvements">
+<h3>Common Library Improvements<a class="headerlink" href="#common-library-improvements" title="Permalink to this heading"></a></h3>
+<p>This release adds common ACPI library support for MADT, DMAR, and MCFG,
+along with new shared PsdLib, AMT, TopSwap, and I2C libraries. The common
+HECI library has also been cleaned up to improve shared code reuse across
+platforms.</p>
+</section>
+<section id="firmware-update-enhancements">
+<h3>Firmware Update Enhancements<a class="headerlink" href="#firmware-update-enhancements" title="Permalink to this heading"></a></h3>
+<p>Firmware update support now includes enhancements to skip specific fields
+and regions, giving platforms finer control over update behavior.</p>
+</section>
+<section id="payload-updates">
+<h3>Payload Updates<a class="headerlink" href="#payload-updates" title="Permalink to this heading"></a></h3>
+<p>Slim Bootloader 26.06 adds TXT support for RPL through the UEFI payload.
+It also adds OsLoader flags for extra image support and shell build support.</p>
+</section>
+<section id="ui-and-tooling">
+<h3>UI and Tooling<a class="headerlink" href="#ui-and-tooling" title="Permalink to this heading"></a></h3>
+<p>The release introduces the SBL GUI Builder Tool and Simple UI setup support,
+making Slim Bootloader configuration and setup workflows easier to use.</p>
+</section>
+<section id="crypto-library-update">
+<h3>Crypto Library Update<a class="headerlink" href="#crypto-library-update" title="Permalink to this heading"></a></h3>
+<p>IppCryptoLib has been migrated to version 2.0 for x64 builds.</p>
+</section>
+<section id="new-platform-support">
+<h3>New Platform Support<a class="headerlink" href="#new-platform-support" title="Permalink to this heading"></a></h3>
+<p>Slim Bootloader 26.06 adds support for the following platforms and boards:</p>
+<ul class="simple">
+<li><p>GNR-D</p></li>
+<li><p>BTL-S 12P</p></li>
+<li><p>AAEON UP SQUARED PRO TWL board</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Releases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../getting-started/index.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2026, Intel Corporation.
+      <span class="lastupdated">Last updated on Jul 07, 2026.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
