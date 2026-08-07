@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ResignSlimBootloader Tool &mdash; Slim Bootloader 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/sbl_logo_blue_32x32_icon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SblBuilderGui Tool" href="SblBuilderGui.html" />
+    <link rel="prev" title="uCode Utility" href="UcodeUtility.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Slim Bootloader
+              <img src="../_static/sbl_logo_white_200x200.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-hardware/index.html">Supported Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guides/index.html">Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/index.html">How-Tos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BuildTool.html">Build Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StitchTool.html">Stitch Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenContainer.html">Container Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigTools.html">Configuration Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GpioTool.html">Gpio Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UcodeUtility.html">uCode Utility</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ResignSlimBootloader Tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#existing-tools-leveraged-by-this-script">Existing tools leveraged by this script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SblBuilderGui.html">SblBuilderGui Tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">References and Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/terminology.html">Terminology and Acronyms</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Slim Bootloader</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tools</a></li>
+      <li class="breadcrumb-item active">ResignSlimBootloader Tool</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="resignslimbootloader-tool">
+<h1>ResignSlimBootloader Tool<a class="headerlink" href="#resignslimbootloader-tool" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ResignSlimBootloader.py</span></code> tool updates the Slim Bootloader signing
+artifacts in an existing <code class="docutils literal notranslate"><span class="pre">SlimBootloader.bin</span></code> image without rebuilding the
+full firmware from source, using only tools that already ship in the SBL
+tree. It is intended for release, security, and manufacturing workflows that
+need to rotate SBL-owned keys, regenerate KEYH, re-sign dependent artifacts,
+and preserve the image layout already produced by the build flow.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default operating model is post-build re-signing. SBL is not expected
+to be rebuilt as part of this flow, and the existing image signing layout,
+key configuration, compression algorithm, source-image SVN values, and
+on-flash HashStore slot count remain unchanged.</p>
+<p>To turn the re-signed <code class="docutils literal notranslate"><span class="pre">SlimBootloader.bin</span></code> into a shipping IFWI, re-run
+your platform’s normal stitch flow
+(typically <code class="docutils literal notranslate"><span class="pre">Platform/&lt;BoardPkg&gt;/Script/StitchIfwi.py</span></code>). Boot Guard signing is
+outside the scope of this tool.</p>
+</div>
+<p>The tool updates the following image content:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KEYH</span></code>: rebuilds the key-hash container from the replacement key set.</p></li>
+<li><p>Master key: updates the master-key hash in Stage1A’s
+<code class="docutils literal notranslate"><span class="pre">HashStoreTable</span></code>.</p></li>
+<li><p>Container: re-generates hash and signature data according to the existing
+signing strategy while preserving each component’s compressed payload
+bytes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CFGDATA</span></code>: re-signs and re-stitches <code class="docutils literal notranslate"><span class="pre">CFGDATA</span></code> in the image.</p></li>
+</ul>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>An input <code class="docutils literal notranslate"><span class="pre">SlimBootloader.bin</span></code> with a standard redundant SBL layout that
+already carries the signing layout and key configuration for this flow.
+The tool discovers the required flash layout, key usage, and signing
+inputs directly from the binary.</p></li>
+<li><p>A replacement SBL key directory compatible with the image’s existing
+signing layout and key configuration. Using
+<code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/Tools/GenerateKeys.py</span></code> to prepare that directory is
+recommended.</p></li>
+</ul>
+</section>
+<section id="usage">
+<span id="resign-sbl-automated-path"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">BootloaderCorePkg</span><span class="p">/</span><span class="n">Tools</span><span class="p">/</span><span class="n">ResignSlimBootloader</span><span class="p">.</span><span class="n">py</span> <span class="n">-i</span> <span class="p">./</span><span class="n">SlimBootloader</span><span class="p">.</span><span class="n">bin</span> <span class="n">-o</span> <span class="p">./</span><span class="n">SlimBootloader_resigned</span><span class="p">.</span><span class="n">bin</span> <span class="n">-k</span> <span class="p">./</span><span class="n">NewSblKeys</span> <span class="p">-</span><span class="n">-hash-log</span> <span class="p">./</span><span class="n">resign_hash</span><span class="p">.</span><span class="n">txt</span> <span class="n">-v</span>
+</pre></div>
+</div>
+<p>Command-line options:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-i, --input-image   Path to the input SlimBootloader.bin to be re-signed.
+-o, --output-image  Path to write the re-signed SlimBootloader.bin.
+-k, --key-dir       Directory containing the replacement SBL keys
+                    (GenerateKeys.py naming convention).
+-w, --work-dir      Working directory for intermediates. If supplied, the
+                    directory is kept after the run so you can inspect
+                    intermediate artifacts. If omitted, a temporary
+                    directory is created and auto-deleted.
+--hash-log          Path to write a BEFORE/AFTER SHA-256 hash log.
+-v, --verbose       Enable verbose logging.
+</pre></div>
+</div>
+</section>
+<section id="existing-tools-leveraged-by-this-script">
+<h2>Existing tools leveraged by this script<a class="headerlink" href="#existing-tools-leveraged-by-this-script" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>How this script uses it</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/Tools/IfwiUtility.py</span></code></p></td>
+<td><p>Parses the input image layout and locates Stage1A, <code class="docutils literal notranslate"><span class="pre">KEYH</span></code>,
+containers, and <code class="docutils literal notranslate"><span class="pre">CFGDATA</span></code> leaves.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/Tools/BuildUtility.py</span></code></p></td>
+<td><p>Provides <code class="docutils literal notranslate"><span class="pre">HashStoreTable</span></code> / <code class="docutils literal notranslate"><span class="pre">HASH_USAGE</span></code> definitions and rebuilds
+the <code class="docutils literal notranslate"><span class="pre">KEYH</span></code> key-hash container.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/Tools/SingleSign.py</span></code></p></td>
+<td><p>Resolves SBL key IDs and generates the Master public-key hash used
+for the Stage1A update.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/Tools/GenContainer.py</span></code></p></td>
+<td><p>Loads existing containers and re-generates container hash and
+signature data according to the existing signing strategy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/Tools/CfgDataTool.py</span></code></p></td>
+<td><p>Re-signs <code class="docutils literal notranslate"><span class="pre">CFGDATA</span></code> and stitches the updated blob back into the
+image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BootloaderCorePkg/Tools/GenerateKeys.py</span></code></p></td>
+<td><p>Recommended for preparing a replacement SBL key directory compatible
+with the image’s existing signing layout and key configuration.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="UcodeUtility.html" class="btn btn-neutral float-left" title="uCode Utility" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SblBuilderGui.html" class="btn btn-neutral float-right" title="SblBuilderGui Tool" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018 - 2026, Intel Corporation.
+      <span class="lastupdated">Last updated on Aug 07, 2026.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
