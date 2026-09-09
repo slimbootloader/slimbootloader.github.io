@@ -171,7 +171,7 @@
 <p>This generated SlimBootloader.bin will boot into HelloWorld payload on QEMU platform.</p>
 <p>To add HelloWorld payload as additional paylaod, build SBL with the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">copy</span> <span class="n">Build</span>\<span class="n">PayloadPkg</span>\<span class="n">DEBUG_VS2019</span>\<span class="n">IA32</span>\<span class="n">HelloWorld</span><span class="o">.</span><span class="n">efi</span> <span class="n">PayloadPkg</span>\<span class="n">PayloadBins</span> <span class="o">/</span><span class="n">y</span>
-<span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span> <span class="o">-</span><span class="n">p</span> <span class="n">OsLoader</span><span class="o">.</span><span class="n">efi</span><span class="p">:</span><span class="n">LLDR</span><span class="p">:</span><span class="n">Lz4</span><span class="p">;</span><span class="n">HelloWorld</span><span class="o">.</span><span class="n">efi</span><span class="p">:</span><span class="n">HLWD</span><span class="p">:</span><span class="n">Lz4</span>
+<span class="n">python</span> <span class="n">BuildLoader</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="n">qemu</span> <span class="o">-</span><span class="n">p</span> <span class="s2">&quot;OsLoader.efi:LLDR:Lz4;HelloWorld.efi:HLWD:Lz4&quot;</span>
 </pre></div>
 </div>
 <p>The generated SlimBootloader.bin will boot into OsLoader or HelloWorld payload on QEMU platform depends
@@ -196,7 +196,7 @@ updated by SBL at runtime code by SetPayloadId() function.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2018 - 2026, Intel Corporation.
-      <span class="lastupdated">Last updated on Aug 07, 2026.
+      <span class="lastupdated">Last updated on Sep 09, 2026.
       </span></p>
   </div>
 
